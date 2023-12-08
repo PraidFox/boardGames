@@ -11,12 +11,7 @@ export const board_games = {
         type: Sequelize.STRING,
         allowNull: false
     },
-    age: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-    },
     description: {
         type: Sequelize.STRING,
-        allowNull: false
-    }
+    },
 }

@@ -1,8 +1,8 @@
 import Sequelize from "sequelize";
 import express from "express";
 import cors from "cors";
-import {board_games} from "./model/tablesModel";
-import {createTable} from "./utils";
+import {board_games} from "./model/tableModels";
+import {createInstances, createTable, dropTable} from "./utils";
 
 const port = 4000;
 
@@ -20,17 +20,15 @@ export const sequelize = new Sequelize('f0891902_test', 'f0891902_test', 'qweqwe
     },
 })
 
-createTable("board_games", board_games).then( r => console.log("r", r))
+// createTable("board_games", board_games)
+//dropTable("board_games")
+
 app.listen(port, function () {
     console.log("Сервер ожидает подключения...");
 });
 
-app.use("/", function (request, response) {
-   response.send("О сайте");
-});
-//
-// app.post("/", function (request, response) {
-//     console.log("Данные", request.body);
-//     //ТАК ОШИБКА, ИСПРАВИТЬ! {message: "Тут текст"}
-//     response.json({message: "Тут текст"})
-// });
+app.get('/', (req, res) => {
+    res.send('Hello World!')
+})
+
+createInstances("board_games", board_games, {name: "test3", description: "test3"})

@@ -1,4 +1,4 @@
-export type Message = {
-    title: string
-    body: string
+export type BoardGame = {
+    name: string
+    description?: string
 }
