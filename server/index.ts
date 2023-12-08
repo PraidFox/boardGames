@@ -1,8 +1,7 @@
 import Sequelize from "sequelize";
 import express from "express";
 import cors from "cors";
-import {board_games} from "./model/tableModels";
-import {createInstances, createTable, dropTable} from "./utils";
+import boardGamesRouter from "./api/boardGamesApi";
 
 const port = 4000;
 
@@ -20,15 +19,30 @@ export const sequelize = new Sequelize('f0891902_test', 'f0891902_test', 'qweqwe
     },
 })
 
-// createTable("board_games", board_games)
-//dropTable("board_games")
-
+//createTable(board_games)
+//dropTable(board_games)
+//actualizeTable( board_games)
+//destroyDataTable(board_games)
 app.listen(port, function () {
     console.log("Сервер ожидает подключения...");
 });
 
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+
+    res.send("Текст")
+
+    // res.json({ message: 'Page not found' })
+    // console.log("ИНФА", res.statusMessage)
+
+    //Так ошибка!!!!!!!
+    // res.json(res)
 })
 
-createInstances("board_games", board_games, {name: "test3", description: "test3"})
+app.use("/", boardGamesRouter)
+app.use('*', (req, res) => {
+    res.status(404).json({ message: 'Страница не найдена' })
+})
+
+
+
+

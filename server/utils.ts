@@ -1,18 +1,45 @@
 import {sequelize} from "./index";
-import {BoardGame} from "../shared/interface";
-import {board_games} from "./model/tableModels";
+import {TableModal} from "../shared/interface";
+
 export const createTable = (nameTable: string,  settingTable: any) => {
     const modalTable = sequelize.define(nameTable, settingTable);
     return modalTable.sync({ force: true })
     //return modalTable.drop()
 }
 
-export const dropTable = (nameTable: string) => {
-const modalTable = sequelize.define(nameTable);
+export const dropTable = (tableModal: TableModal) => {
+const modalTable = sequelize.define(tableModal.name);
     return modalTable.drop()
 }
 
-export const createInstances = (nameTable: string, modalTable: any, data: any) => {
-    const modal = sequelize.define(nameTable, modalTable);
+export const actualizeTable = (tableModal: TableModal) => {
+    const modalTable = sequelize.define(tableModal.name, tableModal.setting);
+    return modalTable.sync({ alter: true })
+}
+
+export const destroyDataTable = (tableModal: TableModal) => {
+    const modalTable = sequelize.define(tableModal.name);
+    return modalTable.destroy({
+        where: {},
+    })
+}
+
+
+export const createInstances = (tableModal: TableModal, data: any) => {
+    const modal = sequelize.define(tableModal.name, tableModal.setting);
     return modal.create(data)
+}
+
+export const getInstances = (tableModal: TableModal) => {
+    const modal = sequelize.define(tableModal.name, tableModal.setting);
+    return modal.findAll()
+}
+
+export const deleteInstances = (tableModal: TableModal, id: number) => {
+    const modal = sequelize.define(tableModal.name, tableModal.setting);
+    return modal.destroy({
+        where: {
+            id: id,
+        },
+    })
 }
