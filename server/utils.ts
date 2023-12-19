@@ -4,7 +4,6 @@ import {TableModal} from "../shared/interface";
 export const createTable = (nameTable: string,  settingTable: any) => {
     const modalTable = sequelize.define(nameTable, settingTable);
     return modalTable.sync({ force: true })
-    //return modalTable.drop()
 }
 
 export const dropTable = (tableModal: TableModal) => {
@@ -24,13 +23,12 @@ export const destroyDataTable = (tableModal: TableModal) => {
     })
 }
 
-
 export const createInstances = (tableModal: TableModal, data: any) => {
     const modal = sequelize.define(tableModal.name, tableModal.setting);
     return modal.create(data)
 }
 
-export const getInstances = (tableModal: TableModal) => {
+export const getAllInstances = (tableModal: TableModal) => {
     const modal = sequelize.define(tableModal.name, tableModal.setting);
     return modal.findAll()
 }

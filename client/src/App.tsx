@@ -1,46 +1,54 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
 import {BoardGame} from "../../shared/interface";
+import {Simulate} from "react-dom/test-utils";
+import error = Simulate.error;
+import {createBoardGames, deleteBoardGames, getAllBoardGames} from "./utils/boardGamesApi";
+import {CardBoardGame} from "./components/СardBoardGame";
+import {DeleteOutlined, EditOutlined, LikeOutlined} from '@ant-design/icons';
+import {FormEditCart} from "./components/FormEditCart";
 
 function App() {
-    const [dataBoardGames, setDataBoardGames] = useState<BoardGame[] | null>(null)
+    const [dataBoardGames, setDataBoardGames] = useState<BoardGame[]>([])
+    const [editingCard, setEditingCard] = useState(false)
     //const needUpdate = useRef(true);
 
     const newBoardGame: BoardGame = {
         name: "Название игры новое",
         max_players: 5,
-        min_players: 23,
+        min_players: 2,
     }
 
     useEffect(() => {
-        axios.get('http://localhost:4000/boardGames')
-            .then(res => setDataBoardGames(res.data))
+        getAllBoardGames(setDataBoardGames)
     }, []);
 
     const handlerCreateBoardGame = () => {
-        axios.post('http://localhost:4000/boardGames', newBoardGame)
-            .then(res => setDataBoardGames(r => r ? [...r, res.data] : [res.data]))
+        createBoardGames(newBoardGame, setDataBoardGames)
     }
 
+
     const handlerDeleteBoardGame = (id: number) => {
-        axios.delete('http://localhost:4000/boardGames', {params: {id}})
-            .then(r => console.log("delete", r))
-            .then(() => setDataBoardGames(r => r ? r.filter(boardGame => boardGame.id !== id) : null))
+        deleteBoardGames(id, setDataBoardGames)
     }
+
 
     return (
         <div className="App">
             {dataBoardGames?.map(boardGame => (
-                <div key={boardGame.id}>
-                    {boardGame.name}
-                    {boardGame.description}
-                    {boardGame.min_players}
-                    {boardGame.max_players}
-                    <button onClick={() => handlerDeleteBoardGame(boardGame.id!)}>Удалить</button>
-                </div>
+
+                // <button onClick={() => handlerDeleteBoardGame(boardGame.id!)}>Удалить</button>
+                <CardBoardGame data={newBoardGame} key={boardGame.id}>
+
+                    <EditOutlined key="edit"/>
+                    <LikeOutlined key="like" style={{color: 'green'}}/>
+                    <DeleteOutlined key="delete" style={{color: 'red'}} onClick={() => handlerDeleteBoardGame(boardGame.id!)}/>
+                </CardBoardGame>
+
 
             ))}
-            <button onClick={handlerCreateBoardGame}>Жми</button>
+            {editingCard ? <FormEditCart handlerCreateBoardGame={handlerCreateBoardGame}/> : <button onClick={() => setEditingCard(true)}>Жми</button>}
+
         </div>
     );
 }
