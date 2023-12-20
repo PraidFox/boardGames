@@ -7,6 +7,7 @@ import {createBoardGames, deleteBoardGames, getAllBoardGames} from "./utils/boar
 import {CardBoardGame} from "./components/СardBoardGame";
 import {DeleteOutlined, EditOutlined, LikeOutlined} from '@ant-design/icons';
 import {FormEditCart} from "./components/FormEditCart";
+import {DrawerSidePanel} from "./componentsAnt/DrawerSidePanel";
 
 function App() {
     const [dataBoardGames, setDataBoardGames] = useState<BoardGame[]>([])
@@ -47,7 +48,10 @@ function App() {
 
 
             ))}
-            {editingCard ? <FormEditCart handlerCreateBoardGame={handlerCreateBoardGame}/> : <button onClick={() => setEditingCard(true)}>Жми</button>}
+
+            <DrawerSidePanel>
+                {(onClose) => (<FormEditCart handlerCreateBoardGame={handlerCreateBoardGame} onClose={onClose}/>)}
+            </DrawerSidePanel>
 
         </div>
     );

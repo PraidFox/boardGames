@@ -21,13 +21,13 @@ export const sequelize = new Sequelize('f0891902_test', 'f0891902_admin', 'qweqw
     }
 })
 
-
     sequelize.authenticate()
         .then(() => {
             console.log('Соединение с БД было успешно установлено')
             app.listen(port, () => {
                 console.log(`Сервер запущен на порту ${port}`)
             });
+
 
             app.get('/', (req, res) => {
                 res.send("Текст")

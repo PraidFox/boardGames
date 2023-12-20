@@ -14,7 +14,6 @@ export const CardBoardGame = ({data, children}:{data: BoardGame, children: React
                 />
             }
             actions={children}
-
         >
             <Meta
                 title="Card title"
