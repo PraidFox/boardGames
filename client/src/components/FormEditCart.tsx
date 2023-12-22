@@ -1,19 +1,15 @@
 import React, {useState} from 'react';
-import {AutoComplete, Button, Form, InputNumber, Space} from 'antd';
-import {nameBoardGame} from "../utils/tmp/constTMP";
+import {AutoComplete, Button, Form, Input, InputNumber, Select, Space} from 'antd';
+import {nameBoardGame, optionsFieldsStatusCooperativeGame, typeBoardGame} from "../utils/tmp/constTMP";
 
-
-type FieldType = {
-    username?: string;
-    password?: string;
-    remember?: string;
-};
+const { TextArea } = Input;
 export const FormEditCart = ({handlerCreateBoardGame, onClose}: {
     handlerCreateBoardGame: () => void,
     onClose: () => void
 }) => {
     const [[minPlayers, maxPlayers], setCountPlayers] = useState<[number, number]>([1, 1])
     const [form] = Form.useForm();
+    const [needFieldEdnGame, setNeedFieldEdnGame] = useState(false)
 
     const onFinish = (values: any) => {
         console.log('Success:', values);
@@ -41,6 +37,16 @@ export const FormEditCart = ({handlerCreateBoardGame, onClose}: {
         }
     }
 
+
+    const handleChange = (value: any, options: any) => {
+        console.log(options)
+        console.log("options", options.some((opt: { id: number; }) => opt.id == 214))
+        options.some((opt: { id: number; }) => opt.id == 214) ? setNeedFieldEdnGame(true) : setNeedFieldEdnGame(false)
+    };
+
+    const filterOption = (input: string, option?: { label: string; value: string }) =>
+        (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
+
     return <Form
         name="basic"
         // labelCol={{ span: 3 }}
@@ -61,11 +67,42 @@ export const FormEditCart = ({handlerCreateBoardGame, onClose}: {
         >
             <AutoComplete
                 options={nameBoardGame}
+                onSelect={handleChange}
                 filterOption={(inputValue, option) =>
                     option!.value!.toString().toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
                 }
             />
         </Form.Item>
+
+        <Form.Item label="Описание игры" name={"descriptionGame"}>
+            <TextArea maxLength={5000} />
+        </Form.Item>
+
+
+
+        <Form.Item label="Типы игры" name={"TypeGame"}>
+            <Select
+                mode="tags"
+                style={{ width: '100%' }}
+                options={typeBoardGame}
+                onChange={handleChange}
+                filterOption={(inputValue, option) =>
+                    option!.label!.toString().toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                }
+            />
+        </Form.Item>
+
+        {needFieldEdnGame ? <Form.Item label="Статус прохождения" name={"passageStatus"}>
+            <Select
+                style={{ width: '100%' }}
+                options={optionsFieldsStatusCooperativeGame}
+                filterOption={(inputValue, option) =>
+                    option!.label!.toString().toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
+                }
+            />
+        </Form.Item> : null}
+
+
 
         <Space direction="vertical">
             <Space>
