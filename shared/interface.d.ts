@@ -13,7 +13,20 @@ export type BoardGame = {
     updatedAt?: Date
 }
 
-export type dataCrUp = {
-    createdAt: Date
-    updatedAt: Date
+export type TypeGame = {
+    id: number
+    name: string
 }
+
+export type Options<T> = {
+    label: string
+    value: string
+    info?: T
+}
+
+export type OptionsAutoComplete<T> = {
+    value: string
+    info: T
+}
+
+

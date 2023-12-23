@@ -1,4 +1,4 @@
-import {createInstances, deleteInstances, getAllInstances} from "../utils";
+import {createInstances, deleteInstances, getAllInstances} from "../utils/utils";
 import {board_games} from "../model/tableModels";
 import {Router} from "express";
 

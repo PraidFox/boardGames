@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {AutoComplete, Button, Form, Input, InputNumber, Select, Space} from 'antd';
 import {nameBoardGame, optionsFieldsStatusCooperativeGame, typeBoardGame} from "../utils/tmp/constTMP";
+import {Options} from "../../../shared/interface";
+import {filterOptionLabel} from "../utils/utils";
 
 const { TextArea } = Input;
 export const FormEditCart = ({handlerCreateBoardGame, onClose}: {
@@ -11,13 +13,16 @@ export const FormEditCart = ({handlerCreateBoardGame, onClose}: {
     const [form] = Form.useForm();
     const [needFieldEdnGame, setNeedFieldEdnGame] = useState(false)
 
+
     const onFinish = (values: any) => {
         console.log('Success:', values);
         onClose()
     };
 
     const onFinishFailed = (errorInfo: any) => {
+        const values =  form.getFieldsValue()
         console.log('Failed:', errorInfo);
+        console.log('values:', values.typeGame.label);
     };
 
     const onCancel = () => {
@@ -38,26 +43,22 @@ export const FormEditCart = ({handlerCreateBoardGame, onClose}: {
     }
 
 
-    const handleChange = (value: any, options: any) => {
-        console.log(options)
-        console.log("options", options.some((opt: { id: number; }) => opt.id == 214))
+    const handleChangeNameGame = (value: string, options: any) => {
+        console.log("options", options)
+    };
+
+    const handleChangeTypeGame = (value: any, options: any) => {
+        console.log("optionshandleChangeTypeGame", options)
         options.some((opt: { id: number; }) => opt.id == 214) ? setNeedFieldEdnGame(true) : setNeedFieldEdnGame(false)
     };
 
-    const filterOption = (input: string, option?: { label: string; value: string }) =>
-        (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
 
     return <Form
         name="basic"
-        // labelCol={{ span: 3 }}
-        // wrapperCol={{ span: 15 }}
-        // style={{ maxWidth: 600 }}
-        // initialValues={{ remember: true }}
         form={form}
         layout={"vertical"}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
-        // autoComplete={"on"}
     >
 
         <Form.Item
@@ -67,28 +68,26 @@ export const FormEditCart = ({handlerCreateBoardGame, onClose}: {
         >
             <AutoComplete
                 options={nameBoardGame}
-                onSelect={handleChange}
-                filterOption={(inputValue, option) =>
-                    option!.value!.toString().toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-                }
+                onSelect={handleChangeNameGame}
+                filterOption={true}
             />
         </Form.Item>
 
-        <Form.Item label="Описание игры" name={"descriptionGame"}>
+        <Form.Item
+            label="Описание игры"
+            name={"descriptionGame"}
+            rules={[{required: true, message: 'Необходимо заполнить данное поле'}]}
+        >
             <TextArea maxLength={5000} />
         </Form.Item>
 
-
-
-        <Form.Item label="Типы игры" name={"TypeGame"}>
+        <Form.Item label="Типы игры" name={"typeGame"}>
             <Select
                 mode="tags"
                 style={{ width: '100%' }}
                 options={typeBoardGame}
-                onChange={handleChange}
-                filterOption={(inputValue, option) =>
-                    option!.label!.toString().toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-                }
+                onChange={handleChangeTypeGame}
+                filterOption={filterOptionLabel}
             />
         </Form.Item>
 
@@ -96,9 +95,7 @@ export const FormEditCart = ({handlerCreateBoardGame, onClose}: {
             <Select
                 style={{ width: '100%' }}
                 options={optionsFieldsStatusCooperativeGame}
-                filterOption={(inputValue, option) =>
-                    option!.label!.toString().toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-                }
+                filterOption={filterOptionLabel}
             />
         </Form.Item> : null}
 

@@ -2,8 +2,8 @@ import Sequelize from "sequelize";
 import express from "express";
 import cors from "cors";
 import boardGamesRouter from "./api/boardGamesApi";
-import {dropTable, getAllInstances} from "./utils";
-import {board_games} from "./model/tableModels";
+import {createTable, dropTable, getAllInstances} from "./utils/utils";
+import {board_games, type_game} from "./model/tableModels";
 
 const port = 4000;
 
@@ -28,14 +28,8 @@ export const sequelize = new Sequelize('f0891902_test', 'f0891902_admin', 'qweqw
                 console.log(`Сервер запущен на порту ${port}`)
             });
 
-
             app.get('/', (req, res) => {
                 res.send("Текст")
-                // res.json({ message: 'Page not found' })
-                // console.log("ИНФА", res.statusMessage)
-
-                //Так ошибка!!!!!!!
-                // res.json(res)
             })
 
             app.use("/", boardGamesRouter)

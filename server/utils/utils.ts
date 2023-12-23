@@ -1,5 +1,5 @@
-import {sequelize} from "./index";
-import {TableModal} from "../shared/interface";
+import {sequelize} from "../index";
+import {TableModal} from "../../shared/interface";
 
 export const createTable = (nameTable: string,  settingTable: any) => {
     const modalTable = sequelize.define(nameTable, settingTable);
