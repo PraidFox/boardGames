@@ -74,7 +74,7 @@ export const FormEditCart = ({onClose}: {
             />
         </div>
 
-        <Form.Item label="Картинка для игры" name={"imageGame"} rules={[{ required: true }, { type: 'url', warningOnly: true }]}>
+        <Form.Item label="Картинка для игры" name={"imageGame"} rules={[{ type: 'url', warningOnly: true }]}>
             <Search
                 placeholder="Введите URL-адрес изображения"
                 enterButton="Добавить"

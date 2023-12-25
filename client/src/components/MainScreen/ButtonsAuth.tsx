@@ -7,7 +7,7 @@ import React from "react";
 
 export const ButtonsAuth = () => {
     return <Flex gap="small" wrap="wrap">
-        <Popover content={<FormLogin/>} title="Title" trigger="click">
+        <Popover content={<FormLogin/>} title={<br/>} trigger="click">
             <Button type="primary">
                 Войти
             </Button>
