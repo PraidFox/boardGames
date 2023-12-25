@@ -4,10 +4,11 @@ import {BoardGame} from "../../shared/interface";
 import {Simulate} from "react-dom/test-utils";
 import error = Simulate.error;
 import {createBoardGames, deleteBoardGames, getAllBoardGames} from "./utils/boardGamesApi";
-import {CardBoardGame} from "./components/СardBoardGame";
+import {CardBoardGame} from "./components/Card/СardBoardGame";
 import {DeleteOutlined, EditOutlined, LikeOutlined} from '@ant-design/icons';
-import {FormEditCart} from "./components/FormEditCart";
+import {FormEditCart} from "./components/Forms/FormsEditCart/FormEditCart";
 import {DrawerSidePanel} from "./componentsAnt/DrawerSidePanel";
+import {MainScreen} from "./components/MainScreen/MainScreen";
 
 function App() {
     const [dataBoardGames, setDataBoardGames] = useState<BoardGame[]>([])
@@ -33,27 +34,24 @@ function App() {
         deleteBoardGames(id, setDataBoardGames)
     }
 
-
     return (
-        <div className="App">
-            {dataBoardGames?.map(boardGame => (
+        <>
+            <MainScreen/>
 
+            {dataBoardGames?.map(boardGame => (
                 // <button onClick={() => handlerDeleteBoardGame(boardGame.id!)}>Удалить</button>
                 <CardBoardGame data={newBoardGame} key={boardGame.id}>
-
                     <EditOutlined key="edit"/>
                     <LikeOutlined key="like" style={{color: 'green'}}/>
                     <DeleteOutlined key="delete" style={{color: 'red'}} onClick={() => handlerDeleteBoardGame(boardGame.id!)}/>
                 </CardBoardGame>
-
-
             ))}
 
-            <DrawerSidePanel>
-                {(onClose) => (<FormEditCart handlerCreateBoardGame={handlerCreateBoardGame} onClose={onClose}/>)}
-            </DrawerSidePanel>
+            {/*<DrawerSidePanel>*/}
+            {/*    {(onClose) => (<FormEditCart onClose={onClose}/>)}*/}
+            {/*</DrawerSidePanel>*/}
 
-        </div>
+        </>
     );
 }
 

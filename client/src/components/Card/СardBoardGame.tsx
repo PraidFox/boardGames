@@ -1,5 +1,5 @@
-import {BoardGame} from "../../../shared/interface";
-import {Avatar, Card} from "antd";
+import {BoardGame} from "../../../../shared/interface";
+import {Card} from "antd";
 import {ReactNode} from "react";
 
 const { Meta } = Card;

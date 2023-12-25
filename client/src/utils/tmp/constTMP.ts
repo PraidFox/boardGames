@@ -1,22 +1,21 @@
-import type { SelectProps } from 'antd';
-import {Options, OptionsAutoComplete} from "../../../../shared/interface";
-export const nameBoardGame:OptionsAutoComplete<{id: number}>[] = [{value: "Ужас Аркхэма. Карточная игра", info: {id: 213}},
-    {value:"Ужас Аркхэма. Карточная игра: Забытая эпоха. Кампания", info: {id: 213}},
-    {value:"Ужас Аркхэма. Карточная игра: Забытая эпоха. Сыщики",  info: {id: 213}},
-    {value:"Ужас Аркхэма. Карточная игра: Нарушенный круг. Возвращение", info: {id: 213}},
+
+import {Options, OptionsAutoComplete, OptionsDTO} from "../interface/serverInterface";
+export const nameBoardGame: OptionsDTO<null>[] = [{label: "Ужас Аркхэма. Карточная игра",id: 213},
+    {label:"Ужас Аркхэма. Карточная игра: Забытая эпоха. Кампания", id: 215},
+    {label:"Ужас Аркхэма. Карточная игра: Забытая эпоха. Сыщики",  id: 216},
+    {label:"Ужас Аркхэма. Карточная игра: Нарушенный круг. Возвращение", id: 217},
+]
+export const typeBoardGameDTO: OptionsDTO<null>[]  = [
+    {label: "Кооператив", id: 213},
+    {label:"Детектив", id: 214},
+    {label:"Дуэль", id: 215},
+    {label:"Для детей", id: 216},
+    {label:"Экономическая", id: 217},
+    {label:"Весёлые", id: 218},
+    {label:"В дорогу", id: 219}
 ]
 
-export const typeBoardGame : Options<{id: number}>[] = [
-    {label: "Кооператив", value: "cooperative", info: {id: 213}},
-    {label:"Детектив", value: "detective", info: {id: 213}},
-    {label:"Дуэль", value: "duel",  info: {id: 213}},
-    {label:"Для детей", value: "for children",  info: {id: 213}},
-    {label:"Экономическая", value:"economic",  info: {id: 213}},
-    {label:"Весёлые", value: "merry",  info: {id: 213}},
-    {label:"В дорогу", value: "on the road",  info: {id: 213}}
-]
-
-export const optionsFieldsStatusCooperativeGame : { label: string, value: string }[] = [
+export const optionsFieldsStatusCooperativeGame : Options<null>[] = [
     {label: "Пройдено", value: "passed"},
     {label: "Заброшено", value: "abandoned"},
     {label: "В процессе", value: "in progress"},

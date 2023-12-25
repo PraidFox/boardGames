@@ -18,15 +18,8 @@ export type TypeGame = {
     name: string
 }
 
-export type Options<T> = {
-    label: string
-    value: string
-    info?: T
-}
 
-export type OptionsAutoComplete<T> = {
-    value: string
-    info: T
-}
+
+
 
 

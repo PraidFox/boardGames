@@ -18,7 +18,7 @@ export const DrawerSidePanel = ({children}: {children: (onClose: () => void) => 
                 Добавить настолку
             </Button>
 
-                <Drawer title="Добавление настольной игры" placement="right" onClose={onClose} open={open} width={"60%"} maskClosable={false} closeIcon={false}>
+                <Drawer title="Добавление настольной игры" placement="right" onClose={onClose} open={open} width={"40%"} maskClosable={false} closeIcon={false}>
                     {open && children(onClose)}
                 </Drawer>
         </>
