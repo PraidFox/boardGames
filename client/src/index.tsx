@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
 import {MainScreen} from "./components/MainScreen/MainScreen";
 
 const root = ReactDOM.createRoot(
@@ -8,6 +7,6 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   // <React.StrictMode>
-    <App />
+    <MainScreen />
   // </React.StrictMode>
 );

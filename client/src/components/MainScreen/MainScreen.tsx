@@ -1,32 +1,54 @@
-import React, {useState} from 'react';
-import {LaptopOutlined, NotificationOutlined, UserOutlined} from '@ant-design/icons';
+import {UserOutlined, BookOutlined} from '@ant-design/icons';
 import type {MenuProps} from 'antd';
 import {Layout, Menu, theme} from 'antd';
 import {HeaderComponent} from "./HeaderComponent";
 import {ButtonsAuth} from "./ButtonsAuth";
+import {MyCollectionGameContent} from "../Content/MyCollectionGameContent";
 
 const {Content, Sider} = Layout;
 
 
-const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
-    (icon, index) => {
-        const key = String(index + 1);
-
-        return {
-            key: `sub${key}`,
-            icon: React.createElement(icon),
-            label: `subnav ${key}`,
-
-            children: new Array(4).fill(null).map((_, j) => {
-                const subKey = index * 4 + j + 1;
-                return {
-                    key: subKey,
-                    label: `option${subKey}`,
-                };
-            }),
-        };
+const items2: MenuProps['items'] = [
+    {
+        key: `user`,
+        icon: <UserOutlined/>,
+        label: `Профиль`,
+        children: [
+            {
+                key: "myCollections",
+                label: `Моя коллекция`,
+            },
+            {
+                key: "myFriends",
+                label: `Друзья`,
+            },
+            {
+                key: "setting",
+                label: `Настройки`,
+            }
+        ]
     },
-);
+    {
+        key: `boardGames`,
+        icon: <BookOutlined/>,
+        label: `Настолки`,
+        children: [
+            {
+                key: "allBoardGames",
+                label: `Все настолки`,
+            },
+            {
+                key: "rating",
+                label: `Рейтинг`,
+            },
+            {
+                key: "newBoardGames",
+                label: `Новинки`,
+            }
+        ]
+    }
+]
+
 
 export const MainScreen = () => {
     const {
@@ -69,12 +91,11 @@ export const MainScreen = () => {
                         style={{
                             padding: 24,
                             margin: 0,
-
                             background: colorBgContainer,
                             borderRadius: borderRadiusLG,
                         }}
                     >
-                        Content
+                        <MyCollectionGameContent/>
                     </Content>
                 </Layout>
             </Layout>
