@@ -57,13 +57,10 @@ export const MainScreen = () => {
 
     return (
 
-
         <Layout>
             <HeaderComponent>
                 <ButtonsAuth/>
             </HeaderComponent>
-
-
             <Layout>
                 <Sider
                     style={{
@@ -100,6 +97,7 @@ export const MainScreen = () => {
                 </Layout>
             </Layout>
         </Layout>
+
     );
 };
 
