@@ -7,7 +7,6 @@ import {MyCollectionGameContent} from "../Content/MyCollectionGameContent";
 
 const {Content, Sider} = Layout;
 
-
 const items2: MenuProps['items'] = [
     {
         key: `user`,
@@ -52,7 +51,7 @@ const items2: MenuProps['items'] = [
 
 export const MainScreen = () => {
     const {
-        token: {colorBgContainer, borderRadiusLG},
+        token: { colorBgContainer, borderRadiusLG },
     } = theme.useToken();
 
     return (
@@ -63,31 +62,23 @@ export const MainScreen = () => {
             </HeaderComponent>
             <Layout>
                 <Sider
-                    style={{
-                        // overflow: 'auto',
-                        // height: '95vh',
-                        // position: 'fixed',
-                        // left: 0,
-                        // top: 0,
-                        // bottom: 0,
-                        background: colorBgContainer
-                    }}
-                    collapsible width={200}
+                    // style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0, top: 0, bottom: 0 }}
+                    collapsible
                 >
                     <Menu
                         mode="inline"
                         defaultSelectedKeys={['1']}
                         defaultOpenKeys={['sub1']}
-                        style={{height: '100%', borderRight: 0}}
+                        style={{height: '100%', borderRight: 0, background: "#f5f5f5"}}
                         items={items2}
                     />
+
                 </Sider>
                 <Layout style={{padding: '0 24px 24px'}}>
                     <br/>
                     <Content
                         style={{
                             padding: 24,
-                            margin: 0,
                             background: colorBgContainer,
                             borderRadius: borderRadiusLG,
                         }}
@@ -97,6 +88,7 @@ export const MainScreen = () => {
                 </Layout>
             </Layout>
         </Layout>
+
 
     );
 };

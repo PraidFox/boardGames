@@ -13,7 +13,14 @@ const items1: MenuProps['items'] = ['Коллекция?', 'Статьи?', 'И�
 
 
 export const HeaderComponent = ({children} : {children: ReactNode}) => {
-    return <Header style={{display: 'flex', alignItems: 'center'}}>
+    return <Header style={{
+        position: 'sticky',
+        top: 0,
+        zIndex: 1,
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+    }}>
         <div className="demo-logo" style={{marginRight: "1%"}}>
             <span style={{color: 'white', flex: 1}}>На Стол Игры</span>
         </div>
