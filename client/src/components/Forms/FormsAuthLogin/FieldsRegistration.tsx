@@ -1,6 +1,7 @@
 import {Form, Input, Radio} from "antd";
 import React from "react";
 import {FormInstance} from "antd/es/form";
+import {LockOutlined, UserOutlined, MailOutlined} from "@ant-design/icons";
 
 type FieldType = {
     username?: string;
@@ -18,16 +19,14 @@ export const FieldsRegistration = ({form} : {form: FormInstance}) => {
 
     return (<>
             <Form.Item<FieldType>
-                label="Логин"
                 name="username"
                 rules={[{required: true, message: 'Пожалуйста заполните логин'}]}
             >
-                <Input/>
+                <Input prefix={<UserOutlined/>} placeholder="Логин"/>
             </Form.Item>
 
             <Form.Item
                 name="email"
-                label="E-mail"
                 rules={[
                     {
                         type: 'email',
@@ -39,24 +38,33 @@ export const FieldsRegistration = ({form} : {form: FormInstance}) => {
                     },
                 ]}
             >
-                <Input/>
+                <Input
+                    prefix={<MailOutlined/>}
+                    placeholder="E-mail"
+                />
             </Form.Item>
 
             <Form.Item<FieldType>
-                label="Пароль"
                 name="password"
                 rules={[{required: true, message: 'Пожалуйста заполните пароль'}]}
             >
-                <Input.Password/>
+                <Input.Password
+                    prefix={<LockOutlined/>}
+                    type="password"
+                    placeholder="Пароль"
+                />
             </Form.Item>
 
             <Form.Item<FieldType>
-                label="Повторите пароль"
                 name="passwordRepeat"
                 rules={[{required: true, message: 'Пожалуйста повторите пароль'},
                     {validator: validatePasswordRepeat}]}
             >
-                <Input.Password/>
+                <Input.Password
+                    prefix={<LockOutlined/>}
+                    type="password"
+                    placeholder="Повторить пароль"
+                />
             </Form.Item>
 
             <Form.Item name="typeUser" wrapperCol={{offset: 8, span: 16}} initialValue={"user"}>

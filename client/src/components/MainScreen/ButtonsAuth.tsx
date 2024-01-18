@@ -7,12 +7,11 @@ import React from "react";
 
 export const ButtonsAuth = () => {
     return <Flex gap="small" wrap="wrap">
-        <Popover content={<FormLogin/>} title={<br/>} trigger="click">
+        <Popover content={<FormLogin/>} title={"Данные для входа"} trigger="click">
             <Button type="primary">
                 Войти
             </Button>
         </Popover>
-
         <ModalAuthLogin>
             {(onClose) => (
                 <FormAuthLogin onClose={onClose}/>

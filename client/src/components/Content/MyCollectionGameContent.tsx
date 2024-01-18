@@ -8,7 +8,7 @@ export const MyCollectionGameContent = () => {
 
 
     return (
-        <>
+        <div>
             {/*    {dataBoardGames?.map(boardGame => (*/}
             {/*    // <button onClick={() => handlerDeleteBoardGame(boardGame.id!)}>Удалить</button>*/}
             {/*    <CardBoardGame data={newBoardGame} key={boardGame.id}>*/}
@@ -21,7 +21,8 @@ export const MyCollectionGameContent = () => {
             <DrawerSidePanel>
                 {(onClose) => (<FormEditCart onClose={onClose}/>)}
             </DrawerSidePanel>
-        </>
+
+        </div>
     )
 
 }

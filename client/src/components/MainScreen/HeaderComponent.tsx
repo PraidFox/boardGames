@@ -20,6 +20,7 @@ export const HeaderComponent = ({children} : {children: ReactNode}) => {
         width: '100%',
         display: 'flex',
         alignItems: 'center',
+        // height: "90px"
     }}>
         <div className="demo-logo" style={{marginRight: "1%"}}>
             <span style={{color: 'white', flex: 1}}>На Стол Игры</span>

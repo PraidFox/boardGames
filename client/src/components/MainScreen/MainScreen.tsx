@@ -4,8 +4,9 @@ import {Layout, Menu, theme} from 'antd';
 import {HeaderComponent} from "./HeaderComponent";
 import {ButtonsAuth} from "./ButtonsAuth";
 import {MyCollectionGameContent} from "../Content/MyCollectionGameContent";
+import React from 'react';
 
-const {Content, Sider} = Layout;
+const {Content, Sider, Footer,Header} = Layout;
 
 const items2: MenuProps['items'] = [
     {
@@ -48,6 +49,17 @@ const items2: MenuProps['items'] = [
     }
 ]
 
+const items: MenuProps['items'] = [
+    UserOutlined,
+
+].map((icon, index) => ({
+    key: String(index + 1),
+    icon: React.createElement(icon),
+    label: `nav ${index + 1}`,
+}));
+
+
+
 
 export const MainScreen = () => {
     const {
@@ -62,14 +74,13 @@ export const MainScreen = () => {
             </HeaderComponent>
             <Layout>
                 <Sider
-                    // style={{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0, top: 0, bottom: 0 }}
+                    style={{overflow: 'auto', height: '93vh', position: 'sticky', top: 64}}
                     collapsible
                 >
                     <Menu
+                        theme="dark"
                         mode="inline"
-                        defaultSelectedKeys={['1']}
-                        defaultOpenKeys={['sub1']}
-                        style={{height: '100%', borderRight: 0, background: "#f5f5f5"}}
+                        defaultOpenKeys={['user']}
                         items={items2}
                     />
 
@@ -81,10 +92,16 @@ export const MainScreen = () => {
                             padding: 24,
                             background: colorBgContainer,
                             borderRadius: borderRadiusLG,
+                            overflow: "initial"
                         }}
                     >
-                        <MyCollectionGameContent/>
+
+                            <MyCollectionGameContent/>
+
                     </Content>
+                    <Footer style={{ textAlign: 'center' }}>
+                       Создано и создано... ©{new Date().getFullYear()} Created by RedFoxDV
+                    </Footer>
                 </Layout>
             </Layout>
         </Layout>
