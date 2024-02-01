@@ -1,9 +1,11 @@
-import {Button, Checkbox, Col, Form, Input, Radio, Row, Space, Tabs, TabsProps} from 'antd';
+import {Button, Form, Row, Space, Tabs, TabsProps} from 'antd';
 import React, {useState} from "react";
 import {FieldsRegistration} from "./FieldsRegistration";
 import {FieldsLogin} from "./FieldsLogin";
+import {UserApi} from "../../../utils/rest/userApi";
 
 const onFinish = (values: any) => {
+    //UserApi.registrationUser()
     console.log('Success:', values);
 };
 
@@ -30,6 +32,10 @@ export const FormAuthLogin = ({onClose}: {onClose: () => void}) => {
         },
     ];
 
+    const clickCancel = () => {
+        onClose()
+        form.resetFields()
+    }
 
     return (
 
@@ -42,7 +48,6 @@ export const FormAuthLogin = ({onClose}: {onClose: () => void}) => {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
     >
-
         <Tabs defaultActiveKey="1" items={items} onChange={(key) => setSelectedTabs(key)}/>
 
         <Row justify="end">
@@ -53,7 +58,7 @@ export const FormAuthLogin = ({onClose}: {onClose: () => void}) => {
                         </Button>
                     </Form.Item>
                     <Form.Item>
-                        <Button type="default" onClick={onClose}>
+                        <Button type="default" onClick={clickCancel}>
                             Отмена
                         </Button>
                     </Form.Item>

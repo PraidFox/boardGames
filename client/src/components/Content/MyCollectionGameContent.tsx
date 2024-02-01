@@ -21,6 +21,152 @@ export const MyCollectionGameContent = () => {
             <DrawerSidePanel>
                 {(onClose) => (<FormEditCart onClose={onClose}/>)}
             </DrawerSidePanel>
+            <DrawerSidePanel>
+                {(onClose) => (<FormEditCart onClose={onClose}/>)}
+            </DrawerSidePanel>
+            <DrawerSidePanel>
+                {(onClose) => (<FormEditCart onClose={onClose}/>)}
+            </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel>
+            <DrawerSidePanel>
+                {(onClose) => (<FormEditCart onClose={onClose}/>)}
+            </DrawerSidePanel>
+            <DrawerSidePanel>
+                {(onClose) => (<FormEditCart onClose={onClose}/>)}
+            </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+                {(onClose) => (<FormEditCart onClose={onClose}/>)}
+            </DrawerSidePanel>
+            <DrawerSidePanel>
+                {(onClose) => (<FormEditCart onClose={onClose}/>)}
+            </DrawerSidePanel>
+            <DrawerSidePanel>
+                {(onClose) => (<FormEditCart onClose={onClose}/>)}
+            </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel>
+            <DrawerSidePanel>
+                {(onClose) => (<FormEditCart onClose={onClose}/>)}
+            </DrawerSidePanel>
+            <DrawerSidePanel>
+                {(onClose) => (<FormEditCart onClose={onClose}/>)}
+            </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+                {(onClose) => (<FormEditCart onClose={onClose}/>)}
+            </DrawerSidePanel>
+            <DrawerSidePanel>
+                {(onClose) => (<FormEditCart onClose={onClose}/>)}
+            </DrawerSidePanel>
+            <DrawerSidePanel>
+                {(onClose) => (<FormEditCart onClose={onClose}/>)}
+            </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel>
+            <DrawerSidePanel>
+                {(onClose) => (<FormEditCart onClose={onClose}/>)}
+            </DrawerSidePanel>
+            <DrawerSidePanel>
+                {(onClose) => (<FormEditCart onClose={onClose}/>)}
+            </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+                {(onClose) => (<FormEditCart onClose={onClose}/>)}
+            </DrawerSidePanel>
+            <DrawerSidePanel>
+                {(onClose) => (<FormEditCart onClose={onClose}/>)}
+            </DrawerSidePanel>
+            <DrawerSidePanel>
+                {(onClose) => (<FormEditCart onClose={onClose}/>)}
+            </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel>
+            <DrawerSidePanel>
+                {(onClose) => (<FormEditCart onClose={onClose}/>)}
+            </DrawerSidePanel>
+            <DrawerSidePanel>
+                {(onClose) => (<FormEditCart onClose={onClose}/>)}
+            </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel><DrawerSidePanel>
+            {(onClose) => (<FormEditCart onClose={onClose}/>)}
+        </DrawerSidePanel>
+
+
+
+
+
+
+
+
+
+
+
+
 
         </div>
     )
