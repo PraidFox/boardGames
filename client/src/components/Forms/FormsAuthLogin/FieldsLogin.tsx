@@ -5,27 +5,27 @@ import {LockOutlined, UserOutlined} from "@ant-design/icons";
 export const FieldsLogin = () => {
     return <>
         <Form.Item
-            name="usernameLogin"
+            name="userName"
             rules={[{required: true, message: 'Пожалуйста заполните логин'}]}
         >
             <Input prefix={<UserOutlined className="site-form-item-icon"/>} placeholder="Логин"/>
         </Form.Item>
         <Form.Item
-            name="passwordLogin"
+            name="password"
             rules={[{required: true, message: 'Пожалуйста заполните пароль'}]}
             // extra={<div style={{textAlign: 'right'}}>Забыл пароль</div>}
         >
             <Input.Password
                 prefix={<LockOutlined className="site-form-item-icon"/>}
-                type="passwordLogin"
+                type="password"
                 placeholder="Пароль"
             />
 
         </Form.Item>
         <Form.Item>
             <Flex gap="middle" align="flex-end">
-                <Form.Item name="rememberLogin" valuePropName="checked" noStyle>
-                    <Checkbox>Запомнить меня</Checkbox>
+                <Form.Item name="remember" valuePropName="checked" initialValue={false} noStyle>
+                    <Checkbox >Запомнить меня</Checkbox>
                 </Form.Item>
 
                 <a className="login-form-forgot" href="">

@@ -4,7 +4,7 @@ import {FormInstance} from "antd/es/form";
 import {LockOutlined, UserOutlined, MailOutlined} from "@ant-design/icons";
 
 type FieldType = {
-    username?: string;
+    userName?: string;
     password?: string;
     passwordRepeat?: string;
 };
@@ -19,7 +19,7 @@ export const FieldsRegistration = ({form} : {form: FormInstance}) => {
 
     return (<>
             <Form.Item<FieldType>
-                name="username"
+                name="userName"
                 rules={[{required: true, message: 'Пожалуйста заполните логин'}]}
             >
                 <Input prefix={<UserOutlined/>} placeholder="Логин"/>

@@ -95,9 +95,7 @@ export const MainScreen = () => {
                             overflow: "initial"
                         }}
                     >
-
                             <MyCollectionGameContent/>
-
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>
                        Создано и создано... ©{new Date().getFullYear()} Created by RedFoxDV
