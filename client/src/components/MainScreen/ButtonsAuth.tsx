@@ -9,8 +9,6 @@ import {FormLoginModal} from "../Forms/FormsAuthLogin/FormLoginModal";
 
 export const ButtonsAuth = () => {
 
-
-
     return <Flex gap="small" wrap="wrap">
         <Popover content={<FormLoginPopover/>} title={"Данные для входа"} trigger="click">
             <Button type="primary">

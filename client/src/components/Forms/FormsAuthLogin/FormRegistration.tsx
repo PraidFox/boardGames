@@ -1,9 +1,11 @@
 import {FieldsRegistration} from "./FieldsRegistration";
 import {Button, Form, Row, Space} from "antd";
 import React from "react";
+import {UserApi} from "../../../utils/rest/UserApi";
+import {Registration} from "../../../utils/interface/formInterface";
 
-const onFinish = (values: any) => {
-    //UserApi.registrationUser()
+const onFinish = (values: Registration) => {
+    UserApi.registrationUser(values.email, values.password).then(r => alert(r.data.message))
     console.log('Success:', values);
 };
 

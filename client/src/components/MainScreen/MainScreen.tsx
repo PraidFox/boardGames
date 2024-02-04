@@ -4,9 +4,11 @@ import {Layout, Menu, theme} from 'antd';
 import {HeaderComponent} from "./HeaderComponent";
 import {ButtonsAuth} from "./ButtonsAuth";
 import {MyCollectionGameContent} from "../Content/MyCollectionGameContent";
-import React from 'react';
+import React, {createContext, useState} from 'react';
+import {UserLogin} from "../../utils/interface/otherInterface";
+import {ButtonsLogout} from "./ButtonsLogout";
 
-const {Content, Sider, Footer,Header} = Layout;
+const {Content, Sider, Footer, Header} = Layout;
 
 const items2: MenuProps['items'] = [
     {
@@ -49,61 +51,60 @@ const items2: MenuProps['items'] = [
     }
 ]
 
-const items: MenuProps['items'] = [
-    UserOutlined,
 
-].map((icon, index) => ({
-    key: String(index + 1),
-    icon: React.createElement(icon),
-    label: `nav ${index + 1}`,
-}));
-
-
+export const UserLoginContext = createContext<UserLogin>({
+    loggedIn: false,
+    setLoggedIn: (value) => {}
+});
 
 
 export const MainScreen = () => {
+    const [loggedIn, setLoggedIn] = useState(false)
+
+
     const {
-        token: { colorBgContainer, borderRadiusLG },
+        token: {colorBgContainer, borderRadiusLG},
     } = theme.useToken();
 
     return (
-
-        <Layout>
-            <HeaderComponent>
-                <ButtonsAuth/>
-            </HeaderComponent>
+        <UserLoginContext.Provider value={{loggedIn, setLoggedIn}}>
             <Layout>
-                <Sider
-                    style={{overflow: 'auto', height: '93vh', position: 'sticky', top: 64}}
-                    collapsible
-                >
-                    <Menu
-                        theme="dark"
-                        mode="inline"
-                        defaultOpenKeys={['user']}
-                        items={items2}
-                    />
+                <HeaderComponent>
+                    {loggedIn ? <ButtonsLogout/> :  <ButtonsAuth/>}
 
-                </Sider>
-                <Layout style={{padding: '0 24px 24px'}}>
-                    <br/>
-                    <Content
-                        style={{
-                            padding: 24,
-                            background: colorBgContainer,
-                            borderRadius: borderRadiusLG,
-                            overflow: "initial"
-                        }}
+                </HeaderComponent>
+                <Layout>
+                    <Sider
+                        style={{overflow: 'auto', height: '93vh', position: 'sticky', top: 64}}
+                        collapsible
                     >
+                        <Menu
+                            theme="dark"
+                            mode="inline"
+                            defaultOpenKeys={['user']}
+                            items={items2}
+                        />
+
+                    </Sider>
+                    <Layout style={{padding: '0 24px 24px'}}>
+                        <br/>
+                        <Content
+                            style={{
+                                padding: 24,
+                                background: colorBgContainer,
+                                borderRadius: borderRadiusLG,
+                                overflow: "initial"
+                            }}
+                        >
                             <MyCollectionGameContent/>
-                    </Content>
-                    <Footer style={{ textAlign: 'center' }}>
-                       Создано и создано... ©{new Date().getFullYear()} Created by RedFoxDV
-                    </Footer>
+                        </Content>
+                        <Footer style={{textAlign: 'center'}}>
+                            Создано и создано... ©{new Date().getFullYear()} Created by RedFoxDV
+                        </Footer>
+                    </Layout>
                 </Layout>
             </Layout>
-        </Layout>
-
+        </UserLoginContext.Provider>
 
     );
 };

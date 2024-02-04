@@ -3,17 +3,21 @@ import {Button, Form, Row, Space} from "antd";
 import React from "react";
 import {UserApi} from "../../../utils/rest/UserApi";
 import {Login} from "../../../utils/interface/formInterface";
+import {UserLoginContext} from "../../MainScreen/MainScreen";
 
-const onFinish = (values: Login) => {
-    UserApi.loginUser(values.userName, values.password)
-        .then(r => console.log("Сохранить что залогинился"))
-        .catch(r => alert("Логин или пароль введены не верно. Или вы пытаетесь кого-то взломать"))
-};
 
-const onFinishFailed = (errorInfo: any) => {
-    //console.log('Failed:', errorInfo);
-};
 export const FormLoginModal = ({onClose}: { onClose: () => void }) => {
+    const {setLoggedIn} = React.useContext(UserLoginContext)
+
+    const onFinish = (values: Login) => {
+        UserApi.loginUser(values.userName, values.password)
+            .then(r => setLoggedIn(true))
+            .catch(r => alert("Логин или пароль введены не верно. Или вы пытаетесь кого-то взломать"))
+    };
+
+    const onFinishFailed = (errorInfo: any) => {
+        //console.log('Failed:', errorInfo);
+    };
 
     return (<Form
         name="formLogin"
