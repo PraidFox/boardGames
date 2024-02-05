@@ -1,4 +1,3 @@
-import {convertOptionsAutoComplete} from "../utils";
 
 export type Options<T> = {
     label: string
@@ -12,7 +11,6 @@ export type OptionsAutoComplete<T> = {
     id: number
     info?: T
 }
-
 
 export type OptionsDTO<T> = {
     id: number

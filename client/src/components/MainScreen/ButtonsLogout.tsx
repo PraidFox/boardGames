@@ -5,10 +5,10 @@ import {UserLoginContext} from "./MainScreen";
 
 
 export const ButtonsLogout = () => {
-    const {setLoggedIn} = React.useContext(UserLoginContext)
+    const {setLoggedInAndStorage} = React.useContext(UserLoginContext)
 
     return <Flex gap="small" wrap="wrap">
-            <Button type="primary" onClick={() => setLoggedIn(false)}>
+            <Button type="primary" onClick={() => setLoggedInAndStorage(false)}>
                 Выйти
             </Button>
     </Flex>

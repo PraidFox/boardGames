@@ -7,12 +7,19 @@ import {UserLoginContext} from "../../MainScreen/MainScreen";
 
 
 export const FormLoginModal = ({onClose}: { onClose: () => void }) => {
-    const {setLoggedIn} = React.useContext(UserLoginContext)
+    const {setLoggedInAndStorage} = React.useContext(UserLoginContext)
 
     const onFinish = (values: Login) => {
         UserApi.loginUser(values.email, values.password)
-            .then(r => setLoggedIn(true))
+            .then(r => setLoggedInAndStorage(true))
             .catch(r => alert("Логин или пароль введены не верно. Или вы пытаетесь кого-то взломать"))
+
+        if(values.remember){
+            localStorage.setItem("email", values.email)
+            localStorage.setItem("password", values.password)
+        }
+
+        localStorage.setItem("remember", values.remember)
     };
 
     const onFinishFailed = (errorInfo: any) => {

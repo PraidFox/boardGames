@@ -35,13 +35,31 @@ const item = [{
 
 export const UserLoginContext = createContext<UserLogin>({
     loggedIn: false,
-    setLoggedIn: (value) => {}
+    setLoggedInAndStorage: (value) => {}
 });
 
 
 export const MainScreen = () => {
-    const [loggedIn, setLoggedIn] = useState(false)
+    const [loggedIn, setLoggedIn] = useState<boolean>(false)
     const [itemsMenu, setItemsMenu] = useState(item)
+
+    useEffect(() => {
+        let loggedIn = localStorage.getItem("loggedIn")
+        if(loggedIn){
+            loggedIn == "true" ? setLoggedIn(true) : setLoggedIn(false)
+            setLoggedIn(loggedIn == "true")
+        }
+    }, []);
+
+    const setLoggedInAndStorage = () => {
+        if(loggedIn){
+            localStorage.setItem("loggedIn", "false")
+            setLoggedIn(false)
+        } else {
+            localStorage.setItem("loggedIn", "true")
+            setLoggedIn(true)
+        }
+    }
 
     useEffect(() => {
         if(loggedIn){
@@ -68,17 +86,14 @@ export const MainScreen = () => {
             setItemsMenu(r => r.filter(x => x.key != "user"))
         }
     }, [loggedIn]);
-    const items2: MenuProps['items'] = [
 
-
-    ]
 
     const {
         token: {colorBgContainer, borderRadiusLG},
     } = theme.useToken();
 
     return (
-        <UserLoginContext.Provider value={{loggedIn, setLoggedIn}}>
+        <UserLoginContext.Provider value={{loggedIn, setLoggedInAndStorage}}>
             <Layout>
                 <HeaderComponent>
                     {loggedIn ? <ButtonsLogout/> :  <ButtonsAuth/>}

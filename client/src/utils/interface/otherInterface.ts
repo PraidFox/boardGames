@@ -1,7 +1,7 @@
 export type UserLogin = {
     login?: string
     loggedIn: boolean
-    setLoggedIn: (loggedIn: boolean) => void
+    setLoggedInAndStorage: (loggedIn: boolean) => void
 }
 
 export type MessageInfoType = {
@@ -9,3 +9,10 @@ export type MessageInfoType = {
     type: "success" | "info" | "warning" | "error"
     width?: string
 }
+
+// export type LocalStorage = {
+//     email?: string
+//     password?: string
+//     loggedIn?: boolean
+//
+// }
