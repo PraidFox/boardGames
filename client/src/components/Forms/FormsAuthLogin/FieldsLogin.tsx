@@ -1,14 +1,26 @@
 import {Checkbox, Flex, Form, Input} from "antd";
 import React from "react";
-import {LockOutlined, UserOutlined} from "@ant-design/icons";
+import {LockOutlined, MailOutlined, UserOutlined} from "@ant-design/icons";
 
 export const FieldsLogin = () => {
     return <>
         <Form.Item
-            name="userName"
-            rules={[{required: true, message: 'Пожалуйста заполните логин'}]}
+            name="email"
+            rules={[
+                {
+                    type: 'email',
+                    message: 'Ввели неверную почту',
+                },
+                {
+                    required: true,
+                    message: 'Пожалуйста заполните E-mail',
+                },
+            ]}
         >
-            <Input prefix={<UserOutlined className="site-form-item-icon"/>} placeholder="Логин"/>
+            <Input
+                prefix={<MailOutlined/>}
+                placeholder="E-mail"
+            />
         </Form.Item>
         <Form.Item
             name="password"

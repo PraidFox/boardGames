@@ -1,5 +1,5 @@
 export type Login = {
-    userName: string
+    email: string
     password: string
     remember: string
 }

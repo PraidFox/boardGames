@@ -4,52 +4,33 @@ import {Layout, Menu, theme} from 'antd';
 import {HeaderComponent} from "./HeaderComponent";
 import {ButtonsAuth} from "./ButtonsAuth";
 import {MyCollectionGameContent} from "../Content/MyCollectionGameContent";
-import React, {createContext, useState} from 'react';
+import React, {createContext, useEffect, useState} from 'react';
 import {UserLogin} from "../../utils/interface/otherInterface";
 import {ButtonsLogout} from "./ButtonsLogout";
 
 const {Content, Sider, Footer, Header} = Layout;
 
-const items2: MenuProps['items'] = [
-    {
-        key: `user`,
-        icon: <UserOutlined/>,
-        label: `Профиль`,
-        children: [
-            {
-                key: "myCollections",
-                label: `Моя коллекция`,
-            },
-            {
-                key: "myFriends",
-                label: `Друзья`,
-            },
-            {
-                key: "setting",
-                label: `Настройки`,
-            }
-        ]
-    },
-    {
-        key: `boardGames`,
-        icon: <BookOutlined/>,
-        label: `Настолки`,
-        children: [
-            {
-                key: "allBoardGames",
-                label: `Все настолки`,
-            },
-            {
-                key: "rating",
-                label: `Рейтинг`,
-            },
-            {
-                key: "newBoardGames",
-                label: `Новинки`,
-            }
-        ]
-    }
-]
+
+const item = [{
+    key: `boardGames`,
+    icon: <BookOutlined/>,
+    label: `Настолки`,
+    children: [
+        {
+            key: "allBoardGames",
+            label: `Все настолки`,
+        },
+        {
+            key: "rating",
+            label: `Рейтинг`,
+        },
+        {
+            key: "newBoardGames",
+            label: `Новинки`,
+        }
+    ]
+}]
+
 
 
 export const UserLoginContext = createContext<UserLogin>({
@@ -60,7 +41,37 @@ export const UserLoginContext = createContext<UserLogin>({
 
 export const MainScreen = () => {
     const [loggedIn, setLoggedIn] = useState(false)
+    const [itemsMenu, setItemsMenu] = useState(item)
 
+    useEffect(() => {
+        if(loggedIn){
+            setItemsMenu(r => [{
+                key: `user`,
+                icon: <UserOutlined/>,
+                label: `Профиль`,
+                children: [
+                    {
+                        key: "myCollections",
+                        label: `Моя коллекция`,
+                    },
+                    {
+                        key: "myFriends",
+                        label: `Друзья`,
+                    },
+                    {
+                        key: "setting",
+                        label: `Настройки`,
+                    }
+                ]
+            }, ...r ])
+        } else {
+            setItemsMenu(r => r.filter(x => x.key != "user"))
+        }
+    }, [loggedIn]);
+    const items2: MenuProps['items'] = [
+
+
+    ]
 
     const {
         token: {colorBgContainer, borderRadiusLG},
@@ -82,7 +93,7 @@ export const MainScreen = () => {
                             theme="dark"
                             mode="inline"
                             defaultOpenKeys={['user']}
-                            items={items2}
+                            items={itemsMenu}
                         />
 
                     </Sider>

@@ -9,7 +9,7 @@ export const FormLoginPopover = () => {
     const {setLoggedIn} = React.useContext(UserLoginContext)
 
     const onFinish = (values: Login) => {
-        UserApi.loginUser(values.userName, values.password)
+        UserApi.loginUser(values.email, values.password)
             .then(r => setLoggedIn(true))
             .catch(r => alert("Логин или пароль введены не верно. Или вы пытаетесь кого-то взломать"))
     };
