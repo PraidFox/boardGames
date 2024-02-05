@@ -8,14 +8,37 @@ type FieldType = {
     password?: string;
     passwordRepeat?: string;
 };
-export const FieldsRegistration = ({form} : {form: FormInstance}) => {
+export const FieldsRegistration = ({form}: { form: FormInstance }) => {
     const validatePasswordRepeat = (_: any, value: string) => {
-        if(form.getFieldValue("password") === value) {
+        if (form.getFieldValue("password") === value) {
             return Promise.resolve();
         } else {
             return Promise.reject('Пароли должны совпадать');
         }
     }
+
+    const validatePasswordValue = (_: any, value: string) => {
+        const errors = [];
+
+        if (value && !/[a-z]/.test(value)) {
+            errors.push('Должен содержать хотя бы одну строчную (a-z)!')
+        }
+        if (value && !/[A-Z]/.test(value)) {
+            errors.push('Должен содержать хотя бы одну заглавную букву (A-Z)!')
+        }
+        if (value && !/\d/.test(value)) {
+            errors.push('Должен содержать хотя бы одну цифру (0-9)!')
+        }
+        if (value && !/[^a-zA-Z0-9]/.test(value)) {
+            errors.push('Должен содержать хотя бы один небуквенно-цифровой символ')
+        }
+
+        if (errors.length > 0) {
+            return Promise.reject(errors.map(x => new Error(x)));
+        } else {
+            return Promise.resolve();
+        }
+    };
 
     return (<>
             <Form.Item<FieldType>
@@ -46,7 +69,11 @@ export const FieldsRegistration = ({form} : {form: FormInstance}) => {
 
             <Form.Item<FieldType>
                 name="password"
-                rules={[{required: true, message: 'Пожалуйста заполните пароль'}]}
+                rules={[
+                    {required: true, message: 'Пожалуйста заполните пароль'},
+                    {min: 6, message: 'Минимальная длина пароля 6 символов'},
+                    {validator: validatePasswordValue},
+                ]}
             >
                 <Input.Password
                     prefix={<LockOutlined/>}

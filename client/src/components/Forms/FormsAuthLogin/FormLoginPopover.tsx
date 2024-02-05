@@ -20,7 +20,7 @@ export const FormLoginPopover = () => {
 
     return (
         <Form
-            name="formLogin"
+            name="formLoginPopover"
             style={{width: 300}}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}

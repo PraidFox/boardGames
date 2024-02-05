@@ -1,8 +1,5 @@
-import {Button, Form, Row, Space, Tabs, TabsProps} from 'antd';
-import React, {useState} from "react";
-import {FieldsRegistration} from "./FieldsRegistration";
-import {FieldsLogin} from "./FieldsLogin";
-import {UserApi} from "../../../utils/rest/UserApi";
+import {Tabs, TabsProps} from 'antd';
+import React from "react";
 import {FormRegistration} from "./FormRegistration";
 import {FormLoginModal} from "./FormLoginModal";
 

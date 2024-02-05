@@ -3,8 +3,6 @@ import {FormLoginPopover} from "../Forms/FormsAuthLogin/FormLoginPopover";
 import {ModalAuthLogin} from "../Modals/ModalAuthLogin";
 import {TabsAuthLogin} from "../Forms/FormsAuthLogin/TabsAuthLogin";
 import React from "react";
-import {FormRegistration} from "../Forms/FormsAuthLogin/FormRegistration";
-import {FormLoginModal} from "../Forms/FormsAuthLogin/FormLoginModal";
 
 
 export const ButtonsAuth = () => {

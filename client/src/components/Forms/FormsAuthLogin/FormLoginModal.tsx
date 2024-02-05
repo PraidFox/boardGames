@@ -20,7 +20,7 @@ export const FormLoginModal = ({onClose}: { onClose: () => void }) => {
     };
 
     return (<Form
-        name="formLogin"
+        name="formLoginModal"
         labelCol={{span: 8}}
         style={{maxWidth: 600}}
         onFinish={onFinish}
