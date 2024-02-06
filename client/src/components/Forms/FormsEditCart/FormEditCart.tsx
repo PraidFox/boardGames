@@ -49,6 +49,7 @@ export const FormEditCart = ({onClose}: {
 
     const onFinish = (values: any) => {
         console.log('Success:', values);
+
         onClose()
     };
     const onFinishFailed = (errorInfo: any) => {
@@ -101,19 +102,12 @@ export const FormEditCart = ({onClose}: {
             />
         </Form.Item>
 
-        <div style={{ display: "flex" }}>
-            <Form.Item label="Мин. игроков" name="minPlayers" initialValue={1}>
-                <InputNumber min={1} max={100} onChange={count => setValuesField({ type: "CHANGE_MIN_PLAYERS", payload: count })} />
-            </Form.Item>
 
-            <Form.Item label="Макс. игроков" name="maxPlayers" initialValue={1}>
-                <InputNumber min={valuesField.minPlayers} max={100} onChange={count => setValuesField({ type: "CHANGE_MAX_PLAYERS", payload: count })} />
-            </Form.Item>
 
-            <Form.Item label="Типы игры" name={"typeGame"} style={{ flex: "1" }}>
-                <Select options={optionsField.typeGame} filterOption={filterOptionLabel} />
-            </Form.Item>
-        </div>
+
+        <Form.Item label="Типы игры" name={"typeGame"} >
+            <Select options={optionsField.typeGame} filterOption={filterOptionLabel} />
+        </Form.Item>
 
         <Form.Item label="Жанр" name={"genreGame"}>
             <Select mode={"multiple"} allowClear options={optionsField.genreGame} filterOption={filterOptionLabel} />
@@ -146,6 +140,21 @@ export const FormEditCart = ({onClose}: {
         >
             <TextArea maxLength={5000}/>
         </Form.Item>
+
+        <div style={{ display: "flex", justifyContent: "center" }}>
+            <Form.Item label="Мин. игроков" name="minPlayers" initialValue={1}>
+                <InputNumber min={1} max={100} onChange={count => setValuesField({ type: "CHANGE_MIN_PLAYERS", payload: count })} />
+            </Form.Item>
+
+            <Form.Item label="Макс. игроков" name="maxPlayers" initialValue={1}>
+                <InputNumber min={valuesField.minPlayers} max={100} onChange={count => setValuesField({ type: "CHANGE_MAX_PLAYERS", payload: count })} />
+            </Form.Item>
+
+            <Form.Item label="От скольки лет" name="minPlayerAge" initialValue={1}>
+                <InputNumber min={1} max={100}/>
+            </Form.Item>
+        </div>
+
         <Space>
             <Form.Item>
                 <Button type="primary" htmlType="submit">
