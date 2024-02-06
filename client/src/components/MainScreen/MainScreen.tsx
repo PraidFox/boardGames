@@ -44,6 +44,8 @@ export const MainScreen = () => {
     const [refreshToken, setRefreshToken] = useState<string>("")
     const [itemsMenu, setItemsMenu] = useState(item)
 
+
+
     useEffect(() => {
         const loggedIn = localStorage.getItem("loggedIn")
         const access = localStorage.getItem("access")
@@ -67,6 +69,7 @@ export const MainScreen = () => {
         localStorage.setItem("loggedIn", "true")
         localStorage.setItem("access", access)
         localStorage.setItem("refresh", refresh)
+        localStorage.setItem("entryTime", new Date().toString())
 
         setLoggedIn(true)
         setAccessToken(access)

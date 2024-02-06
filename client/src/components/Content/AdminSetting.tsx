@@ -12,6 +12,10 @@ export const AdminSetting = () => {
     const [type, setType] = useState<TypeDTO[]>([])
     const [newOptionGenre, setNewOptionGenre] = useState("")
     const [newOptionType, setNewOptionType] = useState("")
+    const [addGenreLoading, setAddGenreLoading] = useState(false)
+    const [addTypeLoading, setAddTypeLoading] = useState(false)
+    const [deleteOptionsGenre, setDeleteOptionsGenre] = useState<number[]>([])
+    const [deleteOptionsType, setDeleteOptionsType] = useState<number[]>([])
 
     useEffect(() => {
         GenreApi.getGenre().then((res) => {
@@ -21,26 +25,76 @@ export const AdminSetting = () => {
         TypeApi.getType().then((res) => {
             setType(res.data)
         })
+
+
     }, []);
 
     const addGenre = () => {
+        setAddGenreLoading(true)
         GenreApi.addGenre(newOptionGenre).then((res) => {
-            if(res.status == 200){
-                GenreApi.getGenre().then((res) => {
-                    setGenre(res.data)
-                })
+            GenreApi.getGenre().then((res) => {
+                setGenre(res.data)
+                setAddGenreLoading(false)
+            })
+        }).catch(r => {
+                setAddGenreLoading(false)
+                alert(r.response.data)
             }
-        })
+        )
     }
 
     const addType = () => {
+        setAddTypeLoading(true)
         TypeApi.addType(newOptionType).then((res) => {
-            if(res.status == 200){
+            TypeApi.getType().then((res) => {
+                setType(res.data)
+                setAddTypeLoading(false)
+            })
+        }).catch(r => {
+                setAddGenreLoading(false)
+                alert(r.response.data)
+            }
+        )
+    }
+
+    const deleteOptions = (id: number, fieldName: string) => {
+        if (fieldName == "Жанры") {
+            GenreApi.deleteGenre(id).then((res) => {
+                GenreApi.getGenre().then((res) => {
+                    setGenre(res.data)
+                })
+            })
+        } else if (fieldName == "Типы") {
+            TypeApi.deleteType(id).then((res) => {
                 TypeApi.getType().then((res) => {
                     setType(res.data)
                 })
+            })
+        }
+    }
+
+
+    console.log(deleteOptionsGenre)
+
+    const content = (id: number, fieldName: string) => {
+        if (fieldName == "Жанры") {
+            const countIdInDelete = deleteOptionsGenre.filter(x => x == id)
+            if (countIdInDelete.length == 0) {
+                return <Button onClick={() => setDeleteOptionsGenre(res => [...res, id])}>Удалить</Button>
+            } else {
+                return <Button onClick={() => deleteOptions(id, fieldName)}
+                               style={{background: "red", color: "white"}}>Удалить</Button>
             }
-        })
+
+        } else if (fieldName == "Типы") {
+            const countIdInDelete = deleteOptionsType.filter(x => x == id)
+            if (countIdInDelete.length == 0) {
+                return <Button onClick={() => setDeleteOptionsType(res => [...res, id])}>Удалить</Button>
+            } else {
+                return <Button onClick={() => deleteOptions(id, fieldName)}
+                               style={{background: "red", color: "white"}}>Удалить</Button>
+            }
+        }
     }
 
 
@@ -50,20 +104,20 @@ export const AdminSetting = () => {
 
         <div style={{display: "flex", justifyContent: "space-around"}}>
             <div style={{width: "45%"}}>
-                <InfiniteScrollComponent data={genre} name={"Жанры"}/>
+                <InfiniteScrollComponent data={genre} name={"Жанры"} content={content}/>
                 <br/>
-                <Space.Compact style={{ width: '100%' }}>
+                <Space.Compact style={{width: '100%'}}>
                     <Input placeholder="Добавить новый жанр" onChange={(e) => setNewOptionGenre(e.target.value)}/>
-                    <Button type="primary" onClick={addGenre}>Submit</Button>
+                    <Button type="primary" onClick={addGenre} loading={addGenreLoading}>Submit</Button>
                 </Space.Compact>
             </div>
 
             <div style={{width: "45%"}}>
-                <InfiniteScrollComponent data={type} name={"Типы"}/>
+                <InfiniteScrollComponent data={type} name={"Типы"} content={content}/>
                 <br/>
-                <Space.Compact style={{ width: '100%' }}>
-                    <Input placeholder="Добавить новый тип"  onChange={(e) => setNewOptionType(e.target.value)}/>
-                    <Button type="primary" onClick={addType}>Submit</Button>
+                <Space.Compact style={{width: '100%'}}>
+                    <Input placeholder="Добавить новый тип" onChange={(e) => setNewOptionType(e.target.value)}/>
+                    <Button type="primary" onClick={addType} loading={addTypeLoading}>Submit</Button>
                 </Space.Compact>
             </div>
         </div>

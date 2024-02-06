@@ -13,7 +13,7 @@ export class GenreApi {
     static updateGenre(id: string, name: string) {
         return axios.put(AxiosDefault.baseUrl() + `/api/Genre/${id}`, {id, name});
     }
-    static deleteGenre(id: string) {
+    static deleteGenre(id: number) {
         return axios.delete(AxiosDefault.baseUrl() + `/api/Genre/${id}`, );
     }
 }

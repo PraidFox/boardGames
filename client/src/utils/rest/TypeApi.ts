@@ -11,7 +11,7 @@ export class TypeApi {
     static updateType(id: string, name: string) {
         return axios.put(AxiosDefault.baseUrl() + `/api/Type/${id}`, {id, name});
     }
-    static deleteType(id: string) {
+    static deleteType(id: number) {
         return axios.delete(AxiosDefault.baseUrl() + `/api/Type/${id}`, );
     }
 }
