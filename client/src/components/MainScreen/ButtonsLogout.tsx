@@ -1,14 +1,14 @@
 import {Button, Flex} from "antd";
-import React, {useContext} from "react";
+import React from "react";
 import {UserLoginContext} from "./MainScreen";
 
 
 
 export const ButtonsLogout = () => {
-    const {setLoggedInAndStorage} = React.useContext(UserLoginContext)
+    const {setLogout} = React.useContext(UserLoginContext)
 
     return <Flex gap="small" wrap="wrap">
-            <Button type="primary" onClick={() => setLoggedInAndStorage(false)}>
+            <Button type="primary" onClick={() => setLogout()}>
                 Выйти
             </Button>
     </Flex>

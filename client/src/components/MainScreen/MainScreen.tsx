@@ -7,7 +7,7 @@ import React, {createContext, useEffect, useState} from 'react';
 import {UserLogin} from "../../utils/interface/otherInterface";
 import {ButtonsLogout} from "./ButtonsLogout";
 
-const {Content, Sider, Footer, Header} = Layout;
+const {Content, Sider, Footer} = Layout;
 
 
 const item = [{
@@ -31,37 +31,57 @@ const item = [{
 }]
 
 
-
 export const UserLoginContext = createContext<UserLogin>({
     loggedIn: false,
-    setLoggedInAndStorage: (value) => {}
+    setLoggedInAndStorage: (accessToken: string, refreshToken: string) => {},
+    setLogout: () => {}
 });
 
 
 export const MainScreen = () => {
     const [loggedIn, setLoggedIn] = useState<boolean>(false)
+    const [accessToken, setAccessToken] = useState<string>("")
+    const [refreshToken, setRefreshToken] = useState<string>("")
     const [itemsMenu, setItemsMenu] = useState(item)
 
     useEffect(() => {
-        let loggedIn = localStorage.getItem("loggedIn")
-        if(loggedIn){
+        const loggedIn = localStorage.getItem("loggedIn")
+        const access = localStorage.getItem("access")
+        const refresh = localStorage.getItem("refresh")
+
+        if (loggedIn) {
             loggedIn == "true" ? setLoggedIn(true) : setLoggedIn(false)
             setLoggedIn(loggedIn == "true")
         }
+
+        if (access) {
+            setAccessToken(access)
+        }
+
+        if (refresh) {
+            setRefreshToken(refresh)
+        }
     }, []);
 
-    const setLoggedInAndStorage = () => {
-        if(loggedIn){
-            localStorage.setItem("loggedIn", "false")
-            setLoggedIn(false)
-        } else {
-            localStorage.setItem("loggedIn", "true")
-            setLoggedIn(true)
-        }
+    const setLoggedInAndStorage = (access: string, refresh: string) => {
+        localStorage.setItem("loggedIn", "true")
+        localStorage.setItem("access", access)
+        localStorage.setItem("refresh", refresh)
+
+        setLoggedIn(true)
+        setAccessToken(access)
+        setRefreshToken(refresh)
     }
 
+
+    const setLogout = () => {
+        setLoggedIn(false)
+        localStorage.setItem("loggedIn", "false")
+    }
+
+
     useEffect(() => {
-        if(loggedIn){
+        if (loggedIn) {
             setItemsMenu(r => [{
                 key: `user`,
                 icon: <UserOutlined/>,
@@ -80,7 +100,7 @@ export const MainScreen = () => {
                         label: `Настройки`,
                     }
                 ]
-            }, ...r ])
+            }, ...r])
         } else {
             setItemsMenu(r => r.filter(x => x.key != "user"))
         }
@@ -92,10 +112,11 @@ export const MainScreen = () => {
     } = theme.useToken();
 
     return (
-        <UserLoginContext.Provider value={{loggedIn, setLoggedInAndStorage}}>
+        <UserLoginContext.Provider
+            value={{loggedIn, setLoggedInAndStorage, setLogout, accessToken, refreshToken}}>
             <Layout>
                 <HeaderComponent>
-                    {loggedIn ? <ButtonsLogout/> :  <ButtonsAuth/>}
+                    {loggedIn ? <ButtonsLogout/> : <ButtonsAuth/>}
 
                 </HeaderComponent>
                 <Layout>
@@ -121,7 +142,7 @@ export const MainScreen = () => {
                                 overflow: "initial"
                             }}
                         >
-                            <Outlet />
+                            <Outlet/>
                         </Content>
                         <Footer style={{textAlign: 'center'}}>
                             Создано и создано... ©{new Date().getFullYear()} Created by RadFoxDV

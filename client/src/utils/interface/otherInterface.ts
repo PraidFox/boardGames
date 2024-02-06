@@ -1,7 +1,11 @@
 export type UserLogin = {
     login?: string
+    accessToken?: string
+    refreshToken?: string
     loggedIn: boolean
-    setLoggedInAndStorage: (loggedIn: boolean) => void
+
+    setLoggedInAndStorage: (accessToken: string, refreshToken: string) => void
+    setLogout: () => void
 }
 
 export type MessageInfoType = {

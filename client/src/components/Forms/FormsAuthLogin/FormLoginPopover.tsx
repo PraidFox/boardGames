@@ -1,5 +1,5 @@
 import {FieldsLogin} from "./FieldsLogin";
-import {Button, Form, Row, Space} from "antd";
+import {Button, Form, Row} from "antd";
 import React from "react";
 import {UserLoginContext} from "../../MainScreen/MainScreen";
 import {Login} from "../../../utils/interface/formInterface";
@@ -10,9 +10,9 @@ export const FormLoginPopover = () => {
 
     const onFinish = (values: Login) => {
         UserApi.loginUser(values.email, values.password)
-            .then(r => setLoggedInAndStorage(true))
-            //.then(r => console.log(r))
-            .catch(r => alert("Логин или пароль введены не верно. Или вы пытаетесь кого-то взломать"))
+            .then(r => setLoggedInAndStorage(r.data.accessToken, r.data.refreshToken))
+            .then(r => console.log(r))
+            .catch(() => alert("Логин или пароль введены не верно. Или вы пытаетесь кого-то взломать"))
 
         if(values.remember){
             localStorage.setItem("email", values.email)

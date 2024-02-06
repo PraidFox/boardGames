@@ -1,18 +1,19 @@
 import {FieldsLogin} from "./FieldsLogin";
 import {Button, Form, Row, Space} from "antd";
-import React from "react";
+import React, {useContext} from "react";
 import {UserApi} from "../../../utils/rest/UserApi";
 import {Login} from "../../../utils/interface/formInterface";
 import {UserLoginContext} from "../../MainScreen/MainScreen";
 
 
 export const FormLoginModal = ({onClose}: { onClose: () => void }) => {
-    const {setLoggedInAndStorage} = React.useContext(UserLoginContext)
+    const {setLoggedInAndStorage} = useContext(UserLoginContext)
 
     const onFinish = (values: Login) => {
         UserApi.loginUser(values.email, values.password)
-            .then(r => setLoggedInAndStorage(true))
-            .catch(r => alert("Логин или пароль введены не верно. Или вы пытаетесь кого-то взломать"))
+            .then(r => setLoggedInAndStorage(r.data.accessToken, r.data.refreshToken))
+            //.then(r => console.log(r))
+            .catch(() => alert("Логин или пароль введены не верно. Или вы пытаетесь кого-то взломать"))
 
         if(values.remember){
             localStorage.setItem("email", values.email)
