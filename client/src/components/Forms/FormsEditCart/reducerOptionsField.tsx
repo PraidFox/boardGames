@@ -3,6 +3,7 @@ import {Options, OptionsAutoComplete} from "../../../utils/interface/serverInter
 export type OptionsFieldFormEdit = {
     nameGame:  OptionsAutoComplete<null>[]
     typeGame: Options<null>[]
+    genreGame: Options<null>[]
     statusGame?: Options<null>[]
 }
 
@@ -13,7 +14,8 @@ export const reducerOptionsField = (state: OptionsFieldFormEdit, action: Action)
             const newState : OptionsFieldFormEdit = {
                 nameGame: action.payload.nameGame,
                 typeGame: action.payload.typeGame,
-                statusGame: action.payload.statusGame
+                statusGame: action.payload.statusGame,
+                genreGame: action.payload.genreGame
             }
             return {...newState}
     }

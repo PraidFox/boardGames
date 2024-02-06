@@ -73,9 +73,6 @@ export const AdminSetting = () => {
         }
     }
 
-
-    console.log(deleteOptionsGenre)
-
     const content = (id: number, fieldName: string) => {
         if (fieldName == "Жанры") {
             const countIdInDelete = deleteOptionsGenre.filter(x => x == id)

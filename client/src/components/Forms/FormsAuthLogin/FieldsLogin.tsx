@@ -26,7 +26,6 @@ export const FieldsLogin = () => {
         setLoading(false)
     }, []);
 
-    console.log(email)
 
     return <>
         {loading ? <></> : <><Form.Item

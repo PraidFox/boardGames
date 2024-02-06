@@ -1,3 +1,4 @@
 export enum OptionsStorage  {
-    cooperative = "213"
+    cooperative = "52",
+    detective = "59"
 }

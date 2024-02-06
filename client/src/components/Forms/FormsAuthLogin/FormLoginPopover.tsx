@@ -11,7 +11,6 @@ export const FormLoginPopover = () => {
     const onFinish = (values: Login) => {
         UserApi.loginUser(values.email, values.password)
             .then(r => setLoggedInAndStorage(r.data.accessToken, r.data.refreshToken))
-            .then(r => console.log(r))
             .catch(() => alert("Логин или пароль введены не верно. Или вы пытаетесь кого-то взломать"))
 
         if(values.remember){

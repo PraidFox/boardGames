@@ -24,7 +24,6 @@ export const FormRegistration = ({onClose}: { onClose: () => void }) => {
                 setMessageAlert({text: r.response.data.errors.DuplicateUserName, type: "error", width: "100%"})
                 setLoadings(false)
             })
-        console.log('Success:', values);
     };
 
     const onFinishFailed = (errorInfo: any) => {

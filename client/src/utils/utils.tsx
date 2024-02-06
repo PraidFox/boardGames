@@ -10,10 +10,10 @@ export const filterOptionLabel = (inputValue: string, option: Options<any> | und
 }
 
 export const convertOptions = (options: OptionsDTO<null>[]) : Options<null>[] => {
-    return options.map(opt => {return {label: opt.label, value: opt.id.toString()}})
+    return options.map(opt => {return {label: opt.name, value: opt.id.toString()}})
 }
 
 export const convertOptionsAutoComplete = (options: OptionsDTO<null>[]) : OptionsAutoComplete<null>[] => {
-    return options.map(opt => {return {label: opt.label, value: opt.label, id: opt.id}})
+    return options.map(opt => {return {label: opt.name, value: opt.name, id: opt.id}})
 }
 

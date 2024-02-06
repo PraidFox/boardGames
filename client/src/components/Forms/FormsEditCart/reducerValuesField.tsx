@@ -4,17 +4,19 @@ import {OptionsFieldFormEdit} from "./reducerOptionsField";
 export type ValesFieldFormEdit = {
     img: string,
     nameGame: OptionsAutoComplete<null> | null,
-    typeGame: Options<null>[] ,
+    typeGame: Options<null> | null,
+    genreGame: string[],
     maxPlayers: number,
     minPlayers: number,
 }
 
 export type Action = | { type: "ADD_ALL_DEFAULT" }
     | { type: "CHANGE_IMG", payload: string }
-    | { type: "CHANGE_MIN_PLAYERS", payload: number | null }
-    | { type: "CHANGE_MAX_PLAYERS", payload: number | null }
+    | { type: "CHANGE_MIN_PLAYERS" | "CHANGE_MAX_PLAYERS", payload: number | null }
     | { type: "CHANGE_NAME_GAME", payload: OptionsAutoComplete<null> }
-    | { type: "CHANGE_TYPE_GAME", payload: Options<null>[] | Options<null> }
+    | { type: "CHANGE_GENRE_GAME", payload: string[] }
+// | { type: "CHANGE_TYPE_GAME", payload: Options<null>[] | Options<null> }
+
 export const reducerValuesField = (state: ValesFieldFormEdit, action: Action) => {
     let newMaxPlayers = state.maxPlayers
 
@@ -23,7 +25,8 @@ export const reducerValuesField = (state: ValesFieldFormEdit, action: Action) =>
             const newState: ValesFieldFormEdit = {
                 img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXZtzUkONjLZrH5_jY_um2MP03-NprVybRCXantGNuAV3qvBkaMTJY_AmlhG6OP4cVGsc&usqp=CAU",
                 nameGame: null,
-                typeGame: [],
+                typeGame: null,
+                genreGame: [],
                 maxPlayers: 1,
                 minPlayers: 1,
             }
@@ -45,21 +48,20 @@ export const reducerValuesField = (state: ValesFieldFormEdit, action: Action) =>
             }
             return {...state, maxPlayers: newMaxPlayers}
         case "CHANGE_NAME_GAME":
-            console.log("nameGame", action.payload)
             return {...state, nameGame: action.payload}
-        case "CHANGE_TYPE_GAME":
-            console.log("typeGame", action.payload)
-            let newTypeGame = action.payload
-
-            if(Array.isArray(action.payload)){
-                newTypeGame = action.payload.filter(obj => Object.keys(obj).length !== 0);
-            } else {
-                newTypeGame = [action.payload]
-            }
-
-            console.log("newTypeGame", newTypeGame)
-
-            return {...state, typeGame: newTypeGame}
+        case "CHANGE_GENRE_GAME":
+            console.log("CHANGE_GENRE_GAME", action.payload)
+            return {...state, genreGame: action.payload}
+        // case "CHANGE_TYPE_GAME":
+        //     let newTypeGame = action.payload
+        //
+        //     if(Array.isArray(action.payload)){
+        //         newTypeGame = action.payload.filter(obj => Object.keys(obj).length !== 0);
+        //     } else {
+        //         newTypeGame = [action.payload]
+        //     }
+        //
+        //     return {...state, typeGame: newTypeGame}
 
     }
 }

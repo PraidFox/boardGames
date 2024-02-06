@@ -33,7 +33,7 @@ export const InfiniteScrollComponent = ({data, name, content} : {data: OptionDTO
                     renderItem={(item) => (
                         <List.Item key={item.id}>
                             <List.Item.Meta
-                                title={item.name}
+                                title={<div><span>{item.name}</span> <i style={{fontSize: "10px"}}>id: {item.id}</i></div>}
                             />
                             <div>{content(item.id, name)}</div>
                         </List.Item>

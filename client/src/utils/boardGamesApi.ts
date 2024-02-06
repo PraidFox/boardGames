@@ -18,7 +18,6 @@ export const deleteBoardGames = (id: number, setDataBoardGames: React.Dispatch<R
 export const getAllBoardGames = (setDataBoardGames: React.Dispatch<React.SetStateAction<BoardGame[]>>) => {
     axios.get('http://localhost:4000/boardGames')
         .then(res => {
-            console.log("r.data", res.data)
             setDataBoardGames(res.data)
         })
 }
