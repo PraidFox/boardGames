@@ -1,9 +1,8 @@
 import {UserOutlined, BookOutlined} from '@ant-design/icons';
-import type {MenuProps} from 'antd';
 import {Layout, Menu, theme} from 'antd';
 import {HeaderComponent} from "./HeaderComponent";
 import {ButtonsAuth} from "./ButtonsAuth";
-import {MyCollectionGameContent} from "../Content/MyCollectionGameContent";
+import {NavLink, Outlet} from "react-router-dom";
 import React, {createContext, useEffect, useState} from 'react';
 import {UserLogin} from "../../utils/interface/otherInterface";
 import {ButtonsLogout} from "./ButtonsLogout";
@@ -18,11 +17,11 @@ const item = [{
     children: [
         {
             key: "allBoardGames",
-            label: `Все настолки`,
+            label: <NavLink to="/allBoardGames">Все настолки</NavLink>,
         },
         {
             key: "rating",
-            label: `Рейтинг`,
+            label: <NavLink to="/rating">Рейтинг</NavLink>,
         },
         {
             key: "newBoardGames",
@@ -122,10 +121,10 @@ export const MainScreen = () => {
                                 overflow: "initial"
                             }}
                         >
-                            <MyCollectionGameContent/>
+                            <Outlet />
                         </Content>
                         <Footer style={{textAlign: 'center'}}>
-                            Создано и создано... ©{new Date().getFullYear()} Created by RedFoxDV
+                            Создано и создано... ©{new Date().getFullYear()} Created by RadFoxDV
                         </Footer>
                     </Layout>
                 </Layout>
