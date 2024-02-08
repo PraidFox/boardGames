@@ -1,4 +1,4 @@
-import {Options, OptionsAutoComplete, OptionsDTO} from "./interface/serverInterface";
+import {Options, OptionsAutoComplete, OptionsDTO} from "../interfaces/serverInterface";
 
 
 export const filterOptionLabel = (inputValue: string, option: Options<any> | undefined) => {

@@ -2,16 +2,16 @@ import {AutoComplete, Button, Form, Input, InputNumber, Select, Space} from 'ant
 import {
     nameBoardGame,
     optionsFieldsStatusCooperativeGame,
-} from "../../../utils/tmp/constTMP";
-import {convertOptions, convertOptionsAutoComplete, filterOptionLabel} from "../../../utils/utils";
+} from "../../../tools/storages/fieldOptions";
+import {convertOptions, convertOptionsAutoComplete, filterOptionLabel} from "../../../tools/utils/utils";
 import {OptionsFieldFormEdit, reducerOptionsField} from "./reducerOptionsField";
-import {OptionsStorage} from "../../../utils/storages/optionsStorage";
+import {OptionsId} from "../../../tools/storages/optionsId";
 import {Image} from 'antd';
 import {reducerValuesField, ValesFieldFormEdit} from "./reducerValuesField";
-import {Options, OptionsAutoComplete} from "../../../utils/interface/serverInterface";
+import {Options, OptionsAutoComplete} from "../../../tools/interfaces/serverInterface";
 import {useEffect, useReducer, useState} from "react";
-import {GenreApi} from "../../../utils/rest/GenreApi";
-import {TypeApi} from "../../../utils/rest/TypeApi";
+import {GenreApi} from "../../../tools/rest/GenreApi";
+import {TypeApi} from "../../../tools/rest/TypeApi";
 
 const {TextArea, Search} = Input;
 export const FormEditCart = ({onClose}: {
@@ -62,7 +62,7 @@ export const FormEditCart = ({onClose}: {
 
     const shouldFieldStatusGame = () => {
         if (valuesField.genreGame) {
-            return !valuesField.genreGame.some((opt) => opt == OptionsStorage.cooperative || opt == OptionsStorage.detective)
+            return !valuesField.genreGame.some((opt) => opt == OptionsId.cooperative || opt == OptionsId.detective)
         } else {
             return true
         }

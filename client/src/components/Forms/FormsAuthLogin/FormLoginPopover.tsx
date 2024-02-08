@@ -1,9 +1,9 @@
 import {FieldsLogin} from "./FieldsLogin";
 import {Button, Form, Row} from "antd";
 import React from "react";
-import {UserLoginContext} from "../../MainScreen/MainScreen";
-import {Login} from "../../../utils/interface/formInterface";
-import {UserApi} from "../../../utils/rest/UserApi";
+import {UserLoginContext} from "../../../App";
+import {Login} from "../../../tools/interfaces/formInterface";
+import {UserApi} from "../../../tools/rest/UserApi";
 
 export const FormLoginPopover = () => {
     const {setLoggedInAndStorage} = React.useContext(UserLoginContext)

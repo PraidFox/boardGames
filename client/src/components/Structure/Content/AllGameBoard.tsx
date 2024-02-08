@@ -1,5 +1,5 @@
-import {DrawerSidePanel} from "../../componentsAnt/DrawerSidePanel";
-import {FormEditCart} from "../Forms/FormsEditCart/FormEditCart";
+import {ButtonsDrawerSidePanel} from "../../UiElements/Buttons/ButtonsDrawerSidePanel";
+import {FormEditCart} from "../../Forms/FormsEditCart/FormEditCart";
 import {useState} from "react";
 
 export const AllGameBoard = () => {
@@ -17,8 +17,8 @@ export const AllGameBoard = () => {
         {/*                        onClick={() => handlerDeleteBoardGame(boardGame.id!)}/>*/}
         {/*    </CardBoardGame>*/}
         {/*))}*/}
-        <DrawerSidePanel>
+        <ButtonsDrawerSidePanel>
             {(onClose) => (<FormEditCart onClose={onClose}/>)}
-        </DrawerSidePanel>
+        </ButtonsDrawerSidePanel>
     </div>
 }

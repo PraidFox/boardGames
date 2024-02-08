@@ -1,7 +1,7 @@
 import {Layout, Menu, MenuProps} from "antd";
 import React, {ReactNode, useContext, useEffect, useState} from "react";
 import {NavLink} from "react-router-dom";
-import {UserLoginContext} from "./MainScreen";
+import {UserLoginContext} from "../../App";
 
 
 

@@ -1,4 +1,4 @@
-import {Options, OptionsAutoComplete} from "../../../utils/interface/serverInterface";
+import {Options, OptionsAutoComplete} from "../../../tools/interfaces/serverInterface";
 import {OptionsFieldFormEdit} from "./reducerOptionsField";
 
 export type ValesFieldFormEdit = {

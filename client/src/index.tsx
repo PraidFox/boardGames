@@ -1,22 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom';
-import {MainScreen} from "./components/MainScreen/MainScreen";
+import {App} from "./App";
 import './index.css';
-import {UserLogin} from "./utils/interface/otherInterface";
-import {AllGameBoard} from "./components/Content/AllGameBoard";
-import ErrorPage from "./components/Content/ErrorPage";
-import {AdminSetting} from "./components/Content/AdminSetting";
+import {UserContext} from "./tools/interfaces/otherInterface";
+import {AllGameBoard} from "./components/Structure/Content/AllGameBoard";
+import ErrorPage from "./components/Structure/Content/ErrorPage";
+import {AdminSetting} from "./components/Structure/Content/AdminSetting";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route
             path="/"
-            element={<MainScreen/>}
+            element={<App/>}
             errorElement={<ErrorPage/>}
         >
             <Route>
-                <Route index/>
+                <Route index element={<h2>Какой-то приветствующий текст</h2>}/>
                 <Route
                     path="allBoardGames"
                     element={<AllGameBoard />}
@@ -29,8 +29,6 @@ const router = createBrowserRouter(
         </Route>
     )
 )
-
-
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
     .render(

@@ -1,4 +1,4 @@
-import {Options, OptionsAutoComplete} from "../../../utils/interface/serverInterface";
+import {Options, OptionsAutoComplete} from "../../../tools/interfaces/serverInterface";
 
 export type OptionsFieldFormEdit = {
     nameGame:  OptionsAutoComplete<null>[]

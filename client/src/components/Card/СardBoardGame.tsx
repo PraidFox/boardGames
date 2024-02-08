@@ -1,6 +1,7 @@
-import {BoardGame} from "../../../../shared/interface";
+
 import {Card} from "antd";
 import {ReactNode} from "react";
+import {BoardGame} from "../../tools/interfaces/boardGamesInterface";
 
 const { Meta } = Card;
 export const CardBoardGame = ({data, children}:{data: BoardGame, children: ReactNode[]}) => {

@@ -1,10 +1,10 @@
 import {useEffect, useState} from "react";
-import {GenreApi} from "../../utils/rest/GenreApi";
-import {UserApi} from "../../utils/rest/UserApi";
-import {GenreDTO, TypeDTO} from "../../utils/interface/DTOinterface";
-import {TypeApi} from "../../utils/rest/TypeApi";
+import {GenreApi} from "../../../tools/rest/GenreApi";
+import {UserApi} from "../../../tools/rest/UserApi";
+import {GenreDTO, TypeDTO} from "../../../tools/interfaces/DTOinterface";
+import {TypeApi} from "../../../tools/rest/TypeApi";
 import {Button, Divider, Input, List, message, Skeleton, Space} from "antd";
-import {InfiniteScrollComponent} from "../../componentsAnt/InfiniteScroll";
+import {InfiniteScrollComponent} from "../../UiElements/InfiniteScroll";
 
 
 export const AdminSetting = () => {

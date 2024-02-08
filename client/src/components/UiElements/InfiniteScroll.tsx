@@ -1,5 +1,5 @@
 import {Divider, List, Skeleton} from "antd";
-import {OptionDTO} from "../utils/interface/DTOinterface";
+import {OptionDTO} from "../../tools/interfaces/DTOinterface";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import {ReactNode} from "react";
 export const InfiniteScrollComponent = ({data, name, content} : {data: OptionDTO[], name: string, content: (id: number, fieldName: string) => ReactNode}) => {

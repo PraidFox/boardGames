@@ -1,9 +1,9 @@
 import {FieldsLogin} from "./FieldsLogin";
 import {Button, Form, Row, Space} from "antd";
 import React, {useContext} from "react";
-import {UserApi} from "../../../utils/rest/UserApi";
-import {Login} from "../../../utils/interface/formInterface";
-import {UserLoginContext} from "../../MainScreen/MainScreen";
+import {UserApi} from "../../../tools/rest/UserApi";
+import {Login} from "../../../tools/interfaces/formInterface";
+import {UserLoginContext} from "../../../App";
 
 
 export const FormLoginModal = ({onClose}: { onClose: () => void }) => {

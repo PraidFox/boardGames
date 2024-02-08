@@ -1,10 +1,10 @@
 import {FieldsRegistration} from "./FieldsRegistration";
 import {Button, Form, message, Row, Space} from "antd";
 import React, {useState} from "react";
-import {UserApi} from "../../../utils/rest/UserApi";
-import {Registration} from "../../../utils/interface/formInterface";
-import {MessageInfo} from "../../../componentsAnt/MessageInfo";
-import {MessageInfoType} from "../../../utils/interface/otherInterface";
+import {UserApi} from "../../../tools/rest/UserApi";
+import {Registration} from "../../../tools/interfaces/formInterface";
+import {MessageInfo} from "../../UiElements/MessageInfo";
+import {MessageInfoType} from "../../../tools/interfaces/otherInterface";
 
 
 export const FormRegistration = ({onClose}: { onClose: () => void }) => {

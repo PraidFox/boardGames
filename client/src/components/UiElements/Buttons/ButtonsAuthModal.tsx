@@ -1,12 +1,11 @@
 import {Button, Flex, Popover, TabsProps} from "antd";
-import {FormLoginPopover} from "../Forms/FormsAuthLogin/FormLoginPopover";
-import {ModalAuthLogin} from "../Modals/ModalAuthLogin";
-import {TabsAuthLogin} from "../Forms/FormsAuthLogin/TabsAuthLogin";
+import {FormLoginPopover} from "../../Forms/FormsAuthLogin/FormLoginPopover";
+import {ModalAuthLogin} from "../../Modals/ModalAuthLogin";
+import {TabsFormAuthLogin} from "../../Forms/FormsAuthLogin/TabsFormAuthLogin";
 import React from "react";
 
 
-export const ButtonsAuth = () => {
-
+export const ButtonsAuthModal = () => {
     return <Flex gap="small" wrap="wrap">
         <Popover content={<FormLoginPopover/>} title={"Данные для входа"} trigger="click">
             <Button type="primary">
@@ -14,7 +13,7 @@ export const ButtonsAuth = () => {
             </Button>
         </Popover>
         <ModalAuthLogin>
-            {(onClose) => (<TabsAuthLogin onClose={onClose}/>)}
+            {(onClose) => (<TabsFormAuthLogin onClose={onClose}/>)}
         </ModalAuthLogin>
     </Flex>
 }

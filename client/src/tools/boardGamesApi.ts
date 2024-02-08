@@ -1,6 +1,6 @@
 import axios, {AxiosError} from "axios";
-import {BoardGame} from "../../../shared/interface";
 import React from "react";
+import {BoardGame} from "./interfaces/boardGamesInterface";
 
 export const createBoardGames = (newBoardGame: BoardGame, setDataBoardGames: React.Dispatch<React.SetStateAction<BoardGame[]>>) => {
     axios.post('http://localhost:4000/boardGames', newBoardGame)

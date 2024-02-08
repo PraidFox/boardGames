@@ -1,4 +1,4 @@
-export type UserLogin = {
+export type UserContext = {
     login?: string
     accessToken?: string
     refreshToken?: string
@@ -13,10 +13,3 @@ export type MessageInfoType = {
     type: "success" | "info" | "warning" | "error"
     width?: string
 }
-
-// export type LocalStorage = {
-//     email?: string
-//     password?: string
-//     loggedIn?: boolean
-//
-// }
