@@ -4,30 +4,27 @@ import {NavLink} from "react-router-dom";
 import {UserLoginContext} from "../../App";
 
 
-
 const {Header} = Layout;
 
-
-
-
-
-export const HeaderComponent = ({children} : {children: ReactNode}) => {
+export const HeaderComponent = ({children}: { children: ReactNode }) => {
     const [menuItems, setMenuItems] = useState<MenuProps['items']>()
     const {loggedIn} = useContext(UserLoginContext)
 
     useEffect(() => {
         // let menuName = ['Коллекция?', 'Статьи?', 'Игроки?']
-        let menuName = [{nameRu: 'Коллекция', nameEn: 'collection'}, {nameRu: 'Статьи', nameEn: 'articles'}, {nameRu: 'Игроки', nameEn: 'players'}]
-        if(loggedIn){
+        let menuName = [{nameRu: 'Коллекция', nameEn: 'collection'}, {
+            nameRu: 'Статьи',
+            nameEn: 'articles'
+        }, {nameRu: 'Игроки', nameEn: 'players'}]
+        if (loggedIn) {
             //Еще проверяем на админа
             menuName.push({nameRu: 'Админ', nameEn: 'projectSetting'})
         }
         setMenuItems(menuName.map((obj) => ({
             key: obj.nameEn,
-            label: <NavLink to={ obj.nameEn}>{obj.nameRu}</NavLink>,
+            label: <NavLink to={obj.nameEn}>{obj.nameRu}</NavLink>,
         })))
     }, [loggedIn]);
-
 
 
     return <Header style={{

@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { Button, Drawer } from 'antd';
+import React, {useState} from 'react';
+import {Button, Drawer} from 'antd';
 
-export const ButtonsDrawerSidePanel = ({children}: {children: (onClose: () => void) => React.ReactNode}) => {
+export const ButtonsDrawerSidePanel = ({children}: { children: (onClose: () => void) => React.ReactNode }) => {
     const [open, setOpen] = useState(false);
     const showDrawer = () => {
         setOpen(true);
@@ -18,9 +18,10 @@ export const ButtonsDrawerSidePanel = ({children}: {children: (onClose: () => vo
             </Button>
 
             <br/>
-                <Drawer title="Добавление настольной игры" placement="right" onClose={onClose} open={open} width={"40%"} maskClosable={false} closeIcon={false}>
-                    {open && children(onClose)}
-                </Drawer>
+            <Drawer title="Добавление настольной игры" placement="right" onClose={onClose} open={open} width={"40%"}
+                    maskClosable={false} closeIcon={false}>
+                {open && children(onClose)}
+            </Drawer>
         </>
     );
 };

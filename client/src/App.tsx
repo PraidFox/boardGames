@@ -1,28 +1,22 @@
 import React, {createContext, useEffect, useState} from 'react';
+import {Layout, MenuProps} from 'antd';
 
 import {HeaderComponent} from "./components/Structure/HeaderComponent";
 import {LeftPanel} from "./components/Structure/LeftPanel";
 import {ContentComponent} from "./components/Structure/ContentComponent";
 import {FooterComponent} from "./components/Structure/FooterComponent";
-
-
 import {ButtonsAuthModal} from "./components/UiElements/Buttons/ButtonsAuthModal";
-
-
-import {UserContext} from "./tools/interfaces/otherInterface";
 import {ButtonsLogout} from "./components/UiElements/Buttons/ButtonsLogout";
-
+import {UserContext} from "./tools/interfaces/otherInterface";
 import {boardGame, user} from "./tools/storages/itemMenu";
 import {localStorageUtils} from "./tools/utils/localStorageUtils";
 import {userLT} from "./tools/interfaces/localStorageInterface";
 
-
-
-import {Layout, MenuProps} from 'antd';
 export const item: MenuProps['items'] = [boardGame]
 export const UserLoginContext = createContext<UserContext>({
     loggedIn: false,
     setLoggedInAndStorage: (accessToken: string, refreshToken: string) => {
+        console.log(accessToken, refreshToken)
     },
     setLogout: () => {
     }
@@ -40,7 +34,7 @@ export const App = () => {
         if (userInfo.loggedIn) {
             setItemsMenu(r => [user, ...r])
         } else {
-            setItemsMenu(r => r.filter(x => x?.key != "user"))
+            setItemsMenu(r => r.filter(x => x?.key !== "user"))
         }
     }, [userInfo.loggedIn]);
 

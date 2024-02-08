@@ -1,6 +1,6 @@
 import {Checkbox, Flex, Form, Input} from "antd";
 import React, {useEffect, useState} from "react";
-import {LockOutlined, MailOutlined, UserOutlined} from "@ant-design/icons";
+import {LockOutlined, MailOutlined} from "@ant-design/icons";
 
 export const FieldsLogin = () => {
     const [email, setEmail] = useState<string | undefined>()
@@ -19,7 +19,7 @@ export const FieldsLogin = () => {
         if (password) {
             setPassword(password)
         }
-        if(remember){
+        if (remember) {
             remember === "true" ? setRemember(true) : setRemember(false)
         }
 
@@ -66,9 +66,9 @@ export const FieldsLogin = () => {
                         <Checkbox>Запомнить меня</Checkbox>
                     </Form.Item>
 
-                    <a className="login-form-forgot" href="">
+                    <span className="login-form-forgot">
                         Забыл пароль
-                    </a>
+                    </span>
                 </Flex>
             </Form.Item></>}
 
