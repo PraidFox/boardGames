@@ -13,4 +13,8 @@ export class UserApi {
     static registrationUser(email: string, password: string) {
         return axios.post(AxiosDefault.baseUrl() + `/account/register`, {email, password});
     }
+
+    static refreshToken(refreshToken: string) {
+        return axios.post(AxiosDefault.baseUrl() + `/account/refresh`, {refreshToken});
+    }
 }

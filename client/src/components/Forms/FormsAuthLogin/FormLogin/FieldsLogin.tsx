@@ -51,7 +51,6 @@ export const FieldsLogin = () => {
                 name="password"
                 rules={[{required: true, message: 'Пожалуйста заполните пароль'}]}
                 initialValue={password}
-                // extra={<div style={{textAlign: 'right'}}>Забыл пароль</div>}
             >
                 <Input.Password
                     prefix={<LockOutlined className="site-form-item-icon"/>}

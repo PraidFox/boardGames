@@ -8,7 +8,7 @@ import {FooterComponent} from "./components/Structure/FooterComponent";
 import {ButtonsLogout} from "./components/UiElements/ButtonsLogout";
 import {UserContext} from "./tools/interfaces/otherInterface";
 import {boardGame, user} from "./tools/storages/itemMenu";
-import {localStorageUtils} from "./tools/utils/localStorageUtils";
+import {LocalStorageUtils} from "./tools/utils/localStorageUtils";
 import {userLT} from "./tools/interfaces/localStorageInterface";
 import {PopoverAnt} from "./components/UiElements/PopoverAnt";
 import {FormLoginPopover} from "./components/Forms/FormsAuthLogin/FormLogin/FormLoginPopover";
@@ -28,7 +28,7 @@ export const App = () => {
     const [itemsMenu, setItemsMenu] = useState([boardGame])
 
     useEffect(() => {
-        const {loggedIn, access, refresh}: userLT = localStorageUtils.getUserInfo()
+        const {loggedIn, access, refresh}: userLT = LocalStorageUtils.getUserInfo()
         setUserInfo({loggedIn, access, refresh})
     }, []);
 
@@ -41,12 +41,12 @@ export const App = () => {
     }, [userInfo.loggedIn]);
 
     const setLoggedInAndStorage = (access: string, refresh: string) => {
-        localStorageUtils.setUserInfo(access, refresh)
+        LocalStorageUtils.setUserInfo(access, refresh)
         setUserInfo({loggedIn: true, access, refresh})
     }
     const setLogout = () => {
         setUserInfo(r => ({...r, loggedIn: false}))
-        localStorageUtils.setItemInfo("loggedIn", "false")
+        LocalStorageUtils.setItemInfo("loggedIn", "false")
     }
 
     return (

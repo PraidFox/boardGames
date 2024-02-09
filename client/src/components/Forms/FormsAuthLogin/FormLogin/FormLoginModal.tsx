@@ -15,10 +15,10 @@ export const FormLoginModal = ({onClose}: { onClose: () => void }) => {
             //.then(r => console.log(r))
             .catch(() => alert("Логин или пароль введены не верно. Или вы пытаетесь кого-то взломать"))
 
-        if (values.remember) {
-            localStorage.setItem("email", values.email)
-            localStorage.setItem("password", values.password)
-        }
+        // if (values.remember) {
+        //     localStorage.setItem("email", values.email)
+        //     localStorage.setItem("password", values.password)
+        // }
 
         localStorage.setItem("remember", values.remember)
     };
