@@ -1,18 +1,20 @@
 import React, {createContext, useEffect, useState} from 'react';
-import {Layout, MenuProps} from 'antd';
+import {Flex, Layout} from 'antd';
 
 import {HeaderComponent} from "./components/Structure/HeaderComponent";
 import {LeftPanel} from "./components/Structure/LeftPanel";
 import {ContentComponent} from "./components/Structure/ContentComponent";
 import {FooterComponent} from "./components/Structure/FooterComponent";
-import {ButtonsAuthModal} from "./components/UiElements/Buttons/ButtonsAuthModal";
-import {ButtonsLogout} from "./components/UiElements/Buttons/ButtonsLogout";
+import {ButtonsLogout} from "./components/UiElements/ButtonsLogout";
 import {UserContext} from "./tools/interfaces/otherInterface";
 import {boardGame, user} from "./tools/storages/itemMenu";
 import {localStorageUtils} from "./tools/utils/localStorageUtils";
 import {userLT} from "./tools/interfaces/localStorageInterface";
+import {PopoverAnt} from "./components/UiElements/PopoverAnt";
+import {FormLoginPopover} from "./components/Forms/FormsAuthLogin/FormLogin/FormLoginPopover";
+import {ModalAnt} from "./components/UiElements/ModalAnt";
+import {TabsFormAuthLogin} from "./components/Forms/FormsAuthLogin/TabsFormAuthLogin";
 
-export const item: MenuProps['items'] = [boardGame]
 export const UserLoginContext = createContext<UserContext>({
     loggedIn: false,
     setLoggedInAndStorage: (accessToken: string, refreshToken: string) => {
@@ -23,7 +25,7 @@ export const UserLoginContext = createContext<UserContext>({
 });
 export const App = () => {
     const [userInfo, setUserInfo] = useState<userLT>({loggedIn: false})
-    const [itemsMenu, setItemsMenu] = useState(item)
+    const [itemsMenu, setItemsMenu] = useState([boardGame])
 
     useEffect(() => {
         const {loggedIn, access, refresh}: userLT = localStorageUtils.getUserInfo()
@@ -52,7 +54,15 @@ export const App = () => {
             value={{loggedIn: userInfo.loggedIn, setLoggedInAndStorage, setLogout}}>
             <Layout>
                 <HeaderComponent>
-                    {userInfo.loggedIn ? <ButtonsLogout/> : <ButtonsAuthModal/>}
+                    {userInfo.loggedIn ?
+                        <ButtonsLogout/> :
+                        <Flex gap="small" wrap="wrap">
+                            <PopoverAnt component={<FormLoginPopover/>} title={"Данные для входа"}
+                                        buttonName={"Войти"}/>
+                            <ModalAnt>
+                                {(onClose) => <TabsFormAuthLogin onClose={onClose}/>}
+                            </ModalAnt>
+                        </Flex>}
                 </HeaderComponent>
                 <Layout>
                     <LeftPanel itemsMenu={itemsMenu}></LeftPanel>

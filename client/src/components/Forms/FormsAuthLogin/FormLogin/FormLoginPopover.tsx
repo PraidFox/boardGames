@@ -1,9 +1,9 @@
 import {FieldsLogin} from "./FieldsLogin";
 import {Button, Form, Row} from "antd";
 import React from "react";
-import {UserLoginContext} from "../../../App";
-import {Login} from "../../../tools/interfaces/formInterface";
-import {UserApi} from "../../../tools/rest/UserApi";
+import {UserLoginContext} from "../../../../App";
+import {Login} from "../../../../tools/interfaces/formInterface";
+import {UserApi} from "../../../../tools/rest/UserApi";
 
 export const FormLoginPopover = () => {
     const {setLoggedInAndStorage} = React.useContext(UserLoginContext)
@@ -13,7 +13,7 @@ export const FormLoginPopover = () => {
             .then(r => setLoggedInAndStorage(r.data.accessToken, r.data.refreshToken))
             .catch(() => alert("Логин или пароль введены не верно. Или вы пытаетесь кого-то взломать"))
 
-        if(values.remember){
+        if (values.remember) {
             localStorage.setItem("email", values.email)
             localStorage.setItem("password", values.password)
         } else {
@@ -40,11 +40,11 @@ export const FormLoginPopover = () => {
             <FieldsLogin/>
             <Row justify="end">
                 {/*<Space align="center">*/}
-                    <Form.Item>
-                        <Button type="primary" htmlType="submit">
-                            Войти
-                        </Button>
-                    </Form.Item>
+                <Form.Item>
+                    <Button type="primary" htmlType="submit">
+                        Войти
+                    </Button>
+                </Form.Item>
                 {/*</Space>*/}
             </Row>
         </Form>

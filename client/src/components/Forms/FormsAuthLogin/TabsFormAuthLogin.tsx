@@ -1,7 +1,8 @@
 import {Tabs, TabsProps} from 'antd';
 import React from "react";
-import {FormRegistration} from "./FormRegistration";
-import {FormLoginModal} from "./FormLoginModal";
+import {FormRegistration} from "./FormRegistration/FormRegistration";
+import {FormLoginModal} from "./FormLogin/FormLoginModal";
+
 export const TabsFormAuthLogin = ({onClose}: { onClose: () => void }) => {
 
     const items: TabsProps['items'] = [

@@ -1,10 +1,9 @@
 import {useEffect, useState} from "react";
 import {GenreApi} from "../../../tools/rest/GenreApi";
-import {UserApi} from "../../../tools/rest/UserApi";
 import {GenreDTO, TypeDTO} from "../../../tools/interfaces/DTOinterface";
 import {TypeApi} from "../../../tools/rest/TypeApi";
-import {Button, Divider, Input, List, message, Skeleton, Space} from "antd";
-import {InfiniteScrollComponent} from "../../UiElements/InfiniteScroll";
+import {Button, Input, Space} from "antd";
+import {InfiniteScrollAnt} from "../../UiElements/InfiniteScrollAnt";
 
 
 export const AdminSetting = () => {
@@ -58,13 +57,13 @@ export const AdminSetting = () => {
     }
 
     const deleteOptions = (id: number, fieldName: string) => {
-        if (fieldName == "Жанры") {
+        if (fieldName === "Жанры") {
             GenreApi.deleteGenre(id).then((res) => {
                 GenreApi.getGenre().then((res) => {
                     setGenre(res.data)
                 })
             })
-        } else if (fieldName == "Типы") {
+        } else if (fieldName === "Типы") {
             TypeApi.deleteType(id).then((res) => {
                 TypeApi.getType().then((res) => {
                     setType(res.data)
@@ -74,18 +73,18 @@ export const AdminSetting = () => {
     }
 
     const content = (id: number, fieldName: string) => {
-        if (fieldName == "Жанры") {
-            const countIdInDelete = deleteOptionsGenre.filter(x => x == id)
-            if (countIdInDelete.length == 0) {
+        if (fieldName === "Жанры") {
+            const countIdInDelete = deleteOptionsGenre.filter(x => x === id)
+            if (countIdInDelete.length === 0) {
                 return <Button onClick={() => setDeleteOptionsGenre(res => [...res, id])}>Удалить</Button>
             } else {
                 return <Button onClick={() => deleteOptions(id, fieldName)}
                                style={{background: "red", color: "white"}}>Удалить</Button>
             }
 
-        } else if (fieldName == "Типы") {
-            const countIdInDelete = deleteOptionsType.filter(x => x == id)
-            if (countIdInDelete.length == 0) {
+        } else if (fieldName === "Типы") {
+            const countIdInDelete = deleteOptionsType.filter(x => x === id)
+            if (countIdInDelete.length === 0) {
                 return <Button onClick={() => setDeleteOptionsType(res => [...res, id])}>Удалить</Button>
             } else {
                 return <Button onClick={() => deleteOptions(id, fieldName)}
@@ -101,7 +100,7 @@ export const AdminSetting = () => {
 
         <div style={{display: "flex", justifyContent: "space-around"}}>
             <div style={{width: "45%"}}>
-                <InfiniteScrollComponent data={genre} name={"Жанры"} content={content}/>
+                <InfiniteScrollAnt data={genre} name={"Жанры"} content={content}/>
                 <br/>
                 <Space.Compact style={{width: '100%'}}>
                     <Input placeholder="Добавить новый жанр" onChange={(e) => setNewOptionGenre(e.target.value)}/>
@@ -110,7 +109,7 @@ export const AdminSetting = () => {
             </div>
 
             <div style={{width: "45%"}}>
-                <InfiniteScrollComponent data={type} name={"Типы"} content={content}/>
+                <InfiniteScrollAnt data={type} name={"Типы"} content={content}/>
                 <br/>
                 <Space.Compact style={{width: '100%'}}>
                     <Input placeholder="Добавить новый тип" onChange={(e) => setNewOptionType(e.target.value)}/>

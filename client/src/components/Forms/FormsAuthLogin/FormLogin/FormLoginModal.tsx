@@ -1,9 +1,9 @@
 import {FieldsLogin} from "./FieldsLogin";
 import {Button, Form, Row, Space} from "antd";
 import React, {useContext} from "react";
-import {UserApi} from "../../../tools/rest/UserApi";
-import {Login} from "../../../tools/interfaces/formInterface";
-import {UserLoginContext} from "../../../App";
+import {UserApi} from "../../../../tools/rest/UserApi";
+import {Login} from "../../../../tools/interfaces/formInterface";
+import {UserLoginContext} from "../../../../App";
 
 
 export const FormLoginModal = ({onClose}: { onClose: () => void }) => {
@@ -15,7 +15,7 @@ export const FormLoginModal = ({onClose}: { onClose: () => void }) => {
             //.then(r => console.log(r))
             .catch(() => alert("Логин или пароль введены не верно. Или вы пытаетесь кого-то взломать"))
 
-        if(values.remember){
+        if (values.remember) {
             localStorage.setItem("email", values.email)
             localStorage.setItem("password", values.password)
         }
@@ -39,7 +39,7 @@ export const FormLoginModal = ({onClose}: { onClose: () => void }) => {
         <Row justify="end">
             <Space align="center">
                 <Form.Item>
-                    <Button type="primary" htmlType="submit" > Войти
+                    <Button type="primary" htmlType="submit"> Войти
                     </Button>
                 </Form.Item>
                 <Form.Item>

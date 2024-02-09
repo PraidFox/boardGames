@@ -1,10 +1,9 @@
-import {ButtonsDrawerSidePanel} from "../../UiElements/Buttons/ButtonsDrawerSidePanel";
+import {DrawerSidePanel} from "../../UiElements/DrawerSidePanel";
 import {FormEditCart} from "../../Forms/FormsEditCart/FormEditCart";
 import {useState} from "react";
 
 export const AllGameBoard = () => {
     const [dataBoardGame, setDataBoardGame] = useState()
-
 
 
     return <div>
@@ -17,8 +16,8 @@ export const AllGameBoard = () => {
         {/*                        onClick={() => handlerDeleteBoardGame(boardGame.id!)}/>*/}
         {/*    </CardBoardGame>*/}
         {/*))}*/}
-        <ButtonsDrawerSidePanel>
+        <DrawerSidePanel>
             {(onClose) => (<FormEditCart onClose={onClose}/>)}
-        </ButtonsDrawerSidePanel>
+        </DrawerSidePanel>
     </div>
 }

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Button, Drawer} from 'antd';
 
-export const ButtonsDrawerSidePanel = ({children}: { children: (onClose: () => void) => React.ReactNode }) => {
+export const DrawerSidePanel = ({children}: { children: (onClose: () => void) => React.ReactNode }) => {
     const [open, setOpen] = useState(false);
     const showDrawer = () => {
         setOpen(true);
