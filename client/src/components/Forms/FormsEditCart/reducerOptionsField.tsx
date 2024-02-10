@@ -1,21 +1,21 @@
 import {Options, OptionsAutoComplete} from "../../../tools/interfaces/serverInterface";
 
 export type OptionsFieldFormEdit = {
-    nameGame:  OptionsAutoComplete<null>[]
-    typeGame: Options<null>[]
-    genreGame: Options<null>[]
-    statusGame?: Options<null>[]
+    name: OptionsAutoComplete<null>[]
+    type: Options<null>[]
+    genre: Options<null>[]
+    status?: Options<null>[]
 }
 
-export type Action = | { type: "ADD_ALL_OPTIONS", payload:  OptionsFieldFormEdit }
+export type Action = | { type: "ADD_ALL_OPTIONS", payload: OptionsFieldFormEdit }
 export const reducerOptionsField = (state: OptionsFieldFormEdit, action: Action) => {
     switch (action.type) {
         case "ADD_ALL_OPTIONS":
-            const newState : OptionsFieldFormEdit = {
-                nameGame: action.payload.nameGame,
-                typeGame: action.payload.typeGame,
-                statusGame: action.payload.statusGame,
-                genreGame: action.payload.genreGame
+            const newState: OptionsFieldFormEdit = {
+                name: action.payload.name,
+                type: action.payload.type,
+                status: action.payload.status,
+                genre: action.payload.genre
             }
             return {...newState}
     }

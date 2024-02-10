@@ -3,11 +3,11 @@ import {OptionsFieldFormEdit} from "./reducerOptionsField";
 
 export type ValesFieldFormEdit = {
     img: string,
-    nameGame: OptionsAutoComplete<null> | null,
-    typeGame: Options<null> | null,
-    genreGame: string[],
-    maxPlayers: number,
-    minPlayers: number,
+    name: OptionsAutoComplete<null> | null,
+    type: Options<null> | null,
+    genre: string[],
+    maxPlayersCount: number,
+    minPlayersCount: number,
 }
 
 export type Action = | { type: "ADD_ALL_DEFAULT" }
@@ -18,26 +18,26 @@ export type Action = | { type: "ADD_ALL_DEFAULT" }
 // | { type: "CHANGE_TYPE_GAME", payload: Options<null>[] | Options<null> }
 
 export const reducerValuesField = (state: ValesFieldFormEdit, action: Action) => {
-    let newMaxPlayers = state.maxPlayers
+    let newMaxPlayers = state.maxPlayersCount
 
     switch (action.type) {
         case "ADD_ALL_DEFAULT":
             const newState: ValesFieldFormEdit = {
                 img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXZtzUkONjLZrH5_jY_um2MP03-NprVybRCXantGNuAV3qvBkaMTJY_AmlhG6OP4cVGsc&usqp=CAU",
-                nameGame: null,
-                typeGame: null,
-                genreGame: [],
-                maxPlayers: 1,
-                minPlayers: 1,
+                name: null,
+                type: null,
+                genre: [],
+                maxPlayersCount: 1,
+                minPlayersCount: 1,
             }
             return {...newState}
         case  "CHANGE_IMG":
             return {...state, img: action.payload}
         case "CHANGE_MIN_PLAYERS":
-            let newMinPlayers = state.minPlayers
+            let newMinPlayers = state.minPlayersCount
             if (action.payload) {
                 newMinPlayers = action.payload
-                if (action.payload >= state.maxPlayers) {
+                if (action.payload >= state.maxPlayersCount) {
                     newMaxPlayers = action.payload
                 }
             }

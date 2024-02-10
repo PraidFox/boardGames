@@ -8,10 +8,10 @@ import {OptionsFieldFormEdit, reducerOptionsField} from "./reducerOptionsField";
 import {OptionsId} from "../../../tools/storages/optionsId";
 import {Image} from 'antd';
 import {reducerValuesField, ValesFieldFormEdit} from "./reducerValuesField";
-import {Options, OptionsAutoComplete} from "../../../tools/interfaces/serverInterface";
-import {useEffect, useReducer, useState} from "react";
+import {useEffect, useReducer} from "react";
 import {GenreApi} from "../../../tools/rest/GenreApi";
 import {TypeApi} from "../../../tools/rest/TypeApi";
+import {CreateBoardGame, FormBoardGame} from "../../../tools/interfaces/boardGameInterface";
 
 const {TextArea, Search} = Input;
 export const FormEditCart = ({onClose}: {
@@ -29,10 +29,10 @@ export const FormEditCart = ({onClose}: {
         Promise.all([p0, p1]).then((res) => {
             setOptionsField({
                 type: "ADD_ALL_OPTIONS", payload: {
-                    nameGame: convertOptionsAutoComplete(nameBoardGame),
-                    genreGame: convertOptions(res[0].data),
-                    typeGame: convertOptions(res[1].data),
-                    statusGame: optionsFieldsStatusCooperativeGame
+                    name: convertOptionsAutoComplete(nameBoardGame),
+                    genre: convertOptions(res[0].data),
+                    type: convertOptions(res[1].data),
+                    status: optionsFieldsStatusCooperativeGame
                 }
             })
         })
@@ -44,10 +44,22 @@ export const FormEditCart = ({onClose}: {
     }, []);
 
     useEffect(() => {
-        form.setFieldsValue({maxPlayers: valuesField.maxPlayers})
-    }, [valuesField.maxPlayers]);
+        form.setFieldsValue({maxPlayers: valuesField.maxPlayersCount})
+    }, [valuesField.maxPlayersCount]);
 
-    const onFinish = (values: any) => {
+    console.log(optionsField)
+    const onFinish = (values: FormBoardGame) => {
+        let dataGameBoard: CreateBoardGame = {
+            name: values.name,
+            description: values.description,
+            minPlayersCount: values.minPlayersCount,
+            maxPlayersCount: values.maxPlayersCount,
+            minPlayerAge: values.minPlayerAge,
+            type: values.type.map(id => {
+                return {id: id, name: optionsField.type.find(opt => opt.value === id())?.label}
+            }),
+            genre: values.genre,
+        }
         console.log('Success:', values);
 
         onClose()
@@ -61,8 +73,8 @@ export const FormEditCart = ({onClose}: {
     };
 
     const shouldFieldStatusGame = () => {
-        if (valuesField.genreGame) {
-            return !valuesField.genreGame.some((opt) => opt == OptionsId.cooperative || opt == OptionsId.detective)
+        if (valuesField.genre) {
+            return !valuesField.genre.some((opt) => opt == OptionsId.cooperative || opt == OptionsId.detective)
         } else {
             return true
         }
@@ -92,25 +104,23 @@ export const FormEditCart = ({onClose}: {
 
         <Form.Item
             label={"Наименование игры"}
-            name="nameGame"
+            name="name"
             rules={[{required: true, message: 'Необходимо заполнить данное поле'}]}
         >
             <AutoComplete
-                options={optionsField.nameGame}
+                options={optionsField.name}
                 onSelect={(value, option) => setValuesField({type: "CHANGE_NAME_GAME", payload: option})}
                 filterOption={filterOptionLabel}
             />
         </Form.Item>
 
 
-
-
-        <Form.Item label="Типы игры" name={"typeGame"} >
-            <Select options={optionsField.typeGame} filterOption={filterOptionLabel} />
+        <Form.Item label="Типы игры" name={"type"}>
+            <Select options={optionsField.type} filterOption={filterOptionLabel}/>
         </Form.Item>
 
-        <Form.Item label="Жанр" name={"genreGame"}>
-            <Select mode={"multiple"} allowClear options={optionsField.genreGame} filterOption={filterOptionLabel} />
+        <Form.Item label="Жанр" name={"genre"}>
+            <Select mode={"multiple"} allowClear options={optionsField.genre} filterOption={filterOptionLabel}/>
         </Form.Item>
 
 
@@ -136,18 +146,20 @@ export const FormEditCart = ({onClose}: {
 
         <Form.Item
             label="Описание игры"
-            name={"descriptionGame"}
+            name={"description"}
         >
             <TextArea maxLength={5000}/>
         </Form.Item>
 
-        <div style={{ display: "flex", justifyContent: "center" }}>
-            <Form.Item label="Мин. игроков" name="minPlayers" initialValue={1}>
-                <InputNumber min={1} max={100} onChange={count => setValuesField({ type: "CHANGE_MIN_PLAYERS", payload: count })} />
+        <div style={{display: "flex", justifyContent: "center"}}>
+            <Form.Item label="Мин. игроков" name="minPlayersCount" initialValue={1}>
+                <InputNumber min={1} max={100}
+                             onChange={count => setValuesField({type: "CHANGE_MIN_PLAYERS", payload: count})}/>
             </Form.Item>
 
-            <Form.Item label="Макс. игроков" name="maxPlayers" initialValue={1}>
-                <InputNumber min={valuesField.minPlayers} max={100} onChange={count => setValuesField({ type: "CHANGE_MAX_PLAYERS", payload: count })} />
+            <Form.Item label="Макс. игроков" name="maxPlayersCount" initialValue={1}>
+                <InputNumber min={valuesField.minPlayersCount} max={100}
+                             onChange={count => setValuesField({type: "CHANGE_MAX_PLAYERS", payload: count})}/>
             </Form.Item>
 
             <Form.Item label="От скольки лет" name="minPlayerAge" initialValue={1}>

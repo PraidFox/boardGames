@@ -5,6 +5,7 @@ import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
 import {BoardGameDTO} from "../../../tools/interfaces/DTOinterface";
 import {CardBoardGame} from "../../UiElements/СardBoardGame";
 import {DeleteOutlined, EditOutlined, LikeOutlined} from "@ant-design/icons";
+import {Col, Flex, Row} from "antd";
 
 export const AllGameBoard = () => {
     const [dataBoardGames, setDataBoardGame] = useState<BoardGameDTO[]>([])
@@ -20,15 +21,19 @@ export const AllGameBoard = () => {
 
 
     return <div>
-        {dataBoardGames?.map(boardGame => (
-            <CardBoardGame data={boardGame} key={boardGame.id}>
-                <EditOutlined key="edit"/>
-                <LikeOutlined key="like" style={{color: 'green'}}/>
-                <DeleteOutlined key="delete" style={{color: 'red'}}
-                                onClick={() => deleteGame(boardGame.id!)}
-                />
-            </CardBoardGame>
-        ))}
+        <Flex wrap="wrap" gap="middle">
+            {dataBoardGames?.map(boardGame => (
+                <CardBoardGame data={boardGame} key={boardGame.id}>
+                    <EditOutlined key="edit"/>
+                    <LikeOutlined key="like" style={{color: 'green'}}/>
+                    <DeleteOutlined key="delete" style={{color: 'red'}}
+                                    onClick={() => deleteGame(boardGame.id!)}
+                    />
+                </CardBoardGame>
+            ))}
+        </Flex>
+
+        <br/>
         <DrawerSidePanel>
             {(onClose) => (<FormEditCart onClose={onClose}/>)}
         </DrawerSidePanel>
