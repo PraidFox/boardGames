@@ -8,7 +8,7 @@ export class BoardGameApi {
     }
 
     static addBoardGame(data: CreateBoardGame) {
-        return axios.post(AxiosDefault.baseUrl() + `/api/BoardGame`, {id: 0, data});
+        return axios.post(AxiosDefault.baseUrl() + `/api/BoardGame`, {id: 0, ...data});
     }
 
     static updateBoardGame(id: string, name: string) {

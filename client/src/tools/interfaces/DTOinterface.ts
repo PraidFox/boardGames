@@ -3,7 +3,7 @@ export type OptionDTO = {
     name: string
 }
 
-export type GenreDTO  = {
+export type GenreDTO = {
     id: number,
     name: string
 }
@@ -13,13 +13,13 @@ export type TypeDTO = {
     name: string
 }
 
-export type BoardGameDTO = {
+export type BoardGamesDTO = {
     id: number,
     name: string,
     description: string,
     minPlayersCount: number,
     maxPlayersCount: number,
     minPlayerAge: number,
-    type: {id: number, name: string},
-    genre: {id: number, name: string},
+    type: { id: number, name: string },
+    genres: { id: number, name: string }[],
 }

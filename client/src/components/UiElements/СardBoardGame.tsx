@@ -1,10 +1,10 @@
 import {Card} from "antd";
 import {ReactNode} from "react";
-import {BoardGameDTO} from "../../tools/interfaces/DTOinterface";
+import {BoardGamesDTO} from "../../tools/interfaces/DTOinterface";
 
 
 const {Meta} = Card;
-export const CardBoardGame = ({data, children}: { data: BoardGameDTO, children: ReactNode[] }) => {
+export const CardBoardGame = ({data, children}: { data: BoardGamesDTO, children: ReactNode[] }) => {
     return (
         <Card
             style={{width: 300}}

@@ -12,15 +12,16 @@ import {useEffect, useReducer} from "react";
 import {GenreApi} from "../../../tools/rest/GenreApi";
 import {TypeApi} from "../../../tools/rest/TypeApi";
 import {CreateBoardGame, FormBoardGame} from "../../../tools/interfaces/boardGameInterface";
+import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
 
 const {TextArea, Search} = Input;
-export const FormEditCart = ({onClose}: {
+export const FormEditCart = ({onClose, setNeedUpdate}: {
     onClose: () => void
+    setNeedUpdate: () => void
 }) => {
     const [form] = Form.useForm();
     const [optionsField, setOptionsField] = useReducer(reducerOptionsField, {} as OptionsFieldFormEdit)
     const [valuesField, setValuesField] = useReducer(reducerValuesField, {} as ValesFieldFormEdit)
-
 
     useEffect(() => {
         const p0 = GenreApi.getGenre()
@@ -49,17 +50,22 @@ export const FormEditCart = ({onClose}: {
 
     console.log(optionsField)
     const onFinish = (values: FormBoardGame) => {
-        let dataGameBoard: CreateBoardGame = {
+        let dataBoardGame: CreateBoardGame = {
             name: values.name,
             description: values.description,
             minPlayersCount: values.minPlayersCount,
             maxPlayersCount: values.maxPlayersCount,
             minPlayerAge: values.minPlayerAge,
-            type: values.type.map(id => {
-                return {id: id, name: optionsField.type.find(opt => opt.value === id())?.label}
-            }),
-            genre: values.genre,
+            type: {
+                id: values.type,
+                name: optionsField.type.find(opt => opt.value === values.type)?.label ?? "Отсутствует"
+            },
+            genre: values.genre.map(id => {
+                return {id: id, name: optionsField.type.find(opt => opt.value === id)?.label ?? "Отсутствует"}
+            })
         }
+
+        BoardGameApi.addBoardGame(dataBoardGame).then(() => setNeedUpdate()).catch(() => console.log("Не добавлено"))
         console.log('Success:', values);
 
         onClose()
@@ -79,6 +85,8 @@ export const FormEditCart = ({onClose}: {
             return true
         }
     }
+
+    console.log(optionsField)
 
     return <Form
         name="formEditCart"
@@ -142,7 +150,6 @@ export const FormEditCart = ({onClose}: {
         {/*        filterOption={filterOptionLabel}*/}
         {/*    />*/}
         {/*</Form.Item>*/}
-
 
         <Form.Item
             label="Описание игры"

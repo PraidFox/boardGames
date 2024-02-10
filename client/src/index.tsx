@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom/client';
 import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom';
 import {App} from "./App";
 import './index.css';
-import {AllGameBoard} from "./components/Structure/Content/AllGameBoard";
+import {BoardGames} from "./components/Structure/Content/BoardGames";
 import ErrorPage from "./components/Structure/Content/ErrorPage";
 import {AdminSetting} from "./components/Structure/Content/AdminSetting";
+import {CurrentBoardGame} from "./components/Structure/Content/CurrentBoardGame";
+
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -18,11 +20,19 @@ const router = createBrowserRouter(
                 <Route index element={<h2>Какой-то приветствующий текст</h2>}/>
                 <Route
                     path="allBoardGames"
-                    element={<AllGameBoard />}
+                    element={<BoardGames type={"all"}/>}
+                />
+                <Route
+                    path="boardGame/:boardGameId"
+                    element={<CurrentBoardGame/>}
                 />
                 <Route
                     path="projectSetting"
-                    element={<AdminSetting />}
+                    element={<AdminSetting/>}
+                />
+                <Route
+                    path="myCollections"
+                    element={<BoardGames type={"user"}/>}
                 />
             </Route>
         </Route>
@@ -32,6 +42,6 @@ const router = createBrowserRouter(
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
     .render(
         // <React.StrictMode>
-            <RouterProvider router={router}/>
+        <RouterProvider router={router}/>
         // </React.StrictMode>
     );

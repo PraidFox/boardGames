@@ -31,7 +31,7 @@ export const user: ItemType = {
     children: [
         {
             key: "myCollections",
-            label: `Моя коллекция`,
+            label: <NavLink to="/myCollections">Моя коллекция</NavLink>,
         },
         {
             key: "myFriends",
