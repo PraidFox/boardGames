@@ -15,7 +15,7 @@ import {CreateBoardGame, FormBoardGame} from "../../../tools/interfaces/boardGam
 import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
 
 const {TextArea, Search} = Input;
-export const FormEditCart = ({onClose, setNeedUpdate}: {
+export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
     onClose: () => void
     setNeedUpdate: () => void
 }) => {

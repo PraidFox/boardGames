@@ -1,5 +1,5 @@
 import {DrawerSidePanel} from "../../UiElements/DrawerSidePanel";
-import {FormEditCart} from "../../Forms/FormsEditCart/FormEditCart";
+import {FormAddBoardGameInModeration} from "../../Forms/FormsAddBoardGame/FormAddBoardGameInModeration";
 import {useEffect, useState} from "react";
 import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
 import {BoardGamesDTO} from "../../../tools/interfaces/DTOinterface";
@@ -75,7 +75,7 @@ export const BoardGames = ({type}: { type: "all" | "user" }) => {
 
         {type === "user" &&
             <DrawerSidePanel>
-                {(onClose) => (<FormEditCart onClose={onClose} setNeedUpdate={updateBoardGame}/>)}
+                {(onClose) => (<FormAddBoardGameInModeration onClose={onClose} setNeedUpdate={updateBoardGame}/>)}
             </DrawerSidePanel>
         }
 
