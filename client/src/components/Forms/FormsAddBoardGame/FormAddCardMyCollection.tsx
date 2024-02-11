@@ -8,7 +8,7 @@ export const FormAddCardMyCollection = ({onClose, setNeedUpdate}: {
     const [addGameInModeration, setAddGameInModeration] = useState(false)
 
     return <>
-
-        {<FormAddBoardGameInModeration onClose={onClose} setNeedUpdate={updateBoardGame}/>}
+        <h2>текст</h2>
+        {/*{<FormAddBoardGameInModeration onClose={onClose} setNeedUpdate={updateBoardGame}/>}*/}
     </>
 }
