@@ -38,5 +38,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react-infinite-scroll-component": "^5.0.0",
+    "react-infinite-scroll-component": "^6.1.0",
+    "webpack": "^5.90.1"
   }
 }
