@@ -7,7 +7,9 @@ import {BoardGames} from "./components/Structure/Content/BoardGames";
 import ErrorPage from "./components/Structure/Content/ErrorPage";
 import {AdminSetting} from "./components/Structure/Content/AdminSetting";
 import {CurrentBoardGame} from "./components/Structure/Content/CurrentBoardGame";
+import {VK} from "./components/Structure/Content/VK";
 
+const pop = true
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -33,6 +35,10 @@ const router = createBrowserRouter(
                 <Route
                     path="myCollections"
                     element={<BoardGames type={"user"}/>}
+                />
+                <Route
+                    path="VK"
+                    element={pop ? <VK/> : <BoardGames type={"all"}/>}
                 />
             </Route>
         </Route>

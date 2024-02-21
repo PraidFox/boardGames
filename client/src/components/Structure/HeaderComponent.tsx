@@ -12,10 +12,12 @@ export const HeaderComponent = ({children}: { children: ReactNode }) => {
 
     useEffect(() => {
         // let menuName = ['Коллекция?', 'Статьи?', 'Игроки?']
-        let menuName = [{nameRu: 'Коллекция', nameEn: 'collection'}, {
-            nameRu: 'Статьи',
-            nameEn: 'articles'
-        }, {nameRu: 'Игроки', nameEn: 'players'}]
+        let menuName = [
+            {nameRu: 'Коллекция', nameEn: 'collection'},
+            {nameRu: 'Статьи', nameEn: 'articles'},
+            {nameRu: 'Игроки', nameEn: 'players'},
+            {nameRu: "VK", nameEn: "VK"}
+        ]
         if (loggedIn) {
             //Еще проверяем на админа
             menuName.push({nameRu: 'Админ', nameEn: 'projectSetting'})
