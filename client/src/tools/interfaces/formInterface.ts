@@ -10,3 +10,11 @@ export type Registration = {
     typeUser: string
     userName: string
 }
+
+export type FilterBoardGames = {
+    name?: string
+    genre?: string[]
+    age?: number | null
+    minPlayers?: number
+    maxPlayers?: number
+}

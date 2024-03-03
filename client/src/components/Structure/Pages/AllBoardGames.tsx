@@ -1,6 +1,6 @@
 import {DrawerSidePanel} from "../../UiElements/DrawerSidePanel";
 import {FormAddBoardGameInModeration} from "../../Forms/FormsAddBoardGame/FormAddBoardGameInModeration";
-import {useEffect, useState} from "react";
+import {useEffect, useReducer, useState} from "react";
 import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
 import {BoardGamesDTO} from "../../../tools/interfaces/DTOinterface";
 import {CardBoardGame} from "../../UiElements/СardBoardGame";
@@ -8,14 +8,15 @@ import {DeleteOutlined, EditOutlined, LikeOutlined} from "@ant-design/icons";
 import {Flex} from "antd";
 import {NavLink} from "react-router-dom";
 import {FilterBoardGamesPanel} from "../../Forms/FormFilter/FilterBoardGamesPanel";
+import {ActionRFFV, reducerFilterFieldValues} from "../../Forms/FormFilter/reducerFilterFieldValues";
+import {FilterBoardGames} from "../../../tools/interfaces/formInterface";
 
 export const AllBoardGames = ({type}: { type: "all" | "user" }) => {
     const [dataBoardGames, setDataBoardGame] = useState<BoardGamesDTO[]>([])
     const [needUpdate, setNeedUpdate] = useState(true)
+    const [filterFieldValues, setFilterFieldValues] = useReducer(reducerFilterFieldValues, undefined)
 
     useEffect(() => {
-
-
         if (needUpdate) {
             if (type === "all") {
                 BoardGameApi.getBoardGame().then(res => setDataBoardGame(res.data))
@@ -25,7 +26,7 @@ export const AllBoardGames = ({type}: { type: "all" | "user" }) => {
             }
             setNeedUpdate(false)
         }
-    }, [needUpdate]);
+    }, [needUpdate, type]);
 
     const updateBoardGame = () => {
         setNeedUpdate(true)
@@ -35,6 +36,8 @@ export const AllBoardGames = ({type}: { type: "all" | "user" }) => {
     const deleteGame = (id: number) => {
         //УДАЛЕНИЕ ИГРЫ ИМЕННО ИЗ КОЛЛЕКЦИИ ПОЛЬЗОВАТЕЛЯ
     }
+
+    console.log(filterFieldValues)
 
     const getFooterForCard = (boardGame: BoardGamesDTO) => {
         let footerCard = [
@@ -63,7 +66,8 @@ export const AllBoardGames = ({type}: { type: "all" | "user" }) => {
     }
 
     return <div>
-        <FilterBoardGamesPanel/>
+        <FilterBoardGamesPanel activeFilter={!!filterFieldValues} valueFieldAge={filterFieldValues?.age}
+                               setFilterFieldValues={setFilterFieldValues}/>
         <br/>
         <h1>{type === "all" ? "Все игры" : "Мои игры"}</h1>
         <Flex wrap="wrap" gap="middle">
