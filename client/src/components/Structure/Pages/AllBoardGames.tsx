@@ -7,8 +7,9 @@ import {CardBoardGame} from "../../UiElements/СardBoardGame";
 import {DeleteOutlined, EditOutlined, LikeOutlined} from "@ant-design/icons";
 import {Flex} from "antd";
 import {NavLink} from "react-router-dom";
+import {FilterBoardGamesPanel} from "../../UiElements/FilterBoardGamesPanel";
 
-export const BoardGames = ({type}: { type: "all" | "user" }) => {
+export const AllBoardGames = ({type}: { type: "all" | "user" }) => {
     const [dataBoardGames, setDataBoardGame] = useState<BoardGamesDTO[]>([])
     const [needUpdate, setNeedUpdate] = useState(true)
 
@@ -62,6 +63,8 @@ export const BoardGames = ({type}: { type: "all" | "user" }) => {
     }
 
     return <div>
+        <FilterBoardGamesPanel/>
+        <br/>
         <h1>{type === "all" ? "Все игры" : "Мои игры"}</h1>
         <Flex wrap="wrap" gap="middle">
             {dataBoardGames?.map(boardGame => (

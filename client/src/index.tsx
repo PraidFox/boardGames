@@ -3,13 +3,11 @@ import ReactDOM from 'react-dom/client';
 import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom';
 import {App} from "./App";
 import './index.css';
-import {BoardGames} from "./components/Structure/Content/BoardGames";
-import ErrorPage from "./components/Structure/Content/ErrorPage";
-import {AdminSetting} from "./components/Structure/Content/AdminSetting";
-import {CurrentBoardGame} from "./components/Structure/Content/CurrentBoardGame";
-import {VK} from "./components/Structure/Content/VK";
-
-const pop = true
+import {AllBoardGames} from "./components/Structure/Pages/AllBoardGames";
+import ErrorPage from "./components/Structure/Pages/ErrorPage";
+import {AdminSetting} from "./components/Structure/Pages/AdminSetting";
+import {CurrentBoardGame} from "./components/Structure/Pages/CurrentBoardGame";
+import {VK} from "./components/Structure/Pages/VK";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -22,7 +20,7 @@ const router = createBrowserRouter(
                 <Route index element={<h2>Какой-то приветствующий текст</h2>}/>
                 <Route
                     path="allBoardGames"
-                    element={<BoardGames type={"all"}/>}
+                    element={<AllBoardGames type={"all"}/>}
                 />
                 <Route
                     path="boardGame/:boardGameId"
@@ -34,11 +32,11 @@ const router = createBrowserRouter(
                 />
                 <Route
                     path="myCollections"
-                    element={<BoardGames type={"user"}/>}
+                    element={<AllBoardGames type={"user"}/>}
                 />
                 <Route
                     path="VK"
-                    element={pop ? <VK/> : <BoardGames type={"all"}/>}
+                    element={<VK/>}
                 />
             </Route>
         </Route>

@@ -67,7 +67,9 @@ export const App = () => {
                 <Layout>
                     <LeftPanel itemsMenu={itemsMenu}></LeftPanel>
                     <Layout style={{padding: '10px 10px'}}>
+
                         <ContentComponent/>
+                        
                         <FooterComponent/>
                     </Layout>
                 </Layout>

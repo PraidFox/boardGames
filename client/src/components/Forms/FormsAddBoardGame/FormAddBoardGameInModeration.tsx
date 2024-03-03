@@ -78,13 +78,13 @@ export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
         setValuesField({type: "CHANGE_IMG", payload: value})
     };
 
-    const shouldFieldStatusGame = () => {
-        if (valuesField.genre) {
-            return !valuesField.genre.some((opt) => opt == OptionsId.cooperative || opt == OptionsId.detective)
-        } else {
-            return true
-        }
-    }
+    // const shouldFieldStatusGame = () => {
+    //     if (valuesField.genre) {
+    //         return !valuesField.genre.some((opt) => opt == OptionsId.cooperative || opt == OptionsId.detective)
+    //     } else {
+    //         return true
+    //     }
+    // }
 
     console.log(optionsField)
 
