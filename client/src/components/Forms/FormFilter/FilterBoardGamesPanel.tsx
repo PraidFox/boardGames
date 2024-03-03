@@ -1,13 +1,14 @@
 import {AutoComplete, Flex, Input, InputNumber, Select, Slider} from "antd";
 import {useEffect, useReducer, useState} from "react";
-import {OptionsFieldFormEdit, reducerOptionsField} from "../Forms/FormsAddBoardGame/reducerOptionsField";
-import {GenreApi} from "../../tools/rest/GenreApi";
-import {TypeApi} from "../../tools/rest/TypeApi";
-import {convertOptions, convertOptionsAutoComplete, filterOptionLabel} from "../../tools/utils/utils";
-import {nameBoardGame, optionsFieldsStatusCooperativeGame} from "../../tools/storages/fieldOptions";
+import {OptionsFieldFormEdit, reducerFieldOptions} from "../FormsAddBoardGame/reducerFieldOptions";
+import {GenreApi} from "../../../tools/rest/GenreApi";
+import {TypeApi} from "../../../tools/rest/TypeApi";
+import {convertOptions, convertOptionsAutoComplete, filterOptionLabel} from "../../../tools/utils/utils";
+import {nameBoardGame, optionsFieldsStatusCooperativeGame} from "../../../tools/storages/fieldOptions";
 
 export const FilterBoardGamesPanel = () => {
     const [optionsField, setOptionsField] = useState({} as OptionsFieldFormEdit)
+
 
     useEffect(() => {
         const p0 = GenreApi.getGenre()
@@ -28,7 +29,7 @@ export const FilterBoardGamesPanel = () => {
     return (
         <div>
             <h4>Фильтр настольных игр и дополнений</h4>
-            <div style={{display: "flex", gap: "10px"}}>
+            <div style={{display: "flex", gap: "10px", alignItems: "center"}}>
                 <AutoComplete
                     allowClear
                     style={{width: "20%"}}
@@ -40,15 +41,21 @@ export const FilterBoardGamesPanel = () => {
                 {/*<Select placeholder="Тип игры" options={optionsField.type} allowClear filterOption={filterOptionLabel}*/}
                 {/*        style={{width: "20%"}}/>*/}
                 <Select placeholder="Жанр игры" mode={"multiple"} allowClear options={optionsField.genre}
-                        filterOption={filterOptionLabel} style={{width: "20%"}}/>
+                        filterOption={filterOptionLabel} style={{width: "30%"}}/>
 
-                <InputNumber defaultValue={2} min={1} addonBefore="От:" addonAfter="лет"
+                <InputNumber defaultValue={2} min={1} addonBefore="От" addonAfter="лет"
                              max={100}
-                             style={{width: "100px"}}/>
+                             style={{width: "150px"}}/>
+                <div style={{width: "20%", textAlign: "center"}}>
+                    <label>Количество игроков</label>
+                    <Slider range defaultValue={[1, 20]} min={1} max={20}
+                            style={{width: "100%"}}
+                            tooltip={{open: true, placement: "bottom"}}/>
+                </div>
+
 
             </div>
-            {/*<label>Количество игроков</label>*/}
-            {/*<Slider range defaultValue={[1, 20]} min={1} max={20} style={{width: "20%"}}/>*/}
+
         </div>
     )
 }

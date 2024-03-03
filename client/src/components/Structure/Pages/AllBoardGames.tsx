@@ -7,7 +7,7 @@ import {CardBoardGame} from "../../UiElements/СardBoardGame";
 import {DeleteOutlined, EditOutlined, LikeOutlined} from "@ant-design/icons";
 import {Flex} from "antd";
 import {NavLink} from "react-router-dom";
-import {FilterBoardGamesPanel} from "../../UiElements/FilterBoardGamesPanel";
+import {FilterBoardGamesPanel} from "../../Forms/FormFilter/FilterBoardGamesPanel";
 
 export const AllBoardGames = ({type}: { type: "all" | "user" }) => {
     const [dataBoardGames, setDataBoardGame] = useState<BoardGamesDTO[]>([])

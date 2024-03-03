@@ -8,7 +8,7 @@ export type OptionsFieldFormEdit = {
 }
 
 export type Action = | { type: "ADD_ALL_OPTIONS", payload: OptionsFieldFormEdit }
-export const reducerOptionsField = (state: OptionsFieldFormEdit, action: Action) => {
+export const reducerFieldOptions = (state: OptionsFieldFormEdit, action: Action) => {
     switch (action.type) {
         case "ADD_ALL_OPTIONS":
             const newState: OptionsFieldFormEdit = {

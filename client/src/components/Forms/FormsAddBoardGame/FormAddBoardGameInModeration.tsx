@@ -4,10 +4,10 @@ import {
     optionsFieldsStatusCooperativeGame,
 } from "../../../tools/storages/fieldOptions";
 import {convertOptions, convertOptionsAutoComplete, filterOptionLabel} from "../../../tools/utils/utils";
-import {OptionsFieldFormEdit, reducerOptionsField} from "./reducerOptionsField";
+import {OptionsFieldFormEdit, reducerFieldOptions} from "./reducerFieldOptions";
 import {OptionsId} from "../../../tools/storages/optionsId";
 import {Image} from 'antd';
-import {reducerValuesField, ValesFieldFormEdit} from "./reducerValuesField";
+import {reducerFieldValues, ValesFieldFormEdit} from "./reducerFieldValues";
 import {useEffect, useReducer} from "react";
 import {GenreApi} from "../../../tools/rest/GenreApi";
 import {TypeApi} from "../../../tools/rest/TypeApi";
@@ -20,8 +20,8 @@ export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
     setNeedUpdate: () => void
 }) => {
     const [form] = Form.useForm();
-    const [optionsField, setOptionsField] = useReducer(reducerOptionsField, {} as OptionsFieldFormEdit)
-    const [valuesField, setValuesField] = useReducer(reducerValuesField, {} as ValesFieldFormEdit)
+    const [optionsField, setOptionsField] = useReducer(reducerFieldOptions, {} as OptionsFieldFormEdit)
+    const [valuesField, setValuesField] = useReducer(reducerFieldValues, {} as ValesFieldFormEdit)
 
     useEffect(() => {
         const p0 = GenreApi.getGenre()

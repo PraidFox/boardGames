@@ -1,5 +1,5 @@
 import {Options, OptionsAutoComplete} from "../../../tools/interfaces/serverInterface";
-import {OptionsFieldFormEdit} from "./reducerOptionsField";
+import {OptionsFieldFormEdit} from "./reducerFieldOptions";
 
 export type ValesFieldFormEdit = {
     img: string,
@@ -17,7 +17,7 @@ export type Action = | { type: "ADD_ALL_DEFAULT" }
     | { type: "CHANGE_GENRE_GAME", payload: string[] }
 // | { type: "CHANGE_TYPE_GAME", payload: Options<null>[] | Options<null> }
 
-export const reducerValuesField = (state: ValesFieldFormEdit, action: Action) => {
+export const reducerFieldValues = (state: ValesFieldFormEdit, action: Action) => {
     let newMaxPlayers = state.maxPlayersCount
 
     switch (action.type) {
