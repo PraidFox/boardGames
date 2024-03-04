@@ -48,7 +48,6 @@ export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
         form.setFieldsValue({maxPlayers: valuesField.maxPlayersCount})
     }, [valuesField.maxPlayersCount]);
 
-    console.log(optionsField)
     const onFinish = (values: FormBoardGame) => {
         let dataBoardGame: CreateBoardGame = {
             name: values.name,
@@ -86,7 +85,6 @@ export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
     //     }
     // }
 
-    console.log(optionsField)
 
     return <Form
         name="formEditCart"
