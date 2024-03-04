@@ -1,17 +1,20 @@
 import axios from "axios";
-import {AxiosDefault} from "./AxiosDefault";
+import {axiosBG} from "./AxiosDefault";
 
 export class TypeApi {
     static getType() {
-        return axios.get(AxiosDefault.baseUrl() + `/api/Type`);
+        return axiosBG.get(`/api/Type`);
     }
+
     static addType(name: string) {
-        return axios.post(AxiosDefault.baseUrl() + `/api/Type`, {id: 0, name});
+        return axiosBG.post(`/api/Type`, {id: 0, name});
     }
+
     static updateType(id: string, name: string) {
-        return axios.put(AxiosDefault.baseUrl() + `/api/Type/${id}`, {id, name});
+        return axiosBG.put(`/api/Type/${id}`, {id, name});
     }
+
     static deleteType(id: number) {
-        return axios.delete(AxiosDefault.baseUrl() + `/api/Type/${id}`, );
+        return axiosBG.delete(`/api/Type/${id}`,);
     }
 }

@@ -61,7 +61,7 @@ export const AdminSetting = () => {
                 setAddTypeLoading(false)
             })
         }).catch(r => {
-                setAddGenreLoading(false)
+                setAddTypeLoading(false)
                 alert(r.response.data)
             }
         )

@@ -3,13 +3,13 @@ import {Button, Form, Row} from "antd";
 import React from "react";
 import {UserLoginContext} from "../../../../App";
 import {Login} from "../../../../tools/interfaces/formInterface";
-import {UserApi} from "../../../../tools/rest/UserApi";
+import {AuthApi} from "../../../../tools/rest/AuthApi";
 
 export const FormLoginPopover = () => {
     const {setLoggedInAndStorage} = React.useContext(UserLoginContext)
 
     const onFinish = (values: Login) => {
-        UserApi.loginUser(values.email, values.password)
+        AuthApi.loginUser(values.email, values.password)
             .then(r => setLoggedInAndStorage(r.data.accessToken, r.data.refreshToken))
             .catch(() => alert("Логин или пароль введены не верно. Или вы пытаетесь кого-то взломать"))
 

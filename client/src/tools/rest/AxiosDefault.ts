@@ -1,32 +1,37 @@
 import axios from "axios";
-import {UserApi} from "./UserApi";
+import {AuthApi} from "./AuthApi";
 import {LocalStorageUtils} from "../utils/localStorageUtils";
 
-axios.defaults.headers.common["accept"] = "application/json"
-axios.defaults.headers.common["Content-Type"] = 'application/json'
-// axios.defaults.headers.common["Cross-Origin-Resource-Policy"] = 'none'
-axios.defaults.withCredentials = true;
-// axios.defaults.headers.common["Access-Control-Allow-Origin"] = '*'
 
-let token = localStorage.getItem("access")
-if (token) {
-    const entryTime = new Date(localStorage.getItem("entryTime")!).getTime();
-    const currentTime = new Date().getTime()
+export const axiosBG = axios.create({
+    baseURL: 'http://radgalf.fvds.ru:8080',
+    // timeout: 1000,
+    headers: {'accept': "application/json", "Content-Type": 'application/json'}
+});
 
-    if (currentTime - Number(entryTime) > 3600000) {
-        UserApi.refreshToken(localStorage.getItem("refresh")!).then(r => {
-                token = r.data.accessToken
-                LocalStorageUtils.setTokenInfo(r.data.accessToken, r.data.refreshToken)
+
+axiosBG.interceptors.response.use((response) => {
+        return response;
+    },
+    async (error) => {
+        const originalConfig = error.config;
+
+        if (error.response) {
+            if (error.response.status === 401 && !originalConfig._retry) {
+                originalConfig._retry = true;
+                
+                let token = localStorage.getItem("access")
+                if (token) {
+                    console.log("tok", token)
+                    AuthApi.refreshToken(localStorage.getItem("refresh")!).then(r => {
+                            LocalStorageUtils.setTokenInfo(r.data.accessToken, r.data.refreshToken)
+                            axiosBG.defaults.headers.common["Authorization"] = `Bearer ${token}`
+                        }
+                    )
+                }
+                return Promise.reject(error.response.data);
             }
-        )
-    }
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
-}
+        }
+        return Promise.reject(error);
+    })
 
-//PathParam - параметр в строковый запрос. `/rest/team-management/1/access/${issueId}`
-//QueryParam - в объект data
-export class AxiosDefault {
-    static baseUrl(): string {
-        return "http://radgalf.fvds.ru:8080"
-    }
-}
