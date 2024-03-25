@@ -66,13 +66,13 @@ export const FilterBoardGamesPanel = ({activeFilter, valueFieldAge, setFilterFie
                              onChange={value => setFilterFieldValues({type: "SET_AGE", payload: value})}
                              style={{width: "150px"}}/>
 
-                <div style={{width: "20%", textAlign: "center"}}>
-                    <label>Количество игроков</label>
-                    <Slider range defaultValue={[1, 20]} min={1} max={20}
-                            style={{width: "100%"}}
-                            onChange={value => setFilterFieldValues({type: "SET_COUNT_PLAYERS", payload: value})}
-                            tooltip={{open: true, placement: "bottom"}}/>
-                </div>
+                {/*<div style={{width: "20%", textAlign: "center"}}>*/}
+                {/*    <label>Количество игроков</label>*/}
+                {/*    <Slider range defaultValue={[1, 20]} min={1} max={20}*/}
+                {/*            style={{width: "100%"}}*/}
+                {/*            onChange={value => setFilterFieldValues({type: "SET_COUNT_PLAYERS", payload: value})}*/}
+                {/*            tooltip={{open: true, placement: "bottom"}}/>*/}
+                {/*</div>*/}
 
 
             </div>

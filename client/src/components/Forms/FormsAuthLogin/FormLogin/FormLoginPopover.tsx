@@ -1,17 +1,14 @@
 import {FieldsLogin} from "./FieldsLogin";
 import {Button, Form, Row} from "antd";
-import React from "react";
-import {UserLoginContext} from "../../../../App";
+import React, {useContext} from "react";
 import {Login} from "../../../../tools/interfaces/formInterface";
-import {AuthApi} from "../../../../tools/rest/AuthApi";
+import {UserLoginContext} from "../../../../context/UserContext";
 
 export const FormLoginPopover = () => {
-    const {setLoggedInAndStorage} = React.useContext(UserLoginContext)
+    const {authUser} = useContext(UserLoginContext)
 
     const onFinish = (values: Login) => {
-        AuthApi.loginUser(values.email, values.password)
-            .then(r => setLoggedInAndStorage(r.data.accessToken, r.data.refreshToken))
-            .catch(() => alert("Логин или пароль введены не верно. Или вы пытаетесь кого-то взломать"))
+        authUser(values.email, values.password)
 
         if (values.remember) {
             localStorage.setItem("email", values.email)

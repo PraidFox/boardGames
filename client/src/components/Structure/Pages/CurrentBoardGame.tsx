@@ -7,7 +7,7 @@ export const CurrentBoardGame = () => {
     const location = useLocation();
     const {boardGame} = location.state as { boardGame: BoardGamesDTO };
     const navigate = useNavigate();
-    console.log(boardGame)
+
     const goBack = () => {
         navigate(-1); // Вернуться на один шаг назад в истории
     };

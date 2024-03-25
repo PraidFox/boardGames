@@ -37,7 +37,6 @@ export const AllBoardGames = ({type}: { type: "all" | "user" }) => {
         //УДАЛЕНИЕ ИГРЫ ИМЕННО ИЗ КОЛЛЕКЦИИ ПОЛЬЗОВАТЕЛЯ
     }
 
-    console.log(filterFieldValues)
 
     const getFooterForCard = (boardGame: BoardGamesDTO) => {
         let footerCard = [

@@ -5,8 +5,6 @@ import {TypeApi} from "../../../tools/rest/TypeApi";
 import {Button, Input, Select, Space} from "antd";
 import {InfiniteScrollAnt} from "../../UiElements/InfiniteScrollAnt";
 import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
-import {convertOptions} from "../../../tools/utils/utils";
-import {OptionsDTO} from "../../../tools/interfaces/serverInterface";
 
 
 export const AdminSetting = () => {
@@ -106,7 +104,6 @@ export const AdminSetting = () => {
 
     const onChangeDeleteBoardGame = (value: string) => {
         setDeleteBoardGameId(+value)
-        console.log(`selected ${value}`);
     };
 
     const filterOption = (input: string, option?: { label: string; value: string }) =>

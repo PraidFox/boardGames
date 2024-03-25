@@ -1,7 +1,18 @@
 import {userLT} from "../interfaces/localStorageInterface";
+import {UserInfo} from "../interfaces/otherInterface";
 
 export class LocalStorageUtils {
-    static getUserInfo = (): userLT => {
+    static getUserInfo = (): UserInfo => {
+        const loggedIn = localStorage.getItem("loggedIn")
+        const nickname = localStorage.getItem("nickname")
+
+        return {
+            loggedIn: loggedIn ? loggedIn === "true" : false,
+            nickname: nickname ? nickname : null
+        }
+    }
+
+    static getUserInfoFull = (): userLT => {
         const loggedIn = localStorage.getItem("loggedIn")
         const access = localStorage.getItem("access")
         const refresh = localStorage.getItem("refresh")
@@ -12,6 +23,7 @@ export class LocalStorageUtils {
             refresh: refresh ? refresh : undefined
         }
     }
+
 
     static setUserInfo = (access: string, refresh: string) => {
         localStorage.setItem("loggedIn", "true")

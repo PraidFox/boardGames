@@ -1,5 +1,4 @@
-import axios from "axios";
-import {axiosBG} from "./AxiosDefault";
+import {axiosBG, axiosBGauth} from "./AxiosDefault";
 
 export class TypeApi {
     static getType() {
@@ -7,14 +6,14 @@ export class TypeApi {
     }
 
     static addType(name: string) {
-        return axiosBG.post(`/api/Type`, {id: 0, name});
+        return axiosBGauth.post(`/api/Type`, {id: 0, name});
     }
 
     static updateType(id: string, name: string) {
-        return axiosBG.put(`/api/Type/${id}`, {id, name});
+        return axiosBGauth.put(`/api/Type/${id}`, {id, name});
     }
 
     static deleteType(id: number) {
-        return axiosBG.delete(`/api/Type/${id}`,);
+        return axiosBGauth.delete(`/api/Type/${id}`,);
     }
 }

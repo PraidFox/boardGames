@@ -1,5 +1,5 @@
 import axios from "axios";
-import {axiosBG} from "./AxiosDefault";
+import {axiosBG, axiosBGauth} from "./AxiosDefault";
 
 export class GenreApi {
     static getGenre() {
@@ -7,14 +7,14 @@ export class GenreApi {
     }
 
     static addGenre(name: string) {
-        return axiosBG.post(`/api/Genre`, {id: 0, name});
+        return axiosBGauth.post(`/api/Genre`, {id: 0, name});
     }
 
     static updateGenre(id: string, name: string) {
-        return axiosBG.put(`/api/Genre/${id}`, {id, name});
+        return axiosBGauth.put(`/api/Genre/${id}`, {id, name});
     }
 
     static deleteGenre(id: number) {
-        return axiosBG.delete(`/api/Genre/${id}`,);
+        return axiosBGauth.delete(`/api/Genre/${id}`,);
     }
 }

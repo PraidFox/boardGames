@@ -11,13 +11,13 @@ VKID.Config.set({
 export const VK = () => {
     const location = useLocation();
     const navigate = useNavigate();
-    console.log(location)
+
 
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search);
         const payload = searchParams.get('payload');
 
-        console.log(payload)
+
         if (payload) {
             navigate('/', {replace: true});
         }

@@ -1,7 +1,7 @@
 import {Layout, Menu, MenuProps} from "antd";
-import React, {ReactNode, useContext, useEffect, useState} from "react";
+import React, {ReactNode, useContext, useEffect, useLayoutEffect, useState} from "react";
 import {NavLink} from "react-router-dom";
-import {UserLoginContext} from "../../App";
+import {UserLoginContext} from "../../context/UserContext";
 
 
 const {Header} = Layout;
@@ -10,7 +10,8 @@ export const HeaderComponent = ({children}: { children: ReactNode }) => {
     const [menuItems, setMenuItems] = useState<MenuProps['items']>()
     const {loggedIn} = useContext(UserLoginContext)
 
-    useEffect(() => {
+
+    useLayoutEffect(() => {
         // let menuName = ['Коллекция?', 'Статьи?', 'Игроки?']
         let menuName = [
             {nameRu: 'Коллекция', nameEn: 'collection'},
