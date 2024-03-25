@@ -24,15 +24,15 @@ export const UserLoginProvider = ({children}: {
 
     const authUser = (email: string, password: string) => {
         AuthApi.loginUser(email, password)
-            // .then(r => setLoggedInAndStorage(r.data.accessToken, r.data.refreshToken))
-            // .catch(() => alert("Логин или пароль введены не верно. Или вы пытаетесь кого-то взломать"))
-            .then(r => console.log(r.data))
+            .then(r => LocalStorageUtils.setTokenInfo(r.data.accessToken, r.data.refreshToken, r.data.expiresIn))
+            .catch(() => alert("Логин или пароль введены не верно. Или вы пытаетесь кого-то взломать"))
+        //.then(r => console.log(r.data))
     }
 
     const logoutUser = () => {
         console.log("logoutUser")
         //LocalStorageUtils.setUserInfo(access, refresh)
-        //setUserInfo({loggedIn: true})
+        setUserInfo(r => ({...r, loggedIn: false}))
     }
 
 

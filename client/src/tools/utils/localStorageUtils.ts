@@ -36,9 +36,10 @@ export class LocalStorageUtils {
         localStorage.setItem(key, value)
     }
 
-    static setTokenInfo = (accessToken: string, refreshToken: string) => {
+    static setTokenInfo = (accessToken: string, refreshToken: string, expiresIn: number) => {
         localStorage.setItem("access", accessToken)
         localStorage.setItem("refresh", refreshToken)
         localStorage.setItem("entryTime", new Date().toString())
+        localStorage.setItem("expiresIn", expiresIn.toString())
     }
 }
