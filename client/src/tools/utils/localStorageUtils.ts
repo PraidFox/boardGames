@@ -1,5 +1,6 @@
-import {userLT} from "../interfaces/localStorageInterface";
 import {UserInfo} from "../interfaces/otherInterface";
+import {TokenInfo} from "../interfaces/localStorageInterface";
+
 
 export class LocalStorageUtils {
     static getUserInfo = (): UserInfo => {
@@ -12,34 +13,26 @@ export class LocalStorageUtils {
         }
     }
 
-    static getUserInfoFull = (): userLT => {
-        const loggedIn = localStorage.getItem("loggedIn")
-        const access = localStorage.getItem("access")
-        const refresh = localStorage.getItem("refresh")
-
-        return {
-            loggedIn: loggedIn ? loggedIn === "true" : false,
-            access: access ? access : undefined,
-            refresh: refresh ? refresh : undefined
+    static setUserInfo = (loggedIn: boolean, nickname: string | null) => {
+        localStorage.setItem("loggedIn", loggedIn.toString())
+        if (nickname != null) {
+            localStorage.setItem("nickname", nickname)
         }
     }
 
-
-    static setUserInfo = (access: string, refresh: string) => {
-        localStorage.setItem("loggedIn", "true")
-        localStorage.setItem("access", access)
-        localStorage.setItem("refresh", refresh)
-        localStorage.setItem("entryTime", new Date().toString())
-    }
-
-    static setItemInfo = (key: string, value: string) => {
-        localStorage.setItem(key, value)
-    }
-
     static setTokenInfo = (accessToken: string, refreshToken: string, expiresIn: number) => {
-        localStorage.setItem("access", accessToken)
-        localStorage.setItem("refresh", refreshToken)
+        localStorage.setItem("accessToken", accessToken)
+        localStorage.setItem("refreshToken", refreshToken)
         localStorage.setItem("entryTime", new Date().toString())
         localStorage.setItem("expiresIn", expiresIn.toString())
+    }
+
+    static getTokenInfo = (): TokenInfo => {
+        return {
+            accessToken: localStorage.getItem("accessToken"),
+            refreshToken: localStorage.getItem("refreshToken"),
+            entryTime: localStorage.getItem("entryTime"),
+            expiresIn: localStorage.getItem("expiresIn")
+        }
     }
 }

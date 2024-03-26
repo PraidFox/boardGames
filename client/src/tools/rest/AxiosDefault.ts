@@ -1,6 +1,7 @@
 import axios from "axios";
 import {AuthApi} from "./AuthApi";
 import {LocalStorageUtils} from "../utils/localStorageUtils";
+import {TokenInfo} from "../interfaces/localStorageInterface";
 
 
 export const axiosBG = axios.create({
@@ -15,28 +16,29 @@ export const axiosBGauth = axios.create({
 });
 
 
-axiosBGauth.interceptors.request.use((response) => {
-        console.log("Перед отправкой", response)
-        return response;
-    },
-    async (error) => {
-        const originalConfig = error.config;
+axiosBGauth.interceptors.request.use(async function (config) {
+    const {accessToken, refreshToken, entryTime, expiresIn}: TokenInfo = LocalStorageUtils.getTokenInfo()
+   
 
-        if (error.response) {
-            if (error.response.status === 401 && !originalConfig._retry) {
-                originalConfig._retry = true;
+    if (accessToken) {
+        const entryTimeDate = new Date(entryTime!).getTime();
+        const currentTimeDate = new Date().getTime()
 
-                let token = localStorage.getItem("access")
-                if (token) {
-                    AuthApi.refreshToken(localStorage.getItem("refresh")!).then(r => {
-                            LocalStorageUtils.setTokenInfo(r.data.accessToken, r.data.refreshToken)
-                            axiosBG.defaults.headers.common["Authorization"] = `Bearer ${token}`
-                        }
-                    )
-                }
-                return Promise.reject(error.response.data);
-            }
+        if (currentTimeDate - entryTimeDate > Number(expiresIn)) {
+            const newToken = await AuthApi.refreshToken(refreshToken!)
+            config.headers["Authorization"] = `Bearer ${newToken.data.accessToken}`
+        } else {
+            config.headers["Authorization"] = `Bearer ${accessToken}`
         }
-        return Promise.reject(error);
-    })
+        return config;
+    } else {
+        console.log("Прервал запрос")
+        return new Promise(function () {
+        });
+    }
+}, function (error) {
+    // Обработка ошибок перехватчика запроса
+    console.log("А какая тут может быть ошибка?", error)
+    return Promise.reject(error);
+});
 

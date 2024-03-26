@@ -1,4 +1,4 @@
-import React, {createContext, ReactNode, useEffect, useLayoutEffect, useState} from "react";
+import React, {createContext, ReactNode, useLayoutEffect, useState} from "react";
 import {AuthContext, UserInfo} from "../tools/interfaces/otherInterface";
 import {LocalStorageUtils} from "../tools/utils/localStorageUtils";
 import {AuthApi} from "../tools/rest/AuthApi";
@@ -24,14 +24,17 @@ export const UserLoginProvider = ({children}: {
 
     const authUser = (email: string, password: string) => {
         AuthApi.loginUser(email, password)
-            .then(r => LocalStorageUtils.setTokenInfo(r.data.accessToken, r.data.refreshToken, r.data.expiresIn))
+            .then(r => {
+                    setUserInfo({loggedIn: true, nickname: email})
+                    LocalStorageUtils.setTokenInfo(r.data.accessToken, r.data.refreshToken, r.data.expiresIn)
+                    LocalStorageUtils.setUserInfo(true, email)
+                }
+            )
             .catch(() => alert("Логин или пароль введены не верно. Или вы пытаетесь кого-то взломать"))
-        //.then(r => console.log(r.data))
     }
 
     const logoutUser = () => {
-        console.log("logoutUser")
-        //LocalStorageUtils.setUserInfo(access, refresh)
+        LocalStorageUtils.setUserInfo(false, userInfo.nickname)
         setUserInfo(r => ({...r, loggedIn: false}))
     }
 
