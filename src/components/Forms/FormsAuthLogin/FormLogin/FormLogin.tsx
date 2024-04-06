@@ -6,35 +6,43 @@ import {useInfoUser} from "../../../../tools/hooks/useInfoUser";
 import {FormInstance} from "antd/es/form";
 
 
-export const FormLogin = ({nameForm, setForm, currentTab}: {
-    nameForm: string,
-    setForm: (form: FormInstance) => void,
-    currentTab?: string
+export const FormLogin = ({nameForm, onClose}: {
+    nameForm: string
+    onClose: () => void
 }) => {
     const {authUser} = useInfoUser()
-    const [form] = Form.useForm();
     const onFinish = (values: Login) => {
         authUser(values.email, values.password, values.remember)
     };
 
-    useEffect(() => {
-        if (currentTab === nameForm) {
-            setForm(form)
-        }
-    }, [form, setForm, currentTab, nameForm]);
-
     const onFinishFailed = (errorInfo: any) => {
         //console.log('Failed:', errorInfo);
     };
-
+    const onCancel = () => {
+        //form.resetFields()
+        onClose()
+    }
 
     return (<Form
         name={nameForm}
-        form={form}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
     >
         <FieldsLogin/>
+
+        <Row justify="end">
+            <Space align="center">
+                <Form.Item>
+                    <Button type="primary" htmlType="submit"> Войти
+                    </Button>
+                </Form.Item>
+                <Form.Item>
+                    <Button htmlType="reset" onClick={onCancel}>
+                        Отмена
+                    </Button>
+                </Form.Item>
+            </Space>
+        </Row>
     </Form>)
 }

@@ -11,9 +11,7 @@ import {FormType} from "../../../tools/storages/const";
 
 
 export const AuthOrProfile = () => {
-
     const {loggedIn} = useInfoUser()
-
 
     return (
         <>
@@ -21,12 +19,11 @@ export const AuthOrProfile = () => {
                 <ButtonsLogout/> :
                 <Flex gap="small" wrap="wrap">
                     <PopoverForm>
-                        {(setForm: (form: FormInstance) => void) => <FormLogin nameForm={"PopoverFormAuth"}
-                                                                               setForm={setForm}/>}
+                        {(onClose: () => void) => <FormLogin nameForm={"popoverAuth"} onClose={onClose}/>}
                     </PopoverForm>
                     <ModalForm>
-                        {(setFormType: (formType: string) => void, setForm: (form: FormInstance) => void) =>
-                            <TabsFormAuthLogin setFormType={setFormType} setForm={setForm}/>}
+                        {(onClose: () => void) =>
+                            <TabsFormAuthLogin onClose={onClose}/>}
                     </ModalForm>
                 </Flex>}
         </>

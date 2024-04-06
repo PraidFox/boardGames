@@ -1,5 +1,5 @@
 import {FieldsRegistration} from "./FieldsRegistration";
-import {Form} from "antd";
+import {Button, Form, Row, Space} from "antd";
 import React, {useEffect, useState} from "react";
 import {AuthApi} from "../../../../tools/rest/AuthApi";
 import {Registration} from "../../../../tools/interfaces/formInterface";
@@ -8,10 +8,8 @@ import {MessageInfoType} from "../../../../tools/interfaces/otherInterface";
 import {FormInstance} from "antd/es/form";
 
 
-export const FormRegistration = ({nameForm, setForm, currentTab}: {
-    nameForm: string,
-    setForm: (form: FormInstance) => void,
-    currentTab?: string
+export const FormRegistration = ({onClose}: {
+    onClose: () => void
 }) => {
     const [form] = Form.useForm();
     const [messageAlert, setMessageAlert] = useState<MessageInfoType>()
@@ -30,24 +28,32 @@ export const FormRegistration = ({nameForm, setForm, currentTab}: {
             })
     };
 
-    useEffect(() => {
-        if (currentTab === nameForm) {
-            setForm(form)
-        }
-    }, [form, setForm, currentTab, nameForm]);
+
     const onFinishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo);
     };
 
 
     return (<Form
-        name={nameForm}
+        name={"FormRegistration"}
         form={form}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
     >
         {messageAlert && <MessageInfo text={messageAlert.text} type={messageAlert.type} width={messageAlert.width}/>}
-        <FieldsRegistration form={form}/>,
+        <FieldsRegistration form={form}/>
+        <Row justify="end">
+            <Space align="center">
+                <Form.Item>
+                    <Button type="primary" htmlType="submit" loading={loadings}> Зарегистрироваться </Button>
+                </Form.Item>
+                <Form.Item>
+                    <Button htmlType="reset" onClick={onClose}>
+                        Отмена
+                    </Button>
+                </Form.Item>
+            </Space>
+        </Row>
     </Form>)
 }
