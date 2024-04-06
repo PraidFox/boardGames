@@ -1,5 +1,5 @@
 import {Tabs, TabsProps} from 'antd';
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {FormRegistration} from "./FormRegistration/FormRegistration";
 import {FormLogin} from "./FormLogin/FormLogin";
 import {FormInstance} from "antd/es/form";
@@ -9,23 +9,29 @@ export const TabsFormAuthLogin = ({setFormType, setForm}: {
     setFormType: (formType: string) => void,
     setForm: (form: FormInstance) => void
 }) => {
+    const [currentTab, setCurrentTab] = useState<string>(FormType.REGISTRATION)
+
+
+    useEffect(() => {
+        setFormType(currentTab)
+    }, [currentTab]);
 
     const items: TabsProps['items'] = [
         {
             key: FormType.REGISTRATION,
             label: 'Регистрация',
-            children: <FormRegistration nameForm={"ModalFormRegistration"} setForm={setForm}/>
+            children: <FormRegistration nameForm={FormType.REGISTRATION} setForm={setForm} currentTab={currentTab}/>
         },
         {
             key: FormType.AUTH,
             label: 'Войти',
-            children: <FormLogin nameForm={"ModalFormAuth"} setForm={setForm}/>,
+            children: <FormLogin nameForm={FormType.AUTH} setForm={setForm} currentTab={currentTab}/>,
         },
     ];
 
 
     return (
-        <Tabs onTabClick={e => setFormType(e)} defaultActiveKey="registration" items={items}/>
+        <Tabs onTabClick={e => setCurrentTab(e)} defaultActiveKey="registration" items={items}/>
     )
 }
 

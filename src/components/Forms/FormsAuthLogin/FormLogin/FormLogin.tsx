@@ -6,7 +6,11 @@ import {useInfoUser} from "../../../../tools/hooks/useInfoUser";
 import {FormInstance} from "antd/es/form";
 
 
-export const FormLogin = ({nameForm, setForm}: { nameForm: string, setForm: (form: FormInstance) => void }) => {
+export const FormLogin = ({nameForm, setForm, currentTab}: {
+    nameForm: string,
+    setForm: (form: FormInstance) => void,
+    currentTab?: string
+}) => {
     const {authUser} = useInfoUser()
     const [form] = Form.useForm();
     const onFinish = (values: Login) => {
@@ -14,8 +18,10 @@ export const FormLogin = ({nameForm, setForm}: { nameForm: string, setForm: (for
     };
 
     useEffect(() => {
-        setForm(form)
-    }, [form, setForm]);
+        if (currentTab === nameForm) {
+            setForm(form)
+        }
+    }, [form, setForm, currentTab, nameForm]);
 
     const onFinishFailed = (errorInfo: any) => {
         //console.log('Failed:', errorInfo);

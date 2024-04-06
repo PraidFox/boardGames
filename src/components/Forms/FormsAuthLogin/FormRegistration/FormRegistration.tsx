@@ -8,7 +8,11 @@ import {MessageInfoType} from "../../../../tools/interfaces/otherInterface";
 import {FormInstance} from "antd/es/form";
 
 
-export const FormRegistration = ({nameForm, setForm}: { nameForm: string, setForm: (form: FormInstance) => void }) => {
+export const FormRegistration = ({nameForm, setForm, currentTab}: {
+    nameForm: string,
+    setForm: (form: FormInstance) => void,
+    currentTab?: string
+}) => {
     const [form] = Form.useForm();
     const [messageAlert, setMessageAlert] = useState<MessageInfoType>()
     const [loadings, setLoadings] = useState<boolean>(false);
@@ -27,11 +31,14 @@ export const FormRegistration = ({nameForm, setForm}: { nameForm: string, setFor
     };
 
     useEffect(() => {
-        setForm(form)
-    }, [form, setForm]);
+        if (currentTab === nameForm) {
+            setForm(form)
+        }
+    }, [form, setForm, currentTab, nameForm]);
     const onFinishFailed = (errorInfo: any) => {
         console.log('Failed:', errorInfo);
     };
+
 
     return (<Form
         name={nameForm}
