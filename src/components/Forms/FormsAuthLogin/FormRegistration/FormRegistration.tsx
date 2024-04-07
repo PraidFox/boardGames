@@ -1,36 +1,36 @@
 import {FieldsRegistration} from "./FieldsRegistration";
-import {Button, Form, Row, Space} from "antd";
+import {Form} from "antd";
 import React, {useState} from "react";
 import {AuthApi} from "../../../../tools/rest/AuthApi";
 import {Registration} from "../../../../tools/interfaces/formInterface";
-import {useMessage} from "../../../../tools/hooks/useMessage";
+import {useMessage} from "../../../../tools/hooks/hooksContext/useMessage";
 import {StorageSettingMessage} from "../../../../tools/storages/storageSettingMessage";
+import {FormButtons} from "../../../UiElements/FormButtons";
 
 export const FormRegistration = ({onClose}: {
     onClose: () => void
 }) => {
     const [form] = Form.useForm();
     //const [messageAlert, setMessageAlert] = useState<MessageInfoType>()
-    const [loadings, setLoadings] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
     const {setSettingMessage} = useMessage()
     const onFinish = (values: Registration) => {
-        setLoadings(true)
+        setLoading(true)
+        setSettingMessage(StorageSettingMessage.registrationLoading)
         AuthApi.registrationUser(values.email, values.password)
             .then(r => {
                 //alert("Зарегистрирован")
-                setLoadings(false)
+                setSettingMessage(StorageSettingMessage.registrationAccess)
+                setLoading(false)
             })
             .catch(r => {
-
                 //Какие еще может бек вернуть ошибки?
                 const errorDoubleName = r.response.data.errors.DuplicateUserName
-
                 setSettingMessage({
                     ...StorageSettingMessage.registrationError,
                     content: errorDoubleName ? errorDoubleName : StorageSettingMessage.registrationError.content
                 })
-                //setMessageAlert({text: r.response.data.errors.DuplicateUserName, type: "error", width: "100%"})
-                setLoadings(false)
+                setLoading(false)
             })
     };
 
@@ -49,17 +49,7 @@ export const FormRegistration = ({onClose}: {
     >
         {/*{messageAlert && <MessageInfo text={messageAlert.text} type={messageAlert.type} width={messageAlert.width}/>}*/}
         <FieldsRegistration form={form}/>
-        <Row justify="end">
-            <Space align="center">
-                <Form.Item>
-                    <Button type="primary" htmlType="submit" loading={loadings}> Зарегистрироваться </Button>
-                </Form.Item>
-                <Form.Item>
-                    <Button htmlType="reset" onClick={onClose}>
-                        Отмена
-                    </Button>
-                </Form.Item>
-            </Space>
-        </Row>
+        <FormButtons nameOk={"Зарегистрироваться"} handleCancel={onClose} loading={loading}/>
+
     </Form>)
 }

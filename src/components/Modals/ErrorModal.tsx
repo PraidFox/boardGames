@@ -1,6 +1,6 @@
 import {Modal} from "antd";
 import React, {useState} from "react";
-import {useErrorInfo} from "../../tools/hooks/useErrorInfo";
+import {useErrorInfo} from "../../tools/hooks/hooksContext/useErrorInfo";
 
 export const ErrorModal = ({children}: {
     children: (onClose: () => void) => React.ReactNode

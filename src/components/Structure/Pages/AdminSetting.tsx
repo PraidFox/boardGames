@@ -5,9 +5,7 @@ import {TypeApi} from "../../../tools/rest/TypeApi";
 import {Button, Input, Select, Space} from "antd";
 import {InfiniteScrollAnt} from "../../UiElements/InfiniteScrollAnt";
 import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
-import {MyError} from "../../../tools/storages/const";
-import {checkError} from "../../../tools/utils/utilsTsx";
-import {useErrorInfo} from "../../../tools/hooks/useErrorInfo";
+import {useErrorInfo} from "../../../tools/hooks/hooksContext/useErrorInfo";
 
 
 export const AdminSetting = () => {

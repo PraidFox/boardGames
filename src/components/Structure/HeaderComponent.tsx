@@ -1,7 +1,7 @@
 import {Layout, Menu, MenuProps} from "antd";
 import React, {ReactNode, useLayoutEffect, useState} from "react";
 import {NavLink} from "react-router-dom";
-import {useInfoUser} from "../../tools/hooks/useInfoUser";
+import {useInfoUser} from "../../tools/hooks/hooksContext/useInfoUser";
 
 
 const {Header} = Layout;

@@ -2,7 +2,7 @@ import React, {createContext, ReactNode, useLayoutEffect, useState} from "react"
 import {AuthContext, UserInfo} from "../tools/interfaces/otherInterface";
 import {LocalStorageUtils} from "../tools/utils/localStorageUtils";
 import {AuthApi} from "../tools/rest/AuthApi";
-import {useMessage} from "../tools/hooks/useMessage";
+import {useMessage} from "../tools/hooks/hooksContext/useMessage";
 import {StorageSettingMessage} from "../tools/storages/storageSettingMessage";
 
 export const UserLoginContext = createContext<AuthContext>({} as AuthContext);
@@ -18,11 +18,12 @@ export const UserLoginProvider = ({children}: {
         const idUser = LocalStorageUtils.getUserInfo()
 
         if (idUser && Number(idUser) !== 0) {
-            setUserInfo({id: 1, loggedIn: true, nickname: idUser})
+            setUserInfo({id: 1, loggedIn: true, nickname: "Какой-то ник"})
         }
     }, []);
 
     const authUser = (email: string, password: string, remember: boolean): Promise<void> => {
+        console.log(email)
         return AuthApi.loginUser(email, password)
             .then(r => {
                     setUserInfo({loggedIn: true, nickname: email, id: 1})

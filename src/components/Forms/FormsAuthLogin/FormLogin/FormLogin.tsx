@@ -1,10 +1,11 @@
 import {FieldsLogin} from "./FieldsLogin";
-import {Button, Form, Row, Space} from "antd";
-import React from "react";
+import {Form} from "antd";
+import React, {useState} from "react";
 import {Login} from "../../../../tools/interfaces/formInterface";
-import {useInfoUser} from "../../../../tools/hooks/useInfoUser";
-import {useMessage} from "../../../../tools/hooks/useMessage";
+import {useInfoUser} from "../../../../tools/hooks/hooksContext/useInfoUser";
+import {useMessage} from "../../../../tools/hooks/hooksContext/useMessage";
 import {StorageSettingMessage} from "../../../../tools/storages/storageSettingMessage";
+import {FormButtons} from "../../../UiElements/FormButtons";
 
 
 export const FormLogin = ({nameForm, onClose}: {
@@ -13,14 +14,18 @@ export const FormLogin = ({nameForm, onClose}: {
 }) => {
     const {authUser} = useInfoUser()
     const {setSettingMessage} = useMessage()
+    const [loading, setLoading] = useState<boolean>(false);
     const onFinish = (values: Login) => {
         setSettingMessage(StorageSettingMessage.authorizationLoading)
 
+        setLoading(true)
         authUser(values.email, values.password, values.remember).then(() => {
             setSettingMessage(StorageSettingMessage.authorizationAccess)
+            setLoading(false)
             onClose()
         }).catch(r => {
             setSettingMessage(StorageSettingMessage.authorizationError)
+            setLoading(false)
         })
     };
 
@@ -34,18 +39,6 @@ export const FormLogin = ({nameForm, onClose}: {
         autoComplete="off"
     >
         <FieldsLogin/>
-        <Row justify="end">
-            <Space align="center">
-                <Form.Item>
-                    <Button type="primary" htmlType="submit"> Войти
-                    </Button>
-                </Form.Item>
-                <Form.Item>
-                    <Button htmlType="reset" onClick={onCancel}>
-                        Отмена
-                    </Button>
-                </Form.Item>
-            </Space>
-        </Row>
+        <FormButtons nameOk={"Войти"} handleCancel={onCancel} loading={loading}/>
     </Form>)
 }

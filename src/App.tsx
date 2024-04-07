@@ -7,9 +7,9 @@ import {FooterComponent} from "./components/Structure/FooterComponent";
 
 import {AuthOrProfile} from "./components/UiElements/AuthOrProfile/AuthOrProfile";
 import "./style/global.css"
-import {useErrorInfo} from "./tools/hooks/useErrorInfo";
+import {useErrorInfo} from "./tools/hooks/hooksContext/useErrorInfo";
 import {checkError} from "./tools/utils/utilsTsx";
-import {useMessage} from "./tools/hooks/useMessage";
+import {useMessage} from "./tools/hooks/hooksContext/useMessage";
 
 const {Sider} = Layout;
 //TODO хранить токен в HttpOnly и хочет ли пользователь что бы его помнили?

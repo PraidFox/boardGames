@@ -1,6 +1,8 @@
 import {ArgsProps} from "antd/es/message/interface";
 
 export class StorageSettingMessage {
+
+
     static authorizationAccess: ArgsProps = {
         key: "authorization",
         type: "success",
@@ -22,17 +24,32 @@ export class StorageSettingMessage {
         duration: 0
     }
 
-    static loggedOut: ArgsProps = {
-        key: "loggedOut",
+    static registrationAccess: ArgsProps = {
+        key: "registration",
         type: "success",
-        content: "Возвращайтесь, будем рады вновь вас видеть! 🤩",
-        duration: 8
+        content: "Регистрация прошла успешно",
+        duration: 4
+    }
+
+    static registrationLoading: ArgsProps = {
+        key: "registration",
+        type: "loading",
+        content: "Идёт регистрация...",
+        duration: 0
     }
 
     static registrationError: ArgsProps = {
         key: "registration",
         type: "error",
         content: "Ошибка регистрации, попробуйте повторить позже",
+        duration: 8
+    }
+
+
+    static loggedOut: ArgsProps = {
+        key: "loggedOut",
+        type: "success",
+        content: "Возвращайтесь, будем рады вновь вас видеть! 🤩",
         duration: 8
     }
 }
