@@ -1,26 +1,20 @@
-import {UserInfo} from "../interfaces/otherInterface";
-import {TokenInfo} from "../interfaces/localStorageInterface";
-
+import {TokenInfoLS} from "../interfaces/localStorageInterface";
 
 export class LocalStorageUtils {
-    static getUserInfo = (): UserInfo => {
-        const loggedIn = localStorage.getItem("loggedIn")
-        const nickname = localStorage.getItem("nickname")
-
-        return {
-            loggedIn: loggedIn ? loggedIn === "true" : false,
-            nickname: nickname ? nickname : null
-        }
+    static getUserInfo = (): string | null => {
+        return localStorage.getItem("idUser")
     }
-    
+    static setUserInfo = (idUser: number) => {
+        return localStorage.setItem("idUser", idUser.toString())
+    }
+
     static setTokenInfo = (accessToken: string, refreshToken: string, expiresIn: number) => {
         localStorage.setItem("accessToken", accessToken)
         localStorage.setItem("refreshToken", refreshToken)
         localStorage.setItem("entryTime", new Date().toString())
         localStorage.setItem("expiresIn", expiresIn.toString())
     }
-
-    static getTokenInfo = (): TokenInfo => {
+    static getTokenInfo = (): TokenInfoLS => {
         return {
             accessToken: localStorage.getItem("accessToken"),
             refreshToken: localStorage.getItem("refreshToken"),

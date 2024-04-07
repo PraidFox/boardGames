@@ -5,6 +5,9 @@ import {TypeApi} from "../../../tools/rest/TypeApi";
 import {Button, Input, Select, Space} from "antd";
 import {InfiniteScrollAnt} from "../../UiElements/InfiniteScrollAnt";
 import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
+import {MyError} from "../../../tools/storages/const";
+import {checkError} from "../../../tools/utils/utilsTsx";
+import {useErrorInfo} from "../../../tools/hooks/useErrorInfo";
 
 
 export const AdminSetting = () => {
@@ -18,6 +21,9 @@ export const AdminSetting = () => {
     const [deleteOptionsGenre, setDeleteOptionsGenre] = useState<number[]>([])
     const [deleteOptionsType, setDeleteOptionsType] = useState<number[]>([])
     const [deleteBoardGameId, setDeleteBoardGameId] = useState<number | null>()
+
+    const {setErrorInfo} = useErrorInfo()
+
 
     useEffect(() => {
         GenreApi.getGenre().then((res) => {
@@ -45,8 +51,9 @@ export const AdminSetting = () => {
                 setAddGenreLoading(false)
             })
         }).catch(r => {
+                console.log("Меня вызваля")
+                setErrorInfo({nameError: r.message})
                 setAddGenreLoading(false)
-                alert(r.response.data)
             }
         )
     }

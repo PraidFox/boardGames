@@ -2,7 +2,6 @@ import {Button, Flex} from "antd";
 import React from "react";
 import {useInfoUser} from "../../tools/hooks/useInfoUser";
 
-
 export const ButtonsLogout = () => {
     const {logoutUser} = useInfoUser()
 

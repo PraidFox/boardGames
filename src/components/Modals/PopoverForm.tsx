@@ -1,6 +1,5 @@
-import {Button, Form, Popover, Row, Space} from "antd";
+import {Button, Popover} from "antd";
 import React, {useState} from "react";
-import {FormInstance} from "antd/es/form";
 
 export const PopoverForm = ({children}: {
     children: (onClose: () => void) => React.ReactNode

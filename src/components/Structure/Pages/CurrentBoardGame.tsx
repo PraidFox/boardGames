@@ -1,7 +1,5 @@
-import {useNavigate, useLocation, useParams} from "react-router-dom";
-
+import {useNavigate, useLocation} from "react-router-dom";
 import {BoardGamesDTO} from "../../../tools/interfaces/DTOinterface";
-
 
 export const CurrentBoardGame = () => {
     const location = useLocation();
@@ -11,9 +9,6 @@ export const CurrentBoardGame = () => {
     const goBack = () => {
         navigate(-1); // Вернуться на один шаг назад в истории
     };
-
-   
-    console.log(useParams())
 
     return (
         <div>

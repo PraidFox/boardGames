@@ -1,9 +1,10 @@
 import {FieldsLogin} from "./FieldsLogin";
 import {Button, Form, Row, Space} from "antd";
-import React, {useEffect} from "react";
+import React from "react";
 import {Login} from "../../../../tools/interfaces/formInterface";
 import {useInfoUser} from "../../../../tools/hooks/useInfoUser";
-import {FormInstance} from "antd/es/form";
+import {useMessage} from "../../../../tools/hooks/useMessage";
+import {StorageSettingMessage} from "../../../../tools/storages/storageSettingMessage";
 
 
 export const FormLogin = ({nameForm, onClose}: {
@@ -11,26 +12,28 @@ export const FormLogin = ({nameForm, onClose}: {
     onClose: () => void
 }) => {
     const {authUser} = useInfoUser()
+    const {setSettingMessage} = useMessage()
     const onFinish = (values: Login) => {
-        authUser(values.email, values.password, values.remember)
+        setSettingMessage(StorageSettingMessage.authorizationLoading)
+
+        authUser(values.email, values.password, values.remember).then(() => {
+            setSettingMessage(StorageSettingMessage.authorizationAccess)
+            onClose()
+        }).catch(r => {
+            setSettingMessage(StorageSettingMessage.authorizationError)
+        })
     };
 
-    const onFinishFailed = (errorInfo: any) => {
-        //console.log('Failed:', errorInfo);
-    };
     const onCancel = () => {
-        //form.resetFields()
         onClose()
     }
 
     return (<Form
         name={nameForm}
         onFinish={onFinish}
-        onFinishFailed={onFinishFailed}
         autoComplete="off"
     >
         <FieldsLogin/>
-
         <Row justify="end">
             <Space align="center">
                 <Form.Item>

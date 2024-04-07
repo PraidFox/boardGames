@@ -1,20 +1,18 @@
 import {FieldsRegistration} from "./FieldsRegistration";
 import {Button, Form, Row, Space} from "antd";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {AuthApi} from "../../../../tools/rest/AuthApi";
 import {Registration} from "../../../../tools/interfaces/formInterface";
-import {MessageInfo} from "../../../UiElements/MessageInfo";
-import {MessageInfoType} from "../../../../tools/interfaces/otherInterface";
-import {FormInstance} from "antd/es/form";
-
+import {useMessage} from "../../../../tools/hooks/useMessage";
+import {StorageSettingMessage} from "../../../../tools/storages/storageSettingMessage";
 
 export const FormRegistration = ({onClose}: {
     onClose: () => void
 }) => {
     const [form] = Form.useForm();
-    const [messageAlert, setMessageAlert] = useState<MessageInfoType>()
+    //const [messageAlert, setMessageAlert] = useState<MessageInfoType>()
     const [loadings, setLoadings] = useState<boolean>(false);
-
+    const {setSettingMessage} = useMessage()
     const onFinish = (values: Registration) => {
         setLoadings(true)
         AuthApi.registrationUser(values.email, values.password)
@@ -23,7 +21,15 @@ export const FormRegistration = ({onClose}: {
                 setLoadings(false)
             })
             .catch(r => {
-                setMessageAlert({text: r.response.data.errors.DuplicateUserName, type: "error", width: "100%"})
+
+                //Какие еще может бек вернуть ошибки?
+                const errorDoubleName = r.response.data.errors.DuplicateUserName
+
+                setSettingMessage({
+                    ...StorageSettingMessage.registrationError,
+                    content: errorDoubleName ? errorDoubleName : StorageSettingMessage.registrationError.content
+                })
+                //setMessageAlert({text: r.response.data.errors.DuplicateUserName, type: "error", width: "100%"})
                 setLoadings(false)
             })
     };
@@ -41,7 +47,7 @@ export const FormRegistration = ({onClose}: {
         onFinishFailed={onFinishFailed}
         autoComplete="off"
     >
-        {messageAlert && <MessageInfo text={messageAlert.text} type={messageAlert.type} width={messageAlert.width}/>}
+        {/*{messageAlert && <MessageInfo text={messageAlert.text} type={messageAlert.type} width={messageAlert.width}/>}*/}
         <FieldsRegistration form={form}/>
         <Row justify="end">
             <Space align="center">

@@ -1,4 +1,4 @@
-import {Button, Input, InputNumber, Select, Slider} from "antd";
+import {Button, Input, InputNumber, Select} from "antd";
 import React, {Dispatch, useEffect, useState} from "react";
 import {OptionsFieldFormEdit} from "../FormsAddBoardGame/reducerFieldOptions";
 import {GenreApi} from "../../../tools/rest/GenreApi";

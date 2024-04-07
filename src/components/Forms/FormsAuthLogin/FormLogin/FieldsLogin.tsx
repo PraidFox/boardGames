@@ -10,7 +10,7 @@ export const FieldsLogin = () => {
                 rules={[
                     {
                         type: 'email',
-                        message: 'Ввели неверную почту',
+                        message: 'Формат почты не верен',
                     },
                     {
                         required: true,

@@ -6,7 +6,6 @@ export const DrawerSidePanel = ({children}: { children: (onClose: () => void) =>
     const showDrawer = () => {
         setOpen(true);
     };
-
     const onClose = () => {
         setOpen(false);
     };

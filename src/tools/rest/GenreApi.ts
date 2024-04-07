@@ -1,4 +1,3 @@
-import axios from "axios";
 import {axiosBG, axiosBGauth} from "./AxiosDefault";
 
 export class GenreApi {

@@ -1,7 +1,6 @@
 import {Menu} from "antd";
-import React, {useContext, useLayoutEffect, useState} from "react";
+import React, {useLayoutEffect, useState} from "react";
 import {boardGame, user} from "../../tools/storages/itemMenu";
-import {UserLoginContext} from "../../context/UserContext";
 import {useInfoUser} from "../../tools/hooks/useInfoUser";
 
 export const LeftMenu = () => {

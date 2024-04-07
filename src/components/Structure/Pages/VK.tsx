@@ -2,7 +2,6 @@ import * as VKID from '@vkid/sdk';
 import {Scheme} from "@vkid/sdk";
 import {useEffect, useLayoutEffect} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
-import {Button} from "antd";
 
 VKID.Config.set({
     app: 51861192,

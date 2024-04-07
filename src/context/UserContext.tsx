@@ -2,46 +2,48 @@ import React, {createContext, ReactNode, useLayoutEffect, useState} from "react"
 import {AuthContext, UserInfo} from "../tools/interfaces/otherInterface";
 import {LocalStorageUtils} from "../tools/utils/localStorageUtils";
 import {AuthApi} from "../tools/rest/AuthApi";
+import {useMessage} from "../tools/hooks/useMessage";
+import {StorageSettingMessage} from "../tools/storages/storageSettingMessage";
 
-export const UserLoginContext = createContext<AuthContext>({
-    loggedIn: false,
-    nickname: null,
-    authUser: () => {
-    },
-    logoutUser: () => {
-    }
-});
+export const UserLoginContext = createContext<AuthContext>({} as AuthContext);
 
 export const UserLoginProvider = ({children}: {
     children: ReactNode
 }) => {
-    const [userInfo, setUserInfo] = useState<UserInfo>({loggedIn: false, nickname: null})
+    const [userInfo, setUserInfo] = useState<UserInfo | undefined>()
+    const {setSettingMessage} = useMessage()
 
     useLayoutEffect(() => {
-        const {loggedIn, nickname}: UserInfo = LocalStorageUtils.getUserInfo()
-        setUserInfo({loggedIn, nickname})
+        //Поход в БД и взять инфу по id пользователю. (Ник и должен ли он быть залогинен)
+        const idUser = LocalStorageUtils.getUserInfo()
+
+        if (idUser && Number(idUser) !== 0) {
+            setUserInfo({id: 1, loggedIn: true, nickname: idUser})
+        }
     }, []);
 
-    const authUser = (email: string, password: string) => {
-        AuthApi.loginUser(email, password)
+    const authUser = (email: string, password: string, remember: boolean): Promise<void> => {
+        return AuthApi.loginUser(email, password)
             .then(r => {
-                    setUserInfo({loggedIn: true, nickname: email})
+                    setUserInfo({loggedIn: true, nickname: email, id: 1})
                     LocalStorageUtils.setTokenInfo(r.data.accessToken, r.data.refreshToken, r.data.expiresIn)
+                    //И сохранить в куках запомнить пользователя или нет
+                    LocalStorageUtils.setUserInfo(1)
                 }
             )
-            .catch(() => alert("Логин или пароль введены не верно. Или вы пытаетесь кого-то взломать"))
     }
-
     const logoutUser = () => {
-        setUserInfo(r => ({...r, loggedIn: false}))
-    }
+        //И отправка в бек, что пользователь вышел
 
+        setSettingMessage(StorageSettingMessage.loggedOut)
+        LocalStorageUtils.setUserInfo(0)
+        setUserInfo(r => undefined)
+    }
 
     return <UserLoginContext.Provider
-        value={{loggedIn: userInfo.loggedIn, nickname: userInfo.nickname, authUser, logoutUser}}>
+        value={{...userInfo, authUser, logoutUser}}>
         {children}
     </UserLoginContext.Provider>
-
 }
 
 

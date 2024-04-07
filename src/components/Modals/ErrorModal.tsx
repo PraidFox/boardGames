@@ -1,32 +1,28 @@
-import {Button, Modal} from "antd";
+import {Modal} from "antd";
 import React, {useState} from "react";
+import {useErrorInfo} from "../../tools/hooks/useErrorInfo";
 
-export const ModalForm = ({children}: {
+export const ErrorModal = ({children}: {
     children: (onClose: () => void) => React.ReactNode
-    reAuthorization?: boolean
 }) => {
-    const [open, setOpen] = useState(false);
-    const showModal = () => {
-        setOpen(true);
-    };
-
+    const [open, setOpen] = useState(true);
+    const {setErrorInfo} = useErrorInfo()
     const onClose = () => {
+        console.log("Я тут")
+        setErrorInfo(null)
         setOpen(false);
     }
 
     return <>
-        <Button type="primary" onClick={showModal}>
-            Зарегистрироваться
-        </Button>
         <Modal
             title={null}
             open={open}
             onCancel={onClose}
             closeIcon={false}
             footer={null}
+            maskClosable={false}
         >
             {children(onClose)}
         </Modal>
-
     </>
 }

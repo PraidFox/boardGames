@@ -53,7 +53,7 @@ export const FieldsRegistration = ({form}: { form: FormInstance }) => {
                 rules={[
                     {
                         type: 'email',
-                        message: 'Ввели неверную почту',
+                        message: 'Формат почты не верен',
                     },
                     {
                         required: true,

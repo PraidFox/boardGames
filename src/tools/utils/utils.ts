@@ -1,6 +1,5 @@
 import {Options, OptionsAutoComplete, OptionsDTO} from "../interfaces/serverInterface";
-import {AuthApi} from "../rest/AuthApi";
-
+import {MyError} from "../storages/const";
 
 export const filterOptionLabel = (inputValue: string, option: Options<any> | undefined) => {
     if (option) {

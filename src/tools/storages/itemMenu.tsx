@@ -1,4 +1,3 @@
-import {MenuProps} from "antd";
 import {BookOutlined, UserOutlined} from "@ant-design/icons";
 import {NavLink} from "react-router-dom";
 import React from "react";

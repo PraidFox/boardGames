@@ -5,7 +5,6 @@ import {
 } from "../../../tools/storages/fieldOptions";
 import {convertOptions, convertOptionsAutoComplete, filterOptionLabel} from "../../../tools/utils/utils";
 import {OptionsFieldFormEdit, reducerFieldOptions} from "./reducerFieldOptions";
-import {OptionsId} from "../../../tools/storages/optionsId";
 import {Image} from 'antd';
 import {reducerFieldValues, ValesFieldFormEdit} from "./reducerFieldValues";
 import {useEffect, useReducer} from "react";
@@ -46,7 +45,7 @@ export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
 
     useEffect(() => {
         form.setFieldsValue({maxPlayers: valuesField.maxPlayersCount})
-    }, [valuesField.maxPlayersCount]);
+    }, [form, valuesField.maxPlayersCount]);
 
     const onFinish = (values: FormBoardGame) => {
         let dataBoardGame: CreateBoardGame = {
