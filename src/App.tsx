@@ -13,11 +13,12 @@ import {useMessage} from "./tools/hooks/hooksContext/useMessage";
 
 const {Sider} = Layout;
 //TODO хранить токен в HttpOnly и хочет ли пользователь что бы его помнили?
-
+//TODO может дать урлу для модалок? Что бы можно было вызвать их по урлу из любого места. /любой вариант/editBoard
 
 export const App = () => {
     const {nameError} = useErrorInfo()
     const {contextHolder} = useMessage()
+
 
     return (
         <Layout style={{minHeight: '100vh'}}>
