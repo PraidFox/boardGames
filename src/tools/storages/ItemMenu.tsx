@@ -13,7 +13,7 @@ export class ItemMenu {
         }
     }
 
-    static allBoardGames: ItemType = this.toItemType(PathStorage.ALL_BOARD_GAMES, "Все настолки")
+    static allBoardGames: ItemType = this.toItemType(PathStorage.LEFT_BOARD_GAMES + PathStorage.ALL_BOARD_GAMES, "Все настолки")
     static ratingBoardGames: ItemType = this.toItemType(PathStorage.RATING_BOARD_GAMES, "Рейтинг")
     static myCollections: ItemType = this.toItemType(PathStorage.MY_COLLECTIONS, "Моя коллекция")
     static mySetting: ItemType = this.toItemType(PathStorage.MY_SETTING, "Настройки")
@@ -26,7 +26,7 @@ export class ItemMenu {
 
 
     static userItems: ItemType = {
-        key: `user`,
+        key: PathStorage.LEFT_USER,
         icon: <UserOutlined/>,
         label: `Профиль`,
         children: [
@@ -34,13 +34,13 @@ export class ItemMenu {
         ]
     }
     static boardGamesItems: ItemType = {
-        key: `boardGames`,
+        key: PathStorage.LEFT_BOARD_GAMES,
         icon: <BookOutlined/>,
         label: `Настолки`,
         children: [this.allBoardGames, this.ratingBoardGames]
     }
 
-    static defaultHeaderMenu = [ItemMenu.articles, ItemMenu.players, ItemMenu.events]
+    static defaultHeaderMenu: MenuProps['items'] = [this.articles, this.players, this.events]
     static defaultLeftMenu: MenuProps['items'] = [this.boardGamesItems]
 }
 

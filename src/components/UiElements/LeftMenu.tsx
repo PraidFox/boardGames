@@ -12,7 +12,6 @@ export const LeftMenu = () => {
     const {loggedIn} = useInfoUser()
     const [defaultOpen, setDefaultOpen] = useState<string[]>()
 
-
     useLayoutEffect(() => {
         if (loggedIn) {
             setMenuItems(r => r ? [ItemMenu.userItems, ...r] : [ItemMenu.userItems])
@@ -26,14 +25,16 @@ export const LeftMenu = () => {
         setDefaultOpen(openMenu ? openMenu : [])
     }, []);
 
-    console.log("current", current)
+    console.log("split", ...current.split("/").map(x => `/${x}`))
 
     return (<>
             {defaultOpen && <Menu
                 theme="dark"
                 mode="inline"
-                defaultOpenKeys={defaultOpen}
+                defaultOpenKeys={[...defaultOpen, ...current.split("/").map(x => `/${x}`)]}
+
                 onOpenChange={e => LocalStorageUtils.setOpenMenu(e, "leftMenu")}
+                //onOpenChange={e => console.log(e)}
                 selectedKeys={current ? [current] : []}
                 items={menuItems}
                 onClick={onClick}

@@ -32,7 +32,7 @@ const router = createBrowserRouter(
             <Route>
                 <Route index element={<StartPage/>}/>
                 <Route
-                    path={PathStorage.ALL_BOARD_GAMES}
+                    path={PathStorage.LEFT_BOARD_GAMES + PathStorage.ALL_BOARD_GAMES}
                     element={<AllBoardGamesPage type={"all"}/>}
                 />
                 <Route

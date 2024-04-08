@@ -8,6 +8,9 @@ export enum MyError {
 }
 
 export enum PathStorage {
+    LEFT_USER = "/user",
+    LEFT_BOARD_GAMES = "/boardGames",
+
     ALL_BOARD_GAMES = "/allBoardGames",
     PLAYERS = "/players",
     ARTICLES = "/articles",
