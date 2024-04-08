@@ -3,30 +3,29 @@ import type {MenuProps} from 'antd';
 import {Avatar, Badge, Dropdown, Space} from 'antd'
 import React, {useState} from "react";
 import {useInfoUser} from "../../tools/hooks/hooksContext/useInfoUser";
+import {NavLink} from "react-router-dom";
+import {PathStorage} from "../../tools/storages/const";
 
 export const ProfileMenu = () => {
     const {logoutUser, nickname} = useInfoUser()
     const [countNotifications, setCountNotifications] = useState(8)
 
-    console.log("nic", nickname)
 
     // @ts-ignore
     const items: MenuProps['items'] = [
         {
             type: 'group', // Must have
             label: nickname,
-            children: [{
-                key: '1',
-                label: "Профиль",
-            },
+            children: [
                 {
-                    key: '2',
-                    label: 'Настройки',
+                    key: '1',
+                    label: `Уведомления: ${countNotifications}`,
                 },
                 {
                     key: '3',
-                    label: `Уведомления: ${countNotifications}`,
-                },]
+                    label: <NavLink to={PathStorage.MY_SETTING}>Настройки</NavLink>,
+                }
+            ]
         },
 
         {

@@ -10,7 +10,7 @@ import {NavLink} from "react-router-dom";
 import {FilterBoardGamesPanel} from "../../Forms/FormFilter/FilterBoardGamesPanel";
 import {reducerFilterFieldValues} from "../../Forms/FormFilter/reducerFilterFieldValues";
 
-export const AllBoardGames = ({type}: { type: "all" | "user" }) => {
+export const AllBoardGamesPage = ({type}: { type: "all" | "user" }) => {
     const [dataBoardGames, setDataBoardGame] = useState<BoardGamesDTO[]>([])
     const [needUpdate, setNeedUpdate] = useState(true)
     const [filterFieldValues, setFilterFieldValues] = useReducer(reducerFilterFieldValues, undefined)

@@ -1,7 +1,7 @@
 import {useNavigate, useLocation} from "react-router-dom";
 import {BoardGamesDTO} from "../../../tools/interfaces/DTOinterface";
 
-export const CurrentBoardGame = () => {
+export const CurrentBoardGamePage = () => {
     const location = useLocation();
     const {boardGame} = location.state as { boardGame: BoardGamesDTO };
     const navigate = useNavigate();

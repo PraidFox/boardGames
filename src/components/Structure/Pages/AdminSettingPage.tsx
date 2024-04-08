@@ -8,7 +8,7 @@ import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
 import {useErrorInfo} from "../../../tools/hooks/hooksContext/useErrorInfo";
 
 
-export const AdminSetting = () => {
+export const AdminSettingPage = () => {
     const [genre, setGenre] = useState<GenreDTO[]>([])
     const [type, setType] = useState<TypeDTO[]>([])
     const [boardGames, setBoardGames] = useState<BoardGamesDTO[]>([])

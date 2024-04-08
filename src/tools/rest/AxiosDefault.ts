@@ -1,6 +1,6 @@
 import axios from "axios";
 import {AuthApi} from "./AuthApi";
-import {LocalStorageUtils} from "../utils/localStorageUtils";
+import {LocalStorageUtils} from "../utils/LocalStorageUtils";
 import {TokenInfoLS} from "../interfaces/localStorageInterface";
 import {MyError} from "../storages/const";
 
@@ -24,7 +24,7 @@ axiosBGauth.interceptors.request.use(async function (config) {
 
     //Доставать с бека? Или... нужно изучить данный вопрос
     const remember = true
-    throw new Error(MyError.NEED_AUTHORIZATION);
+    //throw new Error(MyError.NEED_AUTHORIZATION);
 
     if (accessToken) {
         const entryTimeDate = new Date(entryTime!).getTime();

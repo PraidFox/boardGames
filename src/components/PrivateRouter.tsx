@@ -5,5 +5,11 @@ import {useInfoUser} from "../tools/hooks/hooksContext/useInfoUser";
 export const PrivateRouter = () => {
     const {loggedIn} = useInfoUser()
 
-    return loggedIn ? <Outlet/> : <Navigate to="/" replace/>;
+    //TODO а может при отрисовки приватной страницы вновь проверить не протух ли token?
+
+    if (loggedIn === undefined) {
+        return null
+    } else {
+        return loggedIn ? <Outlet/> : <Navigate to="/" replace/>;
+    }
 };

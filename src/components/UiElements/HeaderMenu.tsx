@@ -1,0 +1,30 @@
+import {Menu} from "antd";
+import React, {useLayoutEffect} from "react";
+import {useInfoUser} from "../../tools/hooks/hooksContext/useInfoUser";
+import {useMenuDriven} from "../../tools/hooks/useMenuDriven";
+import {UseMenuDriven} from "../../tools/interfaces/hooksInterface";
+import {ItemMenu} from "../../tools/storages/ItemMenu";
+
+export const HeaderMenu = () => {
+    const {menuItems, current, setMenuItems, onClick}: UseMenuDriven = useMenuDriven(ItemMenu.defaultHeaderMenu)
+    const {loggedIn} = useInfoUser()
+
+    useLayoutEffect(() => {
+        if (loggedIn) {
+            //Еще проверяем на админа
+            setMenuItems(r => r ? [...r, ItemMenu.adminSetting] : [ItemMenu.adminSetting])
+        } else {
+            setMenuItems(r => r?.filter(x => x?.key !== ItemMenu.adminSetting?.key))
+        }
+    }, [loggedIn, setMenuItems]);
+
+
+    return <Menu
+        theme="dark"
+        mode="horizontal"
+        items={menuItems}
+        selectedKeys={current ? [current] : []}
+        style={{flex: 1, minWidth: 0}}
+        onClick={onClick}
+    />
+}

@@ -8,7 +8,6 @@ export const ErrorModal = ({children}: {
     const [open, setOpen] = useState(true);
     const {setErrorInfo} = useErrorInfo()
     const onClose = () => {
-        console.log("Я тут")
         setErrorInfo(null)
         setOpen(false);
     }

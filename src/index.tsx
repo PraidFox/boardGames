@@ -2,13 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom';
 import {App} from "./App";
-import {AllBoardGames} from "./components/Structure/Pages/AllBoardGames";
+import {AllBoardGamesPage} from "./components/Structure/Pages/AllBoardGamesPage";
 import ErrorPage from "./components/Structure/Pages/ErrorPage";
-import {CurrentBoardGame} from "./components/Structure/Pages/CurrentBoardGame";
+import {CurrentBoardGamePage} from "./components/Structure/Pages/CurrentBoardGamePage";
 import {VK} from "./components/Structure/Pages/VK";
 import {PrivateRouter} from "./components/PrivateRouter";
-import {AdminSetting} from "./components/Structure/Pages/AdminSetting";
+import {AdminSettingPage} from "./components/Structure/Pages/AdminSettingPage";
 import {AllContextProvider} from "./context/AllContextProvider";
+import {FriendsPage} from "./components/Structure/Pages/FriendsPage";
+import {PlayersPage} from "./components/Structure/Pages/PlayersPage";
+import {ArticlesPage} from "./components/Structure/Pages/ArticlesPage";
+import {SettingProfilePage} from "./components/Structure/Pages/SettingProfilePage";
+import {PathStorage} from "./tools/storages/const";
+import {RatingBoardGamesPage} from "./components/Structure/Pages/RatingBoardGamesPage";
+import {EventsPage} from "./components/Structure/Pages/EventsPage";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -24,27 +31,52 @@ const router = createBrowserRouter(
             <Route>
                 <Route index element={<h2>Какой-то приветствующий текст</h2>}/>
                 <Route
-                    path="allBoardGames"
-                    element={<AllBoardGames type={"all"}/>}
+                    path={PathStorage.ALL_BOARD_GAMES}
+                    element={<AllBoardGamesPage type={"all"}/>}
                 />
                 <Route
-                    path="boardGame/:boardGameId"
-                    element={<CurrentBoardGame/>}
+                    path={PathStorage.PLAYERS}
+                    element={<PlayersPage/>}
                 />
+                <Route
+                    path={PathStorage.ARTICLES}
+                    element={<ArticlesPage/>}
+                />
+                <Route
+                    path={PathStorage.MY_SETTING}
+                    element={<SettingProfilePage/>}
+                />
+                <Route
+                    path={PathStorage.BOARD_GAME + `/:boardGameId`}
+                    element={<CurrentBoardGamePage/>}
+                />
+                <Route
+                    path={PathStorage.RATING_BOARD_GAMES}
+                    element={<RatingBoardGamesPage/>}
+                />
+                <Route
+                    path={PathStorage.EVENTS}
+                    element={<EventsPage/>}
+                />
+
 
                 <Route element={<PrivateRouter/>}>
                     <Route
-                        path="projectSetting"
-                        element={<AdminSetting/>}
+                        path={PathStorage.ADMIN_SETTING}
+                        element={<AdminSettingPage/>}
                     />
                     <Route
-                        path="myCollections"
-                        element={<AllBoardGames type={"user"}/>}
+                        path={PathStorage.MY_COLLECTIONS}
+                        element={<AllBoardGamesPage type={"user"}/>}
+                    />
+                    <Route
+                        path={PathStorage.MY_FRIENDS}
+                        element={<FriendsPage/>}
                     />
                 </Route>
 
                 <Route
-                    path="VK"
+                    path={PathStorage.VK}
                     element={<VK/>}
                 />
             </Route>

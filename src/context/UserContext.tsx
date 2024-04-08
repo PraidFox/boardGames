@@ -1,6 +1,6 @@
 import React, {createContext, ReactNode, useLayoutEffect, useState} from "react";
 import {AuthContext, UserInfo} from "../tools/interfaces/otherInterface";
-import {LocalStorageUtils} from "../tools/utils/localStorageUtils";
+import {LocalStorageUtils} from "../tools/utils/LocalStorageUtils";
 import {AuthApi} from "../tools/rest/AuthApi";
 import {useMessage} from "../tools/hooks/hooksContext/useMessage";
 import {StorageSettingMessage} from "../tools/storages/storageSettingMessage";
@@ -19,11 +19,12 @@ export const UserLoginProvider = ({children}: {
 
         if (idUser && Number(idUser) !== 0) {
             setUserInfo({id: 1, loggedIn: true, nickname: "Какой-то ник"})
+        } else {
+            setUserInfo({id: 0, loggedIn: false, nickname: null})
         }
     }, []);
 
     const authUser = (email: string, password: string, remember: boolean): Promise<void> => {
-        console.log(email)
         return AuthApi.loginUser(email, password)
             .then(r => {
                     setUserInfo({loggedIn: true, nickname: email, id: 1})

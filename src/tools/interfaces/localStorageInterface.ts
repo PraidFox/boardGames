@@ -8,3 +8,8 @@ export interface TokenInfoLS {
 export interface UserInfoLS {
     idUser: number
 }
+
+export interface OpenMenuKey {
+    leftMenu: string[]
+
+}
