@@ -16,6 +16,7 @@ import {SettingProfilePage} from "./components/Structure/Pages/SettingProfilePag
 import {PathStorage} from "./tools/storages/const";
 import {RatingBoardGamesPage} from "./components/Structure/Pages/RatingBoardGamesPage";
 import {EventsPage} from "./components/Structure/Pages/EventsPage";
+import {StartPage} from "./components/Structure/Pages/StartPage";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -29,7 +30,7 @@ const router = createBrowserRouter(
             errorElement={<ErrorPage/>}
         >
             <Route>
-                <Route index element={<h2>Какой-то приветствующий текст</h2>}/>
+                <Route index element={<StartPage/>}/>
                 <Route
                     path={PathStorage.ALL_BOARD_GAMES}
                     element={<AllBoardGamesPage type={"all"}/>}

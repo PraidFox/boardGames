@@ -1,8 +1,6 @@
-import {Layout, Menu, MenuProps} from "antd";
-import React, {ReactNode, useLayoutEffect, useState} from "react";
+import {Layout} from "antd";
+import React, {ReactNode} from "react";
 import {NavLink} from "react-router-dom";
-import {useInfoUser} from "../../tools/hooks/hooksContext/useInfoUser";
-import {PathStorage} from "../../tools/storages/const";
 import {HeaderMenu} from "../UiElements/HeaderMenu";
 
 
@@ -14,7 +12,7 @@ export const HeaderComponent = ({children}: { children: ReactNode }) => {
     return <Header style={{
         position: 'sticky',
         top: 0,
-        zIndex: 1,
+        zIndex: 100,
         width: '100%',
         display: 'flex',
         alignItems: 'center'

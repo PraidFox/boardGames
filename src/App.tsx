@@ -1,7 +1,7 @@
 import React from 'react';
 import {Layout} from 'antd';
 import {HeaderComponent} from "./components/Structure/HeaderComponent";
-import {LeftMenu} from "./components/Structure/LeftMenu";
+import {LeftMenu} from "./components/UiElements/LeftMenu";
 import {ContentComponent} from "./components/Structure/ContentComponent";
 import {FooterComponent} from "./components/Structure/FooterComponent";
 
@@ -26,7 +26,9 @@ export const App = () => {
             </HeaderComponent>
             <Layout>
                 <Sider collapsible>
-                    <LeftMenu/>
+                    <div style={{position: "sticky", top: 64}}>
+                        <LeftMenu/>
+                    </div>
                 </Sider>
                 <Layout style={{padding: '10px 10px'}}>
                     {contextHolder}
