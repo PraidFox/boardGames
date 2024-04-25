@@ -14,12 +14,9 @@ export const AllBoardGamesPage = () => {
     const [boardGameData, setBoardGameData] = useState<BoardGamesDTO[] | undefined>(SessionStorageUtils.getAllBoardGames())
     const {data, setNeedUpdate, loading} = useLoadData<BoardGamesDTO[]>(BoardGameApi.getAllBoardGame)
     const [filterFieldValues, setFilterFieldValues] = useReducer(reducerFilterFieldValues, undefined)
-    // const [customLoading, setCustomLoading] = useState(true)
-
     const updateBoardGame = () => {
         setNeedUpdate(true)
     }
-
 
     useEffect(() => {
         if (boardGameData) {
@@ -31,7 +28,6 @@ export const AllBoardGamesPage = () => {
                 }
             }
         } else {
-
             setTimeout(() => {
                 console.log("Записал данные")
                 setBoardGameData(data)
@@ -42,7 +38,6 @@ export const AllBoardGamesPage = () => {
         }
     }, [data]);
 
-    console.log("boardGameData", boardGameData)
     const getBoardGames = () => {
         const content = <>
             <BoardGamesList type={"all"} dataBoardGames={boardGameData ? boardGameData : []}/>
