@@ -14,21 +14,11 @@ export const AllBoardGamesPage = () => {
     const [boardGameData, setBoardGameData] = useState<BoardGamesDTO[] | undefined>(SessionStorageUtils.getAllBoardGames())
     const {data, setNeedUpdate, loading} = useLoadData<BoardGamesDTO[]>(BoardGameApi.getAllBoardGame)
     const [filterFieldValues, setFilterFieldValues] = useReducer(reducerFilterFieldValues, undefined)
-    const [customLoading, setCustomLoading] = useState(true)
+    // const [customLoading, setCustomLoading] = useState(true)
 
     const updateBoardGame = () => {
         setNeedUpdate(true)
     }
-
-    console.log(!boardGameData || customLoading)
-
-    useEffect(() => {
-        if (!loading) {
-            setTimeout(() => {
-                //setCustomLoading(false)
-            }, 3000)
-        }
-    }, [loading]);
 
 
     useEffect(() => {
@@ -41,12 +31,38 @@ export const AllBoardGamesPage = () => {
                 }
             }
         } else {
-            setBoardGameData(data)
-            if (data) {
-                SessionStorageUtils.setAllBoardGames(data)
-            }
+
+            setTimeout(() => {
+                console.log("Записал данные")
+                setBoardGameData(data)
+                if (data) {
+                    SessionStorageUtils.setAllBoardGames(data)
+                }
+            }, 2000)
         }
     }, [data]);
+
+    console.log("boardGameData", boardGameData)
+    const getBoardGames = () => {
+        const content = <>
+            <BoardGamesList type={"all"} dataBoardGames={boardGameData ? boardGameData : []}/>
+            <DrawerSidePanel>
+                {(onClose) => (
+                    <FormAddBoardGameInModeration onClose={onClose} setNeedUpdate={updateBoardGame}/>)}
+            </DrawerSidePanel>
+        </>
+
+        if (boardGameData) {
+            return content
+        } else {
+            if (loading || !boardGameData) {
+                return <Loading/>
+            } else {
+                return content
+            }
+        }
+    }
+
 
     return (
         <>
@@ -54,14 +70,7 @@ export const AllBoardGamesPage = () => {
             <FilterBoardGamesPanel activeFilter={!!filterFieldValues} valueFieldAge={filterFieldValues?.age}
                                    setFilterFieldValues={setFilterFieldValues}/>
             <br/>
-            {!boardGameData && loading ? <Loading/> : <>
-                <BoardGamesList type={"all"} dataBoardGames={boardGameData ? boardGameData : []}/>
-                <DrawerSidePanel>
-                    {(onClose) => (<FormAddBoardGameInModeration onClose={onClose} setNeedUpdate={updateBoardGame}/>)}
-                </DrawerSidePanel>
-            </>
-            }
-
+            {getBoardGames()}
         </>
     )
 

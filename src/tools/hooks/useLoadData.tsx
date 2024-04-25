@@ -6,7 +6,6 @@ export function useLoadData<T>(rest: () => Promise<AxiosResponse<T>>) {
     const [needUpdate, setNeedUpdate] = useState(true)
     const [loading, setLoading] = useState(true)
 
-    console.log(loading)
 
     useLayoutEffect(() => {
         if (needUpdate) {
