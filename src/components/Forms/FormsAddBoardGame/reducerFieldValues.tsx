@@ -50,7 +50,6 @@ export const reducerFieldValues = (state: ValesFieldFormEdit, action: Action) =>
         case "CHANGE_NAME_GAME":
             return {...state, nameGame: action.payload}
         case "CHANGE_GENRE_GAME":
-            console.log("CHANGE_GENRE_GAME", action.payload)
             return {...state, genreGame: action.payload}
         // case "CHANGE_TYPE_GAME":
         //     let newTypeGame = action.payload

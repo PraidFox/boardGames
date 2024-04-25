@@ -5,7 +5,7 @@ import {Login} from "../../../../tools/interfaces/formInterface";
 import {useInfoUser} from "../../../../tools/hooks/hooksContext/useInfoUser";
 import {useMessage} from "../../../../tools/hooks/hooksContext/useMessage";
 import {StorageSettingMessage} from "../../../../tools/storages/storageSettingMessage";
-import {FormButtons} from "../../../UiElements/FormButtons";
+import {FormButtons} from "../../../UiElements/Buttons/FormButtons";
 
 
 export const FormLogin = ({nameForm, onClose}: {

@@ -1,4 +1,4 @@
-import {ProfileMenu} from "../ProfileMenu";
+import {ProfileMenu} from "../Menu/ProfileMenu";
 import {Flex} from "antd";
 import {ModalForm} from "../../Modals/ModalForm";
 import {TabsFormAuthLogin} from "../../Forms/FormsAuthLogin/TabsFormAuthLogin";
@@ -8,11 +8,11 @@ import {FormLogin} from "../../Forms/FormsAuthLogin/FormLogin/FormLogin";
 import {PopoverForm} from "../../Modals/PopoverForm";
 
 export const AuthOrProfile = () => {
-    const {loggedIn} = useInfoUser()
+    const {id} = useInfoUser()
 
     return (
         <>
-            {loggedIn ?
+            {id ?
                 <ProfileMenu/> :
                 <Flex gap="small" wrap="wrap">
                     <PopoverForm>

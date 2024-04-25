@@ -5,13 +5,15 @@ import {ArgsProps} from "antd/es/message/interface";
 
 export interface UserInfo {
     id: number
-    loggedIn: boolean
-    nickname: string | null
+    nickname: string
+    email: string
 }
+
 
 export interface AuthContext extends Partial<UserInfo> {
     authUser: (email: string, password: string, remember: boolean) => Promise<void>
-    logoutUser: () => void
+    logoutUser: () => void,
+    rememberUser: boolean
 }
 
 export interface MyErrorInfo {

@@ -9,10 +9,6 @@ export const useMenuDriven = (defaultMenu?: MenuProps['items']): UseMenuDriven =
     const [menuItems, setMenuItems] = useState<MenuProps["items"]>(defaultMenu)
     const [current, setCurrent] = useState<string>(location.pathname);
 
-
-    console.log(location.pathname)
-    console.log("current", current)
-
     useLayoutEffect(() => {
         setCurrent(location.pathname)
     }, [location.pathname]);

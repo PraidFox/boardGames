@@ -1,7 +1,7 @@
 import {Layout} from "antd";
 import React, {ReactNode} from "react";
 import {NavLink} from "react-router-dom";
-import {HeaderMenu} from "../UiElements/HeaderMenu";
+import {HeaderMenu} from "../UiElements/Menu/HeaderMenu";
 
 
 const {Header} = Layout;

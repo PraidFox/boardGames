@@ -1,13 +1,11 @@
-import {FormAddBoardGameInModeration} from "../../Forms/FormsAddBoardGame/FormAddBoardGameInModeration";
-import {DrawerSidePanel} from "../../UiElements/DrawerSidePanel";
+import {FilterBoardGamesPanel} from "../../Forms/FormFilter/FilterBoardGamesPanel";
 import {useEffect, useReducer, useState} from "react";
 import {BoardGamesDTO} from "../../../tools/interfaces/DTOinterface";
 import {reducerFilterFieldValues} from "../../Forms/FormFilter/reducerFilterFieldValues";
 import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
-import {FilterBoardGamesPanel} from "../../Forms/FormFilter/FilterBoardGamesPanel";
 import {BoardGamesList} from "../../UiElements/BoardGamesList/BoardGamesList";
 
-export const AllBoardGamesPage = () => {
+export const MyCollectionBoardGames = () => {
     const [dataBoardGames, setDataBoardGame] = useState<BoardGamesDTO[]>([])
     const [needUpdate, setNeedUpdate] = useState(true)
     const [filterFieldValues, setFilterFieldValues] = useReducer(reducerFilterFieldValues, undefined)
@@ -19,22 +17,18 @@ export const AllBoardGamesPage = () => {
         }
     }, [needUpdate]);
 
-    const updateBoardGame = () => {
+    const deleteGame = (id: number) => {
         setNeedUpdate(true)
+        //УДАЛЕНИЕ ИГРЫ ИМЕННО ИЗ КОЛЛЕКЦИИ ПОЛЬЗОВАТЕЛЯ
     }
 
-
-    return (
-        <>
-            <h1>Все игры</h1>
+    return (<>
+            <h1>{"Мои игры"}</h1>
             <FilterBoardGamesPanel activeFilter={!!filterFieldValues} valueFieldAge={filterFieldValues?.age}
                                    setFilterFieldValues={setFilterFieldValues}/>
+
+            <BoardGamesList type={"user"} dataBoardGames={dataBoardGames} deleteGame={deleteGame}/>
             <br/>
-            <BoardGamesList type={"all"} dataBoardGames={dataBoardGames}/>
-            <DrawerSidePanel>
-                {(onClose) => (<FormAddBoardGameInModeration onClose={onClose} setNeedUpdate={updateBoardGame}/>)}
-            </DrawerSidePanel>
         </>
     )
-
 }

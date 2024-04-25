@@ -1,22 +1,22 @@
 import {Menu} from "antd";
 import React, {useLayoutEffect} from "react";
-import {useInfoUser} from "../../tools/hooks/hooksContext/useInfoUser";
-import {useMenuDriven} from "../../tools/hooks/useMenuDriven";
-import {UseMenuDriven} from "../../tools/interfaces/hooksInterface";
-import {ItemMenu} from "../../tools/storages/ItemMenu";
+import {useInfoUser} from "../../../tools/hooks/hooksContext/useInfoUser";
+import {useMenuDriven} from "../../../tools/hooks/useMenuDriven";
+import {UseMenuDriven} from "../../../tools/interfaces/hooksInterface";
+import {ItemMenu} from "../../../tools/storages/ItemMenu";
 
 export const HeaderMenu = () => {
     const {menuItems, current, setMenuItems, onClick}: UseMenuDriven = useMenuDriven(ItemMenu.defaultHeaderMenu)
-    const {loggedIn} = useInfoUser()
+    const {id} = useInfoUser()
 
     useLayoutEffect(() => {
-        if (loggedIn) {
+        if (id) {
             //Еще проверяем на админа
             setMenuItems(r => r ? [...r, ItemMenu.adminSetting] : [ItemMenu.adminSetting])
         } else {
             setMenuItems(r => r?.filter(x => x?.key !== ItemMenu.adminSetting?.key))
         }
-    }, [loggedIn, setMenuItems]);
+    }, [id, setMenuItems]);
 
 
     return <Menu

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Layout} from 'antd';
 import {HeaderComponent} from "./components/Structure/HeaderComponent";
-import {LeftMenu} from "./components/UiElements/LeftMenu";
+import {LeftMenu} from "./components/UiElements/Menu/LeftMenu";
 import {ContentComponent} from "./components/Structure/ContentComponent";
 import {FooterComponent} from "./components/Structure/FooterComponent";
 

@@ -1,15 +1,17 @@
+import {LocalStorageKeys} from "../storages/localStorageKeys";
+
 export interface TokenInfoLS {
-    accessToken: string | null
-    refreshToken: string | null
-    entryTime: string | null
-    expiresIn: string | null
+    [LocalStorageKeys.ACCESS_TOKEN]: string
+    [LocalStorageKeys.REFRESH_TOKEN]: string
+    [LocalStorageKeys.ENTRY_TIME]: string
+    [LocalStorageKeys.EXPIRES_IN]: string
 }
 
 export interface UserInfoLS {
-    idUser: number
+    id: number
+    remember: boolean
 }
 
 export interface OpenMenuKey {
     leftMenu: string[]
-
 }

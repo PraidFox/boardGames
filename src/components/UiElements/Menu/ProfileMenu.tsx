@@ -2,9 +2,9 @@ import {DownOutlined, UserOutlined} from '@ant-design/icons';
 import type {MenuProps} from 'antd';
 import {Avatar, Badge, Dropdown, Space} from 'antd'
 import React, {useState} from "react";
-import {useInfoUser} from "../../tools/hooks/hooksContext/useInfoUser";
+import {useInfoUser} from "../../../tools/hooks/hooksContext/useInfoUser";
 import {NavLink} from "react-router-dom";
-import {PathStorage} from "../../tools/storages/const";
+import {PathStorage} from "../../../tools/storages/const";
 
 export const ProfileMenu = () => {
     const {logoutUser, nickname} = useInfoUser()

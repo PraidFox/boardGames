@@ -32,7 +32,7 @@ export const AdminSettingPage = () => {
             setType(res.data)
         })
 
-        BoardGameApi.getBoardGame().then((res) => {
+        BoardGameApi.getAllBoardGame().then((res) => {
             // const boardGames: BoardGamesDTO[] = res.data
             // const optionsBoardGame:OptionsDTO<null>[] = boardGames.map(boardGame => {return {id: +boardGame.id, name: boardGame.name}})
             // const optionsForField = convertOptions(optionsBoardGame)
@@ -49,7 +49,6 @@ export const AdminSettingPage = () => {
                 setAddGenreLoading(false)
             })
         }).catch(r => {
-                console.log("Меня вызваля")
                 setErrorInfo({nameError: r.message})
                 setAddGenreLoading(false)
             }

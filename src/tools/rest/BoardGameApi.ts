@@ -2,9 +2,13 @@ import {CreateBoardGame} from "../interfaces/boardGameInterface";
 import {axiosBG, axiosBGauth} from "./AxiosDefault";
 
 export class BoardGameApi {
-    static getBoardGame() {
+    static getAllBoardGame() {
         // return axios.get(`/api/BoardGame`, {params: {tt: "wqeqwe"}});
         return axiosBG.get(`/api/BoardGame`);
+    }
+    
+    static getBoardGame(id: number) {
+        return axiosBG.get(`/api/BoardGame/${id}`);
     }
 
     static addBoardGame(data: CreateBoardGame) {

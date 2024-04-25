@@ -64,7 +64,6 @@ export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
         }
 
         BoardGameApi.addBoardGame(dataBoardGame).then(() => setNeedUpdate()).catch(() => console.log("Не добавлено"))
-        console.log('Success:', values);
 
         onClose()
     };

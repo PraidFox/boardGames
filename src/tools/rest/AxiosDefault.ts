@@ -19,14 +19,12 @@ export const axiosBdLocal = axios.create({
 
 
 axiosBGauth.interceptors.request.use(async function (config) {
-    const {accessToken, refreshToken, entryTime, expiresIn}: TokenInfoLS = LocalStorageUtils.getTokenInfo()
-    //const {remember} = useInfoUser()
+    const tokenInfo = LocalStorageUtils.getTokenInfo()
+    const remember = LocalStorageUtils.getUserInfo()?.remember
 
-    //Доставать с бека? Или... нужно изучить данный вопрос
-    const remember = true
-    //throw new Error(MyError.NEED_AUTHORIZATION);
+    if (tokenInfo) {
+        const {accessToken, refreshToken, entryTime, expiresIn}: TokenInfoLS = tokenInfo
 
-    if (accessToken) {
         const entryTimeDate = new Date(entryTime!).getTime();
         const currentTimeDate = new Date().getTime()
 
@@ -42,7 +40,6 @@ axiosBGauth.interceptors.request.use(async function (config) {
         }
         return config;
     } else {
-        console.log("Прервал запрос")
         return new Promise(function () {
         });
     }

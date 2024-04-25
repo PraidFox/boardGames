@@ -17,6 +17,7 @@ import {PathStorage} from "./tools/storages/const";
 import {RatingBoardGamesPage} from "./components/Structure/Pages/RatingBoardGamesPage";
 import {EventsPage} from "./components/Structure/Pages/EventsPage";
 import {StartPage} from "./components/Structure/Pages/StartPage";
+import {MyCollectionBoardGames} from "./components/Structure/Pages/MyCollectionBoardGames";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -33,7 +34,7 @@ const router = createBrowserRouter(
                 <Route index element={<StartPage/>}/>
                 <Route
                     path={PathStorage.LEFT_BOARD_GAMES + PathStorage.ALL_BOARD_GAMES}
-                    element={<AllBoardGamesPage type={"all"}/>}
+                    element={<AllBoardGamesPage/>}
                 />
                 <Route
                     path={PathStorage.PLAYERS}
@@ -68,7 +69,7 @@ const router = createBrowserRouter(
                     />
                     <Route
                         path={PathStorage.MY_COLLECTIONS}
-                        element={<AllBoardGamesPage type={"user"}/>}
+                        element={<MyCollectionBoardGames/>}
                     />
                     <Route
                         path={PathStorage.MY_FRIENDS}

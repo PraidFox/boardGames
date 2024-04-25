@@ -5,7 +5,7 @@ import {AuthApi} from "../../../../tools/rest/AuthApi";
 import {Registration} from "../../../../tools/interfaces/formInterface";
 import {useMessage} from "../../../../tools/hooks/hooksContext/useMessage";
 import {StorageSettingMessage} from "../../../../tools/storages/storageSettingMessage";
-import {FormButtons} from "../../../UiElements/FormButtons";
+import {FormButtons} from "../../../UiElements/Buttons/FormButtons";
 
 export const FormRegistration = ({onClose}: {
     onClose: () => void

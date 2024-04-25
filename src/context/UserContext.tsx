@@ -4,6 +4,7 @@ import {LocalStorageUtils} from "../tools/utils/LocalStorageUtils";
 import {AuthApi} from "../tools/rest/AuthApi";
 import {useMessage} from "../tools/hooks/hooksContext/useMessage";
 import {StorageSettingMessage} from "../tools/storages/storageSettingMessage";
+import {LocalStorageKeys} from "../tools/storages/localStorageKeys";
 
 export const UserLoginContext = createContext<AuthContext>({} as AuthContext);
 
@@ -11,39 +12,44 @@ export const UserLoginProvider = ({children}: {
     children: ReactNode
 }) => {
     const [userInfo, setUserInfo] = useState<UserInfo | undefined>()
+    const [rememberUser, setRememberUser] = useState<boolean>(false)
     const {setSettingMessage} = useMessage()
 
-    useLayoutEffect(() => {
-        //Поход в БД и взять инфу по id пользователю. (Ник и должен ли он быть залогинен)
-        const idUser = LocalStorageUtils.getUserInfo()
+    console.log(userInfo)
 
-        if (idUser && Number(idUser) !== 0) {
-            setUserInfo({id: 1, loggedIn: true, nickname: "Какой-то ник"})
-        } else {
-            setUserInfo({id: 0, loggedIn: false, nickname: null})
+    useLayoutEffect(() => {
+        if (!userInfo) {
+            const userInfoLs = LocalStorageUtils.getUserInfo()
+            if (userInfoLs && userInfoLs.id !== 0) {
+                //Поход в БД и взять инфу по id пользователю. (Ник и должен ли он быть залогинен) а пока заглушка
+                setUserInfo({
+                    id: userInfoLs.id,
+                    nickname: "Какой-то ник",
+                    email: "Логин@почта"
+                })
+            } else {
+                alert('А пользователя по такому id нет, разработчик ты чего-то напутал')
+            }
         }
     }, []);
 
-    const authUser = (email: string, password: string, remember: boolean): Promise<void> => {
-        return AuthApi.loginUser(email, password)
-            .then(r => {
-                    setUserInfo({loggedIn: true, nickname: email, id: 1})
-                    LocalStorageUtils.setTokenInfo(r.data.accessToken, r.data.refreshToken, r.data.expiresIn)
-                    //И сохранить в куках запомнить пользователя или нет
-                    LocalStorageUtils.setUserInfo(1)
-                }
-            )
+    const authUser = async (email: string, password: string, remember: boolean): Promise<void> => {
+        const r = await AuthApi.loginUser(email, password);
+        setUserInfo({id: 1, nickname: email, email: email});
+        LocalStorageUtils.setTokenInfo(r.data.accessToken, r.data.refreshToken, r.data.expiresIn);
+        LocalStorageUtils.setUserInfo(1, remember);
     }
     const logoutUser = () => {
-        //И отправка в бек, что пользователь вышел
+        LocalStorageUtils.removeTokenInfo()
+        LocalStorageUtils.removeUserInfo()
 
         setSettingMessage(StorageSettingMessage.loggedOut)
-        LocalStorageUtils.setUserInfo(0)
         setUserInfo(r => undefined)
+        setRememberUser(false)
     }
 
     return <UserLoginContext.Provider
-        value={{...userInfo, authUser, logoutUser}}>
+        value={{...userInfo, authUser, logoutUser, rememberUser}}>
         {children}
     </UserLoginContext.Provider>
 }
