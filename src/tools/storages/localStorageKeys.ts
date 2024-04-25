@@ -6,5 +6,5 @@ export enum LocalStorageKeys {
     USER_INFO = "userInfo",
     TOKEN_INFO = "tokenInfo",
     OPEN_MENU = "openMenu",
-
+    BOARD_GAMES_DATA = "boardGamesData",
 }

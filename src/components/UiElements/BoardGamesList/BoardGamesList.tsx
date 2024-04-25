@@ -1,6 +1,6 @@
 import {BoardGamesDTO} from "../../../tools/interfaces/DTOinterface";
 import {NavLink} from "react-router-dom";
-import {DeleteOutlined, EditOutlined, LikeOutlined} from "@ant-design/icons";
+import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import {Flex} from "antd";
 import {CardBoardGame} from "./СardBoardGame";
 

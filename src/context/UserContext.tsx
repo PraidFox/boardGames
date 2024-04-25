@@ -15,7 +15,6 @@ export const UserLoginProvider = ({children}: {
     const [rememberUser, setRememberUser] = useState<boolean>(false)
     const {setSettingMessage} = useMessage()
 
-    console.log(userInfo)
 
     useLayoutEffect(() => {
         if (!userInfo) {
