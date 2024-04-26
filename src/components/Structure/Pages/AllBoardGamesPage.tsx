@@ -13,29 +13,30 @@ import {FilterBoardRequest} from "../../../tools/interfaces/otherInterface";
 
 export const AllBoardGamesPage = () => {
     const [boardGameData, setBoardGameData] = useState<BoardGamesDTO[] | undefined>(SessionStorageUtils.getAllBoardGames())
-    //const {data, setNeedUpdate, loading} = useLoadData<BoardGamesDTO[]>(BoardGameApi.getAllBoardGame)
     const [filterRequest, setFilterRequest] = useState<FilterBoardRequest>({})
+
+    const [filterFieldValues, setFilterFieldValues] = useReducer(reducerFilterFieldValues, {})
+    // @ts-ignore
     const {
         data,
         setNeedUpdate,
         loading
-    } = useLoadData(BoardGameApi.getFilterBoardGame, {filterRequest})
-    //const {data, setNeedUpdate, loading} = useLoadData<BoardGamesDTO[]>(BoardGameApi.addBoardGame)
+    } = useLoadData<BoardGamesDTO[], FilterBoardRequest>(BoardGameApi.getFilterBoardGame, filterRequest)
 
-    const [filterFieldValues, setFilterFieldValues] = useReducer(reducerFilterFieldValues, {})
     const updateBoardGame = () => {
         setNeedUpdate(true)
     }
 
-    console.log("filterRequest", filterRequest)
     useEffect(() => {
         setFilterRequest({
             GameName: filterFieldValues.name,
             PlayersCount: filterFieldValues.minPlayers,
             TypeIds: filterFieldValues.type?.map(el => Number(el)),
             GenreIds: filterFieldValues.genre?.map(el => Number(el)),
-            PlayersAge: filterFieldValues.age ? filterFieldValues.age : 0
+            PlayersAge: filterFieldValues.age ? filterFieldValues.age : undefined
         })
+
+        setNeedUpdate(true)
     }, [filterFieldValues]);
 
     useEffect(() => {

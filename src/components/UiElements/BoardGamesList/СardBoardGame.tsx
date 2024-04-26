@@ -17,7 +17,7 @@ export const CardBoardGame = ({data, children}: { data: BoardGamesDTO, children:
         >
             <Meta
                 title={data.name}
-                description={data.description}
+                description={<div style={{height: "100px"}}>{data.description}</div>}
             />
         </Card>
     )

@@ -11,7 +11,7 @@ export class BoardGameApi {
 
     static getFilterBoardGame(params: FilterBoardRequest): Promise<AxiosResponse<BoardGamesDTO[]>> {
         // return axios.get(`/api/BoardGame`, {params: {tt: "wqeqwe"}});
-        return axiosBG.get(`/api/BoardGame`, {params});
+        return axiosBG.get(`/api/BoardGame`, {params: params});
     }
 
     static getBoardGame(id: number) {
