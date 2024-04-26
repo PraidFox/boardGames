@@ -1,12 +1,19 @@
 import {CreateBoardGame} from "../interfaces/boardGameInterface";
 import {axiosBG, axiosBGauth} from "./AxiosDefault";
+import {FilterBoardRequest} from "../interfaces/otherInterface";
+import {BoardGamesDTO} from "../interfaces/DTOinterface";
+import {AxiosResponse} from "axios";
 
 export class BoardGameApi {
     static getAllBoardGame() {
-        // return axios.get(`/api/BoardGame`, {params: {tt: "wqeqwe"}});
         return axiosBG.get(`/api/BoardGame`);
     }
-    
+
+    static getFilterBoardGame(params: FilterBoardRequest): Promise<AxiosResponse<BoardGamesDTO[]>> {
+        // return axios.get(`/api/BoardGame`, {params: {tt: "wqeqwe"}});
+        return axiosBG.get(`/api/BoardGame`, {params});
+    }
+
     static getBoardGame(id: number) {
         return axiosBG.get(`/api/BoardGame/${id}`);
     }

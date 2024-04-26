@@ -3,6 +3,16 @@ import React from "react";
 import {ArgsProps} from "antd/es/message/interface";
 
 
+export interface FilterBoardRequest {
+    GameName?: string
+    PlayersCount?: number
+    TypeIds?: number[]
+    GenreIds?: number[]
+    PlayersAge?: number
+    PageNum?: number
+    ItemPerPage?: number
+}
+
 export interface UserInfo {
     id: number
     nickname: string

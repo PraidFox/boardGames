@@ -9,14 +9,34 @@ import {useLoadData} from "../../../tools/hooks/useLoadData";
 import {Loading} from "../../UiElements/Loading";
 import {SessionStorageUtils} from "../../../tools/utils/SessionStorageUtils";
 import {BoardGamesDTO} from "../../../tools/interfaces/DTOinterface";
+import {FilterBoardRequest} from "../../../tools/interfaces/otherInterface";
 
 export const AllBoardGamesPage = () => {
     const [boardGameData, setBoardGameData] = useState<BoardGamesDTO[] | undefined>(SessionStorageUtils.getAllBoardGames())
-    const {data, setNeedUpdate, loading} = useLoadData<BoardGamesDTO[]>(BoardGameApi.getAllBoardGame)
-    const [filterFieldValues, setFilterFieldValues] = useReducer(reducerFilterFieldValues, undefined)
+    //const {data, setNeedUpdate, loading} = useLoadData<BoardGamesDTO[]>(BoardGameApi.getAllBoardGame)
+    const [filterRequest, setFilterRequest] = useState<FilterBoardRequest>({})
+    const {
+        data,
+        setNeedUpdate,
+        loading
+    } = useLoadData(BoardGameApi.getFilterBoardGame, {filterRequest})
+    //const {data, setNeedUpdate, loading} = useLoadData<BoardGamesDTO[]>(BoardGameApi.addBoardGame)
+
+    const [filterFieldValues, setFilterFieldValues] = useReducer(reducerFilterFieldValues, {})
     const updateBoardGame = () => {
         setNeedUpdate(true)
     }
+
+    console.log("filterRequest", filterRequest)
+    useEffect(() => {
+        setFilterRequest({
+            GameName: filterFieldValues.name,
+            PlayersCount: filterFieldValues.minPlayers,
+            TypeIds: filterFieldValues.type?.map(el => Number(el)),
+            GenreIds: filterFieldValues.genre?.map(el => Number(el)),
+            PlayersAge: filterFieldValues.age ? filterFieldValues.age : 0
+        })
+    }, [filterFieldValues]);
 
     useEffect(() => {
         if (boardGameData) {
@@ -29,7 +49,6 @@ export const AllBoardGamesPage = () => {
             }
         } else {
             setTimeout(() => {
-                console.log("Записал данные")
                 setBoardGameData(data)
                 if (data) {
                     SessionStorageUtils.setAllBoardGames(data)
@@ -62,9 +81,10 @@ export const AllBoardGamesPage = () => {
     return (
         <>
             <h1>Все игры</h1>
-            <FilterBoardGamesPanel activeFilter={!!filterFieldValues} valueFieldAge={filterFieldValues?.age}
-                                   setFilterFieldValues={setFilterFieldValues}/>
-            <br/>
+            <FilterBoardGamesPanel
+                valueFilter={filterFieldValues}
+                setFilterFieldValues={setFilterFieldValues}
+            />
             {getBoardGames()}
         </>
     )

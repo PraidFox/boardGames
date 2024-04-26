@@ -9,9 +9,10 @@ export interface Registration extends Login {
     userName: string
 }
 
-export type FilterBoardGames = {
+export interface FilterBoardGames {
     name?: string
     genre?: string[]
+    type?: string[]
     age?: number | null
     minPlayers?: number
     maxPlayers?: number
