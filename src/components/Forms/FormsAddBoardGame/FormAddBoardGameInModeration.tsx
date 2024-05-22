@@ -12,6 +12,7 @@ import {GenreApi} from "../../../tools/rest/GenreApi";
 import {TypeApi} from "../../../tools/rest/TypeApi";
 import {CreateBoardGame, FormBoardGame} from "../../../tools/interfaces/boardGameInterface";
 import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
+import {UploadImage} from "../../UiElements/UploadImage";
 
 const {TextArea, Search} = Input;
 export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
@@ -91,20 +92,23 @@ export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
     >
-        <div style={{display: 'flex', justifyContent: 'center'}}>
-            <Image
-                height={100}
-                src={valuesField.img}
-            />
-        </div>
 
-        <Form.Item label="Картинка для игры" name={"imageGame"} rules={[{type: 'url', warningOnly: true}]}>
-            <Search
-                placeholder="Введите URL-адрес изображения"
-                enterButton="Добавить"
-                onSearch={handleSearch}
-            />
-        </Form.Item>
+        <UploadImage/>
+
+        {/*<div style={{display: 'flex', justifyContent: 'center'}}>*/}
+        {/*    <Image*/}
+        {/*        height={100}*/}
+        {/*        src={valuesField.img}*/}
+        {/*    />*/}
+        {/*</div>*/}
+
+        {/*<Form.Item label="Картинка для игры" name={"imageGame"} rules={[{type: 'url', warningOnly: true}]}>*/}
+        {/*    <Search*/}
+        {/*        placeholder="Введите URL-адрес изображения"*/}
+        {/*        enterButton="Добавить"*/}
+        {/*        onSearch={handleSearch}*/}
+        {/*    />*/}
+        {/*</Form.Item>*/}
 
         <Form.Item
             label={"Наименование игры"}

@@ -19,7 +19,7 @@ export const FormLogin = ({nameForm, onClose}: {
         setSettingMessage(StorageSettingMessage.authorizationLoading)
 
         setLoading(true)
-        authUser(values.email, values.password, values.remember).then(() => {
+        authUser(values.login, values.password, values.remember).then(() => {
             setSettingMessage(StorageSettingMessage.authorizationAccess)
             setLoading(false)
             onClose()

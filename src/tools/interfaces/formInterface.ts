@@ -1,5 +1,5 @@
 export interface Login {
-    email: string
+    login: string
     password: string
     remember: boolean
 }
@@ -7,6 +7,7 @@ export interface Login {
 export interface Registration extends Login {
     typeUser: string
     userName: string
+    email: string
 }
 
 export interface FilterBoardGames {

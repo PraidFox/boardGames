@@ -1,51 +1,54 @@
 import {useEffect, useState} from "react";
 import {GenreApi} from "../../../tools/rest/GenreApi";
-import {BoardGamesDTO, GenreDTO, TypeDTO} from "../../../tools/interfaces/DTOinterface";
+import {BoardGamesDTO, GenreDTO, RoleDTO, TypeDTO} from "../../../tools/interfaces/DTOinterface";
 import {TypeApi} from "../../../tools/rest/TypeApi";
 import {Button, Input, Select, Space} from "antd";
 import {InfiniteScrollAnt} from "../../UiElements/InfiniteScrollAnt";
 import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
 import {useErrorInfo} from "../../../tools/hooks/hooksContext/useErrorInfo";
+import {RoleApi} from "../../../tools/rest/RoleApi";
 
 
 export const AdminSettingPage = () => {
-    const [genre, setGenre] = useState<GenreDTO[]>([])
-    const [type, setType] = useState<TypeDTO[]>([])
+    const [genres, setGenres] = useState<GenreDTO[]>([])
+    const [types, setTypes] = useState<TypeDTO[]>([])
+    const [roles, setRoles] = useState<RoleDTO[]>([])
     const [boardGames, setBoardGames] = useState<BoardGamesDTO[]>([])
+
     const [newOptionGenre, setNewOptionGenre] = useState("")
     const [newOptionType, setNewOptionType] = useState("")
+    const [newOptionRole, setNewOptionRole] = useState("")
+
     const [addGenreLoading, setAddGenreLoading] = useState(false)
     const [addTypeLoading, setAddTypeLoading] = useState(false)
-    const [deleteOptionsGenre, setDeleteOptionsGenre] = useState<number[]>([])
-    const [deleteOptionsType, setDeleteOptionsType] = useState<number[]>([])
-    const [deleteBoardGameId, setDeleteBoardGameId] = useState<number | null>()
+    const [addRoleLoading, setAddRoleLoading] = useState(false)
+
+    const [deleteOptionsGenre, setDeleteOptionsGenre] = useState<string[]>([])
+    const [deleteOptionsType, setDeleteOptionsType] = useState<string[]>([])
+    const [deleteBoardGameId, setDeleteBoardGameId] = useState<string>()
 
     const {setErrorInfo} = useErrorInfo()
 
 
     useEffect(() => {
-        GenreApi.getGenre().then((res) => {
-            setGenre(res.data)
-        })
+        const p1 = GenreApi.getGenre()
+        const p2 = TypeApi.getType()
+        const p3 = BoardGameApi.getAllBoardGame()
+        const p4 = RoleApi.getRoles()
 
-        TypeApi.getType().then((res) => {
-            setType(res.data)
+        Promise.all([p1, p2, p3, p4]).then((res) => {
+            setGenres(res[0].data)
+            setTypes(res[1].data)
+            setBoardGames(res[2].data)
+            setRoles(res[3].data)
         })
-
-        BoardGameApi.getAllBoardGame().then((res) => {
-            // const boardGames: BoardGamesDTO[] = res.data
-            // const optionsBoardGame:OptionsDTO<null>[] = boardGames.map(boardGame => {return {id: +boardGame.id, name: boardGame.name}})
-            // const optionsForField = convertOptions(optionsBoardGame)
-            setBoardGames(res.data)
-        })
-
     }, []);
 
     const addGenre = () => {
         setAddGenreLoading(true)
         GenreApi.addGenre(newOptionGenre).then((res) => {
             GenreApi.getGenre().then((res) => {
-                setGenre(res.data)
+                setGenres(res.data)
                 setAddGenreLoading(false)
             })
         }).catch(r => {
@@ -59,7 +62,7 @@ export const AdminSettingPage = () => {
         setAddTypeLoading(true)
         TypeApi.addType(newOptionType).then((res) => {
             TypeApi.getType().then((res) => {
-                setType(res.data)
+                setTypes(res.data)
                 setAddTypeLoading(false)
             })
         }).catch(r => {
@@ -69,23 +72,37 @@ export const AdminSettingPage = () => {
         )
     }
 
-    const deleteOptions = (id: number, fieldName: string) => {
+    const addRole = () => {
+        setAddRoleLoading(true)
+        RoleApi.addRole(newOptionRole).then((res) => {
+            RoleApi.getRoles().then((res) => {
+                setRoles(res.data)
+                setAddRoleLoading(false)
+            })
+        }).catch(r => {
+                setAddRoleLoading(false)
+                alert(r.response.data)
+            }
+        )
+    }
+
+    const deleteOptions = (id: string, fieldName: string) => {
         if (fieldName === "Жанры") {
             GenreApi.deleteGenre(id).then((res) => {
                 GenreApi.getGenre().then((res) => {
-                    setGenre(res.data)
+                    setGenres(res.data)
                 })
             })
         } else if (fieldName === "Типы") {
             TypeApi.deleteType(id).then((res) => {
                 TypeApi.getType().then((res) => {
-                    setType(res.data)
+                    setTypes(res.data)
                 })
             })
         }
     }
 
-    const content = (id: number, fieldName: string) => {
+    const content = (id: string, fieldName: string) => {
         if (fieldName === "Жанры") {
             const countIdInDelete = deleteOptionsGenre.filter(x => x === id)
             if (countIdInDelete.length === 0) {
@@ -107,7 +124,7 @@ export const AdminSettingPage = () => {
     }
 
     const onChangeDeleteBoardGame = (value: string) => {
-        setDeleteBoardGameId(+value)
+        setDeleteBoardGameId(value)
     };
 
     const filterOption = (input: string, option?: { label: string; value: string }) =>
@@ -123,7 +140,7 @@ export const AdminSettingPage = () => {
 
         <div style={{display: "flex", justifyContent: "space-around"}}>
             <div style={{width: "45%"}}>
-                <InfiniteScrollAnt data={genre} name={"Жанры"} content={content}/>
+                <InfiniteScrollAnt data={genres} name={"Жанры"} content={content}/>
                 <br/>
                 <Space.Compact style={{width: '100%'}}>
                     <Input placeholder="Добавить новый жанр" onChange={(e) => setNewOptionGenre(e.target.value)}/>
@@ -132,11 +149,20 @@ export const AdminSettingPage = () => {
             </div>
 
             <div style={{width: "45%"}}>
-                <InfiniteScrollAnt data={type} name={"Типы"} content={content}/>
+                <InfiniteScrollAnt data={types} name={"Типы"} content={content}/>
                 <br/>
                 <Space.Compact style={{width: '100%'}}>
                     <Input placeholder="Добавить новый тип" onChange={(e) => setNewOptionType(e.target.value)}/>
                     <Button type="primary" onClick={addType} loading={addTypeLoading}>Submit</Button>
+                </Space.Compact>
+            </div>
+
+            <div style={{width: "45%"}}>
+                <InfiniteScrollAnt data={roles} name={"Роли"} content={content}/>
+                <br/>
+                <Space.Compact style={{width: '100%'}}>
+                    <Input placeholder="Добавить новую роль" onChange={(e) => setNewOptionRole(e.target.value)}/>
+                    <Button type="primary" onClick={addRole} loading={addRoleLoading}>Submit</Button>
                 </Space.Compact>
             </div>
         </div>
@@ -156,5 +182,21 @@ export const AdminSettingPage = () => {
             })}
         />
         <Button danger disabled={!deleteBoardGameId} onClick={handleDeleteGame}>Удалить</Button>
+        <br/>
+        <br/>
+        <h3>Добавление ролей пользователю:</h3>
+        <br/>
+        <Select
+            style={{width: '80%'}}
+            mode={"multiple"}
+            showSearch
+            placeholder="Выбрать роли"
+            onChange={onChangeDeleteBoardGame}
+            filterOption={filterOption}
+            options={roles.map(role => {
+                return {label: role.name, value: role.id.toString()}
+            })}
+        />
+        <Button danger disabled={!deleteBoardGameId} onClick={handleDeleteGame}>Добавить</Button>
     </div>
 }

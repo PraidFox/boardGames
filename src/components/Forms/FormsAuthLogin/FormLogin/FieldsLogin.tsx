@@ -6,21 +6,11 @@ export const FieldsLogin = () => {
     return (
         <>
             <Form.Item
-                name="email"
-                rules={[
-                    {
-                        type: 'email',
-                        message: 'Формат почты не верен',
-                    },
-                    {
-                        required: true,
-                        message: 'Пожалуйста заполните E-mail',
-                    },
-                ]}
+                name="login"
             >
                 <Input
                     prefix={<MailOutlined/>}
-                    placeholder="E-mail"
+                    placeholder="Логин"
                 />
             </Form.Item>
             <Form.Item

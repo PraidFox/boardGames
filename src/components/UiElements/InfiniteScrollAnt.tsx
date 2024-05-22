@@ -6,7 +6,7 @@ import {ReactNode} from "react";
 export const InfiniteScrollAnt = ({data, name, content}: {
     data: OptionDTO[],
     name: string,
-    content: (id: number, fieldName: string) => ReactNode
+    content: (id: string, fieldName: string) => ReactNode
 }) => {
 
     const loadMoreData = () => {

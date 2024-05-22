@@ -21,7 +21,7 @@ export interface UserInfo {
 
 
 export interface AuthContext extends Partial<UserInfo> {
-    authUser: (email: string, password: string, remember: boolean) => Promise<void>
+    authUser: (login: string, password: string, remember: boolean) => Promise<void>
     logoutUser: () => void,
     rememberUser: boolean
 }

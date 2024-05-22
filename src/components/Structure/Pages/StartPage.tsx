@@ -1,5 +1,4 @@
 export const StartPage = () => {
-
     const moreText = () => {
         let jsxContent = []
         for (let i = 0; i < 100; i++) {
@@ -10,7 +9,10 @@ export const StartPage = () => {
 
     return (
         <div>
-            {moreText()}
+            <b>Привет</b>
+            <span>текст</span>
+            {/*{moreText()}*/}
         </div>
     )
 }
+

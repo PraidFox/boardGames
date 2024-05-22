@@ -8,7 +8,7 @@ import {FooterComponent} from "./components/Structure/FooterComponent";
 import {AuthOrProfile} from "./components/UiElements/AuthOrProfile/AuthOrProfile";
 import "./style/global.css"
 import {useErrorInfo} from "./tools/hooks/hooksContext/useErrorInfo";
-import {checkError} from "./tools/utils/utilsTsx";
+import {viewError} from "./tools/utils/utilsTsx";
 import {useMessage} from "./tools/hooks/hooksContext/useMessage";
 
 const {Sider} = Layout;
@@ -33,7 +33,7 @@ export const App = () => {
                 </Sider>
                 <Layout style={{padding: '10px 10px'}}>
                     {contextHolder}
-                    {nameError && checkError(nameError)}
+                    {nameError && viewError(nameError)}
                     <ContentComponent/>
                     <FooterComponent/>
                 </Layout>

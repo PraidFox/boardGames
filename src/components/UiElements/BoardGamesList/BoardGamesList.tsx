@@ -1,15 +1,19 @@
 import {BoardGamesDTO} from "../../../tools/interfaces/DTOinterface";
 import {NavLink} from "react-router-dom";
-import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
+import {DeleteOutlined, EditOutlined, LikeOutlined} from "@ant-design/icons";
 import {Flex} from "antd";
 import {CardBoardGame} from "./СardBoardGame";
+import {UsersApi} from "../../../tools/rest/UsersApi";
 
 export const BoardGamesList = ({type, dataBoardGames, deleteGame}: {
     type: "all" | "user",
     dataBoardGames: BoardGamesDTO[],
-    deleteGame?: (id: number) => void
+    deleteGame?: (id: number | string) => void
 }) => {
 
+    const addInCollections = (boardGameId: string) => {
+        UsersApi.addGBtoUser(boardGameId).then(r => console.log(r.data))
+    }
     const getFooterForCard = (boardGame: BoardGamesDTO) => {
         let footerCard = [
             <NavLink
@@ -34,7 +38,9 @@ export const BoardGamesList = ({type, dataBoardGames, deleteGame}: {
                 }}
             />)
         } else {
-            footerCard.push(<span key={"like" + boardGame.id}>В коллекцию</span>)
+            footerCard.push(<LikeOutlined key={"like" + boardGame.id} onClick={() => {
+                addInCollections(boardGame.id)
+            }}/>)
             footerCard.push(<span key={"dislike" + boardGame.id}>В избранное</span>)
             //footerCard.push(<LikeOutlined key={"like" + boardGame.id} style={{color: 'green'}}/>)
             //Здесь еще проверка на АДМИНА

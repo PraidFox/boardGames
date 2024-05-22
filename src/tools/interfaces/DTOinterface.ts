@@ -1,20 +1,26 @@
-export type OptionDTO = {
-    id: number,
+export interface OptionDTO {
+    id: string,
     name: string
 }
 
-export type GenreDTO = {
-    id: number,
+export interface GenreDTO {
+    id: string,
     name: string
 }
 
-export type TypeDTO = {
-    id: number,
+export interface TypeDTO {
+    id: string,
     name: string
 }
 
-export type BoardGamesDTO = {
-    id: number,
+export interface RoleDTO {
+    id: string,
+    name: string,
+    normalizedName: string
+}
+
+export interface BoardGamesDTO {
+    id: string,
     name: string,
     description: string,
     minPlayersCount: number,

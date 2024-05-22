@@ -26,7 +26,7 @@ export class BoardGameApi {
         return axiosBGauth.put(`/api/BoardGame/${id}`, {id, name});
     }
 
-    static deleteBoardGame(id: number) {
+    static deleteBoardGame(id: number | string) {
         return axiosBGauth.delete(`/api/BoardGame/${id}`,);
     }
 }

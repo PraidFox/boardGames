@@ -4,7 +4,7 @@ import {LocalStorageUtils} from "../tools/utils/LocalStorageUtils";
 import {AuthApi} from "../tools/rest/AuthApi";
 import {useMessage} from "../tools/hooks/hooksContext/useMessage";
 import {StorageSettingMessage} from "../tools/storages/storageSettingMessage";
-import {LocalStorageKeys} from "../tools/storages/localStorageKeys";
+
 
 export const UserLoginContext = createContext<AuthContext>({} as AuthContext);
 
@@ -26,15 +26,13 @@ export const UserLoginProvider = ({children}: {
                     nickname: "Какой-то ник",
                     email: "Логин@почта"
                 })
-            } else {
-                alert('А пользователя по такому id нет, разработчик ты чего-то напутал')
             }
         }
     }, []);
 
-    const authUser = async (email: string, password: string, remember: boolean): Promise<void> => {
-        const r = await AuthApi.loginUser(email, password);
-        setUserInfo({id: 1, nickname: email, email: email});
+    const authUser = async (login: string, password: string, remember: boolean): Promise<void> => {
+        const r = await AuthApi.loginUser(login, password);
+        setUserInfo({id: 1, nickname: "Какой-то ник", email: "Какой-то почта"});
         LocalStorageUtils.setTokenInfo(r.data.accessToken, r.data.refreshToken, r.data.expiresIn);
         LocalStorageUtils.setUserInfo(1, remember);
     }

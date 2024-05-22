@@ -1,4 +1,7 @@
+import {UsersApi} from "../../../tools/rest/UsersApi";
+
 export const PlayersPage = () => {
+    //UsersApi.getAllUsers().then(r => console.log(r.data))
     return (
         <div>Здесь информация и поиск всех игроков.
             <br/>

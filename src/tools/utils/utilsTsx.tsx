@@ -3,7 +3,7 @@ import {FormLogin} from "../../components/Forms/FormsAuthLogin/FormLogin/FormLog
 import {ErrorModal} from "../../components/Modals/ErrorModal";
 import {Alert} from "antd";
 
-export const checkError = (error: string) => {
+export const viewError = (error: string) => {
     switch (error) {
         case MyError.NEED_AUTHORIZATION:
             return <ErrorModal>
