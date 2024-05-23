@@ -4,8 +4,15 @@ export type CreateBoardGame = {
     minPlayersCount: number,
     maxPlayersCount: number,
     minPlayerAge: number,
-    type: { id: string, name: string }, // УБРАТЬ name
-    genre: { id: string, name: string }[], // УБРАТЬ name
+    type: {
+        id: string,
+        name: string
+    }, // УБРАТЬ name
+    genre: {
+        id: string,
+        name: string
+    }[], // УБРАТЬ name
+    fileIds: string[]
 }
 
 export type FormBoardGame = {

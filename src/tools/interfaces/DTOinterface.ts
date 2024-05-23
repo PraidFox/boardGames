@@ -13,11 +13,13 @@ export interface TypeDTO {
     name: string
 }
 
-export interface RoleDTO {
-    id: string,
-    name: string,
-    normalizedName: string
-}
+// export interface RoleDTO {
+//     id: string,
+//     name: string,
+//     normalizedName: string
+// }
+
+export type RoleDTO = string[]
 
 export interface BoardGamesDTO {
     id: string,

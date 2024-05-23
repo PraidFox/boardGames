@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {PlusOutlined} from '@ant-design/icons';
 import {Image, Upload} from 'antd';
 import type {GetProp, UploadFile, UploadProps} from 'antd';
 import {FileApi} from "../../tools/rest/FileApi";
-import {RcFile} from "antd/es/upload/interface";
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
@@ -15,11 +14,16 @@ const getBase64 = (file: FileType): Promise<string> =>
         reader.onerror = (error) => reject(error);
     });
 
-export const UploadImage: React.FC = () => {
+export const UploadImage = ({setImagesId}: {
+    setImagesId: (filesId: string[]) => void
+}) => {
     const [previewOpen, setPreviewOpen] = useState(false);
     const [previewImage, setPreviewImage] = useState('');
     const [fileList, setFileList] = useState<UploadFile[]>([]);
 
+    useEffect(() => {
+        setImagesId(fileList.map((file) => file.uid))
+    }, [fileList]);
 
     const handlePreview = async (file: UploadFile) => {
         if (!file.url && !file.preview) {
@@ -31,7 +35,6 @@ export const UploadImage: React.FC = () => {
     };
 
     const handleChange: UploadProps['onChange'] = ({fileList: newFileList}) => {
-        console.log(newFileList)
         setFileList(newFileList);
     }
 
@@ -42,22 +45,26 @@ export const UploadImage: React.FC = () => {
         </button>
     );
 
+
     return (
         <>
             <Upload
                 customRequest={(options) => {
                     const formData = new FormData();
                     formData.append('file', options.file);
-
+                    console.log("options", options)
+                    console.log("options.file", options.file)
                     FileApi.uploadFile(formData).then((r) => {
-                        console.log('Я загрузился')
+                        setFileList(files => files.map(file => ({...file, status: 'done', uid: r.data.id})));
                     });
 
                 }}
+
                 listType="picture-card"
                 fileList={fileList}
                 onPreview={handlePreview}
                 onChange={handleChange}
+                onRemove={e => console.log(e)}
             >
                 {fileList.length >= 8 ? null : uploadButton}
             </Upload>

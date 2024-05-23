@@ -4,6 +4,7 @@ import {LocalStorageUtils} from "../tools/utils/LocalStorageUtils";
 import {AuthApi} from "../tools/rest/AuthApi";
 import {useMessage} from "../tools/hooks/hooksContext/useMessage";
 import {StorageSettingMessage} from "../tools/storages/storageSettingMessage";
+import {UsersApi} from "../tools/rest/UsersApi";
 
 
 export const UserLoginContext = createContext<AuthContext>({} as AuthContext);
@@ -18,6 +19,7 @@ export const UserLoginProvider = ({children}: {
 
     useLayoutEffect(() => {
         if (!userInfo) {
+            UsersApi.getMe().then(r => console.log("getMe", r.data))
             const userInfoLs = LocalStorageUtils.getUserInfo()
             if (userInfoLs && userInfoLs.id !== 0) {
                 //Поход в БД и взять инфу по id пользователю. (Ник и должен ли он быть залогинен) а пока заглушка

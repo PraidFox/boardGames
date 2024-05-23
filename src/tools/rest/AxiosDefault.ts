@@ -1,9 +1,8 @@
-import axios, {InternalAxiosRequestConfig} from "axios";
+import axios from "axios";
 import {AuthApi} from "./AuthApi";
 import {LocalStorageUtils} from "../utils/LocalStorageUtils";
 import {TokenInfoLS} from "../interfaces/localStorageInterface";
 import {MyError} from "../storages/const";
-import internal from "stream";
 
 const defaultSettingAxios = {
     baseURL: 'http://94.125.48.107:8080',
@@ -26,11 +25,13 @@ const requestHandler = async (config: any) => {
     if (tokenInfo) {
         const {accessToken, refreshToken, expiresIn, entryTime}: TokenInfoLS = tokenInfo;
 
-        const entryTimeDate = new Date(entryTime!).getTime();
-        const currentTimeDate = new Date().getTime();
-        const expiresInDate = new Date(expiresIn).getTime();
 
-        if (currentTimeDate - entryTimeDate > Number(expiresIn + expiresInDate)) {
+        const currentTimeDate = new Date().getTime();
+        const expiresInDate = Number(expiresIn) * 600;
+        const entryTimeDate = new Date(entryTime).getTime();
+
+       
+        if (currentTimeDate > entryTimeDate + expiresInDate) {
             if (remember) {
                 const newToken = await AuthApi.refreshToken(refreshToken!);
                 config.headers["Authorization"] = `Bearer ${newToken.data.accessToken}`;

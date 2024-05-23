@@ -1,4 +1,4 @@
-import {AutoComplete, Button, Form, Input, InputNumber, Select, Space} from 'antd';
+import {AutoComplete, Button, Form, Input, InputNumber, Select, Space, UploadFile} from 'antd';
 import {
     nameBoardGame,
     optionsFieldsStatusCooperativeGame,
@@ -59,9 +59,10 @@ export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
                 id: values.type,
                 name: optionsField.type.find(opt => opt.value === values.type)?.label ?? "Отсутствует"
             },
-            genre: values.genre.map(id => {
+            genre: values.genre?.map(id => {
                 return {id: id, name: optionsField.type.find(opt => opt.value === id)?.label ?? "Отсутствует"}
-            })
+            }),
+            fileIds: valuesField.images
         }
 
         BoardGameApi.addBoardGame(dataBoardGame).then(() => setNeedUpdate()).catch(() => console.log("Не добавлено"))
@@ -72,9 +73,9 @@ export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
         console.log('Failed:', errorInfo);
     };
 
-    const handleSearch = (value: string) => {
-        setValuesField({type: "CHANGE_IMG", payload: value})
-    };
+    // const handleSearch = (value: string) => {
+    //     setValuesField({type: "CHANGE_IMG", payload: value})
+    // };
 
     // const shouldFieldStatusGame = () => {
     //     if (valuesField.genre) {
@@ -93,7 +94,7 @@ export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
         onFinishFailed={onFinishFailed}
     >
 
-        <UploadImage/>
+        <UploadImage setImagesId={(filesId) => setValuesField({type: "CHANGE_IMAGES", payload: filesId})}/>
 
         {/*<div style={{display: 'flex', justifyContent: 'center'}}>*/}
         {/*    <Image*/}

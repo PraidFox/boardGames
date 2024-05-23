@@ -4,6 +4,7 @@ import {DeleteOutlined, EditOutlined, LikeOutlined} from "@ant-design/icons";
 import {Flex} from "antd";
 import {CardBoardGame} from "./СardBoardGame";
 import {UsersApi} from "../../../tools/rest/UsersApi";
+import {PathStorage} from "../../../tools/storages/const";
 
 export const BoardGamesList = ({type, dataBoardGames, deleteGame}: {
     type: "all" | "user",
@@ -18,7 +19,7 @@ export const BoardGamesList = ({type, dataBoardGames, deleteGame}: {
         let footerCard = [
             <NavLink
                 key={"link" + boardGame.id}
-                to={`/boardGame/${boardGame.id}`}
+                to={`${PathStorage.BOARD_GAME}/${boardGame.id}`}
                 state={{boardGame}}
             >
                 Подробнее

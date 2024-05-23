@@ -12,7 +12,7 @@ export enum PathStorage {
     LEFT_BOARD_GAMES = "/boardGames",
 
     ALL_BOARD_GAMES = "/allBoardGames",
-    PLAYERS = "/players",
+    USERS = "/users",
     ARTICLES = "/articles",
     MY_SETTING = "/mySetting",
     MY_FRIENDS = "/myFriends",

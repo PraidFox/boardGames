@@ -10,7 +10,7 @@ import {PrivateRouter} from "./components/PrivateRouter";
 import {AdminSettingPage} from "./components/Structure/Pages/AdminSettingPage";
 import {AllContextProvider} from "./context/AllContextProvider";
 import {FriendsPage} from "./components/Structure/Pages/FriendsPage";
-import {PlayersPage} from "./components/Structure/Pages/PlayersPage";
+import {AllUsersPage} from "./components/Structure/Pages/AllUsersPage";
 import {ArticlesPage} from "./components/Structure/Pages/ArticlesPage";
 import {SettingProfilePage} from "./components/Structure/Pages/SettingProfilePage";
 import {PathStorage} from "./tools/storages/const";
@@ -18,6 +18,7 @@ import {RatingBoardGamesPage} from "./components/Structure/Pages/RatingBoardGame
 import {EventsPage} from "./components/Structure/Pages/EventsPage";
 import {StartPage} from "./components/Structure/Pages/StartPage";
 import {MyCollectionBoardGames} from "./components/Structure/Pages/MyCollectionBoardGames";
+import {CurrentUserPage} from "./components/Structure/Pages/CurrentUserPage";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -36,10 +37,7 @@ const router = createBrowserRouter(
                     path={PathStorage.LEFT_BOARD_GAMES + PathStorage.ALL_BOARD_GAMES}
                     element={<AllBoardGamesPage/>}
                 />
-                <Route
-                    path={PathStorage.PLAYERS}
-                    element={<PlayersPage/>}
-                />
+
                 <Route
                     path={PathStorage.ARTICLES}
                     element={<ArticlesPage/>}
@@ -61,6 +59,14 @@ const router = createBrowserRouter(
                     element={<EventsPage/>}
                 />
 
+                <Route
+                    path={PathStorage.USERS}
+                    element={<AllUsersPage/>}
+                />
+                <Route
+                    path={PathStorage.USERS + `/:userName`}
+                    element={<CurrentUserPage/>}
+                />
 
                 <Route element={<PrivateRouter/>}>
                     <Route

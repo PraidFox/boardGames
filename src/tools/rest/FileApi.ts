@@ -3,10 +3,7 @@ import {axiosBGauthFile} from "./AxiosDefault";
 
 export class FileApi {
     static uploadFile(data: any) {
-        const formData = new FormData();
-        formData.append('file', data);
-
-        return axiosBGauthFile.post(`/api/File/upload`, formData);
+        return axiosBGauthFile.post(`/api/File/upload`, data);
     }
 
     static getUrlUpdate() {

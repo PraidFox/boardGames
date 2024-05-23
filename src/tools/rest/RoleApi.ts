@@ -13,16 +13,5 @@ export class RoleApi {
         return axiosBGauth.put(`/api/roles/${id}`, {id, name});
     }
 
-    // static addRoleToUser(roles: string[], userName: string) {
-    //     return axiosBGauth.post(`/api/roles/AssignRoles/userName=${userName}`, {roles});
-    // }
-
-    static addRoleToUser(roles: string[], userName: string) {
-        return axiosBGauth.post(`/api/roles/AssignRoles/userName=${userName}`,
-            {
-                userName: 'Text',
-                request: ['string']
-            });
-    }
 
 }

@@ -1,22 +1,17 @@
-import {FilterBoardGamesPanel} from "../../Forms/FormFilter/FilterBoardGamesPanel";
 import {useLayoutEffect, useReducer} from "react";
 import {reducerFilterFieldValues} from "../../Forms/FormFilter/reducerFilterFieldValues";
 import {BoardGamesList} from "../../UiElements/BoardGamesList/BoardGamesList";
 import {BoardGamesDTO} from "../../../tools/interfaces/DTOinterface";
 import {useLoadData} from "../../../tools/hooks/useLoadData";
-import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
 import {UsersApi} from "../../../tools/rest/UsersApi";
 
 export const MyCollectionBoardGames = () => {
-    //const {data, setNeedUpdate, loading} = useLoadData<BoardGamesDTO[]>(BoardGameApi.getAllBoardGame)
+    const {data, setNeedUpdate, loading} = useLoadData<BoardGamesDTO[], string>(UsersApi.getUserBoardGames, "PraidFox")
     const [filterFieldValues, setFilterFieldValues] = useReducer(reducerFilterFieldValues, {})
 
     useLayoutEffect(() => {
         UsersApi.getUserBoardGames("PraidFox").then(r => console.log(r.data))
     }, []);
-
-    const data: BoardGamesDTO[] = []
-    const loading = false
 
 
     return (<>
@@ -42,6 +37,7 @@ export const MyCollectionBoardGames = () => {
                     компании
                 </div>
             </div>
+            <br/>
             {loading ? <></> :
                 <BoardGamesList
                     type={"user"}

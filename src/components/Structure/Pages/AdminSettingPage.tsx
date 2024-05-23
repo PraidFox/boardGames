@@ -1,19 +1,26 @@
-import {useEffect, useState} from "react";
+import {useEffect, useLayoutEffect, useState} from "react";
 import {GenreApi} from "../../../tools/rest/GenreApi";
-import {BoardGamesDTO, GenreDTO, RoleDTO, TypeDTO} from "../../../tools/interfaces/DTOinterface";
+import {BoardGamesDTO, GenreDTO, OptionDTO, RoleDTO, TypeDTO} from "../../../tools/interfaces/DTOinterface";
 import {TypeApi} from "../../../tools/rest/TypeApi";
 import {Button, Input, Select, Space} from "antd";
 import {InfiniteScrollAnt} from "../../UiElements/InfiniteScrollAnt";
 import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
 import {useErrorInfo} from "../../../tools/hooks/hooksContext/useErrorInfo";
 import {RoleApi} from "../../../tools/rest/RoleApi";
+import {UsersApi} from "../../../tools/rest/UsersApi";
+import type {SelectProps} from 'antd';
 
 
 export const AdminSettingPage = () => {
     const [genres, setGenres] = useState<GenreDTO[]>([])
     const [types, setTypes] = useState<TypeDTO[]>([])
-    const [roles, setRoles] = useState<RoleDTO[]>([])
+    const [roles, setRoles] = useState<OptionDTO[]>([])
     const [boardGames, setBoardGames] = useState<BoardGamesDTO[]>([])
+    const [users, setUsers] = useState<{
+        userName: string,
+        email: string,
+        roles: string[]
+    }[]>([])
 
     const [newOptionGenre, setNewOptionGenre] = useState("")
     const [newOptionType, setNewOptionType] = useState("")
@@ -27,20 +34,24 @@ export const AdminSettingPage = () => {
     const [deleteOptionsType, setDeleteOptionsType] = useState<string[]>([])
     const [deleteBoardGameId, setDeleteBoardGameId] = useState<string>()
 
+    const [valueRoleToUser, setValueRoleToUser] = useState<string[]>([])
+    const [valueUser, setValueUser] = useState<string>()
+
     const {setErrorInfo} = useErrorInfo()
 
-
     useEffect(() => {
-        const p1 = GenreApi.getGenre()
-        const p2 = TypeApi.getType()
-        const p3 = BoardGameApi.getAllBoardGame()
-        const p4 = RoleApi.getRoles()
+        const p0 = GenreApi.getGenre()
+        const p1 = TypeApi.getType()
+        const p2 = BoardGameApi.getAllBoardGame()
+        const p3 = RoleApi.getRoles()
+        const p4 = UsersApi.getAllUsers()
 
-        Promise.all([p1, p2, p3, p4]).then((res) => {
+        Promise.all([p0, p1, p2, p3, p4]).then((res) => {
             setGenres(res[0].data)
             setTypes(res[1].data)
             setBoardGames(res[2].data)
             setRoles(res[3].data)
+            setUsers(res[4].data)
         })
     }, []);
 
@@ -127,12 +138,29 @@ export const AdminSettingPage = () => {
         setDeleteBoardGameId(value)
     };
 
-    const filterOption = (input: string, option?: { label: string; value: string }) =>
+    const filterOption = (input: string, option?: {
+        label: string;
+        value: string
+    }) =>
         (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
 
     const handleDeleteGame = () => {
         BoardGameApi.deleteBoardGame(deleteBoardGameId!).then(r => console.log(r)).catch(() => alert("Что то пошло не так"))
     }
+
+    const onChangeUser = (userName: string) => {
+        setValueUser(userName)
+        UsersApi.getUserRoles(userName).then(r => setValueRoleToUser(r.data))
+    }
+    const onChangeRole = (value: string[]) => {
+        setValueRoleToUser(value)
+    }
+
+    const handeRecordRole = () => {
+        UsersApi.recordRoleToUser(valueRoleToUser, valueUser!).then(r => console.log('Успех'))
+    }
+
+    console.log(valueRoleToUser.length === 0 || !valueUser)
 
     return <div>
         <h3>Настройки полей</h3>
@@ -186,17 +214,32 @@ export const AdminSettingPage = () => {
         <br/>
         <h3>Добавление ролей пользователю:</h3>
         <br/>
-        <Select
-            style={{width: '80%'}}
-            mode={"multiple"}
-            showSearch
-            placeholder="Выбрать роли"
-            onChange={onChangeDeleteBoardGame}
-            filterOption={filterOption}
-            options={roles.map(role => {
-                return {label: role.name, value: role.id.toString()}
-            })}
-        />
-        <Button danger disabled={!deleteBoardGameId} onClick={handleDeleteGame}>Добавить</Button>
+        <div style={{display: "flex"}}>
+            <Select
+                style={{width: '20%'}}
+                showSearch
+                placeholder="Выбрать пользователя"
+                onChange={onChangeUser}
+                filterOption={filterOption}
+                options={users.map(role => {
+                    return {label: role.userName, value: role.userName}
+                })}
+            />
+            <Select
+                style={{width: '80%'}}
+                mode={"multiple"}
+                showSearch
+                placeholder="Выбрать роли"
+                onChange={onChangeRole}
+                filterOption={filterOption}
+                options={roles.map(role => {
+                    return {label: role.name, value: role.id.toString()}
+                })}
+                value={valueRoleToUser}
+            />
+
+            <Button danger disabled={valueRoleToUser.length === 0 || !valueUser}
+                    onClick={handeRecordRole}>Сохранить</Button>
+        </div>
     </div>
 }

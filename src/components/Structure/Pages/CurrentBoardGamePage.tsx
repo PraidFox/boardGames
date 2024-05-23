@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import {BoardGamesDTO} from "../../../tools/interfaces/DTOinterface";
 import React, {useEffect, useLayoutEffect, useState} from "react";
 import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
@@ -11,9 +11,19 @@ export const CurrentBoardGamePage = () => {
     const [boardGame, setBoardGame] = useState<BoardGamesDTO>()
     const {boardGameId} = useParams();
 
+    const location = useLocation();
+
 
     useLayoutEffect(() => {
-        BoardGameApi.getBoardGame(Number(boardGameId)).then(res => setBoardGame(res.data))
+        // const bg = location.state.boardGame;
+        // if (bg) {
+        //     setBoardGame(bg)
+        // } else {
+        //     BoardGameApi.getBoardGame(boardGameId!).then(res => setBoardGame(res.data))
+        // }
+
+        BoardGameApi.getBoardGame(boardGameId!).then(res => setBoardGame(res.data))
+
     }, [boardGameId]);
 
 

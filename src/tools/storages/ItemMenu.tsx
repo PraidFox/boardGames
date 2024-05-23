@@ -22,7 +22,7 @@ export class ItemMenu {
     static myFriends: MenuItem = this.toItemType(PathStorage.MY_FRIENDS, "Друзья")
 
     static articles: MenuItem = this.toItemType(PathStorage.ARTICLES, "Статьи")
-    static players: MenuItem = this.toItemType(PathStorage.PLAYERS, "Игроки")
+    static players: MenuItem = this.toItemType(PathStorage.USERS, "Игроки")
     static events: MenuItem = this.toItemType(PathStorage.EVENTS, "Мероприятия")
     static adminSetting: MenuItem = this.toItemType(PathStorage.ADMIN_SETTING, "Войти в админку")
 

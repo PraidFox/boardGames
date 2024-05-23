@@ -15,6 +15,7 @@ export class AuthApi {
     }
 
     static refreshToken(refreshToken: string) {
+      
         return axiosBG.post(`/account/refresh`, {refreshToken});
     }
 }

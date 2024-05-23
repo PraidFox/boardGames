@@ -1,21 +1,35 @@
 import {Options, OptionsAutoComplete} from "../../../tools/interfaces/serverInterface";
-import {OptionsFieldFormEdit} from "./reducerFieldOptions";
+import {UploadFile} from "antd";
 
 export type ValesFieldFormEdit = {
-    img: string,
     name: OptionsAutoComplete<null> | null,
     type: Options<null> | null,
     genre: string[],
     maxPlayersCount: number,
     minPlayersCount: number,
+    images: string[],
 }
 
-export type Action = | { type: "ADD_ALL_DEFAULT" }
-    | { type: "CHANGE_IMG", payload: string }
-    | { type: "CHANGE_MIN_PLAYERS" | "CHANGE_MAX_PLAYERS", payload: number | null }
-    | { type: "CHANGE_NAME_GAME", payload: OptionsAutoComplete<null> }
-    | { type: "CHANGE_GENRE_GAME", payload: string[] }
-// | { type: "CHANGE_TYPE_GAME", payload: Options<null>[] | Options<null> }
+export type Action = | {
+    type: "ADD_ALL_DEFAULT"
+}
+    | {
+    type: "CHANGE_MIN_PLAYERS" | "CHANGE_MAX_PLAYERS",
+    payload: number | null
+}
+    | {
+    type: "CHANGE_NAME_GAME",
+    payload: OptionsAutoComplete<null>
+}
+    | {
+    type: "CHANGE_GENRE_GAME",
+    payload: string[]
+}
+    | {
+    type: "CHANGE_IMAGES",
+    payload: string[]
+}
+
 
 export const reducerFieldValues = (state: ValesFieldFormEdit, action: Action) => {
     let newMaxPlayers = state.maxPlayersCount
@@ -23,16 +37,16 @@ export const reducerFieldValues = (state: ValesFieldFormEdit, action: Action) =>
     switch (action.type) {
         case "ADD_ALL_DEFAULT":
             const newState: ValesFieldFormEdit = {
-                img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXZtzUkONjLZrH5_jY_um2MP03-NprVybRCXantGNuAV3qvBkaMTJY_AmlhG6OP4cVGsc&usqp=CAU",
                 name: null,
                 type: null,
                 genre: [],
                 maxPlayersCount: 1,
                 minPlayersCount: 1,
+                images: [],
             }
             return {...newState}
-        case  "CHANGE_IMG":
-            return {...state, img: action.payload}
+        case  "CHANGE_IMAGES":
+            return {...state, images: action.payload}
         case "CHANGE_MIN_PLAYERS":
             let newMinPlayers = state.minPlayersCount
             if (action.payload) {

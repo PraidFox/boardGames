@@ -14,7 +14,7 @@ export class BoardGameApi {
         return axiosBG.get(`/api/BoardGame`, {params: params});
     }
 
-    static getBoardGame(id: number) {
+    static getBoardGame(id: string) {
         return axiosBG.get(`/api/BoardGame/${id}`);
     }
 
