@@ -1,11 +1,10 @@
-import {AutoComplete, Button, Form, Input, InputNumber, Select, Space, UploadFile} from 'antd';
+import {AutoComplete, Button, Form, Input, InputNumber, Select, Space} from 'antd';
 import {
     nameBoardGame,
     optionsFieldsStatusCooperativeGame,
 } from "../../../tools/storages/fieldOptions";
 import {convertOptions, convertOptionsAutoComplete, filterOptionLabel} from "../../../tools/utils/utils";
 import {OptionsFieldFormEdit, reducerFieldOptions} from "./reducerFieldOptions";
-import {Image} from 'antd';
 import {reducerFieldValues, ValesFieldFormEdit} from "./reducerFieldValues";
 import {useEffect, useReducer} from "react";
 import {GenreApi} from "../../../tools/rest/GenreApi";
@@ -14,7 +13,7 @@ import {CreateBoardGame, FormBoardGame} from "../../../tools/interfaces/boardGam
 import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
 import {UploadImage} from "../../UiElements/UploadImage";
 
-const {TextArea, Search} = Input;
+const {TextArea} = Input;
 export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
     onClose: () => void
     setNeedUpdate: () => void

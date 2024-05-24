@@ -1,6 +1,6 @@
-import {useEffect, useLayoutEffect, useState} from "react";
+import {useEffect, useState} from "react";
 import {GenreApi} from "../../../tools/rest/GenreApi";
-import {BoardGamesDTO, GenreDTO, OptionDTO, RoleDTO, TypeDTO} from "../../../tools/interfaces/DTOinterface";
+import {BoardGamesDTO, GenreDTO, OptionDTO, TypeDTO} from "../../../tools/interfaces/DTOinterface";
 import {TypeApi} from "../../../tools/rest/TypeApi";
 import {Button, Input, Select, Space} from "antd";
 import {InfiniteScrollAnt} from "../../UiElements/InfiniteScrollAnt";
@@ -8,7 +8,6 @@ import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
 import {useErrorInfo} from "../../../tools/hooks/hooksContext/useErrorInfo";
 import {RoleApi} from "../../../tools/rest/RoleApi";
 import {UsersApi} from "../../../tools/rest/UsersApi";
-import type {SelectProps} from 'antd';
 
 
 export const AdminSettingPage = () => {
@@ -57,7 +56,7 @@ export const AdminSettingPage = () => {
 
     const addGenre = () => {
         setAddGenreLoading(true)
-        GenreApi.addGenre(newOptionGenre).then((res) => {
+        GenreApi.addGenre(newOptionGenre).then(() => {
             GenreApi.getGenre().then((res) => {
                 setGenres(res.data)
                 setAddGenreLoading(false)
@@ -71,7 +70,7 @@ export const AdminSettingPage = () => {
 
     const addType = () => {
         setAddTypeLoading(true)
-        TypeApi.addType(newOptionType).then((res) => {
+        TypeApi.addType(newOptionType).then(() => {
             TypeApi.getType().then((res) => {
                 setTypes(res.data)
                 setAddTypeLoading(false)
@@ -85,7 +84,7 @@ export const AdminSettingPage = () => {
 
     const addRole = () => {
         setAddRoleLoading(true)
-        RoleApi.addRole(newOptionRole).then((res) => {
+        RoleApi.addRole(newOptionRole).then(() => {
             RoleApi.getRoles().then((res) => {
                 setRoles(res.data)
                 setAddRoleLoading(false)
@@ -99,13 +98,13 @@ export const AdminSettingPage = () => {
 
     const deleteOptions = (id: string, fieldName: string) => {
         if (fieldName === "Жанры") {
-            GenreApi.deleteGenre(id).then((res) => {
+            GenreApi.deleteGenre(id).then(() => {
                 GenreApi.getGenre().then((res) => {
                     setGenres(res.data)
                 })
             })
         } else if (fieldName === "Типы") {
-            TypeApi.deleteType(id).then((res) => {
+            TypeApi.deleteType(id).then(() => {
                 TypeApi.getType().then((res) => {
                     setTypes(res.data)
                 })
@@ -157,7 +156,7 @@ export const AdminSettingPage = () => {
     }
 
     const handeRecordRole = () => {
-        UsersApi.recordRoleToUser(valueRoleToUser, valueUser!).then(r => console.log('Успех'))
+        UsersApi.recordRoleToUser(valueRoleToUser, valueUser!).then(() => console.log('Успех'))
     }
 
     console.log(valueRoleToUser.length === 0 || !valueUser)

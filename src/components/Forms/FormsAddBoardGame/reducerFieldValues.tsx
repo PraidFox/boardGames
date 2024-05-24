@@ -1,5 +1,4 @@
 import {Options, OptionsAutoComplete} from "../../../tools/interfaces/serverInterface";
-import {UploadFile} from "antd";
 
 export type ValesFieldFormEdit = {
     name: OptionsAutoComplete<null> | null,

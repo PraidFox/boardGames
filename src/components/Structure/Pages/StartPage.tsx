@@ -1,14 +1,11 @@
-import {AuthApi} from "../../../tools/rest/AuthApi";
-import {LocalStorageUtils} from "../../../tools/utils/LocalStorageUtils";
-
 export const StartPage = () => {
-    const moreText = () => {
-        let jsxContent = []
-        for (let i = 0; i < 100; i++) {
-            jsxContent.push(<h1 key={i}>Проверка если будет много текста</h1>)
-        }
-        return jsxContent
-    }
+    // const moreText = () => {
+    //     let jsxContent = []
+    //     for (let i = 0; i < 100; i++) {
+    //         jsxContent.push(<h1 key={i}>Проверка если будет много текста</h1>)
+    //     }
+    //     return jsxContent
+    // }
 
     return (
         <div>
