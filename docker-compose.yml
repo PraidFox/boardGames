@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  board-game-front:
+    image: board-game-front
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    restart: always
+    networks:
+      - boardnetwork
+
+networks:
+  boardnetwork:
+    driver: bridge
