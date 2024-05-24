@@ -1,3 +1,6 @@
+import {AuthApi} from "../../../tools/rest/AuthApi";
+import {LocalStorageUtils} from "../../../tools/utils/LocalStorageUtils";
+
 export const StartPage = () => {
     const moreText = () => {
         let jsxContent = []
