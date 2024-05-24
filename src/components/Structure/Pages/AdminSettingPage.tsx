@@ -196,7 +196,7 @@ export const AdminSettingPage = () => {
         <br/>
         <hr/>
         <br/>
-        <h3>Удаление настолки:</h3>
+        <h3>Удаление настольной игры:</h3>
         <br/>
         <Select
             style={{width: '80%'}}
