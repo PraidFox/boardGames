@@ -1,8 +1,14 @@
 import React from "react";
-import {Layout} from "antd";
+import {Layout, theme} from "antd";
+
 const {Footer} = Layout;
 export const FooterComponent = () => {
-    return <Footer style={{textAlign: 'center'}}>
+    const {
+        token: {colorBgContainer, borderRadiusLG},
+    } = theme.useToken();
+
+
+    return <Footer style={{textAlign: 'center', borderRadius: borderRadiusLG}}>
         Создано и создано... ©{new Date().getFullYear()} Created by RadFoxDV
     </Footer>
 }

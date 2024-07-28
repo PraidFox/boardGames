@@ -27,7 +27,7 @@ export class StorageSettingMessage {
     static registrationAccess: ArgsProps = {
         key: "registration",
         type: "success",
-        content: "Регистрация прошла успешно",
+        content: <>Регистрация прошла успешно. <br/> На указанную вами почту отправлено письмо для подтверждения.</>,
         duration: 4
     }
 

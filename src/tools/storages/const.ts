@@ -10,6 +10,8 @@ export enum MyError {
 export enum PathStorage {
     LEFT_USER = "/user",
     LEFT_BOARD_GAMES = "/boardGames",
+    LEFT_OTHER = "/other",
+    LEFT_ADMIN = "/admin",
 
     ALL_BOARD_GAMES = "/allBoardGames",
     USERS = "/users",
@@ -22,5 +24,6 @@ export enum PathStorage {
     RATING_BOARD_GAMES = "/ratingBoardGames",
     EVENTS = "/events",
     VK = "/VK",
+    NOTIFICATION = "/notification", //СДЕЛАТЬ СТРАНИЦУ
 }
 

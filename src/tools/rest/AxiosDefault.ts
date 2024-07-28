@@ -15,19 +15,17 @@ const FileSettingAxios = {
     headers: {'Content-Type': 'multipart/form-data'}
 }
 
-console.log("defaultSettingAxios", process.env.URL)
 export const axiosBG = axios.create(defaultSettingAxios);
 export const axiosBGauth = axios.create(defaultSettingAxios);
 export const axiosBGauthFile = axios.create(FileSettingAxios);
 
-console.log("fdsfs", process.env.URL)
 const requestHandler = async (config: any) => {
     const tokenInfo = LocalStorageUtils.getTokenInfo();
     const remember = LocalStorageUtils.getUserInfo()?.remember;
 
     if (tokenInfo) {
         const {accessToken, refreshToken, expiresIn, entryTime}: TokenInfoLS = tokenInfo;
-        
+
         const currentTimeDate = new Date().getTime();
         const expiresInDate = Number(expiresIn) * 600;
         const entryTimeDate = new Date(entryTime).getTime();

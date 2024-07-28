@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {PlusOutlined} from '@ant-design/icons';
 import {Image, Upload} from 'antd';
 import type {GetProp, UploadFile, UploadProps} from 'antd';
-import {FileApi} from "../../tools/rest/FileApi";
+import {FileApi} from "../../../tools/rest/FileApi";
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
@@ -14,7 +14,7 @@ const getBase64 = (file: FileType): Promise<string> =>
         reader.onerror = (error) => reject(error);
     });
 
-export const UploadImage = ({setImagesId}: {
+export const UploadImagesMany = ({setImagesId}: {
     setImagesId: (filesId: string[]) => void
 }) => {
     const [previewOpen, setPreviewOpen] = useState(false);
@@ -38,26 +38,15 @@ export const UploadImage = ({setImagesId}: {
         setFileList(newFileList);
     }
 
-    const uploadButton = (
-        <button style={{border: 0, background: 'none'}} type="button">
-            <PlusOutlined/>
-            <div style={{marginTop: 8}}>Upload</div>
-        </button>
-    );
-
-
     return (
         <>
             <Upload
                 customRequest={(options) => {
                     const formData = new FormData();
                     formData.append('file', options.file);
-                    console.log("options", options)
-                    console.log("options.file", options.file)
                     FileApi.uploadFile(formData).then((r) => {
                         setFileList(files => files.map(file => ({...file, status: 'done', uid: r.data.id})));
                     });
-
                 }}
 
                 listType="picture-card"
@@ -66,7 +55,12 @@ export const UploadImage = ({setImagesId}: {
                 onChange={handleChange}
                 onRemove={e => console.log(e)}
             >
-                {fileList.length >= 8 ? null : uploadButton}
+                {fileList.length >= 8 ? null :
+                    <button style={{border: 0, background: 'none'}} type="button">
+                        <PlusOutlined/>
+                        <div style={{marginTop: 8}}>Добавить изображение</div>
+                    </button>
+                }
             </Upload>
             {previewImage && (
                 <Image

@@ -38,6 +38,7 @@ export const UserLoginProvider = ({children}: {
         LocalStorageUtils.setTokenInfo(r.data.accessToken, r.data.refreshToken, r.data.expiresIn);
         LocalStorageUtils.setUserInfo(1, remember);
     }
+    
     const logoutUser = () => {
         LocalStorageUtils.removeTokenInfo()
         LocalStorageUtils.removeUserInfo()

@@ -46,6 +46,13 @@ export interface MessageInfoContext {
     contextHolder: React.ReactElement<any, string | React.JSXElementConstructor<any>>
 }
 
+export interface IOverlaysContext {
+    isOpen: boolean
+    openOverlay: () => void
+    closeOverlay: () => void
+}
+
+
 // export type MessageInfoType = {
 //     text: string
 //     type: "success" | "info" | "warning" | "error"

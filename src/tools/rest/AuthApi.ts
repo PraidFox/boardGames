@@ -10,12 +10,12 @@ export class AuthApi {
         return axiosBG.post(`/api/Account1/login`, {userName: login, password});
     }
 
-    static registrationUser(email: string, password: string) {
-        return axiosBG.post(`/api/Account1/register`, {email, password});
+    static registrationUser(email: string, userName: string, password: string) {
+        return axiosBG.post(`/api/Account1/register`, {email, password, userName});
     }
 
     static refreshToken(refreshToken: string) {
-      
-        return axiosBG.post(`/account/refresh`, {refreshToken});
+
+        return axiosBG.post(`/api/account/refresh`, {refreshToken});
     }
 }

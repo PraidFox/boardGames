@@ -25,16 +25,13 @@ export class UsersApi {
 
     static getUserBoardGames(userName: string) {
         //Добавить по дефолту что-то типо userName=${localStorage.getItem("userName")}
-        return axiosBGauth.get(`/api/UserBoardGame/GetUserBoardGames?userName=${userName}`);
+        // return axiosBGauth.get(`/api/UserBoardGame/GetUserBoardGames?userName=${userName}`);
+        return axiosBGauth.get(`/api/users/${userName}/games`);
     }
 
 
-    // static addRoleToUser(roles: string[], userName: string) {
-    //     return axiosBGauth.post(`/api/roles/AssignRoles/userName=${userName}`, {roles});
-    // }
-
     static recordRoleToUser(roles: string[], userName: string) {
-        return axiosBGauth.post(`/api/users/${userName}/roles/AssignRoles`, {roles});
+        return axiosBGauth.put(`/api/users/${userName}/roles/AssignRoles`, roles);
     }
 
 }

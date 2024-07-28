@@ -1,4 +1,4 @@
-import {AutoComplete, Button, Form, Input, InputNumber, Select, Space} from 'antd';
+import {AutoComplete, Button, Form, Input, InputNumber, Select, Space, Upload} from 'antd';
 import {
     nameBoardGame,
     optionsFieldsStatusCooperativeGame,
@@ -11,7 +11,8 @@ import {GenreApi} from "../../../tools/rest/GenreApi";
 import {TypeApi} from "../../../tools/rest/TypeApi";
 import {CreateBoardGame, FormBoardGame} from "../../../tools/interfaces/boardGameInterface";
 import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
-import {UploadImage} from "../../UiElements/UploadImage";
+import {UploadImagesMany} from "../../UiElements/Buttons/UploadImagesMany";
+import {UploadOutlined} from '@ant-design/icons';
 
 const {TextArea} = Input;
 export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
@@ -93,7 +94,10 @@ export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
         onFinishFailed={onFinishFailed}
     >
 
-        <UploadImage setImagesId={(filesId) => setValuesField({type: "CHANGE_IMAGES", payload: filesId})}/>
+        {/*<Upload {...props}>*/}
+        {/*    <Button icon={<UploadOutlined/>}>Upload</Button>*/}
+        {/*</Upload>*/}
+        <UploadImagesMany setImagesId={(filesId) => setValuesField({type: "CHANGE_IMAGES", payload: filesId})}/>
 
         {/*<div style={{display: 'flex', justifyContent: 'center'}}>*/}
         {/*    <Image*/}

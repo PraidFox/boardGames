@@ -159,8 +159,6 @@ export const AdminSettingPage = () => {
         UsersApi.recordRoleToUser(valueRoleToUser, valueUser!).then(() => console.log('Успех'))
     }
 
-    console.log(valueRoleToUser.length === 0 || !valueUser)
-
     return <div>
         <h3>Настройки полей</h3>
         <br/>

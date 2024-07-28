@@ -17,7 +17,7 @@ export const FormRegistration = ({onClose}: {
     const onFinish = (values: Registration) => {
         setLoading(true)
         setSettingMessage(StorageSettingMessage.registrationLoading)
-        AuthApi.registrationUser(values.email, values.password)
+        AuthApi.registrationUser(values.email, values.userName, values.password)
             .then(r => {
                 //alert("Зарегистрирован")
                 setSettingMessage(StorageSettingMessage.registrationAccess)

@@ -1,50 +1,69 @@
-import {useLayoutEffect, useReducer} from "react";
-import {reducerFilterFieldValues} from "../../Forms/FormFilter/reducerFilterFieldValues";
 import {BoardGamesList} from "../../UiElements/BoardGamesList/BoardGamesList";
 import {BoardGamesDTO} from "../../../tools/interfaces/DTOinterface";
 import {useLoadData} from "../../../tools/hooks/useLoadData";
 import {UsersApi} from "../../../tools/rest/UsersApi";
+import {mockCollections} from "../../../tools/mockData";
+import {NavLink} from "react-router-dom";
+import {PathStorage} from "../../../tools/storages/const";
+import {FilterBoardGamesPanel} from "../../Forms/FormFilter/FilterBoardGamesPanel";
+import {useReducer, useState} from "react";
+import {reducerFilterFieldValues} from "../../Forms/FormFilter/reducerFilterFieldValues";
+import {collection} from "../../../tools/interfaces/collectionsInterface";
 
 export const MyCollectionBoardGames = () => {
     const {data, setNeedUpdate, loading} = useLoadData<BoardGamesDTO[], string>(UsersApi.getUserBoardGames, "PraidFox")
     const [filterFieldValues, setFilterFieldValues] = useReducer(reducerFilterFieldValues, {})
-
-    useLayoutEffect(() => {
-        UsersApi.getUserBoardGames("PraidFox").then(r => console.log(r.data))
-    }, []);
-
+    const [collections, setCollections] = useState<collection[]>(mockCollections)
 
     return (<>
-            <div style={{display: "flex", gap: "10px", alignItems: "center"}}><h3>{"Мои игры /"}</h3>
-                <h1>{"Мои коллекции"}</h1></div>
-            {/*<FilterBoardGamesPanel*/}
-            {/*    valueFilter={filterFieldValues}*/}
-            {/*    setFilterFieldValues={setFilterFieldValues}*/}
-            {/*/>*/}
+            <div style={{display: "flex", gap: "10px", alignItems: "center"}}><h2>{"Мои коллекции"}</h2></div>
+
             <br/>
             <div style={{display: "flex", gap: "10px"}}>
-                <div style={{backgroundColor: "green", padding: "10px", width: "200px", height: "200px"}}>Виш-лист</div>
-                <div style={{backgroundColor: "green", padding: "10px", width: "200px", height: "200px"}}>Избранное
+                {collections.map(collection =>
+                    <NavLink
+                        to={PathStorage.MY_COLLECTIONS + "/" + collection.id}
+                        key={collection.id}
+                        state={{id: collection.id}}
+                    >
+                        <div
+                            style={{padding: "10px", width: "200px", height: "200px", border: "1px solid black"}}
+
+                        >
+                            {collection.title}
+                        </div>
+                    </NavLink>)}
+                <div
+                    style={{
+                        padding: "10px",
+                        width: "200px",
+                        height: "200px",
+                        border: "1px solid black",
+                        cursor: 'pointer'
+                    }}
+                    onClick={() => console.log("Добавить коллекцию")}
+                >
+                    Добавить коллекцию
                 </div>
-                <div style={{backgroundColor: "green", padding: "10px", width: "200px", height: "200px"}}>Еще какой-то
-                    дефолтный мб
-                </div>
-                <div style={{backgroundColor: "aqua", padding: "10px", width: "200px", height: "200px"}}>На
-                    прохождение
-                </div>
-                <div style={{backgroundColor: "aqua", padding: "10px", width: "200px", height: "200px"}}>В дорогу</div>
-                <div style={{backgroundColor: "aqua", padding: "10px", width: "200px", height: "200px"}}>Для большой
-                    компании
-                </div>
+
+
             </div>
             <br/>
+            <hr/>
+            <h3>Все ваши игры</h3>
+            <br/>
             {loading ? <></> :
-                <BoardGamesList
-                    type={"user"}
-                    dataBoardGames={data ? data : []}
+                <>
+                    <FilterBoardGamesPanel
+                        valueFilter={filterFieldValues}
+                        setFilterFieldValues={setFilterFieldValues}
+                    />
+                    <BoardGamesList
+                        type={"user"}
+                        dataBoardGames={data ? data : []}
 
-                />
-
+                    />
+                </>
             }
         </>
     )

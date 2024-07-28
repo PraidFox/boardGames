@@ -26,9 +26,11 @@ export const PopoverForm = ({children}: {
             title={"Данные для входа"}
             trigger="click"
         >
-            <Button type="primary">
+            {/*<Button type="primary">*/}
+            <span style={{color: '#FFFFFFA6'}}>
                 Войти
-            </Button>
+            </span>
+            {/*</Button>*/}
         </Popover>
     )
 }

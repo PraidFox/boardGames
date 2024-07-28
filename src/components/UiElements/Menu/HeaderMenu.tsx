@@ -1,4 +1,4 @@
-import {Menu} from "antd";
+import {ConfigProvider, Menu} from "antd";
 import React, {useLayoutEffect} from "react";
 import {useInfoUser} from "../../../tools/hooks/hooksContext/useInfoUser";
 import {useMenuDriven} from "../../../tools/hooks/useMenuDriven";
@@ -19,12 +19,17 @@ export const HeaderMenu = () => {
     }, [id, setMenuItems]);
 
 
-    return <Menu
-        theme="dark"
-        mode="horizontal"
-        items={menuItems}
-        selectedKeys={current ? [current] : []}
-        style={{flex: 1, minWidth: 0}}
-        onClick={onClick}
-    />
+    return (
+
+
+        <Menu
+            theme="dark"
+            mode="horizontal"
+            items={menuItems}
+            selectedKeys={current ? [current] : []}
+
+            onClick={onClick}
+        />
+
+    )
 }

@@ -13,7 +13,10 @@ export const AuthOrProfile = () => {
     return (
         <>
             {id ?
-                <ProfileMenu/> :
+                <div style={{textAlign: "center"}}>
+                    <ProfileMenu/>
+                </div> :
+
                 <Flex gap="small" wrap="wrap">
                     <PopoverForm>
                         {(onClose: () => void) => <FormLogin nameForm={"popoverAuth"} onClose={onClose}/>}

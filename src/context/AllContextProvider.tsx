@@ -2,6 +2,7 @@ import React, {ReactNode} from "react";
 import {UserLoginProvider} from "./UserContext";
 import {ErrorProvider} from "./ErrorContext";
 import {MessageProvider} from "./MessageContext";
+import {OverlaysProvider} from "./OverlaysContext";
 
 export const AllContextProvider = ({children}: {
     children: ReactNode
@@ -10,7 +11,9 @@ export const AllContextProvider = ({children}: {
         <MessageProvider>
             <ErrorProvider>
                 <UserLoginProvider>
-                    {children}
+                    <OverlaysProvider>
+                        {children}
+                    </OverlaysProvider>
                 </UserLoginProvider>
             </ErrorProvider>
         </MessageProvider>

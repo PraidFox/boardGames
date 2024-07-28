@@ -5,18 +5,19 @@ import {useInfoUser} from "../../../tools/hooks/hooksContext/useInfoUser";
 import {UseMenuDriven} from "../../../tools/interfaces/hooksInterface";
 import {useMenuDriven} from "../../../tools/hooks/useMenuDriven";
 import {LocalStorageUtils} from "../../../tools/utils/LocalStorageUtils";
+import {DiscordIcon, TelegramIcon} from "../../../tools/images/svgStorage";
 
 
-export const LeftMenu = () => {
+export const LeftMenuBottom = () => {
     const {menuItems, current, setMenuItems, onClick}: UseMenuDriven = useMenuDriven(ItemMenu.defaultLeftMenu)
     const {id} = useInfoUser()
     const [defaultOpen, setDefaultOpen] = useState<string[]>()
 
     useLayoutEffect(() => {
         if (id) {
-            setMenuItems(r => r ? [ItemMenu.userItems, ...r] : [ItemMenu.userItems])
+            setMenuItems(r => [])
         } else {
-            setMenuItems(r => r?.filter(x => x?.key !== ItemMenu.userItems?.key))
+            setMenuItems(r => [ItemMenu.authorizationItems])
         }
     }, [id, setMenuItems]);
 
@@ -26,7 +27,11 @@ export const LeftMenu = () => {
     }, []);
 
 
-    return (<>
+    return (<div style={{position: "sticky", top: "82vh"}}>
+            <div style={{textAlign: "center"}}><TelegramIcon style={{fontSize: '50px', cursor: "pointer"}}/></div>
+            <br/>
+            <div style={{textAlign: "center"}}><DiscordIcon style={{fontSize: '50px', cursor: "pointer"}}/></div>
+            
             {defaultOpen && <Menu
                 theme="dark"
                 mode="inline"
@@ -38,7 +43,7 @@ export const LeftMenu = () => {
                 items={menuItems}
                 onClick={onClick}
             />}
-        </>
+        </div>
 
     )
 

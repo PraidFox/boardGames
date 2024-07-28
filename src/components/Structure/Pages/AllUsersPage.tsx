@@ -6,6 +6,7 @@ import {PathStorage} from "../../../tools/storages/const";
 export const AllUsersPage = () => {
     const [users, setUsers] = useState<{ userName: string, email: string }[]>([])
 
+
     useLayoutEffect(() => {
         UsersApi.getAllUsers().then(r => setUsers(r.data))
     }, []);
@@ -23,6 +24,8 @@ export const AllUsersPage = () => {
                 </li>
             )
             }
+
+
             <br/>
             Зачем? Найти друга. Или найти с кем поиграть, может сделаем отправки сообщений? Или еще чего... Или
             посмотреть активность.

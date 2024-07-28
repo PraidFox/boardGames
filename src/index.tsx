@@ -19,6 +19,7 @@ import {EventsPage} from "./components/Structure/Pages/EventsPage";
 import {StartPage} from "./components/Structure/Pages/StartPage";
 import {MyCollectionBoardGames} from "./components/Structure/Pages/MyCollectionBoardGames";
 import {CurrentUserPage} from "./components/Structure/Pages/CurrentUserPage";
+import {CollectionGamesPage} from "./components/Structure/Pages/CollectionGamesPage/CollectionGamesPage";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -33,6 +34,7 @@ const router = createBrowserRouter(
         >
             <Route>
                 <Route index element={<StartPage/>}/>
+
                 <Route
                     path={PathStorage.LEFT_BOARD_GAMES + PathStorage.ALL_BOARD_GAMES}
                     element={<AllBoardGamesPage/>}
@@ -76,6 +78,10 @@ const router = createBrowserRouter(
                     <Route
                         path={PathStorage.MY_COLLECTIONS}
                         element={<MyCollectionBoardGames/>}
+                    />
+                    <Route
+                        path={PathStorage.MY_COLLECTIONS + `/:collectionId`}
+                        element={<CollectionGamesPage/>}
                     />
                     <Route
                         path={PathStorage.MY_FRIENDS}

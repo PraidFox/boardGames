@@ -19,7 +19,7 @@ export const ProfileMenu = () => {
             children: [
                 {
                     key: '1',
-                    label: `Уведомления: ${countNotifications}`,
+                    label: <span>Уведомления: {countNotifications}</span>,
                 },
                 {
                     key: '3',
@@ -32,18 +32,17 @@ export const ProfileMenu = () => {
             key: '4',
             danger: true,
             onClick: logoutUser,
-            label: 'Выйти',
+            label: <span>Выйти</span>,
         },
     ];
 
     return (
-        <Dropdown menu={{items}} arrow={false}>
+        <Dropdown menu={{items}} arrow={false} destroyPopupOnHide={false}>
             <Space>
                 <Badge count={countNotifications}>
                     {/*<Avatar shape="square" icon={<UserOutlined/>}/>*/}
                     <Avatar style={{backgroundColor: '#87d068'}} icon={<UserOutlined/>}/>
                 </Badge>
-                <DownOutlined/>
             </Space>
         </Dropdown>
     )
