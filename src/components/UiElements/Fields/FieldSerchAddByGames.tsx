@@ -62,7 +62,7 @@ export const FieldSearchAddGames = ({setNeedUpdate}: {
     }
 
     return (
-        <div style={{display: "flex"}}>
+        <div style={{display: "flex", gap: "1%"}}>
             <Select
                 labelInValue
                 onBlur={() => setOptions([])}

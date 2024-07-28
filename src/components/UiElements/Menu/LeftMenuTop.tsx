@@ -12,13 +12,15 @@ export const LeftMenuTop = () => {
     const {id} = useInfoUser()
     const [defaultOpen, setDefaultOpen] = useState<string[]>()
 
+    console.log(defaultOpen)
+
     useLayoutEffect(() => {
         if (id) {
             //setMenuItems(r => r ? [ItemMenu.userItems, ...r, ItemMenu.otherItems, ItemMenu.adminItems] : [ItemMenu.userItems])
             setMenuItems(r => [ItemMenu.boardGamesItems, ItemMenu.userItems, ItemMenu.otherItems, ItemMenu.adminItems])
         } else {
-            //setMenuItems(r => r?.filter(x => x?.key !== ItemMenu.userItems?.key))
-            setMenuItems(r => [ItemMenu.boardGamesItems])
+            setMenuItems(r => r?.filter(x => x?.key !== ItemMenu.userItems?.key) || [])
+            //setMenuItems(r => [ItemMenu.boardGamesItems, ItemMenu.authorizationItems])
         }
     }, [id, setMenuItems]);
 
@@ -29,15 +31,11 @@ export const LeftMenuTop = () => {
 
 
     return (<div style={{position: "sticky", top: 0}}>
-
-
             {defaultOpen && <Menu
                 theme="dark"
                 mode="inline"
                 defaultOpenKeys={[...defaultOpen, ...current.split("/").map(x => `/${x}`)]}
-
                 onOpenChange={e => LocalStorageUtils.setOpenMenu(e, "leftMenu")}
-                //onOpenChange={e => console.log(e)}
                 selectedKeys={current ? [current] : []}
                 items={menuItems}
                 onClick={onClick}

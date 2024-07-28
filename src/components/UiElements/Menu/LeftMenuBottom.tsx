@@ -1,4 +1,4 @@
-import {Menu} from "antd";
+import {Avatar, Badge, Menu, Space} from "antd";
 import React, {useLayoutEffect, useState} from "react";
 import {ItemMenu} from "../../../tools/storages/ItemMenu";
 import {useInfoUser} from "../../../tools/hooks/hooksContext/useInfoUser";
@@ -6,32 +6,63 @@ import {UseMenuDriven} from "../../../tools/interfaces/hooksInterface";
 import {useMenuDriven} from "../../../tools/hooks/useMenuDriven";
 import {LocalStorageUtils} from "../../../tools/utils/LocalStorageUtils";
 import {DiscordIcon, TelegramIcon} from "../../../tools/images/svgStorage";
+import {ProfileMenu} from "./ProfileMenu";
+import {UserOutlined} from "@ant-design/icons";
 
 
-export const LeftMenuBottom = () => {
+export const LeftMenuBottom = ({collapsedSider}: { collapsedSider: boolean }) => {
     const {menuItems, current, setMenuItems, onClick}: UseMenuDriven = useMenuDriven(ItemMenu.defaultLeftMenu)
     const {id} = useInfoUser()
-    const [defaultOpen, setDefaultOpen] = useState<string[]>()
+    const [defaultOpen, setDefaultOpen] = useState<string[]>([])
 
     useLayoutEffect(() => {
         if (id) {
             setMenuItems(r => [])
         } else {
-            setMenuItems(r => [ItemMenu.authorizationItems])
+            setMenuItems(r => [])
         }
     }, [id, setMenuItems]);
 
     useLayoutEffect(() => {
         const openMenu = LocalStorageUtils.getOpenMenu()["leftMenu"]
-        setDefaultOpen(openMenu ? openMenu : [])
+        setDefaultOpen(r => openMenu ? openMenu : [])
     }, []);
 
+    console.log(defaultOpen)
 
-    return (<div style={{position: "sticky", top: "82vh"}}>
-            <div style={{textAlign: "center"}}><TelegramIcon style={{fontSize: '50px', cursor: "pointer"}}/></div>
+    const getSocialGroup = () => {
+        if (collapsedSider) {
+            return <>
+                <div style={{textAlign: "center"}}><TelegramIcon style={{fontSize: '40px', cursor: "pointer"}}/></div>
+                <br/>
+                <div style={{textAlign: "center"}}><DiscordIcon style={{fontSize: '40px', cursor: "pointer"}}/></div>
+            </>
+        } else {
+            return <>
+                <div style={{display: "flex", gap: "10px", justifyContent: "center"}}>
+                    <div style={{textAlign: "center"}}><TelegramIcon style={{fontSize: '40px', cursor: "pointer"}}/>
+                    </div>
+                    <div style={{textAlign: "center"}}><DiscordIcon style={{fontSize: '40px', cursor: "pointer"}}/>
+                    </div>
+                </div>
+            </>
+
+        }
+    }
+
+    return (<div style={{position: "sticky", top: "75vh"}}>
+            <div style={{textAlign: "center"}}><Space>
+                <Badge count={8}>
+                    <Avatar style={{backgroundColor: '#87d068'}} icon={<UserOutlined/>}/>
+                </Badge>
+                {!collapsedSider && <b style={{color: "white"}}>PraidFox</b>}
+            </Space></div>
             <br/>
-            <div style={{textAlign: "center"}}><DiscordIcon style={{fontSize: '50px', cursor: "pointer"}}/></div>
-            
+            <hr/>
+            <br/>
+            {getSocialGroup()}
+            <br/>
+            <hr/>
             {defaultOpen && <Menu
                 theme="dark"
                 mode="inline"

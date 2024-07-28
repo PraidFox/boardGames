@@ -12,6 +12,7 @@ export const configStyle: ThemeConfig = {
         Layout: {
             bodyBg: '#002140',
             colorBgContainer: '#1481e0',
+            triggerBg: '#001529'
         },
 
     }

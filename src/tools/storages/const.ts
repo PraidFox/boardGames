@@ -25,5 +25,6 @@ export enum PathStorage {
     EVENTS = "/events",
     VK = "/VK",
     NOTIFICATION = "/notification", //СДЕЛАТЬ СТРАНИЦУ
+    PROFILE = "/profile", //СДЕЛАТЬ СТРАНИЦУ
 }
 

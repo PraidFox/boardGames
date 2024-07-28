@@ -52,13 +52,16 @@ export const BoardGamesList = ({type, dataBoardGames, deleteGame}: {
     }
 
     return (
-        <Flex wrap="wrap" gap="middle">
+
+        <Flex wrap="wrap" gap="middle" justify={"space-around"}>
             {dataBoardGames?.map(boardGame => (
                 <CardBoardGame data={boardGame} key={boardGame.id}>
                     {getFooterForCard(boardGame)}
                 </CardBoardGame>
             ))}
         </Flex>
+
+
     )
 
 

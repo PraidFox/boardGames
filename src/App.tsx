@@ -12,6 +12,7 @@ import {Logo} from "./components/UiElements/Logo";
 import {configStyle} from "./tools/configStyle";
 import {LeftMenuBottom} from "./components/UiElements/Menu/LeftMenuBottom";
 import Overlay from "./components/UiElements/Overlays";
+import {FloatButtonMy} from "./components/UiElements/Buttons/FloatButtonMy";
 
 const {Sider} = Layout;
 //TODO хранить токен в HttpOnly и хочет ли пользователь что бы его помнили?
@@ -20,7 +21,7 @@ const {Sider} = Layout;
 export const App = () => {
     const {nameError} = useErrorInfo()
     const {contextHolder} = useMessage()
-    const [collapsedSider, setCollapsedSider] = useState<boolean>()
+    const [collapsedSider, setCollapsedSider] = useState<boolean>(false)
 
     return (
         <ConfigProvider
@@ -28,6 +29,7 @@ export const App = () => {
         >
 
             <Layout style={{minHeight: '100vh'}}>
+
                 <Layout>
                     <Sider collapsible onCollapse={(collapsed) => setCollapsedSider(collapsed)}>
                         {/*<Sider*/}
@@ -35,18 +37,23 @@ export const App = () => {
                         {/*>*/}
                         <Logo type={collapsedSider ? "mini" : "full"}/>
                         <LeftMenuTop/>
-                        <LeftMenuBottom/>
+                        <LeftMenuBottom collapsedSider={collapsedSider}/>
                     </Sider>
-                    <Layout style={{padding: '10px 10px'}}>
+                    <Layout style={{padding: '1% 3%'}}>
                         <FieldSearchByGames/>
                         {contextHolder}
                         {nameError && viewError(nameError)}
                         <ContentComponent/>
+
                         <br/>
-                        <FooterComponent/>
+                        {/*<FooterComponent/>*/}
                     </Layout>
+
                 </Layout>
+
             </Layout>
+
+            <FloatButtonMy/>
             <Overlay/>
         </ConfigProvider>
     );

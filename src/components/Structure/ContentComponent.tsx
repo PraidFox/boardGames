@@ -11,7 +11,7 @@ export const ContentComponent = () => {
 
     return <Content
         style={{
-            padding: 24,
+            padding: "1%",
             background: colorBgContainer,
             borderRadius: borderRadiusLG,
             overflow: "initial"

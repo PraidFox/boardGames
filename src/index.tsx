@@ -18,7 +18,7 @@ import {RatingBoardGamesPage} from "./components/Structure/Pages/RatingBoardGame
 import {EventsPage} from "./components/Structure/Pages/EventsPage";
 import {StartPage} from "./components/Structure/Pages/StartPage";
 import {MyCollectionBoardGames} from "./components/Structure/Pages/MyCollectionBoardGames";
-import {CurrentUserPage} from "./components/Structure/Pages/CurrentUserPage";
+import {UserProfilePage} from "./components/Structure/Pages/UserProfilePage";
 import {CollectionGamesPage} from "./components/Structure/Pages/CollectionGamesPage/CollectionGamesPage";
 
 const router = createBrowserRouter(
@@ -67,7 +67,7 @@ const router = createBrowserRouter(
                 />
                 <Route
                     path={PathStorage.USERS + `/:userName`}
-                    element={<CurrentUserPage/>}
+                    element={<UserProfilePage/>}
                 />
 
                 <Route element={<PrivateRouter/>}>

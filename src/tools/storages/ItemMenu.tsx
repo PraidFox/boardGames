@@ -26,7 +26,6 @@ export class ItemMenu {
         return 8
     }
 
-
     static allBoardGames: MenuItem = this.toItemType(PathStorage.LEFT_BOARD_GAMES + PathStorage.ALL_BOARD_GAMES, "Все настолки")
     static ratingBoardGames: MenuItem = this.toItemType(PathStorage.RATING_BOARD_GAMES, "Рейтинг")
     static myCollections: MenuItem = this.toItemType(PathStorage.MY_COLLECTIONS, "Моя коллекция")
@@ -36,7 +35,7 @@ export class ItemMenu {
     static players: MenuItem = this.toItemType(PathStorage.USERS, "Игроки")
     static events: MenuItem = this.toItemType(PathStorage.EVENTS, "Мероприятия")
     static adminSetting: MenuItem = this.toItemType(PathStorage.ADMIN_SETTING, "Войти в админку")
-
+   
 
     static login: MenuItem = this.toItemType("login", <PopoverForm>
         {(onClose: () => void) => <FormLogin nameForm={"popoverAuth"} onClose={onClose}/>}
@@ -48,7 +47,6 @@ export class ItemMenu {
 
     static notification = this.toItemType(PathStorage.NOTIFICATION, `Уведомления: ${this.getCountNotifications()}`)
 
-
     static userItems: MenuItem = {
         key: PathStorage.LEFT_USER,
         icon: <UserOutlined/>,
@@ -59,7 +57,7 @@ export class ItemMenu {
     }
 
     static authorizationItems: MenuItem = {
-        key: "authOrProfileItems",
+        key: "authItems",
         icon: <UserOutlined/>,
         label: `Авторизация`,
         children: [
@@ -95,7 +93,7 @@ export class ItemMenu {
 
 
     static defaultHeaderMenu: MenuProps['items'] = [this.articles, this.players, this.events]
-    static defaultLeftMenu: MenuProps['items'] = [this.boardGamesItems]
+    static defaultLeftMenu: MenuProps['items'] = [this.boardGamesItems, ItemMenu.authorizationItems]
 }
 
 

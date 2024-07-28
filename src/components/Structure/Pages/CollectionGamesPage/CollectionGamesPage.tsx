@@ -11,7 +11,8 @@ import {useLoadData} from "../../../../tools/hooks/useLoadData";
 import {BoardGamesDTO} from "../../../../tools/interfaces/DTOinterface";
 import {UsersApi} from "../../../../tools/rest/UsersApi";
 import {FieldSearchAddGames} from "../../../UiElements/Fields/FieldSerchAddByGames";
-
+import {DeleteOutlined, LikeOutlined, ShareAltOutlined, QrcodeOutlined} from "@ant-design/icons";
+import {CardCollection} from "./CardCollection";
 
 export const CollectionGamesPage = () => {
     const {id} = useLocation().state;
@@ -35,7 +36,17 @@ export const CollectionGamesPage = () => {
                 Лайков: {collection?.likes}
             </div>
             <div style={{display: "flex", gap: "2%", width: "100%"}}>
-                <Cover collection={collection!}/>
+                <div>
+                    <CardCollection coverElement={<Cover collection={collection!}/>}
+                                    actionsElements={[
+                                        <ShareAltOutlined style={{fontSize: 20}}/>,
+                                        <LikeOutlined style={{fontSize: 20}}/>,
+                                        <DeleteOutlined style={{fontSize: 20}}/>,
+                                        <QrcodeOutlined style={{fontSize: 20}}/>
+                                    ]}></CardCollection>
+
+
+                </div>
                 <div style={{width: "100%"}}>
                     <TitleEdit collection={collection!}/>
                     <br/>

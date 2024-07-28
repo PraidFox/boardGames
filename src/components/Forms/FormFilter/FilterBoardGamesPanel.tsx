@@ -34,9 +34,6 @@ export const FilterBoardGamesPanel = ({valueFilter, setFilterFieldValues}: {
 
     return (
         <div style={{margin: "1% 0"}}>
-            <div style={{display: "flex", gap: "10px", alignItems: "center"}}>
-                <h4>Фильтр настольных игр и дополнений</h4>
-            </div>
 
             <div style={{display: "flex", gap: "10px", alignItems: "center"}}>
                 {/*<AutoComplete*/}

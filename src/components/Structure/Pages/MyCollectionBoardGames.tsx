@@ -19,7 +19,7 @@ export const MyCollectionBoardGames = () => {
             <div style={{display: "flex", gap: "10px", alignItems: "center"}}><h2>{"Мои коллекции"}</h2></div>
 
             <br/>
-            <div style={{display: "flex", gap: "10px"}}>
+            <div style={{display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap"}}>
                 {collections.map(collection =>
                     <NavLink
                         to={PathStorage.MY_COLLECTIONS + "/" + collection.id}
@@ -50,8 +50,7 @@ export const MyCollectionBoardGames = () => {
             </div>
             <br/>
             <hr/>
-            <h3>Все ваши игры</h3>
-            <br/>
+
             {loading ? <></> :
                 <>
                     <FilterBoardGamesPanel
