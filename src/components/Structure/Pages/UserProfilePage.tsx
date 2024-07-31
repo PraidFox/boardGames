@@ -1,8 +1,10 @@
 import {useParams} from "react-router-dom";
-import {useLayoutEffect, useState} from "react";
+import React, {useLayoutEffect, useState} from "react";
 import {UsersApi} from "../../../tools/rest/UsersApi";
-import {Avatar, theme} from "antd";
+import {Avatar, Button, Input, theme} from "antd";
+import {CloseCircleOutlined} from "@ant-design/icons";
 
+const {TextArea} = Input;
 export const UserProfilePage = () => {
     const {userName} = useParams();
     const [roles, setRoles] = useState<string[]>([])
@@ -57,11 +59,30 @@ export const UserProfilePage = () => {
             <hr/>
 
             <br/>
-            <div style={{width: "70%", border: "1px solid black", padding: "10px"}}>
-                Здесь могла бы быть интересная информация о вас, но вы ленивый настольщик и поэтому ничего здесь
-                не написали.
+            <div style={{display: "flex", justifyContent: "center",}}>
+                <div style={{height: "150px", width: "60%", border: "1px solid black", padding: "10px"}}>
+                    <p>Здесь могла бы быть интересная информация о вас, но вы ленивый настольщик и поэтому ничего здесь
+                        не написали.</p>
+                </div>
             </div>
-
+            <br/>
+            <hr/>
+            <br/>
+            <h3>Комментарии организаций</h3>
+            <div style={{width: "60%", border: "1px solid black", padding: "10px"}}>
+                Кто: Драконий хребет
+                <br/>
+                Комментарий: Не возвращает игры
+            </div>
+            <br/>
+            <div style={{width: "60%", border: "1px solid black", padding: "10px"}}>
+                Кто: Драконий хребет
+                <br/>
+                Комментарий: Плохо себя ведёт
+            </div>
+            <br/>
+            <TextArea maxLength={5000} placeholder="Написать комментарий"/>
+            <Button>Отправить</Button>
 
         </>
     )

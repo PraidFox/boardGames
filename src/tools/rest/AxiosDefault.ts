@@ -35,7 +35,8 @@ const requestHandler = async (config: any) => {
                 const newToken = await AuthApi.refreshToken(refreshToken!);
                 config.headers["Authorization"] = `Bearer ${newToken.data.accessToken}`;
             } else {
-                throw new Error(MyError.NEED_AUTHORIZATION);
+                alert(MyError.NEED_AUTHORIZATION)
+                //throw new Error(MyError.NEED_AUTHORIZATION);
             }
         } else {
             config.headers["Authorization"] = `Bearer ${accessToken}`;
