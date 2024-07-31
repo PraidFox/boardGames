@@ -60,11 +60,12 @@ export const AllBoardGamesPage = () => {
 
     const getBoardGames = () => {
         const content = <>
-            <BoardGamesList type={"all"} dataBoardGames={boardGameData ? boardGameData : []}/>
             <DrawerSidePanel>
                 {(onClose) => (
                     <FormAddBoardGameInModeration onClose={onClose} setNeedUpdate={updateBoardGame}/>)}
             </DrawerSidePanel>
+            <BoardGamesList type={"all"} dataBoardGames={boardGameData ? boardGameData : []}/>
+
         </>
 
         if (boardGameData) {
