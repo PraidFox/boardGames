@@ -1,6 +1,5 @@
 import {OpenMenuKey, TokenInfoLS, UserInfoLS} from "../interfaces/localStorageInterface";
 import {LocalStorageKeys} from "../storages/localStorageKeys";
-import {UserInfo} from "../interfaces/otherInterface";
 
 export abstract class LocalStorageUtils {
     private static getItem = (key: string): string | null => {
@@ -36,7 +35,6 @@ export abstract class LocalStorageUtils {
     }
 
     static setTokenInfo = (accessToken: string, refreshToken: string, expiresIn: number) => {
-
         const tokenInfo: TokenInfoLS = {
             [LocalStorageKeys.ACCESS_TOKEN]: accessToken,
             [LocalStorageKeys.REFRESH_TOKEN]: refreshToken,
@@ -47,7 +45,6 @@ export abstract class LocalStorageUtils {
         this.setItem(LocalStorageKeys.TOKEN_INFO, JSON.stringify(tokenInfo))
     }
     static getTokenInfo = (): TokenInfoLS | null => {
-
         const tokenInfo = this.getItem(LocalStorageKeys.TOKEN_INFO)
         if (tokenInfo) {
             return JSON.parse(tokenInfo)

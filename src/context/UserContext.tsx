@@ -16,29 +16,28 @@ export const UserLoginProvider = ({children}: {
     const [rememberUser, setRememberUser] = useState<boolean>(false)
     const {setSettingMessage} = useMessage()
 
-
     useLayoutEffect(() => {
         if (!userInfo) {
-            UsersApi.getMe().then(r => console.log("getMe", r.data))
             const userInfoLs = LocalStorageUtils.getUserInfo()
-            if (userInfoLs && userInfoLs.id !== 0) {
-                //Поход в БД и взять инфу по id пользователю. (Ник и должен ли он быть залогинен) а пока заглушка
+
+            UsersApi.getMe().then(res =>
                 setUserInfo({
-                    id: userInfoLs.id,
-                    nickname: "Какой-то ник",
-                    email: "Логин@почта"
+                    id: userInfoLs!.id,
+                    nickname: res.data.name,
+                    email: res.data.email
                 })
-            }
+            )
         }
-    }, []);
+    }, [userInfo]);
 
     const authUser = async (login: string, password: string, remember: boolean): Promise<void> => {
         const r = await AuthApi.loginUser(login, password);
+        console.log("res", r.data)
         setUserInfo({id: 1, nickname: "Какой-то ник", email: "Какой-то почта"});
         LocalStorageUtils.setTokenInfo(r.data.accessToken, r.data.refreshToken, r.data.expiresIn);
         LocalStorageUtils.setUserInfo(1, remember);
     }
-    
+
     const logoutUser = () => {
         LocalStorageUtils.removeTokenInfo()
         LocalStorageUtils.removeUserInfo()

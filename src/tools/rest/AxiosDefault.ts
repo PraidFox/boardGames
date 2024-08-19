@@ -32,8 +32,15 @@ const requestHandler = async (config: any) => {
 
         if (currentTimeDate > entryTimeDate + expiresInDate) {
             if (remember) {
-                const newToken = await AuthApi.refreshToken(refreshToken!);
-                config.headers["Authorization"] = `Bearer ${newToken.data.accessToken}`;
+                AuthApi.refreshToken(refreshToken!)
+                    .then(res =>
+                        config.headers["Authorization"] = `Bearer ${res.data.accessToken}`
+                    )
+                    .catch(() => {
+                        LocalStorageUtils.removeTokenInfo()
+                        LocalStorageUtils.removeUserInfo()
+                        alert(MyError.NEED_AUTHORIZATION)
+                    })
             } else {
                 alert(MyError.NEED_AUTHORIZATION)
                 //throw new Error(MyError.NEED_AUTHORIZATION);

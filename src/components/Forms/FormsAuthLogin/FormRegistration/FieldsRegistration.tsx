@@ -41,6 +41,13 @@ export const FieldsRegistration = ({form}: { form: FormInstance }) => {
     };
 
     return (<>
+            <Form.Item name="typeUser" wrapperCol={{offset: 8, span: 16}} initialValue={"user"}>
+                <Radio.Group>
+                    <Radio value={"user"}>Игрок</Radio>
+                    <Radio value={"company"} disabled={true}>Организация</Radio>
+                </Radio.Group>
+            </Form.Item>
+
             <Form.Item<FieldType>
                 name="userName"
                 rules={[{required: true, message: 'Пожалуйста заполните логин'}]}
@@ -98,12 +105,7 @@ export const FieldsRegistration = ({form}: { form: FormInstance }) => {
                 <Checkbox>Запомнить меня</Checkbox>
             </Form.Item>
 
-            <Form.Item name="typeUser" wrapperCol={{offset: 8, span: 16}} initialValue={"user"}>
-                <Radio.Group>
-                    <Radio value={"user"}>Игрок</Radio>
-                    <Radio value={"company"} disabled={true}>Компания</Radio>
-                </Radio.Group>
-            </Form.Item>
+
         </>
     )
 }
