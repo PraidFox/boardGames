@@ -13,14 +13,6 @@ export interface TypeDTO {
     name: string
 }
 
-// export interface RoleDTO {
-//     id: string,
-//     name: string,
-//     normalizedName: string
-// }
-
-export type RoleDTO = string[]
-
 export interface BoardGamesDTO {
     id: string,
     name: string,
@@ -32,10 +24,36 @@ export interface BoardGamesDTO {
     genres: { id: number, name: string }[],
 }
 
-export interface GameCollectionCreateDto {
+// export interface GameCollectionCreateDto {
+//     name: string,
+//     confidentialType: number,
+//     avatarInfoId: string,
+//     backgroundInfoId: string,
+//     games: number[],
+// }
+
+export interface GameCollectionPatchDTO {
+    name: string
+    description: string
+    confidentialType: number
+    avatarInfoId: string
+    backgroundInfoId: string
+    nullable: true
+
+}
+
+export interface GameCollectionDTO {
+    id: string,
     name: string,
     confidentialType: number,
-    avatarInfoId: string,
-    backgroundInfoId: string,
-    games: number[],
+    avatarInfoId: FileInfoDTO,
+    backgroundInfoId: FileInfoDTO,
+    games: BoardGamesDTO[],
+}
+
+export interface FileInfoDTO {
+    id: string,
+    name: string,
+    contentType: string,
+    type: any
 }

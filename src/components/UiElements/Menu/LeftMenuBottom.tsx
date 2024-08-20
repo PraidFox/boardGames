@@ -28,7 +28,7 @@ export const LeftMenuBottom = ({collapsedSider}: { collapsedSider: boolean }) =>
         setDefaultOpen(r => openMenu ? openMenu : [])
     }, []);
 
-    console.log(defaultOpen)
+    console.log("defaultOpen", defaultOpen)
 
     const getSocialGroup = () => {
         if (collapsedSider) {

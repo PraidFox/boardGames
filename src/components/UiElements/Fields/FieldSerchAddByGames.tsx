@@ -74,7 +74,6 @@ export const FieldSearchAddGames = ({setNeedUpdate}: {
                 value={value}
                 placeholder="Найти и добавить игру в коллекцию"
                 onChange={(newValue) => {
-                    console.log("newValue", newValue)
                     setValue(newValue);
                 }}
                 style={{width: "100%"}}

@@ -7,7 +7,6 @@ export class UsersApi {
     }
 
     static getMe = () => {
-        console.log('getMe')
         return axiosBGauth.get(`/api/Users/GetMe`);
     }
 

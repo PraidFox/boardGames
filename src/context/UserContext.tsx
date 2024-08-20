@@ -18,13 +18,12 @@ export const UserLoginProvider = ({children}: {
 
 
     useLayoutEffect(() => {
-        console.log("userInfo", userInfo)
-        if (!userInfo) {
-            const userInfoLs = LocalStorageUtils.getUserInfo()
 
+        if (!userInfo) {
             UsersApi.getMe().then(res =>
+
                 setUserInfo({
-                    id: userInfoLs!.id,
+                    id: 13212,
                     nickname: res.data.userName,
                     email: res.data.email
                 })

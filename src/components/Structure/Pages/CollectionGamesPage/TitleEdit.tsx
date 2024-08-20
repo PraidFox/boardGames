@@ -3,7 +3,7 @@ import {EditOutlined} from "@ant-design/icons";
 import {useEffect, useRef, useState} from "react";
 import {collectionFullInfo} from "../../../../tools/interfaces/collectionsInterface";
 
-export const TitleEdit = ({collection}: { collection: collectionFullInfo }) => {
+export const TitleEdit = ({name}: { name: string }) => {
     const [showButtonEditTitle, setShowButtonEditTitle] = useState(false);
     const [edit, setEdit] = useState(false)
     const [title, setTitle] = useState<string>()
@@ -18,8 +18,8 @@ export const TitleEdit = ({collection}: { collection: collectionFullInfo }) => {
     }, [edit]);
 
     useEffect(() => {
-        setTitle(collection?.title)
-    }, [collection?.title]);
+        setTitle(name)
+    }, [name]);
 
 
     const saveNewTitle = () => {

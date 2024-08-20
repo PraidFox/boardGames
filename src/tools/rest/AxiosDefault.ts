@@ -29,9 +29,11 @@ const requestHandler = async (config: any) => {
         const currentTimeDate = new Date().getTime();
         const expiresInDate = Number(expiresIn) * 600;
         const entryTimeDate = new Date(entryTime).getTime();
-
+        console.log("tokenInfo", tokenInfo);
         if (currentTimeDate > entryTimeDate + expiresInDate) {
+
             if (remember) {
+
                 AuthApi.refreshToken(refreshToken!)
                     .then(res =>
                         config.headers["Authorization"] = `Bearer ${res.data.accessToken}`

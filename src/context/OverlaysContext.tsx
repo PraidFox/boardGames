@@ -9,10 +9,8 @@ export const OverlaysProvider = ({children}: {
 }) => {
     const [isOpen, setIsOpen] = useState(false);
 
-    console.log("isOpen", isOpen)
     const openOverlay = () => setIsOpen(true);
     const closeOverlay = () => {
-        console.log("isOpenBed", isOpen)
         setIsOpen(false)
     };
 

@@ -16,7 +16,7 @@ export const AllBoardGamesPage = () => {
     const [filterRequest, setFilterRequest] = useState<FilterBoardRequest>({})
 
     const [filterFieldValues, setFilterFieldValues] = useReducer(reducerFilterFieldValues, {})
-    // @ts-ignore
+
     const {
         data,
         setNeedUpdate,
