@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ConfigProvider, Layout} from 'antd';
+import {Button, ConfigProvider, Layout} from 'antd';
 import {LeftMenuTop} from "./components/UiElements/Menu/LeftMenuTop";
 import {ContentComponent} from "./components/Structure/ContentComponent";
 import {FooterComponent} from "./components/Structure/FooterComponent";
@@ -13,6 +13,7 @@ import {configStyle} from "./tools/configStyle";
 import {LeftMenuBottom} from "./components/UiElements/Menu/LeftMenuBottom";
 import Overlay from "./components/UiElements/Overlays";
 import {FloatButtonMy} from "./components/UiElements/Buttons/FloatButtonMy";
+import {useInfoUser} from "./tools/hooks/hooksContext/useInfoUser";
 
 const {Sider} = Layout;
 //TODO хранить токен в HttpOnly и хочет ли пользователь что бы его помнили?
@@ -23,13 +24,15 @@ export const App = () => {
     const {contextHolder} = useMessage()
     const [collapsedSider, setCollapsedSider] = useState<boolean>(false)
 
+    const {logoutUser} = useInfoUser()
+
     return (
         <ConfigProvider
             theme={configStyle}
         >
 
             <Layout style={{minHeight: '100vh'}}>
-
+                <Button onClick={logoutUser}> Выход </Button>
                 <Layout>
                     <Sider collapsible onCollapse={(collapsed) => setCollapsedSider(collapsed)}>
                         {/*<Sider*/}

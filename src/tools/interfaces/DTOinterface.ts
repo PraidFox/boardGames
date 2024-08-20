@@ -31,3 +31,11 @@ export interface BoardGamesDTO {
     type: { id: number, name: string },
     genres: { id: number, name: string }[],
 }
+
+export interface GameCollectionCreateDto {
+    name: string,
+    confidentialType: number,
+    avatarInfoId: string,
+    backgroundInfoId: string,
+    games: number[],
+}

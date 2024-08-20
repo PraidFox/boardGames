@@ -16,14 +16,16 @@ export const UserLoginProvider = ({children}: {
     const [rememberUser, setRememberUser] = useState<boolean>(false)
     const {setSettingMessage} = useMessage()
 
+
     useLayoutEffect(() => {
+        console.log("userInfo", userInfo)
         if (!userInfo) {
             const userInfoLs = LocalStorageUtils.getUserInfo()
 
             UsersApi.getMe().then(res =>
                 setUserInfo({
                     id: userInfoLs!.id,
-                    nickname: res.data.name,
+                    nickname: res.data.userName,
                     email: res.data.email
                 })
             )
@@ -32,9 +34,10 @@ export const UserLoginProvider = ({children}: {
 
     const authUser = async (login: string, password: string, remember: boolean): Promise<void> => {
         const r = await AuthApi.loginUser(login, password);
-        console.log("res", r.data)
-        setUserInfo({id: 1, nickname: "Какой-то ник", email: "Какой-то почта"});
         LocalStorageUtils.setTokenInfo(r.data.accessToken, r.data.refreshToken, r.data.expiresIn);
+
+        const user = await UsersApi.getMe()
+        setUserInfo({id: 1, nickname: user.data.userName, email: user.data.email});
         LocalStorageUtils.setUserInfo(1, remember);
     }
 

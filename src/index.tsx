@@ -17,7 +17,7 @@ import {PathStorage} from "./tools/storages/const";
 import {RatingBoardGamesPage} from "./components/Structure/Pages/RatingBoardGamesPage";
 import {EventsPage} from "./components/Structure/Pages/EventsPage";
 import {StartPage} from "./components/Structure/Pages/StartPage";
-import {MyCollectionBoardGames} from "./components/Structure/Pages/MyCollectionBoardGames";
+import {MyCollectionsBoardGames} from "./components/Structure/Pages/MyCollectionsBoardGames";
 import {UserProfilePage} from "./components/Structure/Pages/UserProfilePage";
 import {CollectionGamesPage} from "./components/Structure/Pages/CollectionGamesPage/CollectionGamesPage";
 
@@ -77,7 +77,7 @@ const router = createBrowserRouter(
                     />
                     <Route
                         path={PathStorage.MY_COLLECTIONS}
-                        element={<MyCollectionBoardGames/>}
+                        element={<MyCollectionsBoardGames/>}
                     />
                     <Route
                         path={PathStorage.MY_COLLECTIONS + `/:collectionId`}

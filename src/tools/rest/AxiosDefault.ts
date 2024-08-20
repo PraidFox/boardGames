@@ -50,6 +50,8 @@ const requestHandler = async (config: any) => {
         }
         return config;
     } else {
+        console.log("А какая тут может быть ошибка?", tokenInfo);
+        //Разобраться что здесь возвращать
         return new Promise(function () {
         });
     }

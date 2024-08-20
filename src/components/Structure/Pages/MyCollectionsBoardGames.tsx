@@ -9,18 +9,33 @@ import {FilterBoardGamesPanel} from "../../Forms/FormFilter/FilterBoardGamesPane
 import {useReducer, useState} from "react";
 import {reducerFilterFieldValues} from "../../Forms/FormFilter/reducerFilterFieldValues";
 import {collection} from "../../../tools/interfaces/collectionsInterface";
+import {useInfoUser} from "../../../tools/hooks/hooksContext/useInfoUser";
+import {UserCollections} from "../../../tools/rest/UserCollections";
 
-export const MyCollectionBoardGames = () => {
-    const {data, setNeedUpdate, loading} = useLoadData<BoardGamesDTO[], string>(UsersApi.getUserBoardGames, "PraidFox")
+export const MyCollectionsBoardGames = () => {
+    const {nickname} = useInfoUser();
+    const {
+        data,
+        setNeedUpdate,
+        loading
+    } = useLoadData<BoardGamesDTO[], string>(UserCollections.getUserBoardGames, nickname)
+
     const [filterFieldValues, setFilterFieldValues] = useReducer(reducerFilterFieldValues, {})
+
+    // const {
+    //     data: collections,
+    //     setNeedUpdate: setCollectionsNeedUpdate,
+    //     loading: collectionsLoading
+    // } = useLoadData<collection[], string>(UserCollections.getUserBoardGames, nickname)
     const [collections, setCollections] = useState<collection[]>(mockCollections)
+
 
     return (<>
             <div style={{display: "flex", gap: "10px", alignItems: "center"}}><h2>{"Мои коллекции"}</h2></div>
 
             <br/>
             <div style={{display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap"}}>
-                {collections.map(collection =>
+                {collections?.map(collection =>
                     <NavLink
                         to={PathStorage.MY_COLLECTIONS + "/" + collection.id}
                         key={collection.id}

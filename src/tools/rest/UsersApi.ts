@@ -2,11 +2,12 @@ import {axiosBGauth} from "./AxiosDefault";
 
 
 export class UsersApi {
-    static getAllUsers() {
+    static getAllUsers = () => {
         return axiosBGauth.get(`/api/Users`);
     }
 
     static getMe = () => {
+        console.log('getMe')
         return axiosBGauth.get(`/api/Users/GetMe`);
     }
 
