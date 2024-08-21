@@ -1,16 +1,17 @@
-import {collectionFullInfo} from "../../../../tools/interfaces/collectionsInterface";
 import {useEffect, useRef, useState} from "react";
-import {Button, InputRef, Select} from "antd";
+import {Button, InputRef} from "antd";
 import {EditOutlined} from "@ant-design/icons";
 import {Input} from 'antd';
 
 const {TextArea} = Input;
-export const DescriptionEdit = ({collection}: { collection: collectionFullInfo }) => {
+export const DescriptionEdit = ({description, changeDescription}: {
+    description: string,
+    changeDescription: (description: string) => void
+}) => {
     const [showButtonEdit, setShowButtonEdit] = useState(false);
     const [edit, setEdit] = useState(false)
-    const [description, setDescription] = useState<string>()
+    const [descriptionLocal, setDescriptionLocal] = useState<string>(description)
     const inputRef = useRef<InputRef>(null);
-
 
     useEffect(() => {
         if (edit) {
@@ -21,13 +22,13 @@ export const DescriptionEdit = ({collection}: { collection: collectionFullInfo }
     }, [edit]);
 
     useEffect(() => {
-        if (collection?.description) {
-            setDescription(collection?.description)
+        if (description) {
+            setDescriptionLocal(description)
         }
-    }, [collection?.description]);
+    }, [description]);
 
     const saveNewDescription = () => {
-        //Отправка на бек
+        changeDescription(descriptionLocal)
         setEdit(false)
     }
 
@@ -35,11 +36,11 @@ export const DescriptionEdit = ({collection}: { collection: collectionFullInfo }
     if (edit) {
         return (
             <TextArea
-                defaultValue={description}
+                defaultValue={descriptionLocal}
                 maxLength={1000}
                 ref={inputRef}
                 autoSize={{minRows: 3, maxRows: 6}}
-                onChange={(value) => setDescription(value.target.value)}
+                onChange={(value) => setDescriptionLocal(value.target.value)}
                 onBlur={saveNewDescription}
             />
         )
@@ -52,7 +53,7 @@ export const DescriptionEdit = ({collection}: { collection: collectionFullInfo }
             >
                 <p>
                     {/*TODO сделать что бы воспринимал пренос строк и если строк больше чем 15 сворачивать*/}
-                    {description}
+                    {descriptionLocal}
                     {showButtonEdit &&
                         <Button icon={<EditOutlined/>} size={"small"} onClick={() => setEdit(true)}/>
                     }

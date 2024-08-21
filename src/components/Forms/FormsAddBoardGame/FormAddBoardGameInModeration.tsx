@@ -65,12 +65,12 @@ export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
             fileIds: valuesField.images
         }
 
-        BoardGameApi.addBoardGame(dataBoardGame).then(() => setNeedUpdate()).catch(() => console.log("Не добавлено"))
+        BoardGameApi.addBoardGame(dataBoardGame).then(() => setNeedUpdate())
 
         onClose()
     };
     const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
+
     };
 
     // const handleSearch = (value: string) => {

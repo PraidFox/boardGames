@@ -18,8 +18,8 @@ export const Cover = ({collection}: { collection: collectionFullInfo }) => {
 
         <img
             style={{width: "200px", height: "200px", objectFit: "cover"}}
-            src={collection?.img}
-            alt={"collectionImg" + collection?.collectionId}/>
+            src={collection.img}
+            alt={"collectionImg" + collection.collectionId}/>
 
         {showButtonUploadCover && <div style={{
             position: "absolute",

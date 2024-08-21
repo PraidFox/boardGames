@@ -28,8 +28,6 @@ export const LeftMenuBottom = ({collapsedSider}: { collapsedSider: boolean }) =>
         setDefaultOpen(r => openMenu ? openMenu : [])
     }, []);
 
-    console.log("defaultOpen", defaultOpen)
-
     const getSocialGroup = () => {
         if (collapsedSider) {
             return <>
@@ -69,7 +67,6 @@ export const LeftMenuBottom = ({collapsedSider}: { collapsedSider: boolean }) =>
                 defaultOpenKeys={[...defaultOpen, ...current.split("/").map(x => `/${x}`)]}
 
                 onOpenChange={e => LocalStorageUtils.setOpenMenu(e, "leftMenu")}
-                //onOpenChange={e => console.log(e)}
                 selectedKeys={current ? [current] : []}
                 items={menuItems}
                 onClick={onClick}

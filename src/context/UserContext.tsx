@@ -21,13 +21,12 @@ export const UserLoginProvider = ({children}: {
 
         if (!userInfo) {
             UsersApi.getMe().then(res =>
-
                 setUserInfo({
                     id: 13212,
                     nickname: res.data.userName,
                     email: res.data.email
                 })
-            )
+            ).catch(() => logoutUser())
         }
     }, [userInfo]);
 

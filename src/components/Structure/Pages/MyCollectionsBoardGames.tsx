@@ -1,23 +1,22 @@
 import {BoardGamesList} from "../../UiElements/BoardGamesList/BoardGamesList";
 import {BoardGamesDTO, GameCollectionDTO} from "../../../tools/interfaces/DTOinterface";
 import {useLoadData} from "../../../tools/hooks/useLoadData";
-import {UsersApi} from "../../../tools/rest/UsersApi";
-import {mockCollections} from "../../../tools/mockData";
 import {NavLink} from "react-router-dom";
 import {PathStorage} from "../../../tools/storages/const";
 import {FilterBoardGamesPanel} from "../../Forms/FormFilter/FilterBoardGamesPanel";
-import {useEffect, useReducer, useState} from "react";
+import React, {useEffect, useReducer, useState} from "react";
 import {reducerFilterFieldValues} from "../../Forms/FormFilter/reducerFilterFieldValues";
-import {collection} from "../../../tools/interfaces/collectionsInterface";
 import {useInfoUser} from "../../../tools/hooks/hooksContext/useInfoUser";
 import {UserCollections} from "../../../tools/rest/UserCollections";
 import {FilterBoardRequest} from "../../../tools/interfaces/otherInterface";
 import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
+import {ConfirmationModal} from "../../UiElements/СonfirmationModal";
+
 
 export const MyCollectionsBoardGames = () => {
     const {nickname} = useInfoUser();
-    const [filterRequest, setFilterRequest] = useState<FilterBoardRequest>({})
 
+    const [filterRequest, setFilterRequest] = useState<FilterBoardRequest>({})
     const [filterFieldValues, setFilterFieldValues] = useReducer(reducerFilterFieldValues, {})
 
     const {
@@ -26,6 +25,11 @@ export const MyCollectionsBoardGames = () => {
         loading
     } = useLoadData<BoardGamesDTO[], FilterBoardRequest>(BoardGameApi.getFilterBoardGame, filterRequest)
 
+    const {
+        data: collections,
+        setNeedUpdate: setCollectionsNeedUpdate,
+        loading: collectionsLoading
+    } = useLoadData<GameCollectionDTO[], string>(UserCollections.getUserCollections, nickname)
 
     useEffect(() => {
         setFilterRequest({
@@ -39,55 +43,69 @@ export const MyCollectionsBoardGames = () => {
         setNeedUpdate(true)
     }, [filterFieldValues, setNeedUpdate]);
 
-
-    const {
-        data: collections,
-        setNeedUpdate: setCollectionsNeedUpdate,
-        loading: collectionsLoading
-    } = useLoadData<GameCollectionDTO[], string>(UserCollections.getUserCollections, nickname)
-    // const [collections, setCollections] = useState<collection[]>(mockCollections)
-
     const addNewCollection = async () => {
-        const collection = await UserCollections.addEmptyCollection()
-        console.log("collection", collection)
+        UserCollections.addEmptyCollection().then(() => setCollectionsNeedUpdate(true))
     }
 
-    return (<>
-            <div style={{display: "flex", gap: "10px", alignItems: "center"}}><h2>{"Мои коллекции"}</h2></div>
+    const deleteCollection = (collectionId: string) => {
+        UserCollections.deletedCollection(collectionId).then(() => setCollectionsNeedUpdate(true))
+    }
 
-            <br/>
-            <div style={{display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap"}}>
-                {collections?.map(collection =>
-                    <NavLink
-                        to={PathStorage.MY_COLLECTIONS + "/" + collection.id}
-                        key={collection.id}
-                        state={{id: collection.id}}
+    console.log("collections", collections)
+
+    return (<>
+            {collectionsLoading ? <>Загрузка...</> : <>
+
+                <div style={{display: "flex", gap: "10px", alignItems: "center"}}><h2>{"Мои коллекции"}</h2></div>
+
+                <br/>
+                <div style={{display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap"}}>
+                    {collections?.map(collection =>
+                        <div key={collection.id}>
+                            <NavLink
+                                to={PathStorage.MY_COLLECTIONS + "/" + collection.id}
+                                state={{id: collection.id}}
+                            >
+                                <div
+                                    style={{
+                                        padding: "10px",
+                                        width: "200px",
+                                        height: "200px",
+                                        border: "1px solid black"
+                                    }}
+                                >
+                                    {collection.name}
+                                </div>
+
+                            </NavLink>
+
+                            <div style={{padding: "10px", width: "200px", border: "1px solid black"}}>
+                                {/*<Button onClick={() => deleteCollection(collection.id)}>Удалить</Button>*/}
+                                <ConfirmationModal runFunction={() => deleteCollection(collection.id)}/>
+                            </div>
+                        </div>)
+                    }
+
+                    <div
+                        style={{
+                            padding: "10px",
+                            width: "200px",
+                            height: "200px",
+                            border: "1px solid black",
+                            cursor: 'pointer'
+                        }}
+                        onClick={addNewCollection}
                     >
-                        <div
-                            style={{padding: "10px", width: "200px", height: "200px", border: "1px solid black"}}
-                        >
-                            {collection.name}
-                        </div>
-                    </NavLink>)}
-                <div
-                    style={{
-                        padding: "10px",
-                        width: "200px",
-                        height: "200px",
-                        border: "1px solid black",
-                        cursor: 'pointer'
-                    }}
-                    onClick={addNewCollection}
-                >
-                    Добавить коллекцию
+                        Добавить коллекцию
+                    </div>
                 </div>
 
+            </>}
 
-            </div>
             <br/>
             <hr/>
 
-            {loading ? <></> :
+            {loading ? <>Загрузка...</> :
                 <>
                     <br/>
                     <h2>Мои игры</h2>

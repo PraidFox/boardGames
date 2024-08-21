@@ -2,7 +2,7 @@
 import pandaImage from "../../tools/images/panda.png"
 import {Spin} from 'antd';
 
-export const Loading = () => {
+export const LoadingPanda = () => {
 
     return (
         <div style={{textAlign: "center"}}>

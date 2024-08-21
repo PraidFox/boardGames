@@ -144,7 +144,7 @@ export const AdminSettingPage = () => {
         (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
 
     const handleDeleteGame = () => {
-        BoardGameApi.deleteBoardGame(deleteBoardGameId!).then(r => console.log(r)).catch(() => alert("Что то пошло не так"))
+        BoardGameApi.deleteBoardGame(deleteBoardGameId!)
     }
 
     const onChangeUser = (userName: string) => {
@@ -156,7 +156,7 @@ export const AdminSettingPage = () => {
     }
 
     const handeRecordRole = () => {
-        UsersApi.recordRoleToUser(valueRoleToUser, valueUser!).then(() => console.log('Успех'))
+        UsersApi.recordRoleToUser(valueRoleToUser, valueUser!)
     }
 
     return <div>

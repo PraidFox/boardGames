@@ -12,8 +12,8 @@ interface BoardGameValue extends BoardGamesDTO {
     img: string;
 }
 
-export const FieldSearchAddGames = ({setNeedUpdate}: {
-    setNeedUpdate: (needUpdate: boolean) => void
+export const FieldSearchAddGames = ({addGamesInCollection}: {
+    addGamesInCollection: (values: string[]) => void
 }) => {
     const [value, setValue] = useState<BoardGameValue[]>();
     const debounceTimeout = 800
@@ -57,7 +57,8 @@ export const FieldSearchAddGames = ({setNeedUpdate}: {
 
     const handleAdd = () => {
         //Отправка на бек и после этого уже то что ниже
-        setNeedUpdate(true)
+        //setNeedUpdate(true)
+        addGamesInCollection(value!.map(item => item.value))
         setValue([])
     }
 

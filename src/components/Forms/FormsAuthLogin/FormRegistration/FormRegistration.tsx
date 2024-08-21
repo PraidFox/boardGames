@@ -36,7 +36,7 @@ export const FormRegistration = ({onClose}: {
 
 
     const onFinishFailed = (errorInfo: any) => {
-        console.log('Failed:', errorInfo);
+
     };
 
 

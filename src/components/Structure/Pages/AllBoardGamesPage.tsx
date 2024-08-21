@@ -6,15 +6,15 @@ import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
 import {FilterBoardGamesPanel} from "../../Forms/FormFilter/FilterBoardGamesPanel";
 import {BoardGamesList} from "../../UiElements/BoardGamesList/BoardGamesList";
 import {useLoadData} from "../../../tools/hooks/useLoadData";
-import {Loading} from "../../UiElements/Loading";
+import {LoadingPanda} from "../../UiElements/LoadingPanda";
 import {SessionStorageUtils} from "../../../tools/utils/SessionStorageUtils";
 import {BoardGamesDTO} from "../../../tools/interfaces/DTOinterface";
 import {FilterBoardRequest} from "../../../tools/interfaces/otherInterface";
 
 export const AllBoardGamesPage = () => {
     const [boardGameData, setBoardGameData] = useState<BoardGamesDTO[] | undefined>(SessionStorageUtils.getAllBoardGames())
-    const [filterRequest, setFilterRequest] = useState<FilterBoardRequest>({})
 
+    const [filterRequest, setFilterRequest] = useState<FilterBoardRequest>({})
     const [filterFieldValues, setFilterFieldValues] = useReducer(reducerFilterFieldValues, {})
 
     const {
@@ -23,9 +23,6 @@ export const AllBoardGamesPage = () => {
         loading
     } = useLoadData<BoardGamesDTO[], FilterBoardRequest>(BoardGameApi.getFilterBoardGame, filterRequest)
 
-    const updateBoardGame = () => {
-        setNeedUpdate(true)
-    }
 
     useEffect(() => {
         setFilterRequest({
@@ -58,6 +55,10 @@ export const AllBoardGamesPage = () => {
         }
     }, [data]);
 
+
+    const updateBoardGame = () => {
+        setNeedUpdate(true)
+    }
     const getBoardGames = () => {
         const content = <>
             <DrawerSidePanel>
@@ -72,7 +73,7 @@ export const AllBoardGamesPage = () => {
             return content
         } else {
             if (loading || !boardGameData) {
-                return <Loading/>
+                return <LoadingPanda/>
             } else {
                 return content
             }

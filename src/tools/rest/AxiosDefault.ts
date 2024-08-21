@@ -29,7 +29,7 @@ const requestHandler = async (config: any) => {
         const currentTimeDate = new Date().getTime();
         const expiresInDate = Number(expiresIn) * 600;
         const entryTimeDate = new Date(entryTime).getTime();
-        console.log("tokenInfo", tokenInfo);
+
         if (currentTimeDate > entryTimeDate + expiresInDate) {
 
             if (remember) {
@@ -52,7 +52,6 @@ const requestHandler = async (config: any) => {
         }
         return config;
     } else {
-        console.log("А какая тут может быть ошибка?", tokenInfo);
         //Разобраться что здесь возвращать
         return new Promise(function () {
         });
@@ -60,7 +59,6 @@ const requestHandler = async (config: any) => {
 };
 
 const errorHandler = (error: any) => {
-    console.log("А какая тут может быть ошибка?", error);
     return Promise.reject(error);
 };
 

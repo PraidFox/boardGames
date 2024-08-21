@@ -13,14 +13,14 @@ export const BoardGamesList = ({type, dataBoardGames, deleteGame}: {
 }) => {
 
     const addInCollections = (boardGameId: string) => {
-        UsersApi.addGBtoUser(boardGameId).then(r => console.log(r.data))
+
     }
+
     const getFooterForCard = (boardGame: BoardGamesDTO) => {
         let footerCard = [
             <NavLink
                 key={"link" + boardGame.id}
                 to={`${PathStorage.BOARD_GAME}/${boardGame.id}`}
-                state={{boardGame}}
             >
                 Подробнее
             </NavLink>

@@ -36,14 +36,6 @@ export const FilterBoardGamesPanel = ({valueFilter, setFilterFieldValues}: {
         <div style={{margin: "1% 0"}}>
 
             <div style={{display: "flex", gap: "10px", alignItems: "center"}}>
-                {/*<AutoComplete*/}
-                {/*    allowClear*/}
-                {/*    style={{width: "20%"}}*/}
-                {/*    options={optionsField.name}*/}
-                {/*    onSelect={(value, option) => console.log(value)}*/}
-                {/*    filterOption={filterOptionLabel}*/}
-                {/*    placeholder="Наименование игры"*/}
-                {/*/>*/}
 
                 <Input
                     placeholder="Наименование игры" style={{width: "20%"}}

@@ -45,11 +45,21 @@ export interface GameCollectionPatchDTO {
 export interface GameCollectionDTO {
     id: string,
     name: string,
+    description: string,
     confidentialType: number,
     avatarInfoId: FileInfoDTO,
     backgroundInfoId: FileInfoDTO,
     games: BoardGamesDTO[],
 }
+
+export interface GameCollectionPatchDto {
+    name?: string,
+    description?: string,
+    confidentialType?: number,
+    avatarInfoId?: string,
+    backgroundInfoId?: string,
+}
+
 
 export interface FileInfoDTO {
     id: string,
