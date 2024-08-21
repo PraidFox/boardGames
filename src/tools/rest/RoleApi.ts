@@ -6,7 +6,7 @@ export class RoleApi {
     }
 
     static addRole(name: string) {
-        return axiosBGauth.post(`/api/roles?name=${name}`);
+        return axiosBGauth.post(`/api/roles/`, name);
     }
 
     static updateRole(id: string, name: string) {
