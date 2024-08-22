@@ -35,3 +35,4 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
             New front build is deployed
+            Commit: ${{ github.event.head_commit.message }}
