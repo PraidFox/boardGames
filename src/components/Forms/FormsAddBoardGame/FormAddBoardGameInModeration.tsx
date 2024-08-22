@@ -55,13 +55,8 @@ export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
             minPlayersCount: values.minPlayersCount,
             maxPlayersCount: values.maxPlayersCount,
             minPlayerAge: values.minPlayerAge,
-            type: {
-                id: values.type,
-                name: optionsField.type.find(opt => opt.value === values.type)?.label ?? "Отсутствует"
-            },
-            genre: values.genre?.map(id => {
-                return {id: id, name: optionsField.type.find(opt => opt.value === id)?.label ?? "Отсутствует"}
-            }),
+            typeId: values.type,
+            genreIds: values.genres,
             fileIds: valuesField.images
         }
 
