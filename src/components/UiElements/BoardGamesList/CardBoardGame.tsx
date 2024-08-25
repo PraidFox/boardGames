@@ -1,23 +1,10 @@
 import {Card} from "antd";
-import {ReactNode, useEffect, useState} from "react";
+import {ReactNode} from "react";
 import {BoardGamesDTO} from "../../../tools/interfaces/DTOinterface";
-import {FileApi} from "../../../tools/rest/FileApi";
+
 
 const {Meta} = Card;
 export const CardBoardGame = ({data, children}: { data: BoardGamesDTO, children: ReactNode[] }) => {
-    const [image, setImage] = useState()
-
-
-    // useEffect(() => {
-    //
-    //     if (data.preview) {
-    //         const id = '3d1189c2-51f5-4af1-98f6-7aecfe9317bb'
-    //         FileApi.getImage(id).then(res => {
-    //             setImage(res.data)
-    //         }).catch(err => console.log(err))
-    //     }
-    //
-    // }, [data.preview]);
 
     return (
         <Card
