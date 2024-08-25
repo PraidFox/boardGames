@@ -6,10 +6,15 @@ export type ValesFieldFormEdit = {
     genre: string[],
     maxPlayersCount: number,
     minPlayersCount: number,
+    previewId: string,
     images: string[],
+    articul: string,
+    barcode: string,
+    linkToPublisher: string
 }
 
-export type Action = | {
+export type Action =
+    | {
     type: "ADD_ALL_DEFAULT"
 }
     | {
@@ -21,14 +26,12 @@ export type Action = | {
     payload: OptionsAutoComplete<null>
 }
     | {
-    type: "CHANGE_GENRE_GAME",
+    type: "CHANGE_GENRE_GAME" | "CHANGE_IMAGES",
     payload: string[]
+} | {
+    type: "CHANGE_GENRE_GAME" | "CHANGE_PREVIEW",
+    payload: string
 }
-    | {
-    type: "CHANGE_IMAGES",
-    payload: string[]
-}
-
 
 export const reducerFieldValues = (state: ValesFieldFormEdit, action: Action) => {
     let newMaxPlayers = state.maxPlayersCount
@@ -36,12 +39,14 @@ export const reducerFieldValues = (state: ValesFieldFormEdit, action: Action) =>
     switch (action.type) {
         case "ADD_ALL_DEFAULT":
             const newState: ValesFieldFormEdit = {
+                articul: "", barcode: "", linkToPublisher: "",
                 name: null,
                 type: null,
                 genre: [],
                 maxPlayersCount: 1,
                 minPlayersCount: 1,
                 images: [],
+                previewId: ''
             }
             return {...newState}
         case  "CHANGE_IMAGES":
@@ -64,16 +69,8 @@ export const reducerFieldValues = (state: ValesFieldFormEdit, action: Action) =>
             return {...state, nameGame: action.payload}
         case "CHANGE_GENRE_GAME":
             return {...state, genreGame: action.payload}
-        // case "CHANGE_TYPE_GAME":
-        //     let newTypeGame = action.payload
-        //
-        //     if(Array.isArray(action.payload)){
-        //         newTypeGame = action.payload.filter(obj => Object.keys(obj).length !== 0);
-        //     } else {
-        //         newTypeGame = [action.payload]
-        //     }
-        //
-        //     return {...state, typeGame: newTypeGame}
+        case "CHANGE_PREVIEW":
+            return {...state, previewId: action.payload}
 
     }
 }

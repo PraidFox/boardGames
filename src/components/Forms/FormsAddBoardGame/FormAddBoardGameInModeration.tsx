@@ -13,6 +13,7 @@ import {CreateBoardGame, FormBoardGame} from "../../../tools/interfaces/boardGam
 import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
 import {UploadImagesMany} from "../../UiElements/Buttons/UploadImagesMany";
 import {UploadOutlined} from '@ant-design/icons';
+import {UploadImageOne} from "../../UiElements/Buttons/UploadImageOne";
 
 const {TextArea} = Input;
 export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
@@ -57,7 +58,11 @@ export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
             minPlayerAge: values.minPlayerAge,
             typeId: values.type,
             genreIds: values.genres,
-            fileIds: valuesField.images
+            previewId: valuesField.previewId,
+            fileIds: valuesField.images,
+            articul: values.articul,
+            barcode: values.barcode,
+            linkToPublisher: values.linkToPublisher
         }
 
         BoardGameApi.addBoardGame(dataBoardGame).then(() => setNeedUpdate())
@@ -80,6 +85,7 @@ export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
     //     }
     // }
 
+    console.log("data", valuesField)
 
     return <Form
         name="formEditCart"
@@ -89,25 +95,16 @@ export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
         onFinishFailed={onFinishFailed}
     >
 
-        {/*<Upload {...props}>*/}
-        {/*    <Button icon={<UploadOutlined/>}>Upload</Button>*/}
-        {/*</Upload>*/}
+        Загрузка основной картинки (интерфесно можно много, но загрузится первая, потом переделаю)
+        <UploadImagesMany setImagesId={(filesId) => setValuesField({type: "CHANGE_PREVIEW", payload: filesId[0]})}/>
+        Загрузщка второстепенных картинок
         <UploadImagesMany setImagesId={(filesId) => setValuesField({type: "CHANGE_IMAGES", payload: filesId})}/>
 
-        {/*<div style={{display: 'flex', justifyContent: 'center'}}>*/}
-        {/*    <Image*/}
-        {/*        height={100}*/}
-        {/*        src={valuesField.img}*/}
-        {/*    />*/}
-        {/*</div>*/}
-
-        {/*<Form.Item label="Картинка для игры" name={"imageGame"} rules={[{type: 'url', warningOnly: true}]}>*/}
-        {/*    <Search*/}
-        {/*        placeholder="Введите URL-адрес изображения"*/}
-        {/*        enterButton="Добавить"*/}
-        {/*        onSearch={handleSearch}*/}
-        {/*    />*/}
-        {/*</Form.Item>*/}
+        <Form.Item label="Ссылка на настолку" name={"linkToPublisher"} rules={[{type: 'url', warningOnly: true}]}>
+            <TextArea
+                placeholder="Введите URL-адрес изображения"
+            />
+        </Form.Item>
 
         <Form.Item
             label={"Наименование игры"}
@@ -157,6 +154,20 @@ export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
             <TextArea maxLength={5000}/>
         </Form.Item>
 
+        <Form.Item
+            label="Артикул"
+            name={"articul"}
+        >
+            <TextArea maxLength={200}/>
+        </Form.Item>
+
+        <Form.Item
+            label="Штриховой код"
+            name={"barcode"}
+        >
+            <TextArea maxLength={200}/>
+        </Form.Item>
+
         <div style={{display: "flex", justifyContent: "center"}}>
             <Form.Item label="Мин. игроков" name="minPlayersCount" initialValue={1}>
                 <InputNumber min={1} max={100}
@@ -176,7 +187,7 @@ export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
         <Space>
             <Form.Item>
                 <Button type="primary" htmlType="submit">
-                    Добавить
+                    Отправить на модерацию
                 </Button>
             </Form.Item>
             <Form.Item>

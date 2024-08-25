@@ -6,7 +6,7 @@ export class FileApi {
         return axiosBGauthFile.post(`/api/File/upload`, data);
     }
 
-    static getUrlUpdate() {
-        return `http://94.125.48.107:8080/api/File`
+    static getImage(imageId: string) {
+        return axiosBGauthFile.get(`/api/File?id=${imageId}`);
     }
 }

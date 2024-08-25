@@ -22,6 +22,7 @@ export interface BoardGamesDTO {
     minPlayerAge: number,
     type: { id: number, name: string },
     genres: { id: number, name: string }[],
+    preview: { id: number, name: string }
 }
 
 // export interface GameCollectionCreateDto {

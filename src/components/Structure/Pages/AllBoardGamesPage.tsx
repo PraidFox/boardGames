@@ -10,6 +10,7 @@ import {LoadingPanda} from "../../UiElements/LoadingPanda";
 import {SessionStorageUtils} from "../../../tools/utils/SessionStorageUtils";
 import {BoardGamesDTO} from "../../../tools/interfaces/DTOinterface";
 import {FilterBoardRequest} from "../../../tools/interfaces/otherInterface";
+import {FileApi} from "../../../tools/rest/FileApi";
 
 export const AllBoardGamesPage = () => {
     const [boardGameData, setBoardGameData] = useState<BoardGamesDTO[] | undefined>(SessionStorageUtils.getAllBoardGames())
@@ -83,6 +84,7 @@ export const AllBoardGamesPage = () => {
 
     return (
         <>
+           
             <h1>Все игры</h1>
             <FilterBoardGamesPanel
                 valueFilter={filterFieldValues}

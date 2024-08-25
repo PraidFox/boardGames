@@ -6,7 +6,11 @@ export type CreateBoardGame = {
     minPlayerAge: number,
     typeId: string
     genreIds: string[],
-    fileIds: string[]
+    fileIds: string[],
+    articul: string,
+    barcode: string,
+    linkToPublisher: string,
+    previewId: string,
 }
 
 export type FormBoardGame = {
@@ -18,4 +22,8 @@ export type FormBoardGame = {
     type: string,
     genres: string[],
     img?: string
+    articul: string,
+    barcode: string,
+    linkToPublisher: string,
+    previewId: string,
 }
