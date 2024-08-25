@@ -2,6 +2,7 @@ import {useParams} from "react-router-dom";
 import {BoardGamesDTO} from "../../../tools/interfaces/DTOinterface";
 import React, {useLayoutEffect, useState} from "react";
 import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
+import {FileApi} from "../../../tools/rest/FileApi";
 
 export const CurrentBoardGamePage = () => {
 
@@ -28,7 +29,13 @@ export const CurrentBoardGamePage = () => {
                 Название: {boardGame.name}
                 <br/>
                 <br/>
-
+                {boardGame?.preview &&
+                    <img width={300} src={FileApi.getFile(boardGame.preview.id.toString())} alt={boardGame.name}/>
+                }
+                <br/>
+                {boardGame?.files && boardGame.files.map(file =>
+                    <img width={100} src={FileApi.getFile(file.id.toString())} alt={boardGame.name}/>
+                )}
                 <div dangerouslySetInnerHTML={{__html: boardGame.description}}/>
 
                 <br/>

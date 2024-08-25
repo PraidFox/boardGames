@@ -22,7 +22,8 @@ export interface BoardGamesDTO {
     minPlayerAge: number,
     type: { id: number, name: string },
     genres: { id: number, name: string }[],
-    preview: { id: number, name: string }
+    preview: { id: number, name: string },
+    files: FileInfoDTO[],
 }
 
 // export interface GameCollectionCreateDto {
@@ -40,7 +41,6 @@ export interface GameCollectionPatchDTO {
     avatarInfoId: string
     backgroundInfoId: string
     nullable: true
-
 }
 
 export interface GameCollectionDTO {
