@@ -4,9 +4,9 @@ import {Button, Select, Space, Spin} from 'antd';
 import debounce from "lodash/debounce"
 import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
 import {FilterBoardRequest} from "../../../tools/interfaces/otherInterface";
-import {BoardGamesDTO} from "../../../tools/interfaces/DTOinterface";
+import {BoardGameDTO} from "../../../tools/interfaces/DTOinterface";
 
-interface BoardGameValue extends BoardGamesDTO {
+interface BoardGameValue extends BoardGameDTO {
     label: string;
     value: string;
     img: string;

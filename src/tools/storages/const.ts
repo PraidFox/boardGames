@@ -29,3 +29,11 @@ export enum PathStorage {
     PROFILE = "/profile", //СДЕЛАТЬ СТРАНИЦУ
 }
 
+export enum AliasesCollection {
+    FAVORITE = "favorites",
+    WISHLIST = "wishlist",
+    MY_GAMES = "games"
+}
+
+export const notEditCollection: string[] = [AliasesCollection.FAVORITE, AliasesCollection.WISHLIST, AliasesCollection.MY_GAMES]
+

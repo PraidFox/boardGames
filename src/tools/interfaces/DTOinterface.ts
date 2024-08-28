@@ -13,16 +13,20 @@ export interface TypeDTO {
     name: string
 }
 
-export interface BoardGamesDTO {
+export interface BoardGameDTO {
     id: string,
     name: string,
+    alias: string,
     description: string,
     minPlayersCount: number,
     maxPlayersCount: number,
     minPlayerAge: number,
+    rating: number,
+    ratingTessera: number,
+    ratingBgg: number,
     type: { id: number, name: string },
     genres: { id: number, name: string }[],
-    preview: { id: number, name: string },
+    preview: FileInfoDTO,
     files: FileInfoDTO[],
 }
 
@@ -50,7 +54,14 @@ export interface GameCollectionDTO {
     confidentialType: number,
     avatarInfoId: FileInfoDTO,
     backgroundInfoId: FileInfoDTO,
-    games: BoardGamesDTO[],
+    games: BoardGameDTO[],
+}
+
+export interface GameCollectionShortDTO {
+    alias: string,
+    name: string,
+    avatarInfo: FileInfoDTO,
+    gameCount: number
 }
 
 export interface GameCollectionPatchDto {

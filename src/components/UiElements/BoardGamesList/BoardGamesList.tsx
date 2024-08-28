@@ -1,4 +1,4 @@
-import {BoardGamesDTO} from "../../../tools/interfaces/DTOinterface";
+import {BoardGameDTO} from "../../../tools/interfaces/DTOinterface";
 import {NavLink} from "react-router-dom";
 import {DeleteOutlined, EditOutlined, LikeOutlined} from "@ant-design/icons";
 import {Flex} from "antd";
@@ -8,7 +8,7 @@ import {PathStorage} from "../../../tools/storages/const";
 
 export const BoardGamesList = ({type, dataBoardGames, deleteGame}: {
     type: "all" | "user",
-    dataBoardGames: BoardGamesDTO[],
+    dataBoardGames: BoardGameDTO[],
     deleteGame?: (id: number | string) => void
 }) => {
 
@@ -16,7 +16,7 @@ export const BoardGamesList = ({type, dataBoardGames, deleteGame}: {
 
     }
 
-    const getFooterForCard = (boardGame: BoardGamesDTO) => {
+    const getFooterForCard = (boardGame: BoardGameDTO) => {
         let footerCard = [
             <NavLink
                 key={"link" + boardGame.id}

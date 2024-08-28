@@ -13,12 +13,14 @@ import {DeleteOutlined, LikeOutlined, ShareAltOutlined, QrcodeOutlined} from "@a
 import {CardCollection} from "./CardCollection";
 import {UserCollections} from "../../../../tools/rest/UserCollections";
 import {useInfoUser} from "../../../../tools/hooks/hooksContext/useInfoUser";
+import {notEditCollection} from "../../../../tools/storages/const";
 
 export const CollectionGamesPage = () => {
     const {nickname} = useInfoUser();
     const {collectionAlias} = useParams();
 
-    console.log("nickname", nickname)
+    const editingAllowed = !notEditCollection.includes(collectionAlias!);
+    console.log("editingAllowed", editingAllowed)
 
     const {
         data,
@@ -74,9 +76,18 @@ export const CollectionGamesPage = () => {
 
 
                     <div style={{width: "100%"}}>
-                        <TitleEdit name={data!.name} changeTitle={changeTitle}/>
+                        {editingAllowed ?
+                            <TitleEdit name={data!.name} changeTitle={changeTitle}/>
+                            :
+                            <h1>{data!.name.toUpperCase()}</h1>
+                        }
                         <br/>
-                        <DescriptionEdit description={data!.description} changeDescription={changeDescription}/>
+                        {editingAllowed ?
+                            <DescriptionEdit description={data!.description} changeDescription={changeDescription}/>
+                            :
+                            <p>{data!.description}</p>
+                        }
+
                     </div>
                 </div>
                 <br/>

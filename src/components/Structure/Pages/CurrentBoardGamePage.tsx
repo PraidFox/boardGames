@@ -1,12 +1,12 @@
 import {useParams} from "react-router-dom";
-import {BoardGamesDTO} from "../../../tools/interfaces/DTOinterface";
+import {BoardGameDTO} from "../../../tools/interfaces/DTOinterface";
 import React, {useLayoutEffect, useState} from "react";
 import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
 import {FileApi} from "../../../tools/rest/FileApi";
 
 export const CurrentBoardGamePage = () => {
 
-    const [boardGame, setBoardGame] = useState<BoardGamesDTO>()
+    const [boardGame, setBoardGame] = useState<BoardGameDTO>()
     const {boardGameId} = useParams();
 
 

@@ -1,8 +1,8 @@
 import {BoardGamesList} from "../../UiElements/BoardGamesList/BoardGamesList";
-import {BoardGamesDTO, GameCollectionDTO} from "../../../tools/interfaces/DTOinterface";
+import {BoardGameDTO, GameCollectionDTO, GameCollectionShortDTO} from "../../../tools/interfaces/DTOinterface";
 import {useLoadData} from "../../../tools/hooks/useLoadData";
 import {NavLink} from "react-router-dom";
-import {PathStorage} from "../../../tools/storages/const";
+import {notEditCollection, PathStorage} from "../../../tools/storages/const";
 import {FilterBoardGamesPanel} from "../../Forms/FormFilter/FilterBoardGamesPanel";
 import React, {useEffect, useReducer, useState} from "react";
 import {reducerFilterFieldValues} from "../../Forms/FormFilter/reducerFilterFieldValues";
@@ -11,6 +11,7 @@ import {UserCollections} from "../../../tools/rest/UserCollections";
 import {FilterBoardRequest} from "../../../tools/interfaces/otherInterface";
 import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
 import {ConfirmationModal} from "../../UiElements/СonfirmationModal";
+import {Button} from "antd";
 
 
 export const MyCollectionsBoardGames = () => {
@@ -23,13 +24,13 @@ export const MyCollectionsBoardGames = () => {
         data,
         setNeedUpdate,
         loading
-    } = useLoadData<BoardGamesDTO[], FilterBoardRequest>(BoardGameApi.getFilterBoardGame, filterRequest)
+    } = useLoadData<BoardGameDTO[], FilterBoardRequest>(BoardGameApi.getFilterBoardGame, filterRequest)
 
     const {
         data: collections,
         setNeedUpdate: setCollectionsNeedUpdate,
         loading: collectionsLoading
-    } = useLoadData<GameCollectionDTO[], string>(UserCollections.getUserCollections, nickname)
+    } = useLoadData<GameCollectionShortDTO[], string>(UserCollections.getUserCollections, nickname)
 
     useEffect(() => {
         setFilterRequest({
@@ -79,10 +80,15 @@ export const MyCollectionsBoardGames = () => {
 
                             </NavLink>
 
-                            <div style={{padding: "10px", width: "200px", border: "1px solid black"}}>
-                                {/*<Button onClick={() => deleteCollection(collection.id)}>Удалить</Button>*/}
-                                <ConfirmationModal runFunction={() => deleteCollection(collection.alias)}/>
-                            </div>
+                            {!notEditCollection.includes(collection.alias) &&
+                                <div style={{padding: "10px", width: "200px", border: "1px solid black"}}>
+                                    {collection.gameCount > 0 ?
+                                        <ConfirmationModal runFunction={() => deleteCollection(collection.alias)}/>
+                                        :
+                                        <Button onClick={() => deleteCollection(collection.alias)}>Удалить</Button>
+                                    }
+                                </div>
+                            }
                         </div>)
                     }
 
