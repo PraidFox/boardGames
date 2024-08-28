@@ -28,14 +28,14 @@ export class ItemMenu {
 
     static allBoardGames: MenuItem = this.toItemType(PathStorage.LEFT_BOARD_GAMES + PathStorage.ALL_BOARD_GAMES, "Все настолки")
     static ratingBoardGames: MenuItem = this.toItemType(PathStorage.RATING_BOARD_GAMES, "Рейтинг")
-    static myCollections: MenuItem = this.toItemType(PathStorage.MY_COLLECTIONS, "Моя коллекция")
+    static myCollections: MenuItem = this.toItemType(PathStorage.COLLECTIONS + PathStorage.MY_COLLECTIONS, "Моя коллекция")
     static mySetting: MenuItem = this.toItemType(PathStorage.MY_SETTING, "Настройки")
     static myFriends: MenuItem = this.toItemType(PathStorage.MY_FRIENDS, "Друзья")
     static articles: MenuItem = this.toItemType(PathStorage.ARTICLES, "Статьи")
     static players: MenuItem = this.toItemType(PathStorage.USERS, "Игроки")
     static events: MenuItem = this.toItemType(PathStorage.EVENTS, "Мероприятия")
     static adminSetting: MenuItem = this.toItemType(PathStorage.ADMIN_SETTING, "Войти в админку")
-   
+
 
     static login: MenuItem = this.toItemType("login", <PopoverForm>
         {(onClose: () => void) => <FormLogin nameForm={"popoverAuth"} onClose={onClose}/>}

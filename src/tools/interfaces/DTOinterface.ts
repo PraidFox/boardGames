@@ -44,7 +44,7 @@ export interface GameCollectionPatchDTO {
 }
 
 export interface GameCollectionDTO {
-    id: string,
+    alias: string,
     name: string,
     description: string,
     confidentialType: number,

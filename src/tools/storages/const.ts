@@ -21,7 +21,8 @@ export enum PathStorage {
     BOARD_GAME = "/boardGame",
     ADMIN_SETTING = "/adminSetting",
     MY_COLLECTIONS = "/myCollections",
-    RATING_BOARD_GAMES = "/ratingBoardGames",
+    COLLECTIONS = "/collectionsBG",
+    RATING_BOARD_GAMES = "/ratingBG",
     EVENTS = "/events",
     VK = "/VK",
     NOTIFICATION = "/notification", //СДЕЛАТЬ СТРАНИЦУ

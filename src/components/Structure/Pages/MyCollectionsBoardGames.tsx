@@ -44,11 +44,11 @@ export const MyCollectionsBoardGames = () => {
     }, [filterFieldValues, setNeedUpdate]);
 
     const addNewCollection = async () => {
-        UserCollections.addEmptyCollection().then(() => setCollectionsNeedUpdate(true))
+        UserCollections.addEmptyCollection(nickname!).then(() => setCollectionsNeedUpdate(true))
     }
 
-    const deleteCollection = (collectionId: string) => {
-        UserCollections.deletedCollection(collectionId).then(() => setCollectionsNeedUpdate(true))
+    const deleteCollection = (collectionAlias: string) => {
+        UserCollections.deletedCollection(nickname!, collectionAlias).then(() => setCollectionsNeedUpdate(true))
     }
 
     console.log("collections", collections)
@@ -61,10 +61,10 @@ export const MyCollectionsBoardGames = () => {
                 <br/>
                 <div style={{display: "flex", gap: "10px", justifyContent: "center", flexWrap: "wrap"}}>
                     {collections?.map(collection =>
-                        <div key={collection.id}>
+                        <div key={collection.alias}>
                             <NavLink
-                                to={PathStorage.MY_COLLECTIONS + "/" + collection.id}
-                                state={{id: collection.id}}
+                                to={PathStorage.COLLECTIONS + "/" + nickname + "/" + collection.alias}
+                                state={{id: collection.alias}}
                             >
                                 <div
                                     style={{
@@ -81,7 +81,7 @@ export const MyCollectionsBoardGames = () => {
 
                             <div style={{padding: "10px", width: "200px", border: "1px solid black"}}>
                                 {/*<Button onClick={() => deleteCollection(collection.id)}>Удалить</Button>*/}
-                                <ConfirmationModal runFunction={() => deleteCollection(collection.id)}/>
+                                <ConfirmationModal runFunction={() => deleteCollection(collection.alias)}/>
                             </div>
                         </div>)
                     }

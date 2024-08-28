@@ -76,13 +76,17 @@ const router = createBrowserRouter(
                         element={<AdminSettingPage/>}
                     />
                     <Route
-                        path={PathStorage.MY_COLLECTIONS}
+                        path={PathStorage.COLLECTIONS + PathStorage.MY_COLLECTIONS}
                         element={<MyCollectionsBoardGames/>}
-                    />
+                    >
+
+                    </Route>
                     <Route
-                        path={PathStorage.MY_COLLECTIONS + `/:collectionId`}
+                        path={PathStorage.COLLECTIONS + `/:userName/:collectionAlias`}
                         element={<CollectionGamesPage/>}
                     />
+
+
                     <Route
                         path={PathStorage.MY_FRIENDS}
                         element={<FriendsPage/>}

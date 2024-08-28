@@ -12,36 +12,42 @@ import {FieldSearchAddGames} from "../../../UiElements/Fields/FieldSerchAddByGam
 import {DeleteOutlined, LikeOutlined, ShareAltOutlined, QrcodeOutlined} from "@ant-design/icons";
 import {CardCollection} from "./CardCollection";
 import {UserCollections} from "../../../../tools/rest/UserCollections";
+import {useInfoUser} from "../../../../tools/hooks/hooksContext/useInfoUser";
 
 export const CollectionGamesPage = () => {
-    //const {id} = useLocation().state;
-    const {collectionId} = useParams();
+    const {nickname} = useInfoUser();
+    const {collectionAlias} = useParams();
+
+    console.log("nickname", nickname)
 
     const {
         data,
         setNeedUpdate,
         loading
-    } = useLoadData<GameCollectionDTO, string>(UserCollections.getCollection, collectionId)
+    } = useLoadData<GameCollectionDTO, {
+        userName: string,
+        collectionAlias: string
+    }>(UserCollections.getCollection, {userName: nickname!, collectionAlias: collectionAlias!})
 
     //Убрать мок данные
     const [collectionMock, setCollectionMock] = useState<collectionFullInfo>(mockCollectionsFullInfo[0])
 
     const addGamesInCollection = (games: string[]) => {
-        UserCollections.addGamesInCollection(collectionId!, games).then(r => setNeedUpdate(true))
+        UserCollections.addGamesInCollection(collectionAlias!, games).then(r => setNeedUpdate(true))
     }
     const changeTitle = (name: string) => {
-        UserCollections.changeDataCollection(collectionId!, {
+        UserCollections.changeDataCollection(nickname!, collectionAlias!, {
             name: name
         }).then(r => console.log(r.data))
     }
     const changeDescription = (description: string) => {
-        UserCollections.changeDataCollection(collectionId!, {
+        UserCollections.changeDataCollection(nickname!, collectionAlias!, {
             description: description
         }).then(r => console.log(r.data))
     }
 
     const deletedGameInCollection = (gameId: string | number) => {
-        UserCollections.deletedGameInCollection(collectionId!, gameId.toString()).then(r => setNeedUpdate(true))
+        UserCollections.deletedGameInCollection(nickname!, collectionAlias!, gameId.toString()).then(r => setNeedUpdate(true))
     }
 
     //TODO пока loading посмотреть как сделать скелет
@@ -61,7 +67,7 @@ export const CollectionGamesPage = () => {
                             <ShareAltOutlined style={{fontSize: 20}}/>,
                             <LikeOutlined style={{fontSize: 20}}/>,
                             <DeleteOutlined style={{fontSize: 20}}
-                                            onClick={() => UserCollections.deletedCollection(collectionId!)}/>,
+                                            onClick={() => UserCollections.deletedCollection(nickname!, collectionAlias!)}/>,
                             <QrcodeOutlined style={{fontSize: 20}}/>
                         ]}
                     />
