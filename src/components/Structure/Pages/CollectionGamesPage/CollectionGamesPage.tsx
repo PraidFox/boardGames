@@ -33,7 +33,7 @@ export const CollectionGamesPage = () => {
     const [collectionMock, setCollectionMock] = useState<collectionFullInfo>(mockCollectionsFullInfo[0])
 
     const addGamesInCollection = (games: string[]) => {
-        UserCollections.addGamesInCollection(collectionAlias!, games).then(r => setNeedUpdate(true))
+        UserCollections.addGamesInCollection(nickname!, collectionAlias!, games).then(r => setNeedUpdate(true))
     }
     const changeTitle = (name: string) => {
         UserCollections.changeDataCollection(nickname!, collectionAlias!, {

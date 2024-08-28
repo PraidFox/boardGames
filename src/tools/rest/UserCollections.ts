@@ -9,7 +9,7 @@ export class UserCollections {
     }
 
     static addEmptyCollection(userName: string) {
-        return axiosBGauth.post(`/api/users/${userName}/collections/`, {});
+        return axiosBGauth.post(`/api/users/${userName}/collections/`);
     }
 
     static getCollection({userName, collectionAlias}: { userName: string, collectionAlias: string }) {
@@ -32,8 +32,8 @@ export class UserCollections {
         return axiosBGauth.delete(`/api/users/${userName}/collections/${collectionAlias}/game/${gameId}`);
     }
 
-    static addGamesInCollection(collectionId: string, gameIds: string[]) {
-        return axiosBGauth.put(`/api/collections/${collectionId}/AddGames`, gameIds);
+    static addGamesInCollection(userName: string, collectionAlias: string, gameIds: string[]) {
+        return axiosBGauth.put(`/api/users/${userName}/collections/${collectionAlias}/game`, gameIds);
     }
 
 }
