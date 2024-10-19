@@ -49,7 +49,7 @@ export const MyCollectionsBoardGames = () => {
     }
 
     const deleteCollection = (collectionAlias: string) => {
-        UserCollections.deletedCollection(nickname!, collectionAlias).then(() => setCollectionsNeedUpdate(true))
+        UserCollections.deletedCollection(collectionAlias).then(() => setCollectionsNeedUpdate(true))
     }
 
     console.log("collections", collections)

@@ -38,12 +38,12 @@ export const CollectionGamesPage = () => {
         UserCollections.addGamesInCollection(nickname!, collectionAlias!, games).then(r => setNeedUpdate(true))
     }
     const changeTitle = (name: string) => {
-        UserCollections.changeDataCollection(nickname!, collectionAlias!, {
+        UserCollections.changeDataCollection(collectionAlias!, {
             name: name
         }).then(r => console.log(r.data))
     }
     const changeDescription = (description: string) => {
-        UserCollections.changeDataCollection(nickname!, collectionAlias!, {
+        UserCollections.changeDataCollection(collectionAlias!, {
             description: description
         }).then(r => console.log(r.data))
     }
@@ -69,7 +69,7 @@ export const CollectionGamesPage = () => {
                             <ShareAltOutlined style={{fontSize: 20}}/>,
                             <LikeOutlined style={{fontSize: 20}}/>,
                             <DeleteOutlined style={{fontSize: 20}}
-                                            onClick={() => UserCollections.deletedCollection(nickname!, collectionAlias!)}/>,
+                                            onClick={() => UserCollections.deletedCollection(collectionAlias!)}/>,
                             <QrcodeOutlined style={{fontSize: 20}}/>
                         ]}
                     />
