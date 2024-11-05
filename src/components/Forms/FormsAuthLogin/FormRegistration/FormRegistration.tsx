@@ -19,18 +19,19 @@ export const FormRegistration = ({onClose}: {
         setSettingMessage(StorageSettingMessage.registrationLoading)
         AuthApi.registrationUser(values.email, values.userName, values.password)
             .then(r => {
-                //alert("Зарегистрирован")
                 setSettingMessage(StorageSettingMessage.registrationAccess)
                 setLoading(false)
             })
             .catch(r => {
                 //Какие еще может бек вернуть ошибки?
-                const errorDoubleName = r.response.data.errors.DuplicateUserName
+                console.log("ошибка", r.response)
+
                 setSettingMessage({
                     ...StorageSettingMessage.registrationError,
-                    content: errorDoubleName ? errorDoubleName : StorageSettingMessage.registrationError.content
+                    content: r.response.data.map((e: any) => e.description).join("\n"),
                 })
                 setLoading(false)
+
             })
     };
 
