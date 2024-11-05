@@ -14,13 +14,15 @@ import {CardCollection} from "./CardCollection";
 import {UserCollections} from "../../../../tools/rest/UserCollections";
 import {useInfoUser} from "../../../../tools/hooks/hooksContext/useInfoUser";
 import {notEditCollection} from "../../../../tools/storages/const";
+import {Select} from "antd";
+import {optionsFieldsConfidentialType} from "../../../../tools/storages/fieldOptions";
 
 export const CollectionGamesPage = () => {
     const {nickname} = useInfoUser();
     const {collectionAlias} = useParams();
 
     const editingAllowed = !notEditCollection.includes(collectionAlias!);
-    console.log("editingAllowed", editingAllowed)
+
 
     const {
         data,
@@ -31,6 +33,8 @@ export const CollectionGamesPage = () => {
         collectionAlias: string
     }>(UserCollections.getCollection, {userName: nickname!, collectionAlias: collectionAlias!})
 
+
+    console.log("data", data)
     //Убрать мок данные
     const [collectionMock, setCollectionMock] = useState<collectionFullInfo>(mockCollectionsFullInfo[0])
 
@@ -48,6 +52,12 @@ export const CollectionGamesPage = () => {
         }).then(r => console.log(r.data))
     }
 
+    const changeConfidentialType = (confidentialType: string) => {
+        UserCollections.changeDataCollection(collectionAlias!, {
+            confidentialType: confidentialType
+        }).then(r => console.log(r.data))
+    }
+
     const deletedGameInCollection = (gameId: string | number) => {
         UserCollections.deletedGameInCollection(nickname!, collectionAlias!, gameId.toString()).then(r => setNeedUpdate(true))
     }
@@ -60,7 +70,13 @@ export const CollectionGamesPage = () => {
                     Чья коллекция: {collectionMock.byUserName} / Обновлялась: {collectionMock.dataUpdate} /
                     Лайков: {collectionMock.likes}
                 </div>
-
+                <h4>Уровень видимости</h4>
+                <Select
+                    defaultValue={data?.confidentialType.toString()}
+                    style={{width: 250}}
+                    onChange={changeConfidentialType}
+                    options={optionsFieldsConfidentialType}
+                />
                 <div style={{display: "flex", gap: "2%", width: "100%"}}>
 
                     <CardCollection

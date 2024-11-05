@@ -3,7 +3,6 @@ import {NavLink} from "react-router-dom";
 import {DeleteOutlined, EditOutlined, LikeOutlined} from "@ant-design/icons";
 import {Flex} from "antd";
 import {CardBoardGame} from "./CardBoardGame";
-import {UsersApi} from "../../../tools/rest/UsersApi";
 import {PathStorage} from "../../../tools/storages/const";
 
 export const BoardGamesList = ({type, dataBoardGames, deleteGame}: {

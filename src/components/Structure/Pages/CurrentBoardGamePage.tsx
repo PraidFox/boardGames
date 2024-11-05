@@ -3,6 +3,8 @@ import {BoardGameDTO} from "../../../tools/interfaces/DTOinterface";
 import React, {useLayoutEffect, useState} from "react";
 import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
 import {FileApi} from "../../../tools/rest/FileApi";
+import {Flex, Rate} from "antd";
+import {GameRatingApi} from "../../../tools/rest/GameRatingApi";
 
 export const CurrentBoardGamePage = () => {
 
@@ -11,17 +13,18 @@ export const CurrentBoardGamePage = () => {
 
 
     useLayoutEffect(() => {
-        // const bg = location.state.boardGame;
-        // if (bg) {
-        //     setBoardGame(bg)
-        // } else {
-        //     BoardGameApi.getBoardGame(boardGameId!).then(res => setBoardGame(res.data))
-        // }
 
-        BoardGameApi.getBoardGame(boardGameId!).then(res => setBoardGame(res.data))
+        BoardGameApi.getBoardGame(boardGameId!)
+            .then(res => setBoardGame(res.data))
+            .catch(() => setBoardGame(undefined))
 
     }, [boardGameId]);
 
+    const handlerRate = (boardGameId: string, rate: number) => {
+        GameRatingApi.addRating(boardGameId, rate)
+    }
+
+    console.log("boardGame", boardGame)
 
     return (
         <div>
@@ -46,7 +49,22 @@ export const CurrentBoardGamePage = () => {
                 Количество игроков от {boardGame.minPlayersCount} до {boardGame.maxPlayersCount}
                 <br/>
                 Возраст: {boardGame.minPlayerAge}
-            </> : <></>}
+                <br/>
+                Рейтинг: {boardGame.rating}
+                <br/>
+                Пользователь Рейтинг: {boardGame.userRating}
+
+                <Flex gap="middle" vertical>
+                    <Rate defaultValue={0} character={({index = 0}) => index + 1}
+                          onChange={e => handlerRate(boardGameId!, e)}
+                          count={10}/>
+
+                </Flex>
+
+
+            </> : <>Такой игры не найдено</>}
+
+
         </div>
 
 
