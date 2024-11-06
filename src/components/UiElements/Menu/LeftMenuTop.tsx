@@ -12,7 +12,6 @@ export const LeftMenuTop = () => {
     const {id} = useInfoUser()
     const [defaultOpen, setDefaultOpen] = useState<string[]>()
 
-    console.log("defaultOpenV2", defaultOpen)
 
     useLayoutEffect(() => {
         if (id) {

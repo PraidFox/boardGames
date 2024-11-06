@@ -24,7 +24,6 @@ export const CurrentBoardGamePage = () => {
         GameRatingApi.addRating(boardGameId, rate)
     }
 
-    console.log("boardGame", boardGame)
 
     return (
         <div>

@@ -34,7 +34,6 @@ export const CollectionGamesPage = () => {
     }>(UserCollections.getCollection, {userName: nickname!, collectionAlias: collectionAlias!})
 
 
-    console.log("data", data)
     //Убрать мок данные
     const [collectionMock, setCollectionMock] = useState<collectionFullInfo>(mockCollectionsFullInfo[0])
 
@@ -61,6 +60,8 @@ export const CollectionGamesPage = () => {
     const deletedGameInCollection = (gameId: string | number) => {
         UserCollections.deletedGameInCollection(nickname!, collectionAlias!, gameId.toString()).then(r => setNeedUpdate(true))
     }
+
+    console.log("ehjdtym edbl;bvjcnb", data?.confidentialType.toString())
 
     //TODO пока loading посмотреть как сделать скелет
     return (

@@ -85,7 +85,6 @@ export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
     //     }
     // }
 
-    console.log("data", valuesField)
 
     return <Form
         name="formEditCart"
