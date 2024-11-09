@@ -18,6 +18,8 @@ export const AllBoardGamesPage = () => {
     const [filterRequest, setFilterRequest] = useState<FilterBoardRequest>({})
     const [filterFieldValues, setFilterFieldValues] = useReducer(reducerFilterFieldValues, {})
 
+    console.log("filterRequest", filterRequest)
+
     const {
         data,
         setNeedUpdate,
@@ -35,7 +37,7 @@ export const AllBoardGamesPage = () => {
         })
 
         setNeedUpdate(true)
-    }, [filterFieldValues]);
+    }, [filterFieldValues, setNeedUpdate]);
 
     useEffect(() => {
         if (boardGameData) {

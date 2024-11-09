@@ -30,6 +30,7 @@ const requestHandler = async (config: any) => {
         const expiresInDate = Number(expiresIn) * 600;
         const entryTimeDate = new Date(entryTime).getTime();
 
+
         if (currentTimeDate > entryTimeDate + expiresInDate) {
             if (remember) {
                 AuthApi.refreshToken(refreshToken!)
@@ -54,7 +55,7 @@ const requestHandler = async (config: any) => {
         return config;
     } else {
         //Разобраться что здесь возвращать
-        return defaultSettingAxios
+        return config
     }
 };
 

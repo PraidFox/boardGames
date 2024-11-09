@@ -47,12 +47,14 @@ export function useLoadData<T, P = undefined>(rest: (params?: any) => Promise<Ax
 
     useLayoutEffect(() => {
         if (needUpdate) {
+            console.log("params", params)
             rest(params).then((res: any) => {
                 setData(res.data)
                 setLoading(false)
                 setNeedUpdate(false)
             }).catch(
                 (r: any) => {
+                    console.log("r", r.response)
                     setError(r.response.data)
                     setLoading(false)
                     setNeedUpdate(false)
