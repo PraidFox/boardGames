@@ -54,6 +54,7 @@ const requestHandler = async (config: any) => {
         }
         return config;
     } else {
+        console.log("need auth", config)
         //Разобраться что здесь возвращать
         return config
     }
