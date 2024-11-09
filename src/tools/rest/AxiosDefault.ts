@@ -54,7 +54,7 @@ const requestHandler = async (config: any) => {
         return config;
     } else {
         //Разобраться что здесь возвращать
-        return null
+        return defaultSettingAxios
     }
 };
 
