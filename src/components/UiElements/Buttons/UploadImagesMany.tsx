@@ -23,7 +23,7 @@ export const UploadImagesMany = ({setImagesId}: {
 
     useEffect(() => {
         setImagesId(fileList.map((file) => file.uid))
-    }, [fileList]);
+    }, [fileList, setImagesId]);
 
     const handlePreview = async (file: UploadFile) => {
         if (!file.url && !file.preview) {
@@ -62,6 +62,7 @@ export const UploadImagesMany = ({setImagesId}: {
                     </button>
                 }
             </Upload>
+
             {previewImage && (
                 <Image
                     wrapperStyle={{display: 'none'}}

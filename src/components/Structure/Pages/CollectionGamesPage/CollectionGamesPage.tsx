@@ -18,8 +18,8 @@ import {Select} from "antd";
 import {optionsFieldsConfidentialType} from "../../../../tools/storages/fieldOptions";
 
 export const CollectionGamesPage = () => {
-    const {nickname} = useInfoUser();
-    const {collectionAlias} = useParams();
+    const {nickname: currentUser} = useInfoUser();
+    const {collectionAlias, userName: userNameOwner} = useParams();
 
     const editingAllowed = !notEditCollection.includes(collectionAlias!);
 
@@ -27,18 +27,19 @@ export const CollectionGamesPage = () => {
     const {
         data,
         setNeedUpdate,
-        loading
+        loading,
+        error
     } = useLoadData<GameCollectionDTO, {
         userName: string,
         collectionAlias: string
-    }>(UserCollections.getCollection, {userName: nickname!, collectionAlias: collectionAlias!})
+    }>(UserCollections.getCollection, {userName: userNameOwner!, collectionAlias: collectionAlias!})
 
 
     //Убрать мок данные
     const [collectionMock, setCollectionMock] = useState<collectionFullInfo>(mockCollectionsFullInfo[0])
 
     const addGamesInCollection = (games: string[]) => {
-        UserCollections.addGamesInCollection(nickname!, collectionAlias!, games).then(r => setNeedUpdate(true))
+        UserCollections.addGamesInCollection(currentUser!, collectionAlias!, games).then(r => setNeedUpdate(true))
     }
     const changeTitle = (name: string) => {
         UserCollections.changeDataCollection(collectionAlias!, {
@@ -58,22 +59,22 @@ export const CollectionGamesPage = () => {
     }
 
     const deletedGameInCollection = (gameId: string | number) => {
-        UserCollections.deletedGameInCollection(nickname!, collectionAlias!, gameId.toString()).then(r => setNeedUpdate(true))
+        UserCollections.deletedGameInCollection(currentUser!, collectionAlias!, gameId.toString()).then(r => setNeedUpdate(true))
     }
 
-    console.log("ehjdtym edbl;bvjcnb", data?.confidentialType.toString())
+    console.log("error", error)
 
     //TODO пока loading посмотреть как сделать скелет
     return (
         <>
-            {loading ? <div>Загрузка...</div> : <>
+            {loading ? <div>Загрузка...</div> : error ? <div>{error}</div> : <>
                 <div style={{textAlign: "right"}}>
                     Чья коллекция: {collectionMock.byUserName} / Обновлялась: {collectionMock.dataUpdate} /
                     Лайков: {collectionMock.likes}
                 </div>
                 <h4>Уровень видимости</h4>
                 <Select
-                    defaultValue={data?.confidentialType.toString()}
+                    defaultValue={data?.confidentialType?.toString()}
                     style={{width: 250}}
                     onChange={changeConfidentialType}
                     options={optionsFieldsConfidentialType}

@@ -59,11 +59,12 @@ const requestHandler = async (config: any) => {
     }
 };
 
+
 const errorHandler = (error: any) => {
     return Promise.reject(error);
 };
 
-
+axiosBG.interceptors.request.use(requestHandler, errorHandler);
 axiosBGauth.interceptors.request.use(requestHandler, errorHandler);
 axiosBGauthFile.interceptors.request.use(requestHandler, errorHandler);
 

@@ -13,9 +13,9 @@ export const optionsFieldsStatusCooperativeGame: Options<null>[] = [
 ]
 
 export const optionsFieldsConfidentialType: Options<null>[] = [
-    {label: "Видно только мне", value: "1"},
-    {label: "Мне и моим друзьям", value: "2"},
-    {label: "Видно всем", value: "3"},
+    {label: "Видно только мне", value: "0"},
+    {label: "Мне и моим друзьям", value: "1"},
+    {label: "Видно всем", value: "2"},
 ]
 
 

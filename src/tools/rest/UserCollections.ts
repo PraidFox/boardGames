@@ -15,7 +15,7 @@ export class UserCollections {
     static getCollection({userName, collectionAlias}: { userName: string, collectionAlias: string }) {
 
 
-        return axiosBGauth.get(`/api/collections/${collectionAlias}?includeGames=true`);
+        return axiosBGauth.get(`/api/collections/${collectionAlias}?includeGames=true&&userName=${userName}`);
     }
 
     static deletedCollection(collectionAlias: string) {
