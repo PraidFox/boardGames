@@ -52,7 +52,6 @@ export const MyCollectionsBoardGames = () => {
         UserCollections.deletedCollection(collectionAlias).then(() => setCollectionsNeedUpdate(true))
     }
 
-
     return (<>
             {collectionsLoading ? <>Загрузка...</> : <>
 

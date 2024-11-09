@@ -54,8 +54,7 @@ const requestHandler = async (config: any) => {
         return config;
     } else {
         //Разобраться что здесь возвращать
-        return new Promise(function () {
-        });
+        return null
     }
 };
 
