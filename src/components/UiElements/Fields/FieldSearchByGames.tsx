@@ -1,14 +1,14 @@
-import React, {useCallback, useMemo, useRef, useState} from 'react';
+import {useCallback, useMemo, useRef, useState} from 'react';
 
 import {GetRef, Select, Space, Spin} from 'antd';
 import debounce from "lodash/debounce"
-import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
-import {FilterBoardRequest} from "../../../tools/interfaces/otherInterface";
-import {PathStorage} from "../../../tools/storages/const";
-import {NavLink} from "react-router-dom";
+import {BoardGameService} from "../../../tools/rest/services/BoardGame.service.ts";
+import {FilterBoardRequest} from "../../../tools/interfaces/other.Interface.ts";
+
+import {NavLink} from "react-router";
 import {divide} from "lodash";
 import {useOverlays} from "../../../tools/hooks/hooksContext/useOverlays";
-import Overlay from "../Overlays";
+import {PathStorage} from "../../../tools/storages/Path.storage.ts";
 
 type BaseSelectRef = GetRef<typeof Select>
 
@@ -33,7 +33,7 @@ export const FieldSearchByGames = () => {
         const filter: FilterBoardRequest = {
             GameName: boardGameName
         };
-        return BoardGameApi.getFilterBoardGame(filter).then(res => res.data.map(item => ({
+        return BoardGameService.getFilterBoardGame(filter).then(res => res.data.map(item => ({
             label: item.name,
             value: item.id,
             img: "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"

@@ -1,17 +1,18 @@
 import {BoardGamesList} from "../../UiElements/BoardGamesList/BoardGamesList";
-import {BoardGameDTO, GameCollectionDTO, GameCollectionShortDTO} from "../../../tools/interfaces/DTOinterface";
+import {BoardGameDTO, GameCollectionShortDTO} from "../../../tools/interfaces/DTO/boardGame.dto.ts";
 import {useLoadData} from "../../../tools/hooks/useLoadData";
-import {NavLink} from "react-router-dom";
-import {notEditCollection, PathStorage} from "../../../tools/storages/const";
+import {NavLink} from "react-router";
+import {notEditCollection} from "../../../tools/storages/const";
 import {FilterBoardGamesPanel} from "../../Forms/FormFilter/FilterBoardGamesPanel";
-import React, {useEffect, useReducer, useState} from "react";
+import useEffect, {useReducer, useState} from "react";
 import {reducerFilterFieldValues} from "../../Forms/FormFilter/reducerFilterFieldValues";
 import {useInfoUser} from "../../../tools/hooks/hooksContext/useInfoUser";
-import {UserCollections} from "../../../tools/rest/UserCollections";
-import {FilterBoardRequest} from "../../../tools/interfaces/otherInterface";
-import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
+import {UserCollectionsService} from "../../../tools/rest/services/UserCollections.service.ts";
+import {FilterBoardRequest} from "../../../tools/interfaces/other.Interface.ts";
+import {BoardGameService} from "../../../tools/rest/services/BoardGame.service.ts";
 import {ConfirmationModal} from "../../UiElements/СonfirmationModal";
 import {Button} from "antd";
+import {PathStorage} from "../../../tools/storages/Path.storage.ts";
 
 
 export const MyCollectionsBoardGames = () => {
@@ -24,13 +25,13 @@ export const MyCollectionsBoardGames = () => {
         data,
         setNeedUpdate,
         loading
-    } = useLoadData<BoardGameDTO[], FilterBoardRequest>(BoardGameApi.getFilterBoardGame, filterRequest)
+    } = useLoadData<BoardGameDTO[], FilterBoardRequest>(BoardGameService.getFilterBoardGame, filterRequest)
 
     const {
         data: collections,
         setNeedUpdate: setCollectionsNeedUpdate,
         loading: collectionsLoading
-    } = useLoadData<GameCollectionShortDTO[], string>(UserCollections.getUserCollections, nickname)
+    } = useLoadData<GameCollectionShortDTO[], string>(UserCollectionsService.getUserCollections, nickname)
 
     useEffect(() => {
         setFilterRequest({
@@ -45,11 +46,11 @@ export const MyCollectionsBoardGames = () => {
     }, [filterFieldValues, setNeedUpdate]);
 
     const addNewCollection = async () => {
-        UserCollections.addEmptyCollection(nickname!).then(() => setCollectionsNeedUpdate(true))
+        UserCollectionsService.addEmptyCollection(nickname!).then(() => setCollectionsNeedUpdate(true))
     }
 
     const deleteCollection = (collectionAlias: string) => {
-        UserCollections.deletedCollection(collectionAlias).then(() => setCollectionsNeedUpdate(true))
+        UserCollectionsService.deletedCollection(collectionAlias).then(() => setCollectionsNeedUpdate(true))
     }
 
     return (<>

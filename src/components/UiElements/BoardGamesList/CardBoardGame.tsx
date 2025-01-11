@@ -1,6 +1,6 @@
 import {Card} from "antd";
 import {ReactNode} from "react";
-import {BoardGameDTO} from "../../../tools/interfaces/DTOinterface";
+import {BoardGameDTO} from "../../../tools/interfaces/DTO/boardGame.dto.ts";
 
 
 const {Meta} = Card;
@@ -22,7 +22,7 @@ export const CardBoardGame = ({data, children}: { data: BoardGameDTO, children: 
             Тессера: {data.ratingTessera === 0 ? "-" : data.ratingTessera} /
             Bgg: {data.ratingBgg === 0 ? "-" : data.ratingBgg}
             <hr/>
-            
+
             <Meta
                 title={data.name}
                 description={<div style={{height: "100px"}}>{data.description}</div>}

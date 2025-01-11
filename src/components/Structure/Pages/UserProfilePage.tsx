@@ -1,8 +1,7 @@
-import {useParams} from "react-router-dom";
-import React, {useLayoutEffect, useState} from "react";
-import {UsersApi} from "../../../tools/rest/UsersApi";
+import {useParams} from "react-router";
+import {useLayoutEffect, useState} from "react";
+import {UsersService} from "../../../tools/rest/services/Users.service.ts";
 import {Avatar, Button, Input, theme} from "antd";
-import {CloseCircleOutlined} from "@ant-design/icons";
 
 const {TextArea} = Input;
 export const UserProfilePage = () => {
@@ -13,7 +12,7 @@ export const UserProfilePage = () => {
     } = theme.useToken();
 
     useLayoutEffect(() => {
-        UsersApi.getUserRoles(userName!).then(r => setRoles(r.data))
+        UsersService.getUserRoles(userName!).then(r => setRoles(r.data))
     }, [userName]);
 
     return (

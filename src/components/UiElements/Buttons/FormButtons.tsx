@@ -1,5 +1,4 @@
 import {Button, Form, Row, Space} from "antd";
-import React from "react";
 
 export const FormButtons = ({nameOk, nameCancel = "Отмена", handleCancel, loading}: {
     nameOk: string,

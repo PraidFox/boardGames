@@ -1,13 +1,13 @@
 import {useEffect, useState} from "react";
-import {GenreApi} from "../../../tools/rest/GenreApi";
-import {BoardGameDTO, GenreDTO, OptionDTO, TypeDTO} from "../../../tools/interfaces/DTOinterface";
-import {TypeApi} from "../../../tools/rest/TypeApi";
+import {GenreService} from "../../../tools/rest/services/Genre.service.ts";
+import {BoardGameDTO, GenreDTO, OptionDTO, TypeDTO} from "../../../tools/interfaces/DTO/boardGame.dto.ts";
+import {TypeService} from "../../../tools/rest/services/Type.service.ts";
 import {Button, Input, Select, Space} from "antd";
 import {InfiniteScrollAnt} from "../../UiElements/InfiniteScrollAnt";
-import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
+import {BoardGameService} from "../../../tools/rest/services/BoardGame.service.ts";
 import {useErrorInfo} from "../../../tools/hooks/hooksContext/useErrorInfo";
-import {RoleApi} from "../../../tools/rest/RoleApi";
-import {UsersApi} from "../../../tools/rest/UsersApi";
+import {RoleService} from "../../../tools/rest/services/Role.service.ts";
+import {UsersService} from "../../../tools/rest/services/Users.service.ts";
 
 
 export const AdminSettingPage = () => {
@@ -39,11 +39,11 @@ export const AdminSettingPage = () => {
     const {setErrorInfo} = useErrorInfo()
 
     useEffect(() => {
-        const p0 = GenreApi.getGenre()
-        const p1 = TypeApi.getType()
-        const p2 = BoardGameApi.getAllBoardGame()
-        const p3 = RoleApi.getRoles()
-        const p4 = UsersApi.getAllUsers()
+        const p0 = GenreService.getGenre()
+        const p1 = TypeService.getType()
+        const p2 = BoardGameService.getAllBoardGame()
+        const p3 = RoleService.getRoles()
+        const p4 = UsersService.getAllUsers()
 
         Promise.all([p0, p1, p2, p3, p4]).then((res) => {
             setGenres(res[0].data)
@@ -56,8 +56,8 @@ export const AdminSettingPage = () => {
 
     const addGenre = () => {
         setAddGenreLoading(true)
-        GenreApi.addGenre(newOptionGenre).then(() => {
-            GenreApi.getGenre().then((res) => {
+        GenreService.addGenre(newOptionGenre).then(() => {
+            GenreService.getGenre().then((res) => {
                 setGenres(res.data)
                 setAddGenreLoading(false)
             })
@@ -70,8 +70,8 @@ export const AdminSettingPage = () => {
 
     const addType = () => {
         setAddTypeLoading(true)
-        TypeApi.addType(newOptionType).then(() => {
-            TypeApi.getType().then((res) => {
+        TypeService.addType(newOptionType).then(() => {
+            TypeService.getType().then((res) => {
                 setTypes(res.data)
                 setAddTypeLoading(false)
             })
@@ -84,8 +84,8 @@ export const AdminSettingPage = () => {
 
     const addRole = () => {
         setAddRoleLoading(true)
-        RoleApi.addRole(newOptionRole).then(() => {
-            RoleApi.getRoles().then((res) => {
+        RoleService.addRole(newOptionRole).then(() => {
+            RoleService.getRoles().then((res) => {
                 setRoles(res.data)
                 setAddRoleLoading(false)
             })
@@ -98,14 +98,14 @@ export const AdminSettingPage = () => {
 
     const deleteOptions = (id: string, fieldName: string) => {
         if (fieldName === "Жанры") {
-            GenreApi.deleteGenre(id).then(() => {
-                GenreApi.getGenre().then((res) => {
+            GenreService.deleteGenre(id).then(() => {
+                GenreService.getGenre().then((res) => {
                     setGenres(res.data)
                 })
             })
         } else if (fieldName === "Типы") {
-            TypeApi.deleteType(id).then(() => {
-                TypeApi.getType().then((res) => {
+            TypeService.deleteType(id).then(() => {
+                TypeService.getType().then((res) => {
                     setTypes(res.data)
                 })
             })
@@ -144,19 +144,19 @@ export const AdminSettingPage = () => {
         (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
 
     const handleDeleteGame = () => {
-        BoardGameApi.deleteBoardGame(deleteBoardGameId!)
+        BoardGameService.deleteBoardGame(deleteBoardGameId!)
     }
 
     const onChangeUser = (userName: string) => {
         setValueUser(userName)
-        UsersApi.getUserRoles(userName).then(r => setValueRoleToUser(r.data))
+        UsersService.getUserRoles(userName).then(r => setValueRoleToUser(r.data))
     }
     const onChangeRole = (value: string[]) => {
         setValueRoleToUser(value)
     }
 
     const handeRecordRole = () => {
-        UsersApi.recordRoleToUser(valueRoleToUser, valueUser!)
+        UsersService.recordRoleToUser(valueRoleToUser, valueUser!)
     }
 
     return <div>

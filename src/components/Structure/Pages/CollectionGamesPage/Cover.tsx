@@ -1,6 +1,6 @@
 import {UploadImageOne} from "../../../UiElements/Buttons/UploadImageOne";
 import {useState} from "react";
-import {collectionFullInfo} from "../../../../tools/interfaces/collectionsInterface";
+import {collectionFullInfo} from "../../../../tools/interfaces/DTO/collections.dto.ts";
 
 export const Cover = ({collection}: { collection: collectionFullInfo }) => {
     const [showButtonUploadCover, setShowButtonUploadCover] = useState(false);

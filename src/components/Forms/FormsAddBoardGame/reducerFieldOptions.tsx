@@ -1,4 +1,4 @@
-import {Options, OptionsAutoComplete} from "../../../tools/interfaces/serverInterface";
+import {Options, OptionsAutoComplete} from "../../../tools/interfaces/server.Interface.ts";
 
 export type OptionsFieldFormEdit = {
     name: OptionsAutoComplete<null>[]

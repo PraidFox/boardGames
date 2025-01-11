@@ -1,9 +1,9 @@
-import {axiosBGauthFile} from "./AxiosDefault";
+import {axiosBGFile} from "../axios.config.ts";
 
 
-export class FileApi {
+export class FileService {
     static uploadFile(data: any) {
-        return axiosBGauthFile.post(`/api/File/upload`, data);
+        return axiosBGFile.post(`/api/File/upload`, data);
     }
 
     static getFile(fileId: string) {

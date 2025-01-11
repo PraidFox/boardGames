@@ -1,7 +1,7 @@
 import {FieldsLogin} from "./FieldsLogin";
 import {Form} from "antd";
-import React, {useState} from "react";
-import {Login} from "../../../../tools/interfaces/formInterface";
+import {useState} from "react";
+import {Login} from "../../../../tools/interfaces/form.Interface.ts";
 import {useInfoUser} from "../../../../tools/hooks/hooksContext/useInfoUser";
 import {useMessage} from "../../../../tools/hooks/hooksContext/useMessage";
 import {StorageSettingMessage} from "../../../../tools/storages/storageSettingMessage";

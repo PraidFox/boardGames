@@ -1,14 +1,15 @@
-import {UsersApi} from "../../../tools/rest/UsersApi";
+import {UsersService} from "../../../tools/rest/services/Users.service.ts";
 import {useLayoutEffect, useState} from "react";
-import {NavLink} from "react-router-dom";
-import {PathStorage} from "../../../tools/storages/const";
+import {NavLink} from "react-router";
+import {PathStorage} from "../../../tools/storages/Path.storage.ts";
+
 
 export const AllUsersPage = () => {
     const [users, setUsers] = useState<{ userName: string, email: string }[]>([])
 
 
     useLayoutEffect(() => {
-        UsersApi.getAllUsers().then(r => setUsers(r.data))
+        UsersService.getAllUsers().then(r => setUsers(r.data))
     }, []);
 
     return (

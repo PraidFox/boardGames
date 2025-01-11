@@ -1,9 +1,10 @@
-import {BoardGameDTO} from "../../../tools/interfaces/DTOinterface";
-import {NavLink} from "react-router-dom";
+import {BoardGameDTO} from "../../../tools/interfaces/DTO/boardGame.dto.ts";
+import {NavLink} from "react-router";
 import {DeleteOutlined, EditOutlined, LikeOutlined} from "@ant-design/icons";
 import {Flex} from "antd";
 import {CardBoardGame} from "./CardBoardGame";
-import {PathStorage} from "../../../tools/storages/const";
+import {PathStorage} from "../../../tools/storages/Path.storage.ts";
+
 
 export const BoardGamesList = ({type, dataBoardGames, deleteGame}: {
     type: "all" | "user",
@@ -12,11 +13,11 @@ export const BoardGamesList = ({type, dataBoardGames, deleteGame}: {
 }) => {
 
     const addInCollections = (boardGameId: string) => {
-
+        console.log("boardGameId", boardGameId)
     }
 
     const getFooterForCard = (boardGame: BoardGameDTO) => {
-        let footerCard = [
+        const footerCard = [
             <NavLink
                 key={"link" + boardGame.id}
                 to={`${PathStorage.BOARD_GAME}/${boardGame.id}`}

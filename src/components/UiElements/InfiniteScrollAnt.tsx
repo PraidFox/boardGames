@@ -1,5 +1,5 @@
 import {Divider, List, Skeleton} from "antd";
-import {OptionDTO} from "../../tools/interfaces/DTOinterface";
+import {OptionDTO} from "../../tools/interfaces/DTO/boardGame.dto.ts";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import {ReactNode} from "react";
 

@@ -1,7 +1,6 @@
 import {Button, Input, InputRef} from "antd";
 import {EditOutlined} from "@ant-design/icons";
 import {useEffect, useRef, useState} from "react";
-import {collectionFullInfo} from "../../../../tools/interfaces/collectionsInterface";
 
 export const TitleEdit = ({name, changeTitle}: { name: string, changeTitle: (title: string) => void }) => {
     const [showButtonEditTitle, setShowButtonEditTitle] = useState(false);

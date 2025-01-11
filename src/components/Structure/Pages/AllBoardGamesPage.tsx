@@ -2,15 +2,15 @@ import {FormAddBoardGameInModeration} from "../../Forms/FormsAddBoardGame/FormAd
 import {DrawerSidePanel} from "../../UiElements/DrawerSidePanel";
 import {useEffect, useReducer, useState} from "react";
 import {reducerFilterFieldValues} from "../../Forms/FormFilter/reducerFilterFieldValues";
-import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
+import {BoardGameService} from "../../../tools/rest/services/BoardGame.service.ts";
 import {FilterBoardGamesPanel} from "../../Forms/FormFilter/FilterBoardGamesPanel";
 import {BoardGamesList} from "../../UiElements/BoardGamesList/BoardGamesList";
 import {useLoadData} from "../../../tools/hooks/useLoadData";
 import {LoadingPanda} from "../../UiElements/LoadingPanda";
 import {SessionStorageUtils} from "../../../tools/utils/SessionStorageUtils";
-import {BoardGameDTO} from "../../../tools/interfaces/DTOinterface";
-import {FilterBoardRequest} from "../../../tools/interfaces/otherInterface";
-import {FileApi} from "../../../tools/rest/FileApi";
+import {BoardGameDTO} from "../../../tools/interfaces/DTO/boardGame.dto.ts";
+import {FilterBoardRequest} from "../../../tools/interfaces/other.Interface.ts";
+
 
 export const AllBoardGamesPage = () => {
     const [boardGameData, setBoardGameData] = useState<BoardGameDTO[] | undefined>(SessionStorageUtils.getAllBoardGames())
@@ -22,7 +22,7 @@ export const AllBoardGamesPage = () => {
         data,
         setNeedUpdate,
         loading
-    } = useLoadData<BoardGameDTO[], FilterBoardRequest>(BoardGameApi.getFilterBoardGame, filterRequest)
+    } = useLoadData<BoardGameDTO[], FilterBoardRequest>(BoardGameService.getFilterBoardGame, filterRequest)
 
 
     useEffect(() => {

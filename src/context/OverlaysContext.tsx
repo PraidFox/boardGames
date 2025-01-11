@@ -1,5 +1,5 @@
-import React, {createContext, ReactNode, useState} from "react";
-import {IOverlaysContext} from "../tools/interfaces/otherInterface";
+import {createContext, ReactNode, useState} from "react";
+import {IOverlaysContext} from "../tools/interfaces/other.Interface.ts";
 
 
 export const OverlaysContext = createContext<IOverlaysContext>({} as IOverlaysContext);

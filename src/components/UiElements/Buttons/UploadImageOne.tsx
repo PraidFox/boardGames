@@ -1,13 +1,12 @@
-import React from 'react';
 import {UploadOutlined} from '@ant-design/icons';
 import {Button, message, Upload, UploadProps} from 'antd';
-import {FileApi} from "../../../tools/rest/FileApi";
+import {FileService} from "../../../tools/rest/services/File.service.ts";
 
 const props: UploadProps = {
     customRequest(options) {
         const formData = new FormData();
         formData.append("file", options.file);
-        FileApi.uploadFile(formData).then(r => console.log("r", r.data.id))
+        FileService.uploadFile(formData).then(r => console.log("r", r.data.id))
     },
     onChange(info) {
         if (info.file.status !== 'uploading') {

@@ -1,10 +1,10 @@
-import React, {useCallback, useMemo, useRef, useState} from 'react';
+import {useCallback, useMemo, useRef, useState} from 'react';
 
 import {Button, Select, Space, Spin} from 'antd';
 import debounce from "lodash/debounce"
-import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
-import {FilterBoardRequest} from "../../../tools/interfaces/otherInterface";
-import {BoardGameDTO} from "../../../tools/interfaces/DTOinterface";
+import {BoardGameService} from "../../../tools/rest/services/BoardGame.service.ts";
+import {FilterBoardRequest} from "../../../tools/interfaces/other.Interface.ts";
+import {BoardGameDTO} from "../../../tools/interfaces/DTO/boardGame.dto.ts";
 
 interface BoardGameValue extends BoardGameDTO {
     label: string;
@@ -26,7 +26,7 @@ export const FieldSearchAddGames = ({addGamesInCollection}: {
             GameName: boardGameName
         };
 
-        return BoardGameApi.getFilterBoardGame(filter).then(res => res.data.map(item => ({
+        return BoardGameService.getFilterBoardGame(filter).then(res => res.data.map(item => ({
             label: item.name,
             value: item.id,
             img: "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",

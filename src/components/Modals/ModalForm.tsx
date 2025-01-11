@@ -1,5 +1,5 @@
 import {Modal} from "antd";
-import React, {useState} from "react";
+import {useState} from "react";
 
 export const ModalForm = ({children}: {
     children: (onClose: () => void) => React.ReactNode

@@ -1,8 +1,7 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import {Button, ConfigProvider, Layout} from 'antd';
 import {LeftMenuTop} from "./components/UiElements/Menu/LeftMenuTop";
 import {ContentComponent} from "./components/Structure/ContentComponent";
-import {FooterComponent} from "./components/Structure/FooterComponent";
 import "./style/global.css"
 import {useErrorInfo} from "./tools/hooks/hooksContext/useErrorInfo";
 import {viewError} from "./tools/utils/utilsTsx";
@@ -35,9 +34,6 @@ export const App = () => {
                 <Button onClick={logoutUser}> Выход </Button>
                 <Layout>
                     <Sider collapsible onCollapse={(collapsed) => setCollapsedSider(collapsed)}>
-                        {/*<Sider*/}
-                        {/*    style={{overflow: 'auto', height: '100vh', position: 'fixed', left: 0, top: 0, bottom: 0}}*/}
-                        {/*>*/}
                         <Logo type={collapsedSider ? "mini" : "full"}/>
                         <LeftMenuTop/>
                         <LeftMenuBottom collapsedSider={collapsedSider}/>
@@ -47,9 +43,7 @@ export const App = () => {
                         {contextHolder}
                         {nameError && viewError(nameError)}
                         <ContentComponent/>
-
                         <br/>
-                        {/*<FooterComponent/>*/}
                     </Layout>
 
                 </Layout>

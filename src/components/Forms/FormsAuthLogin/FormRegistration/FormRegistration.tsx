@@ -1,8 +1,8 @@
 import {FieldsRegistration} from "./FieldsRegistration";
 import {Form} from "antd";
-import React, {useState} from "react";
-import {AuthApi} from "../../../../tools/rest/AuthApi";
-import {Registration} from "../../../../tools/interfaces/formInterface";
+import {useState} from "react";
+import {AuthService} from "../../../../tools/rest/services/Auth.service.ts";
+import {Registration} from "../../../../tools/interfaces/form.Interface.ts";
 import {useMessage} from "../../../../tools/hooks/hooksContext/useMessage";
 import {StorageSettingMessage} from "../../../../tools/storages/storageSettingMessage";
 import {FormButtons} from "../../../UiElements/Buttons/FormButtons";
@@ -17,7 +17,7 @@ export const FormRegistration = ({onClose}: {
     const onFinish = (values: Registration) => {
         setLoading(true)
         setSettingMessage(StorageSettingMessage.registrationLoading)
-        AuthApi.registrationUser(values.email, values.userName, values.password)
+        AuthService.registrationUser(values.email, values.userName, values.password)
             .then(r => {
                 setSettingMessage(StorageSettingMessage.registrationAccess)
                 setLoading(false)

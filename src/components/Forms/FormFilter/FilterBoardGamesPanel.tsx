@@ -1,12 +1,12 @@
 import {Button, Input, InputNumber, Select, Slider} from "antd";
-import React, {Dispatch, useEffect, useState} from "react";
+import {Dispatch, useEffect, useState} from "react";
 import {OptionsFieldFormEdit} from "../FormsAddBoardGame/reducerFieldOptions";
-import {GenreApi} from "../../../tools/rest/GenreApi";
-import {TypeApi} from "../../../tools/rest/TypeApi";
-import {convertOptions, convertOptionsAutoComplete, filterOptionLabel} from "../../../tools/utils/utils";
-import {nameBoardGame, optionsFieldsStatusCooperativeGame} from "../../../tools/storages/fieldOptions";
+import {GenreService} from "../../../tools/rest/services/Genre.service.ts";
+import {TypeService} from "../../../tools/rest/services/Type.service.ts";
+import {filterOptionLabel} from "../../../tools/utils/utils";
+
 import {ActionFilter} from "./reducerFilterFieldValues";
-import {FilterBoardGames} from "../../../tools/interfaces/formInterface";
+import {FilterBoardGames} from "../../../tools/interfaces/form.Interface.ts";
 import {CloseCircleOutlined} from '@ant-design/icons';
 
 export const FilterBoardGamesPanel = ({valueFilter, setFilterFieldValues}: {
@@ -16,18 +16,18 @@ export const FilterBoardGamesPanel = ({valueFilter, setFilterFieldValues}: {
     const [optionsField, setOptionsField] = useState({} as OptionsFieldFormEdit)
 
     useEffect(() => {
-        const p0 = GenreApi.getGenre()
-        const p1 = TypeApi.getType()
+        const p0 = GenreService.getGenre()
+        const p1 = TypeService.getType()
 
-        Promise.all([p0, p1]).then((res) => {
-            setOptionsField({
-                    name: convertOptionsAutoComplete(nameBoardGame),
-                    genre: convertOptions(res[0].data),
-                    type: convertOptions(res[1].data),
-                    status: optionsFieldsStatusCooperativeGame
-                }
-            )
-        })
+        // Promise.all([p0, p1]).then((res) => {
+        //     setOptionsField({
+        //             name: convertOptionsAutoComplete(nameBoardGame),
+        //             genre: convertOptions(res[0].data),
+        //             type: convertOptions(res[1].data),
+        //             status: optionsFieldsStatusCooperativeGame
+        //         }
+        //     )
+        // })
 
     }, []);
 

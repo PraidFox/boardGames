@@ -1,10 +1,10 @@
-import {useParams} from "react-router-dom";
-import {BoardGameDTO} from "../../../tools/interfaces/DTOinterface";
-import React, {useLayoutEffect, useState} from "react";
-import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
-import {FileApi} from "../../../tools/rest/FileApi";
+import {useParams} from "react-router";
+import {BoardGameDTO} from "../../../tools/interfaces/DTO/boardGame.dto.ts";
+import {useLayoutEffect, useState} from "react";
+import {BoardGameService} from "../../../tools/rest/services/BoardGame.service.ts";
+import {FileService} from "../../../tools/rest/services/File.service.ts";
 import {Flex, Rate} from "antd";
-import {GameRatingApi} from "../../../tools/rest/GameRatingApi";
+import {GameRatingService} from "../../../tools/rest/services/GameRating.service.ts";
 
 export const CurrentBoardGamePage = () => {
 
@@ -14,14 +14,14 @@ export const CurrentBoardGamePage = () => {
 
     useLayoutEffect(() => {
 
-        BoardGameApi.getBoardGame(boardGameId!)
+        BoardGameService.getBoardGame(boardGameId!)
             .then(res => setBoardGame(res.data))
             .catch(() => setBoardGame(undefined))
 
     }, [boardGameId]);
 
     const handlerRate = (boardGameId: string, rate: number) => {
-        GameRatingApi.addRating(boardGameId, rate)
+        GameRatingService.addRating(boardGameId, rate)
     }
 
 
@@ -32,11 +32,11 @@ export const CurrentBoardGamePage = () => {
                 <br/>
                 <br/>
                 {boardGame?.preview &&
-                    <img width={300} src={FileApi.getFile(boardGame.preview.id.toString())} alt={boardGame.name}/>
+                    <img width={300} src={FileService.getFile(boardGame.preview.id.toString())} alt={boardGame.name}/>
                 }
                 <br/>
                 {boardGame?.files && boardGame.files.map(file =>
-                    <img width={100} src={FileApi.getFile(file.id.toString())} alt={boardGame.name}/>
+                    <img width={100} src={FileService.getFile(file.id.toString())} alt={boardGame.name}/>
                 )}
                 <div dangerouslySetInnerHTML={{__html: boardGame.description}}/>
 

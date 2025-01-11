@@ -1,5 +1,4 @@
 import {MyError} from "../storages/const";
-import React from "react";
 import {ArgsProps} from "antd/es/message/interface";
 
 
@@ -34,12 +33,6 @@ export interface MyErrorContext extends Partial<MyErrorInfo> {
     setErrorInfo: (errorInfo: MyErrorInfo | null) => void
 }
 
-// export type MessageInfo = {
-//     textMessage: string
-//     textLoading: string
-//     type: "success" | "info" | "warning" | "error"
-//     duration: number
-// }
 
 export interface MessageInfoContext {
     setSettingMessage: (settingMessage: ArgsProps) => void
@@ -51,10 +44,3 @@ export interface IOverlaysContext {
     openOverlay: () => void
     closeOverlay: () => void
 }
-
-
-// export type MessageInfoType = {
-//     text: string
-//     type: "success" | "info" | "warning" | "error"
-//     width?: string
-// }

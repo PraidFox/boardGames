@@ -1,17 +1,17 @@
-import {DownOutlined, UserOutlined} from '@ant-design/icons';
+import {UserOutlined} from '@ant-design/icons';
 import type {MenuProps} from 'antd';
 import {Avatar, Badge, Dropdown, Space} from 'antd'
-import React, {useState} from "react";
+import {useState} from "react";
 import {useInfoUser} from "../../../tools/hooks/hooksContext/useInfoUser";
-import {NavLink} from "react-router-dom";
-import {PathStorage} from "../../../tools/storages/const";
+import {NavLink} from "react-router";
+import {PathStorage} from "../../../tools/storages/Path.storage.ts";
+
 
 export const ProfileMenu = () => {
     const {logoutUser, nickname} = useInfoUser()
     const [countNotifications, setCountNotifications] = useState(8)
 
 
-    // @ts-ignore
     const items: MenuProps['items'] = [
         {
             type: 'group', // Must have

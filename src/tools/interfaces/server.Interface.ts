@@ -11,10 +11,4 @@ export type OptionsAutoComplete<T> = {
     info?: T
 }
 
-export type OptionsDTO<T> = {
-    id: number
-    name: string
-    info?: T
-}
-
 

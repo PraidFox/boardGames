@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import {Button, Drawer} from 'antd';
 
 export const DrawerSidePanel = ({children}: { children: (onClose: () => void) => React.ReactNode }) => {

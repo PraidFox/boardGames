@@ -1,5 +1,4 @@
 import {Checkbox, Flex, Form, Input} from "antd";
-import React from "react";
 import {LockOutlined, MailOutlined} from "@ant-design/icons";
 
 export const FieldsLogin = () => {

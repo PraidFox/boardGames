@@ -1,23 +1,24 @@
 import axios from "axios";
-import {AuthApi} from "./AuthApi";
+import {AuthService} from "./services/Auth.service.ts";
 import {LocalStorageUtils} from "../utils/LocalStorageUtils";
-import {TokenInfoLS} from "../interfaces/localStorageInterface";
+import {TokenInfoLS} from "../interfaces/localStorage.Interface.ts";
 import {MyError} from "../storages/const";
 
 
 const defaultSettingAxios = {
-    baseURL: process.env.REACT_APP_URL,
-    headers: {'accept': "application/json", "Content-Type": 'application/json'}
+    baseURL: import.meta.env.VITE_APP_API_URL,
+    headers: {'accept': "application/json", "Content-Type": 'application/json'},
+    withCredentials: true,
 }
 
 const FileSettingAxios = {
-    baseURL: process.env.REACT_APP_URL,
+    baseURL: import.meta.env.VITE_APP_API_URL,
     headers: {'Content-Type': 'multipart/form-data'}
 }
 
+//export const axiosBG = axios.create(defaultSettingAxios);
 export const axiosBG = axios.create(defaultSettingAxios);
-export const axiosBGauth = axios.create(defaultSettingAxios);
-export const axiosBGauthFile = axios.create(FileSettingAxios);
+export const axiosBGFile = axios.create(FileSettingAxios);
 
 const requestHandler = async (config: any) => {
     const tokenInfo = LocalStorageUtils.getTokenInfo();
@@ -33,7 +34,7 @@ const requestHandler = async (config: any) => {
 
         if (currentTimeDate > entryTimeDate + expiresInDate) {
             if (remember) {
-                AuthApi.refreshToken(refreshToken!)
+                AuthService.refreshToken(refreshToken!)
                     .then(res => {
                             LocalStorageUtils.setTokenInfo(res.data.accessToken, res.data.refreshToken, res.data.expiresIn);
                             config.headers["Authorization"] = `Bearer ${res.data.accessToken}`
@@ -66,6 +67,6 @@ const errorHandler = (error: any) => {
 };
 
 axiosBG.interceptors.request.use(requestHandler, errorHandler);
-axiosBGauth.interceptors.request.use(requestHandler, errorHandler);
-axiosBGauthFile.interceptors.request.use(requestHandler, errorHandler);
+axiosBG.interceptors.request.use(requestHandler, errorHandler);
+axiosBGFile.interceptors.request.use(requestHandler, errorHandler);
 

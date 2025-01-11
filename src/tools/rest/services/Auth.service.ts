@@ -1,11 +1,7 @@
-import {axiosBG} from "./AxiosDefault";
+import {axiosBG} from "../axios.config.ts";
 
 
-export class AuthApi {
-    // static loginUser(email: string, password: string) {
-    //     return axios.post(AxiosDefault.baseUrl() + `/account/login?useCookies=true`, {email, password}, {withCredentials: true});
-    // }
-
+export class AuthService {
     static loginUser(login: string, password: string) {
         return axiosBG.post(`/api/Account1/login`, {userName: login, password});
     }

@@ -1,5 +1,5 @@
 import {Modal} from "antd";
-import React, {useState} from "react";
+import {useState} from "react";
 import {useErrorInfo} from "../../tools/hooks/hooksContext/useErrorInfo";
 
 export const ErrorModal = ({children}: {
