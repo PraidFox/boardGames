@@ -15,9 +15,6 @@ export const ModalForm = ({children}: {
     }
 
     return <>
-        {/*<Button type="primary" onClick={showModal}>*/}
-        {/*    Зарегистрироваться*/}
-        {/*</Button>*/}
         <span onClick={showModal} style={{color: '#FFFFFFA6'}}>
             Регистрация
         </span>

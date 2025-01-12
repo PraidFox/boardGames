@@ -13,7 +13,7 @@ import {EventsPage} from "./components/Structure/Pages/EventsPage.tsx";
 import {AllUsersPage} from "./components/Structure/Pages/AllUsersPage.tsx";
 import {UserProfilePage} from "./components/Structure/Pages/UserProfilePage.tsx";
 import {PrivateRouter} from "./components/PrivateRouter.tsx";
-import {AdminSettingPage} from "./components/Structure/Pages/AdminSettingPage.tsx";
+import {AdminSettingPage} from "./components/Structure/Pages/AdminSetting.page.tsx";
 import {MyCollectionsBoardGames} from "./components/Structure/Pages/MyCollectionsBoardGames.tsx";
 import {CollectionGamesPage} from "./components/Structure/Pages/CollectionGamesPage/CollectionGamesPage.tsx";
 import {FriendsPage} from "./components/Structure/Pages/FriendsPage.tsx";

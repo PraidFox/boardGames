@@ -1,18 +1,13 @@
 import {ReactNode} from "react";
-import {ErrorProvider} from "./ErrorContext";
-import {MessageProvider} from "./MessageContext";
+
 import {OverlaysProvider} from "./OverlaysContext";
 
 export const AllContextProvider = ({children}: {
     children: ReactNode
 }) => {
     return (
-        <MessageProvider>
-            <ErrorProvider>
-                <OverlaysProvider>
-                    {children}
-                </OverlaysProvider>
-            </ErrorProvider>
-        </MessageProvider>
+        <OverlaysProvider>
+            {children}
+        </OverlaysProvider>
     )
 }

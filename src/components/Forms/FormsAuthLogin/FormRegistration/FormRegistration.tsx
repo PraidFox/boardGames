@@ -3,8 +3,6 @@ import {Form} from "antd";
 import {useState} from "react";
 import {AuthService} from "../../../../tools/rest/services/Auth.service.ts";
 import {IFieldRegistration} from "../../../../tools/interfaces/fieldsForm.Interface.ts";
-import {useMessage} from "../../../../tools/hooks/hooksContext/useMessage";
-import {StorageSettingMessage} from "../../../../tools/storages/storageSettingMessage";
 import {FormButtons} from "../../../UiElements/Buttons/FormButtons";
 
 export const FormRegistration = ({onClose}: {
@@ -13,23 +11,16 @@ export const FormRegistration = ({onClose}: {
     const [form] = Form.useForm();
     //const [messageAlert, setMessageAlert] = useState<MessageInfoType>()
     const [loading, setLoading] = useState<boolean>(false);
-    const {setSettingMessage} = useMessage()
+
     const onFinish = (values: IFieldRegistration) => {
         setLoading(true)
-        setSettingMessage(StorageSettingMessage.registrationLoading)
         AuthService.registrationUser(values.email, values.userName, values.password)
-            .then(r => {
-                setSettingMessage(StorageSettingMessage.registrationAccess)
+            .then(() => {
                 setLoading(false)
             })
             .catch(r => {
                 //Какие еще может бек вернуть ошибки?
                 console.log("ошибка", r.response)
-
-                setSettingMessage({
-                    ...StorageSettingMessage.registrationError,
-                    content: r.response.data.map((e: any) => e.description).join("\n"),
-                })
                 setLoading(false)
 
             })

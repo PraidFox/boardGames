@@ -1,4 +1,4 @@
-import {Avatar, Badge, Menu, Space} from "antd";
+import {Avatar, Badge, Button, Menu, Space} from "antd";
 import {useLayoutEffect, useState} from "react";
 import {ItemMenu} from "../../../tools/storages/ItemMenu";
 import {UseMenuDriven} from "../../../tools/interfaces/hook.Interface.ts";
@@ -7,12 +7,14 @@ import {LocalStorageUtils} from "../../../tools/utils/LocalStorageUtils";
 import {DiscordIcon, TelegramIcon} from "../../../tools/images/svgStorage";
 import {UserOutlined} from "@ant-design/icons";
 import {useGetMe} from "../../../tools/hooks/queryies/Users.queryes.ts";
+import {useLogout} from "../../../tools/hooks/queryies/Auth.queryes.ts";
 
 
 export const LeftMenuBottom = ({collapsedSider}: { collapsedSider: boolean }) => {
     const {menuItems, current, setMenuItems, onClick}: UseMenuDriven = useMenuDriven(ItemMenu.defaultLeftMenu)
     const {data: userInfo} = useGetMe()
     const [defaultOpen, setDefaultOpen] = useState<string[]>([])
+    const logout = useLogout()
 
     useLayoutEffect(() => {
         if (userInfo) {
@@ -33,6 +35,7 @@ export const LeftMenuBottom = ({collapsedSider}: { collapsedSider: boolean }) =>
                 <div style={{textAlign: "center"}}><TelegramIcon style={{fontSize: '40px', cursor: "pointer"}}/></div>
                 <br/>
                 <div style={{textAlign: "center"}}><DiscordIcon style={{fontSize: '40px', cursor: "pointer"}}/></div>
+                <Button onClick={() => logout.mutateAsync()}> Выход </Button>
             </>
         } else {
             return <>
@@ -41,6 +44,7 @@ export const LeftMenuBottom = ({collapsedSider}: { collapsedSider: boolean }) =>
                     </div>
                     <div style={{textAlign: "center"}}><DiscordIcon style={{fontSize: '40px', cursor: "pointer"}}/>
                     </div>
+                    <Button onClick={() => logout.mutateAsync()}> Выход </Button>
                 </div>
             </>
 

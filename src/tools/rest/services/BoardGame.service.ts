@@ -7,9 +7,9 @@ import {
 } from "../../interfaces/DTO/boardGame.dto.ts";
 
 export class BoardGameService {
-    static async getAllBoardGame(): PAR<ManyBoardGameDTO> {
-        return await axiosBG.get(`/api/BoardGame`);
-    }
+    // static async getAllBoardGame(): PAR<ManyBoardGameDTO> {
+    //     return await axiosBG.get(`/api/BoardGame`);
+    // }
 
     static async getBoardGame(id: string): PAR<CurrentBoardGameDto> {
         return await axiosBG.get(`/api/BoardGame/${id}`);
@@ -27,7 +27,7 @@ export class BoardGameService {
         return await axiosBG.delete(`/api/BoardGame/${id}`,);
     }
 
-    static async getFilterBoardGame(params: FilterGamesDTO): PAR<ManyBoardGameDTO> {
-        return await axiosBG.get(`/api/BoardGame`, {params});
+    static async getFilterBoardGame(params: FilterGamesDTO, {signal}: { signal?: AbortSignal }): PAR<ManyBoardGameDTO> {
+        return await axiosBG.get(`/api/BoardGame`, {params, signal});
     }
 }

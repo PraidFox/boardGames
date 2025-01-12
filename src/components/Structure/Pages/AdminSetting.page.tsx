@@ -5,7 +5,6 @@ import {TypeService} from "../../../tools/rest/services/Type.service.ts";
 import {Button, Input, Select, Space} from "antd";
 import {InfiniteScrollAnt} from "../../UiElements/InfiniteScrollAnt";
 import {BoardGameService} from "../../../tools/rest/services/BoardGame.service.ts";
-import {useErrorInfo} from "../../../tools/hooks/hooksContext/useErrorInfo";
 import {RoleService} from "../../../tools/rest/services/Role.service.ts";
 import {UsersService} from "../../../tools/rest/services/Users.service.ts";
 
@@ -36,7 +35,6 @@ export const AdminSettingPage = () => {
     const [valueRoleToUser, setValueRoleToUser] = useState<string[]>([])
     const [valueUser, setValueUser] = useState<string>()
 
-    const {setErrorInfo} = useErrorInfo()
 
     useEffect(() => {
         const p0 = GenreService.getGenres()
@@ -61,8 +59,7 @@ export const AdminSettingPage = () => {
                 setGenres(res.data)
                 setAddGenreLoading(false)
             })
-        }).catch(r => {
-                setErrorInfo({nameError: r.message})
+        }).catch(() => {
                 setAddGenreLoading(false)
             }
         )

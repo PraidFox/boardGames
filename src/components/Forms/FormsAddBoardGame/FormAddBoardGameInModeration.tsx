@@ -11,9 +11,8 @@ import {UploadImagesMany} from "../../UiElements/Buttons/UploadImagesMany";
 import {CreateGameDTO} from "../../../tools/interfaces/DTO/boardGame.dto.ts";
 
 const {TextArea} = Input;
-export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
+export const FormAddBoardGameInModeration = ({onClose}: {
     onClose: () => void
-    setNeedUpdate: () => void
 }) => {
     const [form] = Form.useForm();
     const [optionsField, setOptionsField] = useReducer(reducerFieldOptions, {} as OptionsFieldFormEdit)
@@ -60,7 +59,7 @@ export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
             linkToPublisher: values.linkToPublisher
         }
 
-        BoardGameService.addBoardGame(dataBoardGame).then(() => setNeedUpdate())
+        BoardGameService.addBoardGame(dataBoardGame)
 
         onClose()
     };
