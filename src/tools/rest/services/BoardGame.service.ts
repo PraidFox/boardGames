@@ -1,30 +1,33 @@
-import {axiosBG} from "../axios.config.ts";
-import {FilterBoardRequest} from "../../interfaces/other.Interface.ts";
-import {BoardGameDTO, CreateGameDTO} from "../../interfaces/DTO/boardGame.dto.ts";
-import {AxiosResponse} from "axios";
+import {axiosBG, PAR} from "../axios.config.ts";
+import {
+    CreateGameDTO,
+    CurrentBoardGameDto,
+    FilterGamesDTO,
+    ManyBoardGameDTO
+} from "../../interfaces/DTO/boardGame.dto.ts";
 
 export class BoardGameService {
-    static getAllBoardGame() {
-        return axiosBG.get(`/api/BoardGame`);
+    static async getAllBoardGame(): PAR<ManyBoardGameDTO> {
+        return await axiosBG.get(`/api/BoardGame`);
     }
 
-    static getFilterBoardGame(params: FilterBoardRequest): Promise<AxiosResponse<BoardGameDTO[]>> {
-        return axiosBG.get(`/api/BoardGame`, {params});
+    static async getBoardGame(id: string): PAR<CurrentBoardGameDto> {
+        return await axiosBG.get(`/api/BoardGame/${id}`);
     }
 
-    static getBoardGame(id: string) {
-        return axiosBG.get(`/api/BoardGame/${id}`);
+    static async addBoardGame(data: CreateGameDTO) {
+        return await axiosBG.post(`/api/BoardGame`, data);
     }
 
-    static addBoardGame(data: CreateGameDTO) {
-        return axiosBG.post(`/api/BoardGame`, {id: 0, ...data});
+    static async updateBoardGame(id: string, data: CreateGameDTO) {
+        return await axiosBG.put(`/api/BoardGame/${id}`, {id, ...data});
     }
 
-    static updateBoardGame(id: string, name: string) {
-        return axiosBG.put(`/api/BoardGame/${id}`, {id, name});
+    static async deleteBoardGame(id: number | string) {
+        return await axiosBG.delete(`/api/BoardGame/${id}`,);
     }
 
-    static deleteBoardGame(id: number | string) {
-        return axiosBG.delete(`/api/BoardGame/${id}`,);
+    static async getFilterBoardGame(params: FilterGamesDTO): PAR<ManyBoardGameDTO> {
+        return await axiosBG.get(`/api/BoardGame`, {params});
     }
 }

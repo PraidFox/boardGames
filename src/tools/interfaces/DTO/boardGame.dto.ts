@@ -1,21 +1,30 @@
-export interface BoardGameDTO {
-    alias: string,
-    description: string,
-    files: FileInfoDTO[],
-    genres: { id: number, name: string }[],
-    id: string,
+export interface CurrentBoardGameDto {
+    id: number;
+    name: string;
+    alias: string;
+    description: string;
+    minPlayersCount: number;
+    maxPlayersCount: number;
+    minPlayerAge: number;
+    rating: number;
+    ratingTessera: number;
+    ratingBgg: number;
+    type: TypeDTO;
+    genres: GenreDTO[];
+    preview: PreviewDTO;
+    files: FileInfoDTO[];
     labels: string[]
-    //linkToPublisher
-    maxPlayersCount: number,
-    minPlayersCount: number,
-    minPlayerAge: number,
-    name: string,
-    preview: FileInfoDTO,
-    rating: number,
-    ratingBgg: number,
-    ratingTessera: number,
-    type: { id: number, name: string },
+    linkToPublisher: string,
     userRating: number
+}
+
+export type ManyBoardGameDTO = Omit<CurrentBoardGameDto, "labels" | "userRating" | "linkToPublisher">[]
+
+export interface PreviewDTO {
+    id: string,
+    name: string,
+    contentType: string,
+    type: number
 }
 
 export type CreateGameDTO = {
@@ -33,44 +42,16 @@ export type CreateGameDTO = {
     fileIds: string[]
 }
 
-export type FilterGameDTO = {
-    "id": 0,
-    "name": "string",
-    "alias": "string",
-    "description": "string",
-    "minPlayersCount": 0,
-    "maxPlayersCount": 0,
-    "minPlayerAge": 0,
-    "rating": 0,
-    "ratingTessera": 0,
-    "ratingBgg": 0,
-    "type": {
-        "id": 0,
-        "name": "string"
-    },
-    "genres": [
-        {
-            "id": 0,
-            "name": "string"
-        }
-    ],
-    "preview": {
-        "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        "name": "string",
-        "contentType": "string",
-        "type": 1
-    },
-    "files": [
-        {
-            "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-            "name": "string",
-            "contentType": "string",
-            "type": 1
-        }
-    ]
+export interface FilterGamesDTO {
+    gameName?: string
+    minPlayersCount?: string
+    maxPlayersCount?: string
+    typeIds?: number[]
+    genreIds?: number[]
+    playersAge?: number
+    pageNum?: number
+    itemPerPage?: number
 }
-}
-
 
 export interface FileInfoDTO {
     id: string,
@@ -84,12 +65,6 @@ export interface OptionDTO {
     name: string
 }
 
-export interface GenreDTO {
-    id: string,
-    name: string
-}
+export type GenreDTO = OptionDTO
+export type TypeDTO = OptionDTO
 
-export interface TypeDTO {
-    id: string,
-    name: string
-}

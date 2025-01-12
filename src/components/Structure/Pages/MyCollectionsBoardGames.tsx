@@ -1,52 +1,40 @@
 import {BoardGamesList} from "../../UiElements/BoardGamesList/BoardGamesList";
-import {BoardGameDTO, GameCollectionShortDTO} from "../../../tools/interfaces/DTO/boardGame.dto.ts";
 import {useLoadData} from "../../../tools/hooks/useLoadData";
 import {NavLink} from "react-router";
 import {notEditCollection} from "../../../tools/storages/const";
 import {FilterBoardGamesPanel} from "../../Forms/FormFilter/FilterBoardGamesPanel";
-import useEffect, {useReducer, useState} from "react";
+import {useReducer, useState} from "react";
 import {reducerFilterFieldValues} from "../../Forms/FormFilter/reducerFilterFieldValues";
-import {useInfoUser} from "../../../tools/hooks/hooksContext/useInfoUser";
 import {UserCollectionsService} from "../../../tools/rest/services/UserCollections.service.ts";
-import {FilterBoardRequest} from "../../../tools/interfaces/other.Interface.ts";
 import {BoardGameService} from "../../../tools/rest/services/BoardGame.service.ts";
 import {ConfirmationModal} from "../../UiElements/СonfirmationModal";
 import {Button} from "antd";
 import {PathStorage} from "../../../tools/storages/Path.storage.ts";
+import {useGetMe} from "../../../tools/hooks/queryies/Users.queryes.ts";
+import {FilterGamesDTO, ManyBoardGameDTO} from "../../../tools/interfaces/DTO/boardGame.dto.ts";
+import {ManyGameCollectionDTO} from "../../../tools/interfaces/DTO/userColletions.dto.ts";
 
 
 export const MyCollectionsBoardGames = () => {
-    const {nickname} = useInfoUser();
+    const {data: userInfo} = useGetMe()
 
-    const [filterRequest, setFilterRequest] = useState<FilterBoardRequest>({})
+    const [filterRequest, setFilterRequest] = useState<FilterGamesDTO>({})
     const [filterFieldValues, setFilterFieldValues] = useReducer(reducerFilterFieldValues, {})
 
     const {
         data,
-        setNeedUpdate,
         loading
-    } = useLoadData<BoardGameDTO[], FilterBoardRequest>(BoardGameService.getFilterBoardGame, filterRequest)
+    } = useLoadData<ManyBoardGameDTO, FilterGamesDTO>(BoardGameService.getFilterBoardGame, filterRequest)
 
     const {
         data: collections,
         setNeedUpdate: setCollectionsNeedUpdate,
         loading: collectionsLoading
-    } = useLoadData<GameCollectionShortDTO[], string>(UserCollectionsService.getUserCollections, nickname)
+    } = useLoadData<ManyGameCollectionDTO, string>(UserCollectionsService.getUserCollections, userInfo.userName)
 
-    useEffect(() => {
-        setFilterRequest({
-            GameName: filterFieldValues.name,
-            PlayersCount: filterFieldValues.minPlayers,
-            TypeIds: filterFieldValues.type?.map(el => Number(el)),
-            GenreIds: filterFieldValues.genre?.map(el => Number(el)),
-            PlayersAge: filterFieldValues.age ? filterFieldValues.age : undefined
-        })
-
-        setNeedUpdate(true)
-    }, [filterFieldValues, setNeedUpdate]);
 
     const addNewCollection = async () => {
-        UserCollectionsService.addEmptyCollection(nickname!).then(() => setCollectionsNeedUpdate(true))
+        UserCollectionsService.addEmptyCollection().then(() => setCollectionsNeedUpdate(true))
     }
 
     const deleteCollection = (collectionAlias: string) => {
@@ -63,7 +51,7 @@ export const MyCollectionsBoardGames = () => {
                     {collections?.map(collection =>
                         <div key={collection.alias}>
                             <NavLink
-                                to={PathStorage.COLLECTIONS + "/" + nickname + "/" + collection.alias}
+                                to={PathStorage.COLLECTIONS + "/" + userInfo.userName + "/" + collection.alias}
                                 state={{id: collection.alias}}
                             >
                                 <div

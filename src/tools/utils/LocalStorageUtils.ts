@@ -1,38 +1,33 @@
-import {OpenMenuKey, TokenInfoLS, UserInfoLS} from "../interfaces/localStorage.Interface.ts";
+import {OpenMenuKey, TokenInfoLS} from "../interfaces/localStorage.Interface.ts";
 import {StorageKeys} from "../storages/StorageKeys.ts";
+import {TokenDto} from "../interfaces/DTO/user.dto.ts";
 
 export abstract class LocalStorageUtils {
-    static getUserInfo = (): UserInfoLS | null => {
-        const userInfo = this.getItem(StorageKeys.USER_INFO)
-        if (userInfo) {
-            return JSON.parse(userInfo)
-        } else {
-            return null
-        }
+
+    //TODO в куки?
+    static setRememberMe = (rememberMe: boolean) => {
+        this.setItem(StorageKeys.REMEMBER_ME, rememberMe.toString())
     }
 
-    static setUserInfo = (userId: number, rememberUser: boolean = false) => {
-        const userInfo: UserInfoLS = {
-            id: userId,
-            remember: rememberUser
-        }
-        this.setItem(StorageKeys.USER_INFO, JSON.stringify(userInfo))
+    static getRememberMe = () => {
+        return this.getItem(StorageKeys.REMEMBER_ME)
     }
 
-    static removeUserInfo = () => {
-        this.removeItems([StorageKeys.USER_INFO])
+    static removeRememberMe = () => {
+        this.removeItems([StorageKeys.REMEMBER_ME])
     }
+
 
     static removeTokenInfo = () => {
         this.removeItems([StorageKeys.TOKEN_INFO])
     }
 
-    static setTokenInfo = (accessToken: string, refreshToken: string, expiresIn: number) => {
+    static setTokenInfo = (data: TokenDto) => {
         const tokenInfo: TokenInfoLS = {
-            [StorageKeys.ACCESS_TOKEN]: accessToken,
-            [StorageKeys.REFRESH_TOKEN]: refreshToken,
+            [StorageKeys.ACCESS_TOKEN]: data.accessToken,
+            [StorageKeys.REFRESH_TOKEN]: data.refreshToken,
             [StorageKeys.ENTRY_TIME]: new Date().toString(),
-            [StorageKeys.EXPIRES_IN]: expiresIn.toString()
+            [StorageKeys.EXPIRES_IN]: data.expiresIn.toString()
         }
 
         this.setItem(StorageKeys.TOKEN_INFO, JSON.stringify(tokenInfo))
@@ -68,4 +63,6 @@ export abstract class LocalStorageUtils {
     private static removeItems = (keys: string[]) => {
         keys.forEach(key => localStorage.removeItem(key))
     }
+
+
 }

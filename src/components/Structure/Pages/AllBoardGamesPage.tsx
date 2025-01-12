@@ -8,12 +8,12 @@ import {BoardGamesList} from "../../UiElements/BoardGamesList/BoardGamesList";
 import {useLoadData} from "../../../tools/hooks/useLoadData";
 import {LoadingPanda} from "../../UiElements/LoadingPanda";
 import {SessionStorageUtils} from "../../../tools/utils/SessionStorageUtils";
-import {BoardGameDTO} from "../../../tools/interfaces/DTO/boardGame.dto.ts";
-import {FilterBoardRequest} from "../../../tools/interfaces/other.Interface.ts";
+import {BoardGameDto} from "../../../tools/interfaces/DTO/boardGame.dto.ts";
+import {FilterBoardRequest} from "../../../tools/interfaces/message.Interface.ts";
 
 
 export const AllBoardGamesPage = () => {
-    const [boardGameData, setBoardGameData] = useState<BoardGameDTO[] | undefined>(SessionStorageUtils.getAllBoardGames())
+    const [boardGameData, setBoardGameData] = useState<BoardGameDto[] | undefined>(SessionStorageUtils.getAllBoardGames())
 
     const [filterRequest, setFilterRequest] = useState<FilterBoardRequest>({})
     const [filterFieldValues, setFilterFieldValues] = useReducer(reducerFilterFieldValues, {})
@@ -22,7 +22,7 @@ export const AllBoardGamesPage = () => {
         data,
         setNeedUpdate,
         loading
-    } = useLoadData<BoardGameDTO[], FilterBoardRequest>(BoardGameService.getFilterBoardGame, filterRequest)
+    } = useLoadData<BoardGameDto[], FilterBoardRequest>(BoardGameService.getFilterBoardGame, filterRequest)
 
 
     useEffect(() => {

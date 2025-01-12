@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Button, ConfigProvider, Layout} from 'antd';
 import {LeftMenuTop} from "./components/UiElements/Menu/LeftMenuTop";
 import {ContentComponent} from "./components/Structure/ContentComponent";
@@ -12,7 +12,8 @@ import {configStyle} from "./tools/configStyle";
 import {LeftMenuBottom} from "./components/UiElements/Menu/LeftMenuBottom";
 import Overlay from "./components/UiElements/Overlays";
 import {FloatButtonMy} from "./components/UiElements/Buttons/FloatButtonMy";
-import {useInfoUser} from "./tools/hooks/hooksContext/useInfoUser";
+import {GameRatingService} from "./tools/rest/services/GameRating.service.ts";
+import {useLogout} from "./tools/hooks/queryies/Auth.queryes.ts";
 
 const {Sider} = Layout;
 //TODO хранить токен в HttpOnly и хочет ли пользователь что бы его помнили?
@@ -23,7 +24,12 @@ export const App = () => {
     const {contextHolder} = useMessage()
     const [collapsedSider, setCollapsedSider] = useState<boolean>(false)
 
-    const {logoutUser} = useInfoUser()
+    const logout = useLogout()
+
+
+    useEffect(() => {
+        GameRatingService.getRating(56964).then(r => console.log(r))
+    }, []);
 
     return (
         <ConfigProvider
@@ -31,7 +37,7 @@ export const App = () => {
         >
 
             <Layout style={{minHeight: '100vh'}}>
-                <Button onClick={logoutUser}> Выход </Button>
+                <Button onClick={() => logout.mutateAsync()}> Выход </Button>
                 <Layout>
                     <Sider collapsible onCollapse={(collapsed) => setCollapsedSider(collapsed)}>
                         <Logo type={collapsedSider ? "mini" : "full"}/>

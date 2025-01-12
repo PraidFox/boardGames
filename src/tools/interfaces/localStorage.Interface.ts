@@ -7,11 +7,6 @@ export interface TokenInfoLS {
     [StorageKeys.EXPIRES_IN]: string
 }
 
-export interface UserInfoLS {
-    id: number
-    remember: boolean
-}
-
 export interface OpenMenuKey {
     leftMenu: string[]
 }

@@ -3,10 +3,10 @@ import {useCallback, useMemo, useRef, useState} from 'react';
 import {Button, Select, Space, Spin} from 'antd';
 import debounce from "lodash/debounce"
 import {BoardGameService} from "../../../tools/rest/services/BoardGame.service.ts";
-import {FilterBoardRequest} from "../../../tools/interfaces/other.Interface.ts";
-import {BoardGameDTO} from "../../../tools/interfaces/DTO/boardGame.dto.ts";
+import {FilterBoardRequest} from "../../../tools/interfaces/message.Interface.ts";
+import {BoardGameDto} from "../../../tools/interfaces/DTO/boardGame.dto.ts";
 
-interface BoardGameValue extends BoardGameDTO {
+interface BoardGameValue extends BoardGameDto {
     label: string;
     value: string;
     img: string;

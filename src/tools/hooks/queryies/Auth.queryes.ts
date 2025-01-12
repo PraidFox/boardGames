@@ -1,38 +1,36 @@
 import {useMutation} from "@tanstack/react-query";
-import {StorageKeys} from "../../storages/StorageKeys.ts";
 import {AuthService} from "../../rest/services/Auth.service.ts";
 import {queryClient} from "../../rest/query.config.ts";
+import {LocalStorageUtils} from "../../utils/LocalStorageUtils.ts";
+import {IAuth, IRegistration} from "../../interfaces/auth.interface.ts";
 
 export const useAuth = () => {
     return useMutation({
         mutationKey: ["login"],
         mutationFn: async ({auth, rememberMe}: { auth: IAuth, rememberMe: boolean }) => {
-            localStorage.setItem(StorageKeys.REMEMBER_ME, rememberMe.toString())
+            LocalStorageUtils.setRememberMe(rememberMe)
             const response = await AuthService.loginUser(auth);
             return response.data;
         },
         onSuccess: async (response) => {
-            localStorage.setItem(StorageKeys.ACCESS_TOKEN, response.token);
-            localStorage.setItem(StorageKeys.EXPIRED_TOKEN, response.expire.toString());
+            LocalStorageUtils.setTokenInfo(response)
             await queryClient.invalidateQueries({queryKey: ['getMe']});
         },
         onError: async () => {
-            clearTokenInfo()
+            LocalStorageUtils.removeTokenInfo()
         }
     })
 }
 
 
 export const useLogout = () => {
-    //const navigate = useNavigate();
-
     return useMutation({
         mutationKey: ["logout"],
         mutationFn: async () => {
-            await AuthService.logoutUser();
+            LocalStorageUtils.removeTokenInfo()
+            LocalStorageUtils.removeRememberMe()
         },
         onSuccess: async () => {
-            clearTokenInfo()
             await queryClient.invalidateQueries({queryKey: ['getMe']});
         }
     })

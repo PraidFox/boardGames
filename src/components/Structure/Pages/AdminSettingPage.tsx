@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {GenreService} from "../../../tools/rest/services/Genre.service.ts";
-import {BoardGameDTO, GenreDTO, OptionDTO, TypeDTO} from "../../../tools/interfaces/DTO/boardGame.dto.ts";
+import {CurrentBoardGameDto, GenreDTO, OptionDTO, TypeDTO} from "../../../tools/interfaces/DTO/boardGame.dto.ts";
 import {TypeService} from "../../../tools/rest/services/Type.service.ts";
 import {Button, Input, Select, Space} from "antd";
 import {InfiniteScrollAnt} from "../../UiElements/InfiniteScrollAnt";
@@ -14,7 +14,7 @@ export const AdminSettingPage = () => {
     const [genres, setGenres] = useState<GenreDTO[]>([])
     const [types, setTypes] = useState<TypeDTO[]>([])
     const [roles, setRoles] = useState<OptionDTO[]>([])
-    const [boardGames, setBoardGames] = useState<BoardGameDTO[]>([])
+    const [boardGames, setBoardGames] = useState<CurrentBoardGameDto[]>([])
     const [users, setUsers] = useState<{
         userName: string,
         email: string,
@@ -39,8 +39,8 @@ export const AdminSettingPage = () => {
     const {setErrorInfo} = useErrorInfo()
 
     useEffect(() => {
-        const p0 = GenreService.getGenre()
-        const p1 = TypeService.getType()
+        const p0 = GenreService.getGenres()
+        const p1 = TypeService.getTypes()
         const p2 = BoardGameService.getAllBoardGame()
         const p3 = RoleService.getRoles()
         const p4 = UsersService.getAllUsers()
@@ -57,7 +57,7 @@ export const AdminSettingPage = () => {
     const addGenre = () => {
         setAddGenreLoading(true)
         GenreService.addGenre(newOptionGenre).then(() => {
-            GenreService.getGenre().then((res) => {
+            GenreService.getGenres().then((res) => {
                 setGenres(res.data)
                 setAddGenreLoading(false)
             })
@@ -71,7 +71,7 @@ export const AdminSettingPage = () => {
     const addType = () => {
         setAddTypeLoading(true)
         TypeService.addType(newOptionType).then(() => {
-            TypeService.getType().then((res) => {
+            TypeService.getTypes().then((res) => {
                 setTypes(res.data)
                 setAddTypeLoading(false)
             })
@@ -99,13 +99,13 @@ export const AdminSettingPage = () => {
     const deleteOptions = (id: string, fieldName: string) => {
         if (fieldName === "Жанры") {
             GenreService.deleteGenre(id).then(() => {
-                GenreService.getGenre().then((res) => {
+                GenreService.getGenres().then((res) => {
                     setGenres(res.data)
                 })
             })
         } else if (fieldName === "Типы") {
             TypeService.deleteType(id).then(() => {
-                TypeService.getType().then((res) => {
+                TypeService.getTypes().then((res) => {
                     setTypes(res.data)
                 })
             })

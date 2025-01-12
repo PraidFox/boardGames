@@ -2,11 +2,15 @@ import {axiosBGFile} from "../axios.config.ts";
 
 
 export class FileService {
-    static uploadFile(data: any) {
-        return axiosBGFile.post(`/api/File/upload`, data);
+    static async uploadFile(data: any) {
+        return await axiosBGFile.post(`/api/File/upload`, data);
     }
 
-    static getFile(fileId: string) {
-        return `http://94.125.48.107:8080/api/File?id=${fileId}`
+    static async uploadFileInBG(data: any, bgId: string) {
+        return await axiosBGFile.post(`/api/File/upload/${bgId}`, data);
+    }
+
+    static async getFile(fileId: string) {
+        return await axiosBGFile.get(`api/File?id=${fileId}`);
     }
 }

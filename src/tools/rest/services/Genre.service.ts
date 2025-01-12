@@ -1,19 +1,24 @@
-import {axiosBG} from "../axios.config.ts";
+import {axiosBG, PAR} from "../axios.config.ts";
+import {GenreDTO} from "../../interfaces/DTO/boardGame.dto.ts";
 
 export class GenreService {
-    static getGenre() {
-        return axiosBG.get(`/api/Genres`);
+    static async getGenres(): PAR<GenreDTO[]> {
+        return await axiosBG.get(`/api/Genres`);
     }
 
-    static addGenre(name: string) {
-        return axiosBG.post(`/api/Genres`, {id: 0, name});
+    static async getGenre(genreId: number): PAR<GenreDTO> {
+        return await axiosBG.get(`/api/Genres/${genreId}`);
     }
 
-    static updateGenre(id: string, name: string) {
-        return axiosBG.put(`/api/Genres/${id}`, {id, name});
+    static async addGenre(name: string): PAR<GenreDTO> {
+        return await axiosBG.post(`/api/Genres`, {id: 0, name});
     }
 
-    static deleteGenre(id: number | string) {
-        return axiosBG.delete(`/api/Genres/${id}`,);
+    static async updateGenre(id: string, name: string): PAR<GenreDTO> {
+        return await axiosBG.put(`/api/Genres/${id}`, {id, name});
+    }
+
+    static async deleteGenre(id: number | string): PAR<void> {
+        return await axiosBG.delete(`/api/Genres/${id}`,);
     }
 }

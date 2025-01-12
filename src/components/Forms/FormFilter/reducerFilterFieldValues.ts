@@ -1,4 +1,4 @@
-import {FilterBoardGames} from "../../../tools/interfaces/form.Interface.ts";
+import {FilterBoardGames} from "../../../tools/interfaces/fieldsForm.Interface.ts";
 
 export type ActionFilter = | { type: "SET_NAME", payload: string } | {
     type: "SET_GENRE" | "SET_TYPE",

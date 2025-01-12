@@ -1,5 +1,5 @@
 import {useParams} from "react-router";
-import {BoardGameDTO} from "../../../tools/interfaces/DTO/boardGame.dto.ts";
+import {BoardGameDto} from "../../../tools/interfaces/DTO/boardGame.dto.ts";
 import {useLayoutEffect, useState} from "react";
 import {BoardGameService} from "../../../tools/rest/services/BoardGame.service.ts";
 import {FileService} from "../../../tools/rest/services/File.service.ts";
@@ -8,7 +8,7 @@ import {GameRatingService} from "../../../tools/rest/services/GameRating.service
 
 export const CurrentBoardGamePage = () => {
 
-    const [boardGame, setBoardGame] = useState<BoardGameDTO>()
+    const [boardGame, setBoardGame] = useState<BoardGameDto>()
     const {boardGameId} = useParams();
 
 

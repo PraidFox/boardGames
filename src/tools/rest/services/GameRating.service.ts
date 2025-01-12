@@ -1,9 +1,12 @@
-import {axiosBG} from "../axios.config.ts";
+import {axiosBG, PAR} from "../axios.config.ts";
 
 export class GameRatingService {
 
-    static addRating(gameId: string, rating: number) {
-        return axiosBG.put(`/api/games/${gameId}/rating`, rating);
+    static async addRating(gameId: string, rating: number): PAR<void> {
+        return await axiosBG.put(`/api/games/${gameId}/rating`, rating);
     }
 
+    static async getRating(gameId: number): PAR<number> {
+        return await axiosBG.get(`/api/games/${gameId}/rating`);
+    }
 }

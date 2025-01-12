@@ -2,20 +2,23 @@ import {UserOutlined} from '@ant-design/icons';
 import type {MenuProps} from 'antd';
 import {Avatar, Badge, Dropdown, Space} from 'antd'
 import {useState} from "react";
-import {useInfoUser} from "../../../tools/hooks/hooksContext/useInfoUser";
 import {NavLink} from "react-router";
 import {PathStorage} from "../../../tools/storages/Path.storage.ts";
+import {useGetMe} from "../../../tools/hooks/queryies/Users.queryes.ts";
+import {useLogout} from "../../../tools/hooks/queryies/Auth.queryes.ts";
 
 
 export const ProfileMenu = () => {
-    const {logoutUser, nickname} = useInfoUser()
+    const {data: userInfo} = useGetMe()
+    const {mutate: logoutUser} = useLogout()
+
     const [countNotifications, setCountNotifications] = useState(8)
 
 
     const items: MenuProps['items'] = [
         {
             type: 'group', // Must have
-            label: nickname,
+            label: userInfo.userName,
             children: [
                 {
                     key: '1',
@@ -31,7 +34,7 @@ export const ProfileMenu = () => {
         {
             key: '4',
             danger: true,
-            onClick: logoutUser,
+            onClick: () => logoutUser(),
             label: <span>Выйти</span>,
         },
     ];

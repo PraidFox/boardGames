@@ -3,3 +3,12 @@ export interface UserDto {
     email: string
     userName: string
 }
+
+export interface TokenDto {
+    accessToken: string
+    expiresIn: number
+    refreshToken: string
+    tokenType: string
+}
+
+

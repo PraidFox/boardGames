@@ -5,7 +5,7 @@ import {reducerFieldValues, ValesFieldFormEdit} from "./reducerFieldValues";
 import {useEffect, useReducer} from "react";
 import {GenreService} from "../../../tools/rest/services/Genre.service.ts";
 import {TypeService} from "../../../tools/rest/services/Type.service.ts";
-import {FormBoardGame} from "../../../tools/interfaces/boardGame.Interface.ts";
+import {FormBoardGame} from "../../../tools/interfaces/boardGame.deleted.Interface.ts";
 import {BoardGameService} from "../../../tools/rest/services/BoardGame.service.ts";
 import {UploadImagesMany} from "../../UiElements/Buttons/UploadImagesMany";
 import {CreateGameDTO} from "../../../tools/interfaces/DTO/boardGame.dto.ts";
@@ -20,8 +20,8 @@ export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
     const [valuesField, setValuesField] = useReducer(reducerFieldValues, {} as ValesFieldFormEdit)
 
     useEffect(() => {
-        const p0 = GenreService.getGenre()
-        const p1 = TypeService.getType()
+        const p0 = GenreService.getGenres()
+        const p1 = TypeService.getTypes()
 
         // Promise.all([p0, p1]).then((res) => {
         //     setOptionsField({

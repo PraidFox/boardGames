@@ -3,16 +3,14 @@ import {TitleEdit} from "./TitleEdit";
 import {DescriptionEdit} from "./DescriptionEdit";
 import {BoardGamesList} from "../../../UiElements/BoardGamesList/BoardGamesList";
 import {useLoadData} from "../../../../tools/hooks/useLoadData";
-import {GameCollectionDTO} from "../../../../tools/interfaces/DTO/boardGame.dto.ts";
 import {FieldSearchAddGames} from "../../../UiElements/Fields/FieldSerchAddByGames";
 import {UserCollectionsService} from "../../../../tools/rest/services/UserCollections.service.ts";
-import {useInfoUser} from "../../../../tools/hooks/hooksContext/useInfoUser";
 import {notEditCollection} from "../../../../tools/storages/const";
 import {Select} from "antd";
+import {CurrentGameCollectionDTO} from "../../../../tools/interfaces/DTO/userColletions.dto.ts";
 
 
 export const CollectionGamesPage = () => {
-    const {nickname: currentUser} = useInfoUser();
     const {collectionAlias, userName: userNameOwner} = useParams();
 
     const editingAllowed = !notEditCollection.includes(collectionAlias!);
@@ -23,14 +21,14 @@ export const CollectionGamesPage = () => {
         setNeedUpdate,
         loading,
         error
-    } = useLoadData<GameCollectionDTO, {
+    } = useLoadData<CurrentGameCollectionDTO, {
         userName: string,
         collectionAlias: string
     }>(UserCollectionsService.getCollection, {userName: userNameOwner!, collectionAlias: collectionAlias!})
 
 
     const addGamesInCollection = (games: string[]) => {
-        UserCollectionsService.addGamesInCollection(currentUser!, collectionAlias!, games).then(r => setNeedUpdate(true))
+        UserCollectionsService.addGamesInCollection(collectionAlias!, games).then(() => setNeedUpdate(true))
     }
     const changeTitle = (name: string) => {
         UserCollectionsService.changeDataCollection(collectionAlias!, {
@@ -50,7 +48,7 @@ export const CollectionGamesPage = () => {
     }
 
     const deletedGameInCollection = (gameId: string | number) => {
-        UserCollectionsService.deletedGameInCollection(currentUser!, collectionAlias!, gameId.toString()).then(r => setNeedUpdate(true))
+        UserCollectionsService.deletedGameInCollection(collectionAlias!, gameId.toString()).then(() => setNeedUpdate(true))
     }
 
     console.log("error", error)

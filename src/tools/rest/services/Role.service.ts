@@ -1,17 +1,20 @@
-import {axiosBG} from "../axios.config.ts";
+import {axiosBG, PAR} from "../axios.config.ts";
+import {OptionDTO} from "../../interfaces/DTO/boardGame.dto.ts";
 
 export class RoleService {
-    static getRoles() {
-        return axiosBG.get(`/api/roles`);
+    static async getRoles(): PAR<OptionDTO[]> {
+        return await axiosBG.get(`/api/roles`);
     }
 
-    static addRole(name: string) {
-        return axiosBG.post(`/api/roles/`, name);
+    static async addRole(name: string) {
+        return await axiosBG.post(`/api/roles/`, name);
     }
 
-    static updateRole(id: string, name: string) {
-        return axiosBG.put(`/api/roles/${id}`, {id, name});
+    static async updateRole(currentName: string, newName: string) {
+        return await axiosBG.put(`/api/roles/${currentName}`, newName);
     }
 
-
+    static async deleteRole(name: string) {
+        return await axiosBG.delete(`/api/roles/${name}`);
+    }
 }

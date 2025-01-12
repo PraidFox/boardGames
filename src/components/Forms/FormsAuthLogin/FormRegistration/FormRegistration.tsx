@@ -2,7 +2,7 @@ import {FieldsRegistration} from "./FieldsRegistration";
 import {Form} from "antd";
 import {useState} from "react";
 import {AuthService} from "../../../../tools/rest/services/Auth.service.ts";
-import {Registration} from "../../../../tools/interfaces/form.Interface.ts";
+import {IFieldRegistration} from "../../../../tools/interfaces/fieldsForm.Interface.ts";
 import {useMessage} from "../../../../tools/hooks/hooksContext/useMessage";
 import {StorageSettingMessage} from "../../../../tools/storages/storageSettingMessage";
 import {FormButtons} from "../../../UiElements/Buttons/FormButtons";
@@ -14,7 +14,7 @@ export const FormRegistration = ({onClose}: {
     //const [messageAlert, setMessageAlert] = useState<MessageInfoType>()
     const [loading, setLoading] = useState<boolean>(false);
     const {setSettingMessage} = useMessage()
-    const onFinish = (values: Registration) => {
+    const onFinish = (values: IFieldRegistration) => {
         setLoading(true)
         setSettingMessage(StorageSettingMessage.registrationLoading)
         AuthService.registrationUser(values.email, values.userName, values.password)

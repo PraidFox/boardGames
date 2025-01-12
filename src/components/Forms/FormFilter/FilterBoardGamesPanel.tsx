@@ -6,7 +6,7 @@ import {TypeService} from "../../../tools/rest/services/Type.service.ts";
 import {filterOptionLabel} from "../../../tools/utils/utils";
 
 import {ActionFilter} from "./reducerFilterFieldValues";
-import {FilterBoardGames} from "../../../tools/interfaces/form.Interface.ts";
+import {FilterBoardGames} from "../../../tools/interfaces/fieldsForm.Interface.ts";
 import {CloseCircleOutlined} from '@ant-design/icons';
 
 export const FilterBoardGamesPanel = ({valueFilter, setFilterFieldValues}: {
@@ -16,8 +16,8 @@ export const FilterBoardGamesPanel = ({valueFilter, setFilterFieldValues}: {
     const [optionsField, setOptionsField] = useState({} as OptionsFieldFormEdit)
 
     useEffect(() => {
-        const p0 = GenreService.getGenre()
-        const p1 = TypeService.getType()
+        const p0 = GenreService.getGenres()
+        const p1 = TypeService.getTypes()
 
         // Promise.all([p0, p1]).then((res) => {
         //     setOptionsField({

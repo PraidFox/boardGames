@@ -1,27 +1,27 @@
 import {Menu} from "antd";
 import {useLayoutEffect, useState} from "react";
 import {ItemMenu} from "../../../tools/storages/ItemMenu";
-import {useInfoUser} from "../../../tools/hooks/hooksContext/useInfoUser";
 import {UseMenuDriven} from "../../../tools/interfaces/hook.Interface.ts";
 import {useMenuDriven} from "../../../tools/hooks/useMenuDriven";
 import {LocalStorageUtils} from "../../../tools/utils/LocalStorageUtils";
+import {useGetMe} from "../../../tools/hooks/queryies/Users.queryes.ts";
 
 
 export const LeftMenuTop = () => {
     const {menuItems, current, setMenuItems, onClick}: UseMenuDriven = useMenuDriven(ItemMenu.defaultLeftMenu)
-    const {id} = useInfoUser()
     const [defaultOpen, setDefaultOpen] = useState<string[]>()
+
+    const {data: userInfo} = useGetMe()
 
 
     useLayoutEffect(() => {
-        if (id) {
+        if (userInfo) {
             //setMenuItems(r => r ? [ItemMenu.userItems, ...r, ItemMenu.otherItems, ItemMenu.adminItems] : [ItemMenu.userItems])
-            setMenuItems(r => [ItemMenu.boardGamesItems, ItemMenu.userItems, ItemMenu.otherItems, ItemMenu.adminItems])
+            setMenuItems(() => [ItemMenu.boardGamesItems, ItemMenu.userItems, ItemMenu.otherItems, ItemMenu.adminItems])
         } else {
             setMenuItems(r => r?.filter(x => x?.key !== ItemMenu.userItems?.key) || [])
-            //setMenuItems(r => [ItemMenu.boardGamesItems, ItemMenu.authorizationItems])
         }
-    }, [id, setMenuItems]);
+    }, [userInfo, setMenuItems]);
 
     useLayoutEffect(() => {
         const openMenu = LocalStorageUtils.getOpenMenu()["leftMenu"]

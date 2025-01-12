@@ -1,5 +1,5 @@
 import {createContext, ReactNode} from "react";
-import {MessageInfoContext} from "../tools/interfaces/other.Interface.ts";
+import {MessageInfoContext} from "../tools/interfaces/message.Interface.ts";
 import {message} from "antd";
 import {ArgsProps} from "antd/es/message/interface";
 

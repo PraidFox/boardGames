@@ -3,7 +3,7 @@ import {useCallback, useMemo, useRef, useState} from 'react';
 import {GetRef, Select, Space, Spin} from 'antd';
 import debounce from "lodash/debounce"
 import {BoardGameService} from "../../../tools/rest/services/BoardGame.service.ts";
-import {FilterBoardRequest} from "../../../tools/interfaces/other.Interface.ts";
+import {FilterBoardRequest} from "../../../tools/interfaces/message.Interface.ts";
 
 import {NavLink} from "react-router";
 import {divide} from "lodash";

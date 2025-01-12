@@ -1,9 +1,10 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import {AuthService} from "./services/Auth.service.ts";
 import {LocalStorageUtils} from "../utils/LocalStorageUtils";
 import {TokenInfoLS} from "../interfaces/localStorage.Interface.ts";
 import {MyError} from "../storages/const";
 
+export type PAR<T> = Promise<AxiosResponse<T>>;
 
 const defaultSettingAxios = {
     baseURL: import.meta.env.VITE_APP_API_URL,
@@ -16,13 +17,13 @@ const FileSettingAxios = {
     headers: {'Content-Type': 'multipart/form-data'}
 }
 
-//export const axiosBG = axios.create(defaultSettingAxios);
+
 export const axiosBG = axios.create(defaultSettingAxios);
 export const axiosBGFile = axios.create(FileSettingAxios);
 
 const requestHandler = async (config: any) => {
     const tokenInfo = LocalStorageUtils.getTokenInfo();
-    const remember = LocalStorageUtils.getUserInfo()?.remember;
+    const remember = LocalStorageUtils.getRememberMe();
 
     if (tokenInfo) {
         const {accessToken, refreshToken, expiresIn, entryTime}: TokenInfoLS = tokenInfo;
@@ -36,18 +37,18 @@ const requestHandler = async (config: any) => {
             if (remember) {
                 AuthService.refreshToken(refreshToken!)
                     .then(res => {
-                            LocalStorageUtils.setTokenInfo(res.data.accessToken, res.data.refreshToken, res.data.expiresIn);
+                            LocalStorageUtils.setTokenInfo(res.data);
                             config.headers["Authorization"] = `Bearer ${res.data.accessToken}`
                         }
                     )
                     .catch(() => {
                         LocalStorageUtils.removeTokenInfo()
-                        LocalStorageUtils.removeUserInfo()
+                        LocalStorageUtils.removeRememberMe()
                         alert(MyError.NEED_AUTHORIZATION)
                     })
             } else {
                 LocalStorageUtils.removeTokenInfo()
-                LocalStorageUtils.removeUserInfo()
+                LocalStorageUtils.removeRememberMe()
                 alert(MyError.NEED_AUTHORIZATION)
             }
         } else {
@@ -55,7 +56,7 @@ const requestHandler = async (config: any) => {
         }
         return config;
     } else {
-        console.log("need auth", config)
+        console.log("Отсутствует токен", config)
         //Разобраться что здесь возвращать
         return config
     }
@@ -66,7 +67,6 @@ const errorHandler = (error: any) => {
     return Promise.reject(error);
 };
 
-axiosBG.interceptors.request.use(requestHandler, errorHandler);
 axiosBG.interceptors.request.use(requestHandler, errorHandler);
 axiosBGFile.interceptors.request.use(requestHandler, errorHandler);
 

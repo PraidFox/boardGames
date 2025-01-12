@@ -1,17 +1,18 @@
-import {axiosBG} from "../axios.config.ts";
+import {axiosBG, PAR} from "../axios.config.ts";
+import {TokenDto} from "../../interfaces/DTO/user.dto.ts";
+import {IAuth, IRegistration} from "../../interfaces/auth.interface.ts";
 
 
 export class AuthService {
-    static loginUser(login: string, password: string) {
-        return axiosBG.post(`/api/Account1/login`, {userName: login, password});
+    static async loginUser(data: IAuth): PAR<TokenDto> {
+        return await axiosBG.post(`/api/Account1/login`, data);
     }
 
-    static registrationUser(email: string, userName: string, password: string) {
-        return axiosBG.post(`/api/Account1/register`, {email, password, userName});
+    static async registrationUser(data: IRegistration): PAR<void> {
+        return await axiosBG.post(`/api/Account1/register`, data);
     }
 
-    static refreshToken(refreshToken: string) {
-
-        return axiosBG.post(`/api/account/refresh`, {refreshToken});
+    static async refreshToken(refreshToken: string): PAR<TokenDto> {
+        return await axiosBG.post(`/api/account/refresh`, {refreshToken});
     }
 }

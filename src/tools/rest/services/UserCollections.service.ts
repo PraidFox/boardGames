@@ -1,41 +1,59 @@
-import {axiosBG} from "../axios.config.ts";
-import {GameCollectionPatchDto} from "../../interfaces/DTO/boardGame.dto.ts";
+import {axiosBG, PAR} from "../axios.config";
+import {
+    CurrentGameCollectionDTO,
+    GameCollectionPatchDto,
+    ManyGameCollectionDTO
+} from "../../interfaces/DTO/userColletions.dto.ts";
 
 
 export class UserCollectionsService {
 
-    static getUserCollections(userName: string) {
-        return axiosBG.get(`/api/collections?userName=${userName}`);
+    static async getUserCollections(userName: string): PAR<ManyGameCollectionDTO> {
+        return await axiosBG.get(`/api/collections?userName=${userName}`);
     }
 
-    static addEmptyCollection(userName: string) {
-        return axiosBG.post(`/api/collections`, {});
+    static async addEmptyCollection() {
+        return await axiosBG.post(`/api/collections`, {});
     }
 
-    static getCollection({userName, collectionAlias}: { userName: string, collectionAlias: string }) {
-
-
-        return axiosBG.get(`/api/collections/${collectionAlias}?includeGames=true&&userName=${userName}`);
+    static async addCollection(collections: GameCollectionPatchDto) {
+        return await axiosBG.post(`/api/collections`, collections);
     }
 
-    static deletedCollection(collectionAlias: string) {
-        return axiosBG.delete(`/api/collections/${collectionAlias}`);
+    static async getCollection({userName, collectionAlias}: {
+        userName: string,
+        collectionAlias: string
+    }): PAR<CurrentGameCollectionDTO> {
+        return await axiosBG.get(`/api/collections/${collectionAlias}?includeGames=true&&userName=${userName}`);
     }
 
-    static changeDataCollection(collectionAlias: string, data: GameCollectionPatchDto) {
-        return axiosBG.patch(`/api/collections/${collectionAlias}`, data);
+    static async deletedCollection(collectionAlias: string) {
+        return await axiosBG.delete(`/api/collections/${collectionAlias}`);
     }
 
-    static addGameInCollection(userName: string, collectionAlias: string, gameId: string) {
-        return axiosBG.put(`/api/collections/${collectionAlias}/game/${gameId}`);
+    static async changeDataCollection(collectionAlias: string, data: GameCollectionPatchDto) {
+        return await axiosBG.patch(`/api/collections/${collectionAlias}`, data);
     }
 
-    static deletedGameInCollection(userName: string, collectionAlias: string, gameId: string) {
-        return axiosBG.delete(`/api/collections/${collectionAlias}/game/${gameId}`);
+    /**Получить список коллекций в которые входит игра*/
+    static async getCollectionsContainingGame(gameId: string | number): PAR<CurrentGameCollectionDTO[]> {
+        return await axiosBG.get(`/api/collections?gameId=${gameId}`);
     }
 
-    static addGamesInCollection(userName: string, collectionAlias: string, gameIds: string[]) {
-        return axiosBG.put(`/api/collections/${collectionAlias}/game`, gameIds);
+    static async addGameInCollection(collectionAlias: string, gameId: string) {
+        return await axiosBG.put(`/api/collections/${collectionAlias}/game/${gameId}`);
     }
+
+    static async deletedGameInCollection(collectionAlias: string, gameId: string) {
+        return await axiosBG.delete(`/api/collections/${collectionAlias}/game/${gameId}`);
+    }
+
+    static async addGamesInCollection(collectionAlias: string, gameIds: string[]) {
+        return await axiosBG.put(`/api/collections/${collectionAlias}/game`, gameIds);
+    }
+
+    // static deletedGamesInCollection(collectionAlias: string, gameIds: string[]) {
+    //     return axiosBG.delete(`/api/collections/${collectionAlias}/game`, {gameIds});
+    // }
 
 }

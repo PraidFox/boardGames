@@ -1,30 +1,30 @@
 import {Avatar, Badge, Menu, Space} from "antd";
 import {useLayoutEffect, useState} from "react";
 import {ItemMenu} from "../../../tools/storages/ItemMenu";
-import {useInfoUser} from "../../../tools/hooks/hooksContext/useInfoUser";
 import {UseMenuDriven} from "../../../tools/interfaces/hook.Interface.ts";
 import {useMenuDriven} from "../../../tools/hooks/useMenuDriven";
 import {LocalStorageUtils} from "../../../tools/utils/LocalStorageUtils";
 import {DiscordIcon, TelegramIcon} from "../../../tools/images/svgStorage";
 import {UserOutlined} from "@ant-design/icons";
+import {useGetMe} from "../../../tools/hooks/queryies/Users.queryes.ts";
 
 
 export const LeftMenuBottom = ({collapsedSider}: { collapsedSider: boolean }) => {
     const {menuItems, current, setMenuItems, onClick}: UseMenuDriven = useMenuDriven(ItemMenu.defaultLeftMenu)
-    const {id} = useInfoUser()
+    const {data: userInfo} = useGetMe()
     const [defaultOpen, setDefaultOpen] = useState<string[]>([])
 
     useLayoutEffect(() => {
-        if (id) {
-            setMenuItems(r => [])
+        if (userInfo) {
+            setMenuItems(() => [])
         } else {
-            setMenuItems(r => [])
+            setMenuItems(() => [])
         }
-    }, [id, setMenuItems]);
+    }, [userInfo, setMenuItems]);
 
     useLayoutEffect(() => {
         const openMenu = LocalStorageUtils.getOpenMenu()["leftMenu"]
-        setDefaultOpen(r => openMenu ? openMenu : [])
+        setDefaultOpen(() => openMenu ? openMenu : [])
     }, []);
 
     const getSocialGroup = () => {

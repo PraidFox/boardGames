@@ -1,5 +1,5 @@
 import {createContext, ReactNode, useState} from "react";
-import {MyErrorContext, MyErrorInfo} from "../tools/interfaces/other.Interface.ts";
+import {MyErrorContext, MyErrorInfo} from "../tools/interfaces/message.Interface.ts";
 
 export const ErrorContext = createContext<MyErrorContext>({} as MyErrorContext);
 

@@ -1,19 +1,24 @@
-import {axiosBG} from "../axios.config.ts";
+import {axiosBG, PAR} from "../axios.config.ts";
+import {OptionDTO} from "../../interfaces/DTO/boardGame.dto.ts";
 
 export class TypeService {
-    static getType() {
-        return axiosBG.get(`/api/Types`);
+    static async getTypes(): PAR<OptionDTO[]> {
+        return await axiosBG.get(`/api/Types`);
     }
 
-    static addType(name: string) {
-        return axiosBG.post(`/api/Types`, {id: 0, name});
+    static async getType(id: string | number): PAR<OptionDTO> {
+        return await axiosBG.get(`/api/Types/${id}`);
     }
 
-    static updateType(id: string, name: string) {
-        return axiosBG.put(`/api/Types/${id}`, {id, name});
+    static async addType(name: string): PAR<OptionDTO> {
+        return await axiosBG.post(`/api/Types`, {id: 0, name});
     }
 
-    static deleteType(id: number | string) {
-        return axiosBG.delete(`/api/Types/${id}`,);
+    static async updateType(id: string, name: string) {
+        return await axiosBG.put(`/api/Types/${id}`, {id, name});
+    }
+
+    static async deleteType(id: number | string) {
+        return await axiosBG.delete(`/api/Types/${id}`,);
     }
 }
