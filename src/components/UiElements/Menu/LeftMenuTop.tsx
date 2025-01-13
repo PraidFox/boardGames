@@ -4,7 +4,7 @@ import {ItemMenu} from "../../../tools/storages/ItemMenu";
 import {UseMenuDriven} from "../../../tools/interfaces/hook.Interface.ts";
 import {useMenuDriven} from "../../../tools/hooks/useMenuDriven";
 import {LocalStorageUtils} from "../../../tools/utils/LocalStorageUtils";
-import {useGetMe} from "../../../tools/hooks/queryies/Users.queryes.ts";
+import {useGetMe} from "../../../tools/hooks/queries/Users.queries.ts";
 
 
 export const LeftMenuTop = () => {

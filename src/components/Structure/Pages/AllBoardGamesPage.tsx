@@ -1,40 +1,61 @@
-import {useReducer, useState} from "react";
-import {reducerFilterFieldValues} from "../../Forms/FormFilter/reducerFilterFieldValues";
-import {FilterBoardGamesPanel} from "../../Forms/FormFilter/FilterBoardGamesPanel";
 import {LoadingPanda} from "../../UiElements/LoadingPanda";
-
-import {FilterGamesDTO} from "../../../tools/interfaces/DTO/boardGame.dto.ts";
-import {useFilterBoardGames} from "../../../tools/hooks/queryies/BoardGame.queryes.ts";
-import {BoardGamesList} from "../../UiElements/BoardGamesList/BoardGamesList.tsx";
+import {useFilterBoardGames} from "../../../tools/hooks/queries/BoardGame.queries.ts";
+import {BoardGamesList} from "../../UiElements/BoardGames/BoardGamesList.tsx";
 import {FormAddBoardGameInModeration} from "../../Forms/FormsAddBoardGame/FormAddBoardGameInModeration.tsx";
 import {DrawerSidePanel} from "../../UiElements/DrawerSidePanel.tsx";
-import {Pagination} from "antd";
-
+import {Pagination, PaginationProps} from "antd";
+import {FilterBoardGamesPanel} from "../../Forms/FormFilter/FilterBoardGamesPanel.tsx";
+import {FilterBoardGames} from "../../../tools/interfaces/fieldsForm.Interface.ts";
+import {useForm} from "antd/es/form/Form";
+import {useWatchFieldFilterGame} from "../../../tools/hooks/useWatchFieldFilterGame.ts";
+import {useState} from "react";
 
 export const AllBoardGamesPage = () => {
-    const [filterRequest, setFilterRequest] = useState<FilterGamesDTO>({})
-    const [filterFieldValues, setFilterFieldValues] = useReducer(reducerFilterFieldValues, {})
+    const [form] = useForm<FilterBoardGames>();
 
-    const {data: boardGames, isLoading} = useFilterBoardGames({})
+    //TODO передалать, что бы фильтр сохранился в url и оттуда его брать
+    const dataFilter = useWatchFieldFilterGame(form)
 
+    const [valuesPagination, setValuesPagination] = useState<[number, number]>([1, 10])
+
+    const {data: allBoardGames, isLoading} = useFilterBoardGames({
+        pageNum: valuesPagination[0],
+        itemPerPage: valuesPagination[1],
+        ...dataFilter
+    })
+
+    const changePagination: PaginationProps['onChange'] = (current, pageSize) => {
+        // window.scrollTo(0, 0)
+        setValuesPagination([current, pageSize]);
+    };
 
     return (
         <>
             <div style={{display: "flex", alignItems: "center", gap: 20}}><h1>Все игры</h1>
                 <DrawerSidePanel>
-                    {(onClose) => (
-                        <FormAddBoardGameInModeration onClose={onClose}/>)}
-                </DrawerSidePanel></div>
+                    {(onClose) => (<FormAddBoardGameInModeration onClose={onClose}/>)}
+                </DrawerSidePanel>
+            </div>
 
-            <FilterBoardGamesPanel
-                valueFilter={filterFieldValues}
-                setFilterFieldValues={setFilterFieldValues}
-            />
+            <FilterBoardGamesPanel form={form}/>
 
+            {/*<Spin spinning={isFetching} indicator={<LoadingOutlined style={{fontSize: 48}} spin/>}>*/}
             {isLoading && <LoadingPanda/>}
-            {!isLoading && boardGames && <BoardGamesList type={"all"} dataBoardGames={boardGames}/>}
+            {!isLoading && allBoardGames &&
+                <BoardGamesList type={"all"} dataBoardGames={allBoardGames.boardGames}/>}
+            <br/>
+            {allBoardGames &&
+                <Pagination
+                    onChange={changePagination}
+                    current={valuesPagination[0]}
+                    align="center"
+                    total={allBoardGames.count}
+                    pageSizeOptions={[10, 30, 50]}
+                    pageSize={valuesPagination[1]}
+                />
+            }
+            {/*</Spin>*/}
 
-            <Pagination defaultCurrent={6} total={500} pageSizeOptions={[10, 30, 50]}/>
         </>
     )
 

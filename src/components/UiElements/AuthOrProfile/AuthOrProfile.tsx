@@ -4,7 +4,7 @@ import {ModalForm} from "../../Modals/ModalForm";
 import {TabsFormAuthLogin} from "../../Forms/FormsAuthLogin/TabsFormAuthLogin";
 import {FormLogin} from "../../Forms/FormsAuthLogin/FormLogin/FormLogin";
 import {PopoverForm} from "../../Modals/PopoverForm";
-import {useGetMe} from "../../../tools/hooks/queryies/Users.queryes.ts";
+import {useGetMe} from "../../../tools/hooks/queries/Users.queries.ts";
 
 export const AuthOrProfile = () => {
     const {data: userInfo} = useGetMe()

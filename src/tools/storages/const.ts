@@ -16,3 +16,4 @@ export enum AliasesCollection {
 
 export const notEditCollection: string[] = [AliasesCollection.FAVORITE, AliasesCollection.WISHLIST, AliasesCollection.MY_GAMES]
 
+export const pictureStub = `https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png`

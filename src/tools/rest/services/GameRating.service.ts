@@ -2,7 +2,7 @@ import {axiosBG, PAR} from "../axios.config.ts";
 
 export class GameRatingService {
 
-    static async addRating(gameId: string, rating: number): PAR<void> {
+    static async addRating(gameId: string, rating: number) {
         return await axiosBG.put(`/api/games/${gameId}/rating`, rating);
     }
 

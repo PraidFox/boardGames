@@ -1,9 +1,9 @@
 import {axiosBG, PAR} from "../axios.config.ts";
 import {
+    AllBoardGameDTO,
+    BoardGameFullInfoDto,
     CreateGameDTO,
-    CurrentBoardGameDto,
-    FilterGamesDTO,
-    ManyBoardGameDTO
+    FilterGamesDTO
 } from "../../interfaces/DTO/boardGame.dto.ts";
 
 export class BoardGameService {
@@ -11,8 +11,9 @@ export class BoardGameService {
     //     return await axiosBG.get(`/api/BoardGame`);
     // }
 
-    static async getBoardGame(id: string): PAR<CurrentBoardGameDto> {
-        return await axiosBG.get(`/api/BoardGame/${id}`);
+    static async getBoardGame(id: string): Promise<BoardGameFullInfoDto> {
+        const {data} = await axiosBG.get(`/api/BoardGame/${id}`);
+        return data
     }
 
     static async addBoardGame(data: CreateGameDTO) {
@@ -27,7 +28,7 @@ export class BoardGameService {
         return await axiosBG.delete(`/api/BoardGame/${id}`,);
     }
 
-    static async getFilterBoardGame(params: FilterGamesDTO, {signal}: { signal?: AbortSignal }): PAR<ManyBoardGameDTO> {
+    static async getFilterBoardGame(params: FilterGamesDTO, {signal}: { signal?: AbortSignal }): PAR<AllBoardGameDTO> {
         return await axiosBG.get(`/api/BoardGame`, {params, signal});
     }
 }

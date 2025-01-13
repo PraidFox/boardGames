@@ -4,8 +4,8 @@ import {Avatar, Badge, Dropdown, Space} from 'antd'
 import {useState} from "react";
 import {NavLink} from "react-router";
 import {PathStorage} from "../../../tools/storages/Path.storage.ts";
-import {useGetMe} from "../../../tools/hooks/queryies/Users.queryes.ts";
-import {useLogout} from "../../../tools/hooks/queryies/Auth.queryes.ts";
+import {useGetMe} from "../../../tools/hooks/queries/Users.queries.ts";
+import {useLogout} from "../../../tools/hooks/queries/Auth.queries.ts";
 
 
 export const ProfileMenu = () => {

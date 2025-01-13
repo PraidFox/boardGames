@@ -1,12 +1,12 @@
 import {StorageKeys} from "../storages/StorageKeys.ts";
-import {CurrentBoardGameDto} from "../interfaces/DTO/boardGame.dto.ts";
+import {BoardGameFullInfoDto} from "../interfaces/DTO/boardGame.dto.ts";
 
 export abstract class SessionStorageUtils {
-    static setAllBoardGames = (data: CurrentBoardGameDto[]) => {
+    static setAllBoardGames = (data: BoardGameFullInfoDto[]) => {
         this.setItem(StorageKeys.BOARD_GAMES_DATA, JSON.stringify(data))
     }
 
-    static getAllBoardGames = (): CurrentBoardGameDto[] | undefined => {
+    static getAllBoardGames = (): BoardGameFullInfoDto[] | undefined => {
         const data = this.getItem(StorageKeys.BOARD_GAMES_DATA)
         if (data) {
             return JSON.parse(data)

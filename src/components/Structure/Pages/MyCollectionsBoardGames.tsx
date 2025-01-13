@@ -1,4 +1,4 @@
-import {BoardGamesList} from "../../UiElements/BoardGamesList/BoardGamesList";
+import {BoardGamesList} from "../../UiElements/BoardGames/BoardGamesList";
 import {useLoadData} from "../../../tools/hooks/useLoadData";
 import {NavLink} from "react-router";
 import {notEditCollection} from "../../../tools/storages/const";
@@ -10,8 +10,8 @@ import {BoardGameService} from "../../../tools/rest/services/BoardGame.service.t
 import {ConfirmationModal} from "../../UiElements/СonfirmationModal";
 import {Button} from "antd";
 import {PathStorage} from "../../../tools/storages/Path.storage.ts";
-import {useGetMe} from "../../../tools/hooks/queryies/Users.queryes.ts";
-import {FilterGamesDTO, ManyBoardGameDTO} from "../../../tools/interfaces/DTO/boardGame.dto.ts";
+import {useGetMe} from "../../../tools/hooks/queries/Users.queries.ts";
+import {AllBoardGameDTO, FilterGamesDTO} from "../../../tools/interfaces/DTO/boardGame.dto.ts";
 import {ManyGameCollectionDTO} from "../../../tools/interfaces/DTO/userColletions.dto.ts";
 
 
@@ -24,7 +24,7 @@ export const MyCollectionsBoardGames = () => {
     const {
         data,
         loading
-    } = useLoadData<ManyBoardGameDTO, FilterGamesDTO>(BoardGameService.getFilterBoardGame, filterRequest)
+    } = useLoadData<AllBoardGameDTO, FilterGamesDTO>(BoardGameService.getFilterBoardGame, filterRequest)
 
     const {
         data: collections,

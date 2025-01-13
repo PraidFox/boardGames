@@ -2,8 +2,9 @@ import {axiosBG, PAR} from "../axios.config.ts";
 import {OptionDTO} from "../../interfaces/DTO/boardGame.dto.ts";
 
 export class TypeService {
-    static async getTypes(): PAR<OptionDTO[]> {
-        return await axiosBG.get(`/api/Types`);
+    static async getTypes({signal}: { signal?: AbortSignal }): Promise<OptionDTO[]> {
+        const {data} = await axiosBG.get(`/api/Types`, {signal});
+        return data
     }
 
     static async getType(id: string | number): PAR<OptionDTO> {

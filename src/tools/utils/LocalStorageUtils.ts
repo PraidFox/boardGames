@@ -5,12 +5,17 @@ import {TokenDto} from "../interfaces/DTO/user.dto.ts";
 export abstract class LocalStorageUtils {
 
     //TODO в куки?
-    static setRememberMe = (rememberMe: boolean) => {
+    static setRememberMe(rememberMe: boolean) {
         this.setItem(StorageKeys.REMEMBER_ME, rememberMe.toString())
     }
 
-    static getRememberMe = () => {
-        return this.getItem(StorageKeys.REMEMBER_ME)
+    static getRememberMe (): boolean | null {
+        const rememberMe = this.getItem(StorageKeys.REMEMBER_ME)
+        if(rememberMe){
+            return rememberMe == 'true';
+        } else {
+            return null
+        }
     }
 
     static removeRememberMe = () => {

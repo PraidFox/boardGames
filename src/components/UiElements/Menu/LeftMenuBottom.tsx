@@ -6,8 +6,8 @@ import {useMenuDriven} from "../../../tools/hooks/useMenuDriven";
 import {LocalStorageUtils} from "../../../tools/utils/LocalStorageUtils";
 import {DiscordIcon, TelegramIcon} from "../../../tools/images/svgStorage";
 import {UserOutlined} from "@ant-design/icons";
-import {useGetMe} from "../../../tools/hooks/queryies/Users.queryes.ts";
-import {useLogout} from "../../../tools/hooks/queryies/Auth.queryes.ts";
+import {useGetMe} from "../../../tools/hooks/queries/Users.queries.ts";
+import {useLogout} from "../../../tools/hooks/queries/Auth.queries.ts";
 
 
 export const LeftMenuBottom = ({collapsedSider}: { collapsedSider: boolean }) => {

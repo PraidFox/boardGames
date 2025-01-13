@@ -1,4 +1,4 @@
-import {FileInfoDTO, ManyBoardGameDTO} from "./boardGame.dto.ts";
+import {BoardGameMinInfoDto, FileInfoDTO} from "./boardGame.dto.ts";
 
 export interface CurrentGameCollectionDTO {
     name: string,
@@ -8,7 +8,7 @@ export interface CurrentGameCollectionDTO {
 
     description: string,
     backgroundInfoId: FileInfoDTO,
-    games: ManyBoardGameDTO,
+    games: BoardGameMinInfoDto[],
 }
 
 

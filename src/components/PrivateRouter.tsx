@@ -1,5 +1,5 @@
 import {Navigate, Outlet} from "react-router";
-import {useGetMe} from "../tools/hooks/queryies/Users.queryes.ts";
+import {useGetMe} from "../tools/hooks/queries/Users.queries.ts";
 
 
 export const PrivateRouter = () => {

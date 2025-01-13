@@ -1,4 +1,4 @@
-import {NF_Auth, NF_Registration} from "../storages/FieldName.storage.ts";
+import {NF_Auth, NF_FilterBoardGames, NF_Registration} from "../storages/FieldName.storage.ts";
 
 export interface IFieldLogin {
     [NF_Auth.LOGIN]: string
@@ -17,10 +17,9 @@ export interface IFieldRegistration {
 }
 
 export interface FilterBoardGames {
-    name?: string
-    genre?: string[]
-    type?: string[]
-    age?: number | null
-    minPlayers?: number
-    maxPlayers?: number
+    [NF_FilterBoardGames.NAME_BG]?: string
+    [NF_FilterBoardGames.GENRE_BG]?: number[]
+    [NF_FilterBoardGames.TYPE_BG]?: number[]
+    [NF_FilterBoardGames.PLAYER_AGE]?: number | null
+    [NF_FilterBoardGames.COUNT_PLAYERS_MIN_MAX]?: [number, number]
 }

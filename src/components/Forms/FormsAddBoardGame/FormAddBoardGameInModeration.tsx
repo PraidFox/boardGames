@@ -1,5 +1,4 @@
 import {AutoComplete, Button, Form, Input, InputNumber, Select, Space} from 'antd';
-import {filterOptionLabel} from "../../../tools/utils/utils";
 import {OptionsFieldFormEdit, reducerFieldOptions} from "./reducerFieldOptions";
 import {reducerFieldValues, ValesFieldFormEdit} from "./reducerFieldValues";
 import {useEffect, useReducer} from "react";
@@ -107,17 +106,21 @@ export const FormAddBoardGameInModeration = ({onClose}: {
             <AutoComplete
                 options={optionsField.name}
                 onSelect={(value, option) => setValuesField({type: "CHANGE_NAME_GAME", payload: option})}
-                filterOption={filterOptionLabel}
+                //filterOption={filterOptionLabel}
             />
         </Form.Item>
 
 
         <Form.Item label="Типы игры" name={"type"}>
-            <Select options={optionsField.type} filterOption={filterOptionLabel}/>
+            <Select options={optionsField.type}
+                //filterOption={filterOptionLabel}
+            />
         </Form.Item>
 
         <Form.Item label="Жанр" name={"genre"}>
-            <Select mode={"multiple"} allowClear options={optionsField.genre} filterOption={filterOptionLabel}/>
+            <Select mode={"multiple"} allowClear options={optionsField.genre}
+                //filterOption={filterOptionLabel}
+            />
         </Form.Item>
 
 

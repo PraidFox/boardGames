@@ -3,7 +3,6 @@ export enum StorageKeys {
     REFRESH_TOKEN = "refreshToken",
     EXPIRES_IN = "expiresIn",
     ENTRY_TIME = "entryTime",
-    //USER_INFO = "userInfo",
     REMEMBER_ME = "rememberMe",
     TOKEN_INFO = "tokenInfo",
     OPEN_MENU = "openMenu",

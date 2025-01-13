@@ -1,7 +1,8 @@
-export interface CurrentBoardGameDto {
+/**Полная информация по игре возвращается если сходить за ней по id*/
+export interface BoardGameFullInfoDto {
     id: number;
     name: string;
-    alias: string;
+    alias: string | null;
     description: string;
     minPlayersCount: number;
     maxPlayersCount: number;
@@ -11,14 +12,20 @@ export interface CurrentBoardGameDto {
     ratingBgg: number;
     type: TypeDTO;
     genres: GenreDTO[];
-    preview: PreviewDTO;
+    preview: PreviewDTO | null;
     files: FileInfoDTO[];
     labels: string[]
     linkToPublisher: string,
     userRating: number
 }
 
-export type ManyBoardGameDTO = Omit<CurrentBoardGameDto, "labels" | "userRating" | "linkToPublisher">[]
+/**Короткая информация по игре возвращается если запросить игры по фильтру*/
+export type BoardGameMinInfoDto = Omit<BoardGameFullInfoDto, "labels" | "userRating" | "linkToPublisher">
+
+export interface AllBoardGameDTO {
+    boardGames: BoardGameMinInfoDto[]
+    count: number
+}
 
 export interface PreviewDTO {
     id: string,
@@ -44,8 +51,8 @@ export type CreateGameDTO = {
 
 export interface FilterGamesDTO {
     gameName?: string
-    minPlayersCount?: string
-    maxPlayersCount?: string
+    minPlayersCount?: number
+    maxPlayersCount?: number
     typeIds?: number[]
     genreIds?: number[]
     playersAge?: number

@@ -3,8 +3,6 @@ import {AllContextProvider} from "./context/AllContextProvider.tsx";
 import {App} from "./App.tsx";
 import ErrorPage from "./components/Structure/Pages/ErrorPage.tsx";
 import {StartPage} from "./components/Structure/Pages/StartPage.tsx";
-
-import {AllBoardGamesPage} from "./components/Structure/Pages/AllBoardGamesPage.tsx";
 import {ArticlesPage} from "./components/Structure/Pages/ArticlesPage.tsx";
 import {SettingProfilePage} from "./components/Structure/Pages/SettingProfilePage.tsx";
 import {CurrentBoardGamePage} from "./components/Structure/Pages/CurrentBoardGamePage.tsx";
@@ -19,6 +17,7 @@ import {CollectionGamesPage} from "./components/Structure/Pages/CollectionGamesP
 import {FriendsPage} from "./components/Structure/Pages/FriendsPage.tsx";
 import {VK} from "./components/Structure/Pages/VK.tsx";
 import {PathStorage} from "./tools/storages/Path.storage.ts";
+import {AllBoardGamesPage} from "./components/Structure/Pages/AllBoardGamesPage.tsx";
 
 
 export const AppRoutes = () => {

@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {GenreService} from "../../../tools/rest/services/Genre.service.ts";
-import {CurrentBoardGameDto, GenreDTO, OptionDTO, TypeDTO} from "../../../tools/interfaces/DTO/boardGame.dto.ts";
+import {BoardGameFullInfoDto, GenreDTO, OptionDTO, TypeDTO} from "../../../tools/interfaces/DTO/boardGame.dto.ts";
 import {TypeService} from "../../../tools/rest/services/Type.service.ts";
 import {Button, Input, Select, Space} from "antd";
 import {InfiniteScrollAnt} from "../../UiElements/InfiniteScrollAnt";
@@ -13,7 +13,7 @@ export const AdminSettingPage = () => {
     const [genres, setGenres] = useState<GenreDTO[]>([])
     const [types, setTypes] = useState<TypeDTO[]>([])
     const [roles, setRoles] = useState<OptionDTO[]>([])
-    const [boardGames, setBoardGames] = useState<CurrentBoardGameDto[]>([])
+    const [boardGames, setBoardGames] = useState<BoardGameFullInfoDto[]>([])
     const [users, setUsers] = useState<{
         userName: string,
         email: string,
