@@ -13,9 +13,12 @@ type MenuItem = Required<MenuProps>['items'][number];
 
 
 export class ItemMenu {
+
+//TODO разобраться
     static allBoardGames: MenuItem = this.toItemType(PathStorage.LEFT_BOARD_GAMES + PathStorage.ALL_BOARD_GAMES, "Все настолки")
     static ratingBoardGames: MenuItem = this.toItemType(PathStorage.RATING_BOARD_GAMES, "Рейтинг")
-    static myCollections: MenuItem = this.toItemType(PathStorage.COLLECTIONS + PathStorage.MY_COLLECTIONS, "Моя коллекция")
+    //TODO /PraidFox должен подставляться ник действующего юзера
+    static myCollections: MenuItem = this.toItemType(PathStorage.COLLECTIONS + "/TSTuser/games", "Моя коллекция")
     static mySetting: MenuItem = this.toItemType(PathStorage.MY_SETTING, "Настройки")
     static myFriends: MenuItem = this.toItemType(PathStorage.MY_FRIENDS, "Друзья")
     static articles: MenuItem = this.toItemType(PathStorage.ARTICLES, "Статьи")

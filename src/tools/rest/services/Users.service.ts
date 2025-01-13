@@ -8,12 +8,14 @@ export class UsersService {
         return axiosBG.get(`/api/Users/${userName}`);
     }
 
-    static getMe({signal}: { signal?: AbortSignal }): PAR<UserDto> {
-        return axiosBG.get(`/api/Users/GetMe`, {signal});
+    static async getMe({signal}: { signal?: AbortSignal }): Promise<UserDto> {
+        const {data} = await axiosBG.get(`/api/Users/GetMe`, {signal});
+        return data
     }
 
-    static getAllUsers(): PAR<UserDto> {
-        return axiosBG.get(`/api/Users`);
+    static async getAllUsers({signal}: { signal?: AbortSignal }): Promise<UserDto[]> {
+        const {data} = await axiosBG.get(`/api/Users`, {signal});
+        return data
     }
 
     static getUserRoles(userName: string): PAR<OptionDTO[]> {

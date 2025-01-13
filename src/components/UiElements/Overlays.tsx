@@ -19,10 +19,7 @@ const Overlay = () => {
         }}
              onClick={closeOverlay}
         >
-
         </div>
-
-
     );
 };
 

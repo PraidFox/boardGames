@@ -1,18 +1,19 @@
 import {useParams} from "react-router";
-import {TitleEdit} from "./TitleEdit";
-import {DescriptionEdit} from "./DescriptionEdit";
-import {BoardGamesList} from "../../../UiElements/BoardGames/BoardGamesList";
-import {useLoadData} from "../../../../tools/hooks/useLoadData";
-import {FieldSearchAddGames} from "../../../UiElements/Fields/FieldSerchAddByGames";
-import {UserCollectionsService} from "../../../../tools/rest/services/UserCollections.service.ts";
-import {notEditCollection} from "../../../../tools/storages/const";
+import {TitleEdit} from "./TitleEdit.tsx";
+import {DescriptionEdit} from "./DescriptionEdit.tsx";
+import {BoardGamesList} from "../../../../UiElements/BoardGames/BoardGamesList.tsx";
+import {useLoadData} from "../../../../../tools/hooks/useLoadData.tsx";
+import {FieldSearchAddGames} from "../../../../UiElements/Fields/FieldSerchAddByGames.tsx";
+import {UserCollectionsService} from "../../../../../tools/rest/services/UserCollections.service.ts";
+import {notEditCollection} from "../../../../../tools/storages/const.ts";
 import {Select} from "antd";
-import {CurrentGameCollectionDTO} from "../../../../tools/interfaces/DTO/userColletions.dto.ts";
+import {CurrentGameCollectionDTO} from "../../../../../tools/interfaces/DTO/userColletions.dto.ts";
 
 
 export const CollectionGamesPage = () => {
     const {collectionAlias, userName: userNameOwner} = useParams();
 
+    console.log("collectionAlias", collectionAlias)
     const editingAllowed = !notEditCollection.includes(collectionAlias!);
 
 

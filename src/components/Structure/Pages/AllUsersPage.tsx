@@ -1,24 +1,19 @@
-import {UsersService} from "../../../tools/rest/services/Users.service.ts";
-import {useLayoutEffect, useState} from "react";
 import {NavLink} from "react-router";
 import {PathStorage} from "../../../tools/storages/Path.storage.ts";
+import {useAllUsers} from "../../../tools/hooks/queries/Users.queries.ts";
 
 
 export const AllUsersPage = () => {
-    const [users, setUsers] = useState<{ userName: string, email: string }[]>([])
 
-
-    useLayoutEffect(() => {
-        UsersService.getAllUsers().then(r => setUsers(r.data))
-    }, []);
+    const {data} = useAllUsers()
 
     return (
-        <div>Здесь информация и поиск всех игроков.
-            {users.map(user =>
+        <div>
+            Здесь информация и поиск всех игроков.
+            {data?.map(user =>
                 <li key={"link" + user.userName}>
                     <NavLink
                         to={`${PathStorage.USERS}/${user.userName}`}
-                        state={{user}}
                     >
                         {user.userName}
                     </NavLink>

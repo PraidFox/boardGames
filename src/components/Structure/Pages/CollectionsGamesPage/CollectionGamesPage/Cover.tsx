@@ -1,4 +1,4 @@
-import {UploadImageOne} from "../../../UiElements/Buttons/UploadImageOne";
+import {UploadImageOne} from "../../../../UiElements/Buttons/UploadImageOne.tsx";
 import {useState} from "react";
 import {collectionFullInfo} from "../../../../tools/interfaces/DTO/collections.dto.ts";
 

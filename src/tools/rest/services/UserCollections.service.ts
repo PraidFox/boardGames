@@ -8,8 +8,9 @@ import {
 
 export class UserCollectionsService {
 
-    static async getUserCollections(userName: string): PAR<ManyGameCollectionDTO> {
-        return await axiosBG.get(`/api/collections?userName=${userName}`);
+    static async getUserCollections(userName: string, {signal}: { signal?: AbortSignal }): Promise<ManyGameCollectionDTO> {
+        const {data} = await axiosBG.get(`/api/collections?userName=${userName}`, {signal});
+        return data
     }
 
     static async addEmptyCollection() {
@@ -28,7 +29,8 @@ export class UserCollectionsService {
     }
 
     static async deletedCollection(collectionAlias: string) {
-        return await axiosBG.delete(`/api/collections/${collectionAlias}`);
+        const {data} = await axiosBG.delete(`/api/collections/${collectionAlias}`);
+        return data
     }
 
     static async changeDataCollection(collectionAlias: string, data: GameCollectionPatchDto) {

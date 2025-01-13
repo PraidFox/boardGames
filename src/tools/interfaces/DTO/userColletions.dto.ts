@@ -12,7 +12,7 @@ export interface CurrentGameCollectionDTO {
 }
 
 
-interface GameCollectionDTO extends Omit<CurrentGameCollectionDTO, 'description' | 'backgroundInfoId' | 'games'> {
+export interface GameCollectionDTO extends Omit<CurrentGameCollectionDTO, 'description' | 'backgroundInfoId' | 'games'> {
     gameCount: number
 }
 

@@ -12,8 +12,9 @@ import {AllUsersPage} from "./components/Structure/Pages/AllUsersPage.tsx";
 import {UserProfilePage} from "./components/Structure/Pages/UserProfilePage.tsx";
 import {PrivateRouter} from "./components/PrivateRouter.tsx";
 import {AdminSettingPage} from "./components/Structure/Pages/AdminSetting.page.tsx";
-import {MyCollectionsBoardGames} from "./components/Structure/Pages/MyCollectionsBoardGames.tsx";
-import {CollectionGamesPage} from "./components/Structure/Pages/CollectionGamesPage/CollectionGamesPage.tsx";
+import {
+    UserCollectionsBoardGames
+} from "./components/Structure/Pages/CollectionsGamesPage/PanelCollectionsGamePage/UserCollectionsBoardGames.tsx";
 import {FriendsPage} from "./components/Structure/Pages/FriendsPage.tsx";
 import {VK} from "./components/Structure/Pages/VK.tsx";
 import {PathStorage} from "./tools/storages/Path.storage.ts";
@@ -70,21 +71,22 @@ export const AppRoutes = () => {
                         element={<UserProfilePage/>}
                     />
 
+                    <Route
+                        path={PathStorage.COLLECTIONS + `/:userName/:collectionAlias`}
+                        element={<UserCollectionsBoardGames/>}
+                    >
+                        {/*<Route*/}
+                        {/*    path={`:collectionAlias`}*/}
+                        {/*    element={<CollectionsGamesPage/>}*/}
+                        {/*/>*/}
+                    </Route>
+
                     <Route element={<PrivateRouter/>}>
                         <Route
                             path={PathStorage.ADMIN_SETTING}
                             element={<AdminSettingPage/>}
                         />
-                        <Route
-                            path={PathStorage.COLLECTIONS + PathStorage.MY_COLLECTIONS}
-                            element={<MyCollectionsBoardGames/>}
-                        >
 
-                        </Route>
-                        <Route
-                            path={PathStorage.COLLECTIONS + `/:userName/:collectionAlias`}
-                            element={<CollectionGamesPage/>}
-                        />
 
 
                         <Route
