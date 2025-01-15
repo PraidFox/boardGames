@@ -42,7 +42,7 @@ export const AllBoardGamesPage = () => {
             {/*<Spin spinning={isFetching} indicator={<LoadingOutlined style={{fontSize: 48}} spin/>}>*/}
             {isLoading && <LoadingPanda/>}
             {!isLoading && allBoardGames &&
-                <BoardGamesList type={"all"} dataBoardGames={allBoardGames.boardGames}/>}
+                <BoardGamesList dataBoardGames={allBoardGames.boardGames}/>}
             <br/>
             {allBoardGames &&
                 <Pagination

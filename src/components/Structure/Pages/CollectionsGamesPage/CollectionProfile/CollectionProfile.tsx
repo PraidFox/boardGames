@@ -8,6 +8,7 @@ import {useDeleteCollection, useGetCollection} from "../../../../../tools/hooks/
 import {Cover} from "./Cover.tsx";
 import {StatisticInfo} from "./StatisticInfo.tsx";
 import {ConfidentialType} from "./ConfidentialType.tsx";
+import {BoardGamesList} from "../../../../UiElements/BoardGames/BoardGamesList.tsx";
 
 
 export const CollectionProfile = ({whoseCollections, myCollections}: {
@@ -64,11 +65,8 @@ export const CollectionProfile = ({whoseCollections, myCollections}: {
             {myCollections &&
                 <FieldSearchAddGames collectionAlias={collectionAlias} whoseCollections={whoseCollections}/>}
 
-            {/*<BoardGamesList*/}
-            {/*    type={"user"}*/}
-            {/*    dataBoardGames={collection.games}*/}
-            {/*    deleteGame={deletedGameInCollection}*/}
-            {/*/>*/}
+
+            <BoardGamesList dataBoardGames={collection.games} />
 
         </>
     )

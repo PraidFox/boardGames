@@ -1,6 +1,6 @@
 import {useState} from 'react';
 
-import {Button, Select, Space} from 'antd';
+import {Button, Select, Space, Spin} from 'antd';
 import {useDebounce} from "../../../tools/hooks/useDebounce.ts";
 import {useFilterBoardGames} from "../../../tools/hooks/queries/BoardGame.queries.ts";
 import {ImagePreview} from "../ImagePreview.tsx";
@@ -39,7 +39,7 @@ export const FieldSearchAddGames = ({whoseCollections, collectionAlias}: {
                 onSearch={(value) => {
                     setValueInput(value)
                 }}
-                notFoundContent={"Не найдено"}
+                notFoundContent={isLoading ? <Spin size="small" /> : "Не найдено"}
                 mode="multiple"
                 value={value}
                 placeholder="Найти и добавить игру в коллекцию"
@@ -47,7 +47,7 @@ export const FieldSearchAddGames = ({whoseCollections, collectionAlias}: {
                     setValue(newValue);
                 }}
                 style={{width: "100%"}}
-                options={allBoardGames?.boardGames.map(game => {
+                options={ allBoardGames?.boardGames.map(game => {
                     return {
                         label: game.name,
                         value: game.id,

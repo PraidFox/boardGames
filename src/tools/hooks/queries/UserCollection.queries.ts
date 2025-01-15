@@ -32,7 +32,8 @@ export const useDeleteCollection = (userName: string) => {
         },
         onSuccess: async () => {
             await queryClient.invalidateQueries({queryKey: ['getUserCollections', userName]});
-        }
+        },
+
     })
 }
 
@@ -62,6 +63,18 @@ export const useChangeDataCollection = (userName: string) => {
         mutationKey: ["changeDataCollection"],
         mutationFn: async ({collectionAlias, patchData}: {collectionAlias: string, patchData: GameCollectionPatchDto}) => {
             return UserCollectionsService.changeDataCollection(collectionAlias, patchData);
+        },
+        onSuccess: async (_, {collectionAlias}) => {
+            await queryClient.invalidateQueries({queryKey: ['getCollection', userName, collectionAlias]});
+        }
+    })
+}
+
+export const useDeleteGameInCollection = (userName: string) => {
+    return useMutation({
+        mutationKey: ["deleteGameInCollection"],
+        mutationFn: async ({collectionAlias, gameId}: {collectionAlias: string, gameId: string}) => {
+            return UserCollectionsService.deletedGameInCollection(collectionAlias, gameId);
         },
         onSuccess: async (_, {collectionAlias}) => {
             await queryClient.invalidateQueries({queryKey: ['getCollection', userName, collectionAlias]});
