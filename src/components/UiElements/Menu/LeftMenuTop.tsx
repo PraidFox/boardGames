@@ -12,15 +12,11 @@ export const LeftMenuTop = () => {
 
     const {data: userInfo, isLoading, isSuccess} = useGetMe()
 
-    console.log("userInfo", userInfo)
-    console.log("isSuccess", isSuccess)
-
     useLayoutEffect(() => {
         if(isLoading){
             //setItemsMenu([ItemMenu.boardGamesItems])
         } else {
             if(isSuccess && userInfo) {
-                console.log("isSuccess && userInfo")
                 const items = [ItemMenu.boardGamesItems, ItemMenu.userItems(userInfo.userName, 22), ItemMenu.otherItems]
                 // if (userInfo?.role === "ADMIN") {
                 items.push(ItemMenu.adminItems)

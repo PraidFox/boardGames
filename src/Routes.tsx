@@ -14,11 +14,14 @@ import {VK} from "./components/Structure/Pages/VK.tsx";
 import {PathStorage} from "./tools/storages/Path.storage.ts";
 import {AllBoardGamesPage} from "./components/Structure/Pages/AllBoardGamesPage.tsx";
 import {UserProfilePage} from "./components/Structure/Pages/UserProfilePage.tsx";
+import {FriendsPage} from "./components/Structure/Pages/FriendsPage.tsx";
+import {SettingProfilePage} from "./components/Structure/Pages/SettingProfilePage.tsx";
+import {
+    CollectionGamesPage
+} from "./components/Structure/Pages/CollectionsGamesPage/CollectionGamesPage/CollectionGamesPage.tsx";
 import {
     UserCollectionsBoardGames
 } from "./components/Structure/Pages/CollectionsGamesPage/PanelCollectionsGamePage/UserCollectionsBoardGames.tsx";
-import {FriendsPage} from "./components/Structure/Pages/FriendsPage.tsx";
-import {SettingProfilePage} from "./components/Structure/Pages/SettingProfilePage.tsx";
 
 
 export const AppRoutes = () => {
@@ -72,9 +75,17 @@ export const AppRoutes = () => {
                             element={<UserProfilePage/>}
                         />
                         <Route
-                            path={PathStorage.COLLECTIONS + `/:collectionAlias`}
+                            // path={PathStorage.COLLECTIONS_USER + `/:collectionAlias`}
+                            path={PathStorage.COLLECTIONS_USER}
                             element={<UserCollectionsBoardGames/>}
-                        />
+                        >
+                            <Route
+                                path={`:collectionAlias`}
+                                element={<CollectionGamesPage/>}
+                            />
+                        </Route>
+
+
                         <Route
                             path={PathStorage.FRIENDS}
                             element={<FriendsPage/>}
@@ -90,7 +101,7 @@ export const AppRoutes = () => {
 
                         </Route>
                     </Route>
-                    
+
                     <Route element={<PrivateRouter/>}>
                         <Route
                             path={PathStorage.ADMIN_SETTING}

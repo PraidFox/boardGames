@@ -15,7 +15,6 @@ export const useAddEmptyCollection = () => {
     return useMutation({
         mutationKey: ["addEmptyCollection"],
         mutationFn: async (userName: string) => {
-            console.log(userName)
             return UserCollectionsService.addEmptyCollection();
         },
         onSuccess: async (_, variables) => {

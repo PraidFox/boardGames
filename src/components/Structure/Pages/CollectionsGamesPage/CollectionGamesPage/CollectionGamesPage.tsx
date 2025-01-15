@@ -8,6 +8,7 @@ import {UserCollectionsService} from "../../../../../tools/rest/services/UserCol
 import {notEditCollection} from "../../../../../tools/storages/const.ts";
 import {Select} from "antd";
 import {CurrentGameCollectionDTO} from "../../../../../tools/interfaces/DTO/userColletions.dto.ts";
+import {useEffect} from "react";
 
 
 export const CollectionGamesPage = () => {
@@ -27,6 +28,9 @@ export const CollectionGamesPage = () => {
         collectionAlias: string
     }>(UserCollectionsService.getCollection, {userName: userNameOwner!, collectionAlias: collectionAlias!})
 
+    useEffect(() => {
+        setNeedUpdate(true)
+    }, [collectionAlias]);
 
     const addGamesInCollection = (games: string[]) => {
         UserCollectionsService.addGamesInCollection(collectionAlias!, games).then(() => setNeedUpdate(true))
@@ -51,8 +55,6 @@ export const CollectionGamesPage = () => {
     const deletedGameInCollection = (gameId: string | number) => {
         UserCollectionsService.deletedGameInCollection(collectionAlias!, gameId.toString()).then(() => setNeedUpdate(true))
     }
-
-    console.log("error", error)
 
     //TODO пока loading посмотреть как сделать скелет
     return (

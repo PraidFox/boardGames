@@ -45,6 +45,7 @@ export function useLoadData<T, P = undefined>(rest: (params?: any) => Promise<Ax
     const [error, setError] = useState<any>()
 
 
+
     useLayoutEffect(() => {
         if (needUpdate) {
             rest(params).then((res: any) => {

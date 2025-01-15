@@ -1,10 +1,9 @@
 import {Button} from "antd";
 import {NavLink} from "react-router";
-import {PathStorage} from "../../../../../tools/storages/Path.storage.ts";
 import {notEditCollection} from "../../../../../tools/storages/const.ts";
 import {ConfirmationModal} from "../../../../UiElements/СonfirmationModal.tsx";
 import {GameCollectionDTO} from "../../../../../tools/interfaces/DTO/userColletions.dto.ts";
-import {useAddEmptyCollection, useDeleteCollection} from "../../../../../tools/hooks/queries/UserCollection.queries.ts";
+import {useDeleteCollection} from "../../../../../tools/hooks/queries/UserCollection.queries.ts";
 
 
 export const CardCollection = ({collection, userName}: {
@@ -13,12 +12,13 @@ export const CardCollection = ({collection, userName}: {
 }) => {
 
     const deleteCollections = useDeleteCollection()
-    const addNewCollection = useAddEmptyCollection()
+
 
     return (
-        <div key={collection.alias}>
+        <div>
             <NavLink
-                to={PathStorage.COLLECTIONS + "/" + userName + "/" + collection.alias}
+                to={collection.alias}
+                //to={'/user/TSTuser/collections/likes'}
                 state={{id: collection.alias}}
             >
                 <div
@@ -49,19 +49,7 @@ export const CardCollection = ({collection, userName}: {
                     }
                 </div>
             }
-            <div
-                style={{
-                    padding: "10px",
-                    width: "200px",
-                    height: "200px",
-                    border: "1px solid black",
-                    cursor: 'pointer'
-                }}
-                // onClick={() => addNewCollection.mutateAsync(userName)}
-                onClick={() => addNewCollection.mutateAsync(userName)}
-            >
-                Добавить коллекцию
-            </div>
+
         </div>)
 
 }

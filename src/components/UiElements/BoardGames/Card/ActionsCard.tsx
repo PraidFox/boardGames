@@ -13,7 +13,6 @@ export const FullInfoBg = ({boardGameId}:{boardGameId: number}) => {
 
 export const LikeBG = ({boardGameId}:{boardGameId: number}) => {
     const addInCollections = (boardGameId: number) => {
-        console.log("boardGameId", boardGameId)
     }
 
     return <LikeOutlined key={"like" + boardGameId} onClick={() => {
