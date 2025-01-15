@@ -26,11 +26,7 @@ export const CardCollection = ({collection, whoseCollections, myCollections}: {
 }) => {
     const deleteCollections = useDeleteCollection(whoseCollections)
     const handleDelete = () => {
-        deleteCollections.mutate(
-            {
-                collectionAlias: collection.alias,
-            }
-        )
+        deleteCollections.mutate(collection.alias)
     }
 
     return (

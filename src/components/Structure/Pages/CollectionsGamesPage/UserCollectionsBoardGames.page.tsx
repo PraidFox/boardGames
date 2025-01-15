@@ -1,12 +1,12 @@
 import {useParams} from "react-router";
 import {useGetMe} from "../../../../tools/hooks/queries/Users.queries.ts";
 import {PanelCollections} from "./PanelCollectionsGamePage/PanelCollections.tsx";
-import {CollectionGamesPage} from "./CollectionGamesPage/CollectionGamesPage.tsx";
+import {CollectionProfile} from "./CollectionProfile/CollectionProfile.tsx";
 import {useEffect, useState} from "react";
 
 //TODO еще нужна будет проверка на уровень видимости
 export const UserCollectionsBoardGamesPage = () => {
-    const {whoseCollections} = useParams();
+    const {userName:whoseCollections} = useParams();
     const [myCollections, setMyCollections] = useState<boolean>(false)
     
     const {data: userInfo} = useGetMe()
@@ -27,7 +27,7 @@ export const UserCollectionsBoardGamesPage = () => {
             <PanelCollections whoseCollections={whoseCollections} myCollections={myCollections}/>
             <br/>
             <hr/>
-            <CollectionGamesPage/>
+            <CollectionProfile whoseCollections={whoseCollections} myCollections={myCollections}/>
         </>
     )
 

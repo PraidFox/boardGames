@@ -1,12 +1,12 @@
 import {useEffect, useState} from "react";
-import {GenreService} from "../../../tools/rest/services/Genre.service.ts";
-import {BoardGameFullInfoDto, GenreDTO, OptionDTO, TypeDTO} from "../../../tools/interfaces/DTO/boardGame.dto.ts";
-import {TypeService} from "../../../tools/rest/services/Type.service.ts";
+import {GenreService} from "../../../../tools/rest/services/Genre.service.ts";
+import {BoardGameFullInfoDto, GenreDTO, OptionDTO, TypeDTO} from "../../../../tools/interfaces/DTO/boardGame.dto.ts";
+import {TypeService} from "../../../../tools/rest/services/Type.service.ts";
 import {Button, Input, Select, Space} from "antd";
-import {InfiniteScrollAnt} from "../../UiElements/InfiniteScrollAnt";
-import {BoardGameService} from "../../../tools/rest/services/BoardGame.service.ts";
-import {RoleService} from "../../../tools/rest/services/Role.service.ts";
-import {UsersService} from "../../../tools/rest/services/Users.service.ts";
+import {InfiniteScrollAnt} from "../../../UiElements/InfiniteScrollAnt.tsx";
+import {BoardGameService} from "../../../../tools/rest/services/BoardGame.service.ts";
+import {RoleService} from "../../../../tools/rest/services/Role.service.ts";
+import {UsersService} from "../../../../tools/rest/services/Users.service.ts";
 
 
 export const AdminSettingPage = () => {

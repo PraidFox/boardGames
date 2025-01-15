@@ -9,7 +9,7 @@ import {RatingBoardGamesPage} from "./components/Structure/Pages/RatingBoardGame
 import {EventsPage} from "./components/Structure/Pages/EventsPage.tsx";
 import {AllUsersPage} from "./components/Structure/Pages/AllUsersPage.tsx";
 import {PrivateRouter} from "./components/PrivateRouter.tsx";
-import {AdminSettingPage} from "./components/Structure/Pages/AdminSetting.page.tsx";
+import {AdminSettingPage} from "./components/Structure/Pages/AdminSetting/AdminSetting.page.tsx";
 import {VK} from "./components/Structure/Pages/VK.tsx";
 import {PathStorage} from "./tools/storages/Path.storage.ts";
 import {AllBoardGamesPage} from "./components/Structure/Pages/AllBoardGamesPage.tsx";
@@ -65,7 +65,7 @@ export const AppRoutes = () => {
                     />
 
                     <Route
-                        path={PathStorage.USER + `/:whoseCollections`}
+                        path={PathStorage.USER + `/:userName`}
                     >
                         <Route
                             path={PathStorage.PROFILE}

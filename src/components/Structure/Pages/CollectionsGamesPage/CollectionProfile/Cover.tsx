@@ -1,8 +1,10 @@
 import {UploadImageOne} from "../../../../UiElements/Buttons/UploadImageOne.tsx";
 import {useState} from "react";
-import {collectionFullInfo} from "../../../../tools/interfaces/DTO/collections.dto.ts";
+import {CurrentGameCollectionDTO} from "../../../../../tools/interfaces/DTO/userColletions.dto.ts";
+import {ImagePreview} from "../../../../UiElements/ImagePreview.tsx";
 
-export const Cover = ({collection}: { collection: collectionFullInfo }) => {
+
+export const Cover = ({collection}: { collection: CurrentGameCollectionDTO }) => {
     const [showButtonUploadCover, setShowButtonUploadCover] = useState(false);
 
     return <div
@@ -16,10 +18,8 @@ export const Cover = ({collection}: { collection: collectionFullInfo }) => {
         onMouseLeave={() => setShowButtonUploadCover(false)}
     >
 
-        <img
-            style={{width: "200px", height: "200px", objectFit: "cover"}}
-            src={collection.img}
-            alt={"collectionImg" + collection.collectionId}/>
+        <ImagePreview fileId={collection.avatarInfoId?.id} nameAlt={collection.name}/>
+
 
         {showButtonUploadCover && <div style={{
             position: "absolute",

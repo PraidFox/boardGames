@@ -21,7 +21,7 @@ export const CurrentBoardGamePage = () => {
         return <div>Загрузка</div>
     }
     if (isError) {
-        return <div>Произошла ошибка</div>
+        return <div>Произошла ошибка!</div>
     }
 
     if (boardGame) {

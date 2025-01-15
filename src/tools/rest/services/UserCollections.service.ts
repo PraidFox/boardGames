@@ -14,7 +14,8 @@ export class UserCollectionsService {
     }
 
     static async addEmptyCollection() {
-        return await axiosBG.post(`/api/collections`, {});
+        const {data} = await axiosBG.post(`/api/collections`, {});
+        return data
     }
 
     static async addCollection(collections: GameCollectionPatchDto) {
@@ -24,8 +25,9 @@ export class UserCollectionsService {
     static async getCollection({userName, collectionAlias}: {
         userName: string,
         collectionAlias: string
-    }): PAR<CurrentGameCollectionDTO> {
-        return await axiosBG.get(`/api/collections/${collectionAlias}?includeGames=true&&userName=${userName}`);
+    }): Promise<CurrentGameCollectionDTO> {
+        const {data} = await axiosBG.get(`/api/collections/${collectionAlias}?includeGames=true&&userName=${userName}`);
+        return data
     }
 
     static async deletedCollection(collectionAlias: string) {
@@ -33,8 +35,9 @@ export class UserCollectionsService {
         return data
     }
 
-    static async changeDataCollection(collectionAlias: string, data: GameCollectionPatchDto) {
-        return await axiosBG.patch(`/api/collections/${collectionAlias}`, data);
+    static async changeDataCollection(collectionAlias: string, patchData: GameCollectionPatchDto) {
+        const {data} = await axiosBG.patch(`/api/collections/${collectionAlias}`, patchData);
+        return data
     }
 
     /**Получить список коллекций в которые входит игра*/
@@ -51,7 +54,8 @@ export class UserCollectionsService {
     }
 
     static async addGamesInCollection(collectionAlias: string, gameIds: string[]) {
-        return await axiosBG.put(`/api/collections/${collectionAlias}/game`, gameIds);
+       const {data} = await axiosBG.put(`/api/collections/${collectionAlias}/game`, gameIds);
+       return data
     }
 
     // static deletedGamesInCollection(collectionAlias: string, gameIds: string[]) {

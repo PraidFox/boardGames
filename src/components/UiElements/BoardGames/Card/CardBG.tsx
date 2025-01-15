@@ -23,7 +23,7 @@ export const CardBG = ({boardGame, type}: { boardGame: BoardGameMinInfoDto, type
             style={{width: 350}}
             cover={
 
-                <ImagePreview fileId={boardGame.preview?.id} gameName={boardGame.name}/>
+                <ImagePreview fileId={boardGame.preview?.id} nameAlt={boardGame.name}/>
             }
             actions={actionsButtons}
         >

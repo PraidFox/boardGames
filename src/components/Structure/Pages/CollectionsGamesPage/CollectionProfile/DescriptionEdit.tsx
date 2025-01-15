@@ -1,17 +1,21 @@
 import {useEffect, useRef, useState} from "react";
-import {Button, InputRef} from "antd";
+import {Button, Input, InputRef} from "antd";
 import {EditOutlined} from "@ant-design/icons";
-import {Input} from 'antd';
+import {useChangeDataCollection} from "../../../../../tools/hooks/queries/UserCollection.queries.ts";
 
 const {TextArea} = Input;
-export const DescriptionEdit = ({description, changeDescription}: {
+export const DescriptionEdit = ({description, whoseCollections, collectionAlias}: {
     description: string,
-    changeDescription: (description: string) => void
+    whoseCollections: string,
+    collectionAlias: string
 }) => {
+
     const [showButtonEdit, setShowButtonEdit] = useState(false);
     const [edit, setEdit] = useState(false)
-    const [descriptionLocal, setDescriptionLocal] = useState<string>(description)
+    const [descriptionLocal, setDescriptionLocal] = useState<string>(description ? description : "Ой, нет описания")
     const inputRef = useRef<InputRef>(null);
+
+    const saveDescription = useChangeDataCollection(whoseCollections)
 
     useEffect(() => {
         if (edit) {
@@ -21,17 +25,12 @@ export const DescriptionEdit = ({description, changeDescription}: {
         }
     }, [edit]);
 
-    useEffect(() => {
-        if (description) {
-            setDescriptionLocal(description)
-        }
-    }, [description]);
 
-    const saveNewDescription = () => {
-        changeDescription(descriptionLocal)
+
+    const changeDescription = async () => {
+        await saveDescription.mutateAsync({collectionAlias, patchData: {description: descriptionLocal}})
         setEdit(false)
     }
-
 
     if (edit) {
         return (
@@ -41,7 +40,7 @@ export const DescriptionEdit = ({description, changeDescription}: {
                 ref={inputRef}
                 autoSize={{minRows: 3, maxRows: 6}}
                 onChange={(value) => setDescriptionLocal(value.target.value)}
-                onBlur={saveNewDescription}
+                onBlur={changeDescription}
             />
         )
     } else {
@@ -58,8 +57,6 @@ export const DescriptionEdit = ({description, changeDescription}: {
                         <Button icon={<EditOutlined/>} size={"small"} onClick={() => setEdit(true)}/>
                     }
                 </p>
-
-
             </div>
         )
     }

@@ -68,7 +68,7 @@ export const FieldSearchByGames = () => {
                                 <div style={{width: 200, height: 100}}>
                                     <ImagePreview
                                         fileId={option.data.info.imgId}
-                                        gameName={option.data.value.toString()}
+                                        nameAlt={option.data.value.toString()}
                                     />
                                 </div>
                                 <span>{option.data.label}</span>

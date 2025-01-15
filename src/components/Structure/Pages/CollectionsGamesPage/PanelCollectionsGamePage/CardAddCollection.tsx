@@ -1,7 +1,7 @@
 import {useAddEmptyCollection} from "../../../../../tools/hooks/queries/UserCollection.queries.ts";
 
-export const CardAddCollection = (userName: string) => {
-    const addNewCollection = useAddEmptyCollection(userName)
+export const CardAddCollection = ({whoseCollections}: {whoseCollections: string}) => {
+    const addNewCollection = useAddEmptyCollection(whoseCollections)
 
     return (
         <div

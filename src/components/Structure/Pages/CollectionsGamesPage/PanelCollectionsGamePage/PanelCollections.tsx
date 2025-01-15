@@ -21,7 +21,7 @@ export const PanelCollections = ({whoseCollections, myCollections}: { whoseColle
                         myCollections={myCollections}
                     />
                 )}
-                {myCollections && <CardAddCollection/> }
+                {myCollections && <CardAddCollection whoseCollections={whoseCollections}/> }
             </div>
 
         </>
