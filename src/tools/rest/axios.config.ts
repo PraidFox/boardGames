@@ -26,6 +26,7 @@ axiosBG.interceptors.request.use(
         // Add auth token if available
         const tokenInfo = LocalStorageUtils.getTokenInfo();
         if (tokenInfo && config.headers) {
+
             config.headers.Authorization = `Bearer ${tokenInfo[StorageKeys.ACCESS_TOKEN]}`;
         }
         return config;

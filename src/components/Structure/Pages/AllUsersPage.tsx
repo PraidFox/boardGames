@@ -13,7 +13,7 @@ export const AllUsersPage = () => {
             {data?.map(user =>
                 <li key={"link" + user.userName}>
                     <NavLink
-                        to={`${PathStorage.USERS}/${user.userName}`}
+                        to={`${PathStorage.USER}/${user.userName}`}
                     >
                         {user.userName}
                     </NavLink>

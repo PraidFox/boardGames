@@ -1,33 +1,17 @@
-import {Avatar, Badge, Button, Menu, Space} from "antd";
-import {useLayoutEffect, useState} from "react";
-import {ItemMenu} from "../../../tools/storages/ItemMenu";
-import {UseMenuDriven} from "../../../tools/interfaces/hook.Interface.ts";
-import {useMenuDriven} from "../../../tools/hooks/useMenuDriven";
-import {LocalStorageUtils} from "../../../tools/utils/LocalStorageUtils";
+import {Avatar, Badge, Button, Space} from "antd";
 import {DiscordIcon, TelegramIcon} from "../../../tools/images/svgStorage";
 import {UserOutlined} from "@ant-design/icons";
-import {useGetMe} from "../../../tools/hooks/queries/Users.queries.ts";
 import {useLogout} from "../../../tools/hooks/queries/Auth.queries.ts";
 
 
 export const LeftMenuBottom = ({collapsedSider}: { collapsedSider: boolean }) => {
-    const {menuItems, current, setMenuItems, onClick}: UseMenuDriven = useMenuDriven(ItemMenu.defaultLeftMenu)
-    const {data: userInfo} = useGetMe()
-    const [defaultOpen, setDefaultOpen] = useState<string[]>([])
+
+    //const {data: userInfo} = useGetMe()
+
     const logout = useLogout()
 
-    useLayoutEffect(() => {
-        if (userInfo) {
-            setMenuItems(() => [])
-        } else {
-            setMenuItems(() => [])
-        }
-    }, [userInfo, setMenuItems]);
 
-    useLayoutEffect(() => {
-        const openMenu = LocalStorageUtils.getOpenMenu()["leftMenu"]
-        setDefaultOpen(() => openMenu ? openMenu : [])
-    }, []);
+
 
     const getSocialGroup = () => {
         if (collapsedSider) {
@@ -64,16 +48,16 @@ export const LeftMenuBottom = ({collapsedSider}: { collapsedSider: boolean }) =>
             {getSocialGroup()}
             <br/>
             <hr/>
-            {defaultOpen && <Menu
-                theme="dark"
-                mode="inline"
-                defaultOpenKeys={[...defaultOpen, ...current.split("/").map(x => `/${x}`)]}
+            {/*{defaultOpen && <Menu*/}
+            {/*    theme="dark"*/}
+            {/*    mode="inline"*/}
+            {/*    defaultOpenKeys={[...defaultOpen, ...current.split("/").map(x => `/${x}`)]}*/}
 
-                onOpenChange={e => LocalStorageUtils.setOpenMenu(e, "leftMenu")}
-                selectedKeys={current ? [current] : []}
-                items={menuItems}
-                onClick={onClick}
-            />}
+            {/*    onOpenChange={e => LocalStorageUtils.setOpenMenu(e, "leftMenu")}*/}
+            {/*    selectedKeys={current ? [current] : []}*/}
+            {/*    items={menuItems}*/}
+            {/*    onClick={onClick}*/}
+            {/*/>}*/}
         </div>
 
     )
