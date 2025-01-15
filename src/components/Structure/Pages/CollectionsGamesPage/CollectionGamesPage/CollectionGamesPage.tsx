@@ -61,7 +61,7 @@ export const CollectionGamesPage = () => {
         <>
             {loading ? <div>Загрузка...</div> : error ? <div>{error}</div> : <>
                 <div style={{textAlign: "right"}}>
-                    Чья коллекция: ??????? / Обновлялась: ??????? /
+                    Обновлялась: ??????? /
                     Лайков: ???????
                 </div>
                 <h4>Уровень видимости</h4>

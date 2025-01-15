@@ -17,11 +17,8 @@ import {UserProfilePage} from "./components/Structure/Pages/UserProfilePage.tsx"
 import {FriendsPage} from "./components/Structure/Pages/FriendsPage.tsx";
 import {SettingProfilePage} from "./components/Structure/Pages/SettingProfilePage.tsx";
 import {
-    CollectionGamesPage
-} from "./components/Structure/Pages/CollectionsGamesPage/CollectionGamesPage/CollectionGamesPage.tsx";
-import {
-    UserCollectionsBoardGames
-} from "./components/Structure/Pages/CollectionsGamesPage/PanelCollectionsGamePage/UserCollectionsBoardGames.tsx";
+    UserCollectionsBoardGamesPage
+} from "./components/Structure/Pages/CollectionsGamesPage/UserCollectionsBoardGames.page.tsx";
 
 
 export const AppRoutes = () => {
@@ -68,7 +65,7 @@ export const AppRoutes = () => {
                     />
 
                     <Route
-                        path={PathStorage.USER + `/:userName`}
+                        path={PathStorage.USER + `/:whoseCollections`}
                     >
                         <Route
                             path={PathStorage.PROFILE}
@@ -77,11 +74,10 @@ export const AppRoutes = () => {
                         <Route
                             // path={PathStorage.COLLECTIONS_USER + `/:collectionAlias`}
                             path={PathStorage.COLLECTIONS_USER}
-                            element={<UserCollectionsBoardGames/>}
+                            element={<UserCollectionsBoardGamesPage/>}
                         >
                             <Route
                                 path={`:collectionAlias`}
-                                element={<CollectionGamesPage/>}
                             />
                         </Route>
 

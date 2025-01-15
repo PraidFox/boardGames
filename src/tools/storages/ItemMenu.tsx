@@ -67,7 +67,7 @@ export class ItemMenu {
 
     /**Динамические пути*/
     static getMyCollections(userName: string): MenuItem {
-        return this.toItemType(`${PathStorage.USER}/${userName}/${PathStorage.COLLECTIONS_USER}/games`, "Мои коллекции")
+        return this.toItemType(`${PathStorage.USER}/${userName}/${PathStorage.COLLECTIONS_USER}/${PathStorage.MY_GAMES}`, "Мои коллекции")
     }
 
     static getMyNotifications(countNotification: number): MenuItem {

@@ -11,25 +11,25 @@ export const useUserCollections = (userName?: string) => {
     })
 }
 
-export const useAddEmptyCollection = () => {
+export const useAddEmptyCollection = (userName: string) => {
     return useMutation({
         mutationKey: ["addEmptyCollection"],
-        mutationFn: async (userName: string) => {
+        mutationFn: async () => {
             return UserCollectionsService.addEmptyCollection();
         },
-        onSuccess: async (_, variables) => {
-            await queryClient.invalidateQueries({queryKey: ['getUserCollections', variables]});
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({queryKey: ['getUserCollections', userName]});
         }
     })
 }
 
-export const useDeleteCollection = () => {
+export const useDeleteCollection = (userName: string) => {
     return useMutation({
         mutationKey: ["deleteCollection"],
-        mutationFn: async ({collectionAlias, userName}: {collectionAlias: string, userName: string}) => {
+        mutationFn: async ({collectionAlias}: {collectionAlias: string}) => {
             return UserCollectionsService.deletedCollection(collectionAlias);
         },
-        onSuccess: async (_, {userName}) => {
+        onSuccess: async () => {
             await queryClient.invalidateQueries({queryKey: ['getUserCollections', userName]});
         }
     })
