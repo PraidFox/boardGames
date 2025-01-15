@@ -1,8 +1,8 @@
-import {Options, OptionsAutoComplete} from "../../../tools/interfaces/serverInterface";
+import {OptionsAutoComplete, OptionSelect} from "../../../tools/interfaces/option.Interface.ts";
 
 export type ValesFieldFormEdit = {
     name: OptionsAutoComplete<null> | null,
-    type: Options<null> | null,
+    type: OptionSelect<null> | null,
     genre: string[],
     maxPlayersCount: number,
     minPlayersCount: number,

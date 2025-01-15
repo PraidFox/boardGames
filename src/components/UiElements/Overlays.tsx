@@ -1,4 +1,3 @@
-import React from 'react';
 import {useOverlays} from "../../tools/hooks/hooksContext/useOverlays";
 
 
@@ -20,10 +19,7 @@ const Overlay = () => {
         }}
              onClick={closeOverlay}
         >
-
         </div>
-
-
     );
 };
 

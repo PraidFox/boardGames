@@ -1,32 +1,17 @@
-import {Avatar, Badge, Menu, Space} from "antd";
-import React, {useLayoutEffect, useState} from "react";
-import {ItemMenu} from "../../../tools/storages/ItemMenu";
-import {useInfoUser} from "../../../tools/hooks/hooksContext/useInfoUser";
-import {UseMenuDriven} from "../../../tools/interfaces/hooksInterface";
-import {useMenuDriven} from "../../../tools/hooks/useMenuDriven";
-import {LocalStorageUtils} from "../../../tools/utils/LocalStorageUtils";
+import {Avatar, Badge, Button, Space} from "antd";
 import {DiscordIcon, TelegramIcon} from "../../../tools/images/svgStorage";
-import {ProfileMenu} from "./ProfileMenu";
 import {UserOutlined} from "@ant-design/icons";
+import {useLogout} from "../../../tools/hooks/queries/Auth.queries.ts";
 
 
 export const LeftMenuBottom = ({collapsedSider}: { collapsedSider: boolean }) => {
-    const {menuItems, current, setMenuItems, onClick}: UseMenuDriven = useMenuDriven(ItemMenu.defaultLeftMenu)
-    const {id} = useInfoUser()
-    const [defaultOpen, setDefaultOpen] = useState<string[]>([])
 
-    useLayoutEffect(() => {
-        if (id) {
-            setMenuItems(r => [])
-        } else {
-            setMenuItems(r => [])
-        }
-    }, [id, setMenuItems]);
+    //const {data: userInfo} = useGetMe()
 
-    useLayoutEffect(() => {
-        const openMenu = LocalStorageUtils.getOpenMenu()["leftMenu"]
-        setDefaultOpen(r => openMenu ? openMenu : [])
-    }, []);
+    const logout = useLogout()
+
+
+
 
     const getSocialGroup = () => {
         if (collapsedSider) {
@@ -34,6 +19,7 @@ export const LeftMenuBottom = ({collapsedSider}: { collapsedSider: boolean }) =>
                 <div style={{textAlign: "center"}}><TelegramIcon style={{fontSize: '40px', cursor: "pointer"}}/></div>
                 <br/>
                 <div style={{textAlign: "center"}}><DiscordIcon style={{fontSize: '40px', cursor: "pointer"}}/></div>
+                <Button onClick={() => logout.mutateAsync()}> Выход </Button>
             </>
         } else {
             return <>
@@ -42,6 +28,7 @@ export const LeftMenuBottom = ({collapsedSider}: { collapsedSider: boolean }) =>
                     </div>
                     <div style={{textAlign: "center"}}><DiscordIcon style={{fontSize: '40px', cursor: "pointer"}}/>
                     </div>
+                    <Button onClick={() => logout.mutateAsync()}> Выход </Button>
                 </div>
             </>
 
@@ -61,16 +48,16 @@ export const LeftMenuBottom = ({collapsedSider}: { collapsedSider: boolean }) =>
             {getSocialGroup()}
             <br/>
             <hr/>
-            {defaultOpen && <Menu
-                theme="dark"
-                mode="inline"
-                defaultOpenKeys={[...defaultOpen, ...current.split("/").map(x => `/${x}`)]}
+            {/*{defaultOpen && <Menu*/}
+            {/*    theme="dark"*/}
+            {/*    mode="inline"*/}
+            {/*    defaultOpenKeys={[...defaultOpen, ...current.split("/").map(x => `/${x}`)]}*/}
 
-                onOpenChange={e => LocalStorageUtils.setOpenMenu(e, "leftMenu")}
-                selectedKeys={current ? [current] : []}
-                items={menuItems}
-                onClick={onClick}
-            />}
+            {/*    onOpenChange={e => LocalStorageUtils.setOpenMenu(e, "leftMenu")}*/}
+            {/*    selectedKeys={current ? [current] : []}*/}
+            {/*    items={menuItems}*/}
+            {/*    onClick={onClick}*/}
+            {/*/>}*/}
         </div>
 
     )

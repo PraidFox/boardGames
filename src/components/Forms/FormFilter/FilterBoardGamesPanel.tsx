@@ -1,103 +1,107 @@
-import {Button, Input, InputNumber, Select, Slider} from "antd";
-import React, {Dispatch, useEffect, useState} from "react";
-import {OptionsFieldFormEdit} from "../FormsAddBoardGame/reducerFieldOptions";
-import {GenreApi} from "../../../tools/rest/GenreApi";
-import {TypeApi} from "../../../tools/rest/TypeApi";
-import {convertOptions, convertOptionsAutoComplete, filterOptionLabel} from "../../../tools/utils/utils";
-import {nameBoardGame, optionsFieldsStatusCooperativeGame} from "../../../tools/storages/fieldOptions";
-import {ActionFilter} from "./reducerFilterFieldValues";
-import {FilterBoardGames} from "../../../tools/interfaces/formInterface";
+import {Button, Flex, Form, Input, InputNumber, Select, Slider} from "antd";
+import {FilterBoardGames} from "../../../tools/interfaces/fieldsForm.Interface.ts";
+import {NF_FilterBoardGames} from "../../../tools/storages/FieldName.storage.ts";
+import {useGetGenres} from "../../../tools/hooks/queries/Genre.queries.ts";
+import {useGetTypes} from "../../../tools/hooks/queries/Type.queries.ts";
+import {UtilsOption} from "../../../tools/utils/UtilsOption.ts";
+import {FormInstance} from "antd/es/form";
 import {CloseCircleOutlined} from '@ant-design/icons';
 
-export const FilterBoardGamesPanel = ({valueFilter, setFilterFieldValues}: {
-    valueFilter: FilterBoardGames
-    setFilterFieldValues: Dispatch<ActionFilter>
-}) => {
-    const [optionsField, setOptionsField] = useState({} as OptionsFieldFormEdit)
+export const FilterBoardGamesPanel = ({form}: { form: FormInstance<FilterBoardGames> }) => {
 
-    useEffect(() => {
-        const p0 = GenreApi.getGenre()
-        const p1 = TypeApi.getType()
 
-        Promise.all([p0, p1]).then((res) => {
-            setOptionsField({
-                    name: convertOptionsAutoComplete(nameBoardGame),
-                    genre: convertOptions(res[0].data),
-                    type: convertOptions(res[1].data),
-                    status: optionsFieldsStatusCooperativeGame
-                }
-            )
-        })
-
-    }, []);
+    const {data: optionsGenre, isLoading: isLoadingGenre} = useGetGenres()
+    const {data: optionsType, isLoading: isLoadingType} = useGetTypes()
 
 
     return (
-        <div style={{margin: "1% 0"}}>
-
-            <div style={{display: "flex", gap: "10px", alignItems: "center"}}>
-
+        <Form<FilterBoardGames>
+            name="filterBG"
+            form={form}
+            initialValues={{remember: true}}
+            layout={'inline'}
+            variant={'filled'}
+        >
+            <Form.Item<FilterBoardGames>
+                name={NF_FilterBoardGames.NAME_BG}
+                style={{width: 200}}
+            >
                 <Input
-                    placeholder="Наименование игры" style={{width: "20%"}}
-                    onChange={(e) => setFilterFieldValues({type: "SET_NAME", payload: e.target.value})}
-                    value={valueFilter.name}
+                    placeholder="Наименование игры"
                 />
+            </Form.Item>
 
+            <Form.Item<FilterBoardGames>
+                name={NF_FilterBoardGames.TYPE_BG}
+                style={{width: 200}}
+            >
                 <Select
                     placeholder="Тип игры"
                     mode={"multiple"}
                     allowClear
-                    options={optionsField.type}
-                    filterOption={filterOptionLabel}
-                    style={{width: "20%"}}
-                    value={valueFilter.type}
-                    onChange={e => setFilterFieldValues({type: "SET_TYPE", payload: e})}
+                    options={optionsType ? UtilsOption.convertToOptions(optionsType) : []}
+                    optionFilterProp='label'
+                    loading={isLoadingType}
                 />
+            </Form.Item>
 
+            <Form.Item<FilterBoardGames>
+                name={NF_FilterBoardGames.GENRE_BG}
+                style={{width: 200}}
+            >
                 <Select
                     placeholder="Жанр игры"
                     mode={"multiple"}
                     allowClear
-                    options={optionsField.genre}
-                    filterOption={filterOptionLabel}
-                    style={{width: "20%"}}
-                    value={valueFilter.genre}
-                    onChange={value => setFilterFieldValues({type: "SET_GENRE", payload: value})}
+                    options={optionsGenre ? UtilsOption.convertToOptions(optionsGenre) : []}
+                    optionFilterProp='label'
+                    loading={isLoadingGenre}
                 />
+            </Form.Item>
 
+            <Form.Item<FilterBoardGames>
+                name={NF_FilterBoardGames.PLAYER_AGE} initialValue={0}
+                style={{width: 200}}
+            >
                 <InputNumber
-                    defaultValue={2}
-                    min={1}
+                    min={0}
                     addonBefore="От"
                     addonAfter="лет"
                     max={666}
-                    onChange={value => setFilterFieldValues({type: "SET_AGE", payload: value})}
-                    style={{width: "150px"}}
                 />
+            </Form.Item>
 
-                <div style={{width: "20%", textAlign: "center"}}>
-                    <label>Количество игроков
-                    </label>
+
+            <Flex align={"center"} vertical>
+                <label style={{marginBottom: "-15px"}}>Количество игроков </label>
+                <Form.Item<FilterBoardGames>
+                    name={NF_FilterBoardGames.COUNT_PLAYERS_MIN_MAX}
+                    style={{width: 300}}
+                    initialValue={[1, 20]}
+                >
                     <Slider
+                        //marks={{1: 1, 20: 20}}
                         range
-                        defaultValue={[1, 20]}
+                        // defaultValue={[1, 20]}
                         min={1}
                         max={20}
                         style={{width: "100%"}}
-                        onChange={value => setFilterFieldValues({type: "SET_COUNT_PLAYERS", payload: value})}
-
-                        value={[valueFilter.minPlayers ? valueFilter.minPlayers : 1, valueFilter.maxPlayers ? valueFilter.maxPlayers : 20]}
+                        tooltip={{open: true}}
                     />
-                    От {valueFilter.minPlayers ? valueFilter.minPlayers : 1} до {valueFilter.maxPlayers ? valueFilter.maxPlayers : 20}
-                </div>
+                </Form.Item>
 
-                <div>
-                    {Object.keys(valueFilter).length !== 0 &&
-                        <Button icon={<CloseCircleOutlined/>} danger style={{marginLeft: "10px"}}
-                                onClick={() => setFilterFieldValues({type: "RESET_FILTER"})}/>}
-                </div>
+            </Flex>
+
+            <div>
+
+
+                <Button icon={<CloseCircleOutlined/>} danger style={{marginLeft: "10px"}}
+                        onClick={() => form.resetFields()}/>
             </div>
 
-        </div>
+
+        </Form>
     )
+
+
 }

@@ -1,3 +1,8 @@
 .ant-popover-inner {
     width: 300px; /* здесь можно указать нужную ширину */
 }
+
+body {
+    margin: 0;
+    padding: 0;
+}

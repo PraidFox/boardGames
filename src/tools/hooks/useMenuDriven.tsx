@@ -1,10 +1,10 @@
 import {useLayoutEffect, useState} from "react";
 import {MenuProps} from "antd";
-import {useLocation} from "react-router-dom";
-import {UseMenuDriven} from "../interfaces/hooksInterface";
+import {useLocation} from "react-router";
+import {UseMenuDriven} from "../interfaces/hook.Interface.ts";
 
 export const useMenuDriven = (defaultMenu?: MenuProps['items']): UseMenuDriven => {
-    let location = useLocation();
+    const location = useLocation();
 
     const [menuItems, setMenuItems] = useState<MenuProps["items"]>(defaultMenu)
     const [current, setCurrent] = useState<string>(location.pathname);

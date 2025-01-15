@@ -1,5 +1,4 @@
 import {Checkbox, Form, Input, Radio} from "antd";
-import React from "react";
 import {FormInstance} from "antd/es/form";
 import {LockOutlined, UserOutlined, MailOutlined} from "@ant-design/icons";
 

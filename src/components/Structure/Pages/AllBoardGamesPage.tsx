@@ -1,96 +1,61 @@
-import {FormAddBoardGameInModeration} from "../../Forms/FormsAddBoardGame/FormAddBoardGameInModeration";
-import {DrawerSidePanel} from "../../UiElements/DrawerSidePanel";
-import {useEffect, useReducer, useState} from "react";
-import {reducerFilterFieldValues} from "../../Forms/FormFilter/reducerFilterFieldValues";
-import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
-import {FilterBoardGamesPanel} from "../../Forms/FormFilter/FilterBoardGamesPanel";
-import {BoardGamesList} from "../../UiElements/BoardGamesList/BoardGamesList";
-import {useLoadData} from "../../../tools/hooks/useLoadData";
 import {LoadingPanda} from "../../UiElements/LoadingPanda";
-import {SessionStorageUtils} from "../../../tools/utils/SessionStorageUtils";
-import {BoardGameDTO} from "../../../tools/interfaces/DTOinterface";
-import {FilterBoardRequest} from "../../../tools/interfaces/otherInterface";
-import {FileApi} from "../../../tools/rest/FileApi";
+import {useFilterBoardGames} from "../../../tools/hooks/queries/BoardGame.queries.ts";
+import {BoardGamesList} from "../../UiElements/BoardGames/BoardGamesList.tsx";
+import {FormAddBoardGameInModeration} from "../../Forms/FormsAddBoardGame/FormAddBoardGameInModeration.tsx";
+import {DrawerSidePanel} from "../../UiElements/DrawerSidePanel.tsx";
+import {Pagination, PaginationProps} from "antd";
+import {FilterBoardGamesPanel} from "../../Forms/FormFilter/FilterBoardGamesPanel.tsx";
+import {FilterBoardGames} from "../../../tools/interfaces/fieldsForm.Interface.ts";
+import {useForm} from "antd/es/form/Form";
+import {useWatchFieldFilterGame} from "../../../tools/hooks/useWatchFieldFilterGame.ts";
+import {useState} from "react";
 
 export const AllBoardGamesPage = () => {
-    const [boardGameData, setBoardGameData] = useState<BoardGameDTO[] | undefined>(SessionStorageUtils.getAllBoardGames())
+    const [form] = useForm<FilterBoardGames>();
 
-    const [filterRequest, setFilterRequest] = useState<FilterBoardRequest>({})
-    const [filterFieldValues, setFilterFieldValues] = useReducer(reducerFilterFieldValues, {})
+    //TODO передалать, что бы фильтр сохранился в url и оттуда его брать
+    const dataFilter = useWatchFieldFilterGame(form)
 
-    const {
-        data,
-        setNeedUpdate,
-        loading
-    } = useLoadData<BoardGameDTO[], FilterBoardRequest>(BoardGameApi.getFilterBoardGame, filterRequest)
+    const [valuesPagination, setValuesPagination] = useState<[number, number]>([1, 10])
 
+    const {data: allBoardGames, isLoading} = useFilterBoardGames({
+        pageNum: valuesPagination[0],
+        itemPerPage: valuesPagination[1],
+        ...dataFilter
+    })
 
-    useEffect(() => {
-        setFilterRequest({
-            GameName: filterFieldValues.name,
-            PlayersCount: filterFieldValues.minPlayers,
-            TypeIds: filterFieldValues.type?.map(el => Number(el)),
-            GenreIds: filterFieldValues.genre?.map(el => Number(el)),
-            PlayersAge: filterFieldValues.age ? filterFieldValues.age : undefined
-        })
-
-        setNeedUpdate(true)
-    }, [filterFieldValues, setNeedUpdate]);
-
-    useEffect(() => {
-        if (boardGameData) {
-            if (data) {
-                if (JSON.stringify(boardGameData) === JSON.stringify(data)) {
-                    setBoardGameData(boardGameData)
-                } else {
-                    setBoardGameData(data)
-                }
-            }
-        } else {
-            setTimeout(() => {
-                setBoardGameData(data)
-                if (data) {
-                    SessionStorageUtils.setAllBoardGames(data)
-                }
-            }, 2000)
-        }
-    }, [data]);
-
-
-    const updateBoardGame = () => {
-        setNeedUpdate(true)
-    }
-    const getBoardGames = () => {
-        const content = <>
-            <DrawerSidePanel>
-                {(onClose) => (
-                    <FormAddBoardGameInModeration onClose={onClose} setNeedUpdate={updateBoardGame}/>)}
-            </DrawerSidePanel>
-            <BoardGamesList type={"all"} dataBoardGames={boardGameData ? boardGameData : []}/>
-
-        </>
-
-        if (boardGameData) {
-            return content
-        } else {
-            if (loading || !boardGameData) {
-                return <LoadingPanda/>
-            } else {
-                return content
-            }
-        }
-    }
-
+    const changePagination: PaginationProps['onChange'] = (current, pageSize) => {
+        // window.scrollTo(0, 0)
+        setValuesPagination([current, pageSize]);
+    };
 
     return (
         <>
+            <div style={{display: "flex", alignItems: "center", gap: 20}}><h1>Все игры</h1>
+                <DrawerSidePanel>
+                    {(onClose) => (<FormAddBoardGameInModeration onClose={onClose}/>)}
+                </DrawerSidePanel>
+            </div>
 
-            <h1>Все игры</h1>
-            <FilterBoardGamesPanel
-                valueFilter={filterFieldValues}
-                setFilterFieldValues={setFilterFieldValues}
-            />
-            {getBoardGames()}
+            <FilterBoardGamesPanel form={form}/>
+
+            {/*<Spin spinning={isFetching} indicator={<LoadingOutlined style={{fontSize: 48}} spin/>}>*/}
+            {isLoading && <LoadingPanda/>}
+            {!isLoading && allBoardGames &&
+                <BoardGamesList dataBoardGames={allBoardGames.boardGames}/>}
+            <br/>
+            {allBoardGames &&
+                <Pagination
+                    onChange={changePagination}
+                    current={valuesPagination[0]}
+                    align="center"
+                    total={allBoardGames.count}
+                    pageSizeOptions={[10, 30, 50]}
+                    pageSize={valuesPagination[1]}
+                />
+            }
+            {/*</Spin>*/}
+
         </>
     )
 

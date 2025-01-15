@@ -1,8 +1,8 @@
-import {Button, Popover} from "antd";
-import React, {useState} from "react";
+import {Popover} from "antd";
+import {ReactNode, useState} from "react";
 
 export const PopoverForm = ({children}: {
-    children: (onClose: () => void) => React.ReactNode
+    children: (onClose: () => void) => ReactNode
 }) => {
     const [open, setOpen] = useState(false);
 

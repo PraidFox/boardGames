@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {PlusOutlined} from '@ant-design/icons';
-import {Image, Upload} from 'antd';
 import type {GetProp, UploadFile, UploadProps} from 'antd';
-import {FileApi} from "../../../tools/rest/FileApi";
+import {Image, Upload} from 'antd';
+import {FileService} from "../../../tools/rest/services/File.service.ts";
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
@@ -44,7 +44,7 @@ export const UploadImagesMany = ({setImagesId}: {
                 customRequest={(options) => {
                     const formData = new FormData();
                     formData.append('file', options.file);
-                    FileApi.uploadFile(formData).then((r) => {
+                    FileService.uploadFile(formData).then((r) => {
                         setFileList(files => files.map(file => ({...file, status: 'done', uid: r.data.id})));
                     });
                 }}

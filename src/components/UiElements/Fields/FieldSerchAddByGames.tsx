@@ -1,64 +1,32 @@
-import React, {useCallback, useMemo, useRef, useState} from 'react';
+import {useState} from 'react';
 
 import {Button, Select, Space, Spin} from 'antd';
-import debounce from "lodash/debounce"
-import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
-import {FilterBoardRequest} from "../../../tools/interfaces/otherInterface";
-import {BoardGameDTO} from "../../../tools/interfaces/DTOinterface";
+import {useDebounce} from "../../../tools/hooks/useDebounce.ts";
+import {useFilterBoardGames} from "../../../tools/hooks/queries/BoardGame.queries.ts";
+import {ImagePreview} from "../ImagePreview.tsx";
+import {useAddGamesInCollection} from "../../../tools/hooks/queries/UserCollection.queries.ts";
 
-interface BoardGameValue extends BoardGameDTO {
+interface BoardGameValue {
     label: string;
     value: string;
     img: string;
 }
 
-export const FieldSearchAddGames = ({addGamesInCollection}: {
-    addGamesInCollection: (values: string[]) => void
+//Может разъеденить поисковик с кнопокой?
+export const FieldSearchAddGames = ({whoseCollections, collectionAlias}: {
+    whoseCollections: string,
+    collectionAlias: string
 }) => {
-    const [value, setValue] = useState<BoardGameValue[]>();
-    const debounceTimeout = 800
-    const [fetching, setFetching] = useState(false);
-    const [options, setOptions] = useState<BoardGameValue[]>([]);
-    const fetchRef = useRef(0);
-
-    const fetchBoardGames = useCallback(async (boardGameName: string): Promise<BoardGameValue[]> => {
-        const filter: FilterBoardRequest = {
-            GameName: boardGameName
-        };
-
-        return BoardGameApi.getFilterBoardGame(filter).then(res => res.data.map(item => ({
-            label: item.name,
-            value: item.id,
-            img: "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-            ...item
-        })));
-    }, []);
+    const [value, setValue] = useState<BoardGameValue[]>()
+    const [valueInput, setValueInput] = useState<string>()
+    const debounceValue = useDebounce(valueInput, 500)
+    const {data: allBoardGames, isLoading} = useFilterBoardGames({gameName: debounceValue, itemPerPage: 25})
+    const addGamesInCollection = useAddGamesInCollection(whoseCollections)
 
 
-    const debounceFetcher = useMemo(() => {
-        const loadOptions = (value: string) => {
-            fetchRef.current += 1;
-            const fetchId = fetchRef.current;
-            setOptions([]);
-            setFetching(true);
-
-            fetchBoardGames(value).then((newOptions) => {
-                if (fetchId !== fetchRef.current) {
-                    // for fetch callback order
-                    return;
-                }
-                setOptions(newOptions);
-                setFetching(false);
-            });
-        };
-
-        return debounce(loadOptions, debounceTimeout);
-    }, [fetchBoardGames, debounceTimeout]);
-
-    const handleAdd = () => {
-        //Отправка на бек и после этого уже то что ниже
-        //setNeedUpdate(true)
-        addGamesInCollection(value!.map(item => item.value))
+    const handleAdd = async () => {
+        if (!value) return
+        await addGamesInCollection.mutateAsync({collectionAlias: collectionAlias, gameIds: value?.map(x => x.value)})
         setValue([])
     }
 
@@ -66,11 +34,12 @@ export const FieldSearchAddGames = ({addGamesInCollection}: {
         <div style={{display: "flex", gap: "1%"}}>
             <Select
                 labelInValue
-                onBlur={() => setOptions([])}
+                // onBlur={() => setOptions([])}
                 filterOption={false}
-                onSearch={debounceFetcher}
-                notFoundContent={fetching ?
-                    <Spin size="small"/> : value ? "Не найдено" : "Начните вводить название игры"}
+                onSearch={(value) => {
+                    setValueInput(value)
+                }}
+                notFoundContent={isLoading ? <Spin size="small" /> : "Не найдено"}
                 mode="multiple"
                 value={value}
                 placeholder="Найти и добавить игру в коллекцию"
@@ -78,16 +47,31 @@ export const FieldSearchAddGames = ({addGamesInCollection}: {
                     setValue(newValue);
                 }}
                 style={{width: "100%"}}
-                options={options}
+                options={ allBoardGames?.boardGames.map(game => {
+                    return {
+                        label: game.name,
+                        value: game.id,
+                        info: {
+                            imgId: game.preview?.id
+                        }
+                    }
+                })}
+                loading={isLoading}
                 optionRender={(option) => (
                     <Space>
-                        <img src={option.data.img} alt={option.data.img} width={100}></img>
+                        <div style={{width: 50, height: 50}}>
+                            <ImagePreview
+                                fileId={option.data.info.imgId}
+                                nameAlt={option.data.value.toString()}
+                            />
+                        </div>
                         <span>{option.data.label}</span>
                     </Space>
                 )}
             />
-            <Button type="primary" onClick={handleAdd} disabled={value === undefined || value.length === 0}>Добавить
-                игры в коллекцию</Button>
+            <Button type="primary" onClick={handleAdd} disabled={!value || value.length === 0}>
+                Добавить игры в коллекцию
+            </Button>
         </div>
     );
 };

@@ -1,5 +1,4 @@
-import {NavLink} from "react-router-dom";
-import React from "react";
+import {NavLink} from "react-router";
 import {GitlabOutlined} from '@ant-design/icons';
 
 export type logoType = "full" | "mini"

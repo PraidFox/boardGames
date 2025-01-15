@@ -1,5 +1,5 @@
 import {Modal} from "antd";
-import React, {useState} from "react";
+import {useState} from "react";
 
 export const ModalForm = ({children}: {
     children: (onClose: () => void) => React.ReactNode
@@ -15,9 +15,6 @@ export const ModalForm = ({children}: {
     }
 
     return <>
-        {/*<Button type="primary" onClick={showModal}>*/}
-        {/*    Зарегистрироваться*/}
-        {/*</Button>*/}
         <span onClick={showModal} style={{color: '#FFFFFFA6'}}>
             Регистрация
         </span>

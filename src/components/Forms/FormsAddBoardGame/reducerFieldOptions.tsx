@@ -1,8 +1,9 @@
-import {Options, OptionsAutoComplete} from "../../../tools/interfaces/serverInterface";
+import {OptionsAutoComplete} from "../../../tools/interfaces/option.Interface.ts";
+import {DefaultOptionType} from "rc-select/lib/Select";
 
 export type OptionsFieldFormEdit = {
     name: OptionsAutoComplete<null>[]
-    type: Options<null>[]
+    type: DefaultOptionType[]
     genre: Options<null>[]
     status?: Options<null>[]
 }

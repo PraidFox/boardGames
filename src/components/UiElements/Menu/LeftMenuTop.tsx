@@ -1,44 +1,54 @@
-import {Menu} from "antd";
-import React, {useLayoutEffect, useState} from "react";
-import {ItemMenu} from "../../../tools/storages/ItemMenu";
-import {useInfoUser} from "../../../tools/hooks/hooksContext/useInfoUser";
-import {UseMenuDriven} from "../../../tools/interfaces/hooksInterface";
-import {useMenuDriven} from "../../../tools/hooks/useMenuDriven";
+import {Menu, MenuProps} from "antd";
+import {useLayoutEffect, useState} from "react";
 import {LocalStorageUtils} from "../../../tools/utils/LocalStorageUtils";
+import {useGetMe} from "../../../tools/hooks/queries/Users.queries.ts";
+import {ItemMenu} from "../../../tools/storages/ItemMenu.tsx";
 
 
 export const LeftMenuTop = () => {
-    const {menuItems, current, setMenuItems, onClick}: UseMenuDriven = useMenuDriven(ItemMenu.defaultLeftMenu)
-    const {id} = useInfoUser()
-    const [defaultOpen, setDefaultOpen] = useState<string[]>()
+    //const [defaultOpen, setDefaultOpen] = useState<string[]>([])
+    const [itemsMenu, setItemsMenu] = useState<MenuProps['items']>([])
 
+
+    const {data: userInfo, isLoading, isSuccess} = useGetMe()
 
     useLayoutEffect(() => {
-        if (id) {
-            //setMenuItems(r => r ? [ItemMenu.userItems, ...r, ItemMenu.otherItems, ItemMenu.adminItems] : [ItemMenu.userItems])
-            setMenuItems(r => [ItemMenu.boardGamesItems, ItemMenu.userItems, ItemMenu.otherItems, ItemMenu.adminItems])
+        if(isLoading){
+            //setItemsMenu([ItemMenu.boardGamesItems])
         } else {
-            setMenuItems(r => r?.filter(x => x?.key !== ItemMenu.userItems?.key) || [])
-            //setMenuItems(r => [ItemMenu.boardGamesItems, ItemMenu.authorizationItems])
-        }
-    }, [id, setMenuItems]);
+            if(isSuccess && userInfo) {
+                const items = [ItemMenu.boardGamesItems, ItemMenu.userItems(userInfo.userName, 22), ItemMenu.otherItems]
+                // if (userInfo?.role === "ADMIN") {
+                items.push(ItemMenu.adminItems)
+                // }
 
-    useLayoutEffect(() => {
-        const openMenu = LocalStorageUtils.getOpenMenu()["leftMenu"]
-        setDefaultOpen(openMenu ? openMenu : [])
-    }, []);
+                setItemsMenu(items)
+            } else {
+                setItemsMenu( ItemMenu.menuForNoAuthUser)
+            }
+        }
+
+    }, [isSuccess, isLoading, userInfo]);
+
+
+
+    // useLayoutEffect(() => {
+    //     const openMenu = LocalStorageUtils.getOpenMenu()["leftMenu"]
+    //     setDefaultOpen(openMenu ? openMenu : [])
+    // }, []);
+
 
 
     return (<div style={{position: "sticky", top: 0}}>
-            {defaultOpen && <Menu
+            <Menu
                 theme="dark"
                 mode="inline"
-                defaultOpenKeys={[...defaultOpen, ...current.split("/").map(x => `/${x}`)]}
+                //defaultOpenKeys={[...defaultOpen, ...current.split("/").map(x => `/${x}`)]}
                 onOpenChange={e => LocalStorageUtils.setOpenMenu(e, "leftMenu")}
-                selectedKeys={current ? [current] : []}
-                items={menuItems}
-                onClick={onClick}
-            />}
+                //selectedKeys={current ? [current] : []}
+                items={itemsMenu}
+                //onClick={onClick}
+            />
         </div>
 
     )

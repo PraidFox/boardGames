@@ -1,32 +1,37 @@
 import {FieldsLogin} from "./FieldsLogin";
-import {Form} from "antd";
-import React, {useState} from "react";
-import {Login} from "../../../../tools/interfaces/formInterface";
-import {useInfoUser} from "../../../../tools/hooks/hooksContext/useInfoUser";
-import {useMessage} from "../../../../tools/hooks/hooksContext/useMessage";
-import {StorageSettingMessage} from "../../../../tools/storages/storageSettingMessage";
+import {Form, FormProps} from "antd";
+import {IFieldLogin} from "../../../../tools/interfaces/fieldsForm.Interface.ts";
 import {FormButtons} from "../../../UiElements/Buttons/FormButtons";
+import {NF_Auth} from "../../../../tools/storages/FieldName.storage.ts";
+import {useAuth} from "../../../../tools/hooks/queries/Auth.queries.ts";
+import {IAuth} from "../../../../tools/interfaces/auth.interface.ts";
 
 
 export const FormLogin = ({nameForm, onClose}: {
     nameForm: string
     onClose: () => void
 }) => {
-    const {authUser} = useInfoUser()
-    const {setSettingMessage} = useMessage()
-    const [loading, setLoading] = useState<boolean>(false);
-    const onFinish = (values: Login) => {
-        setSettingMessage(StorageSettingMessage.authorizationLoading)
 
-        setLoading(true)
-        authUser(values.login, values.password, values.remember).then(() => {
-            setSettingMessage(StorageSettingMessage.authorizationAccess)
-            setLoading(false)
-            onClose()
-        }).catch(r => {
-            setSettingMessage(StorageSettingMessage.authorizationError)
-            setLoading(false)
-        })
+    const auth = useAuth()
+
+    const onFinish: FormProps<IFieldLogin> ["onFinish"] = async (values) => {
+
+        //setSettingMessage(StorageSettingMessage.authorizationLoading)
+
+
+        const data: IAuth = {
+            userName: values[NF_Auth.LOGIN],
+            password: values[NF_Auth.PASSWORD]
+        }
+
+        //TODO исправить!!!
+        const rememberMe = values[NF_Auth.REMEMBER_ME] == undefined ? false : values[NF_Auth.REMEMBER_ME]
+
+
+        await auth.mutateAsync({auth: data, rememberMe: rememberMe})
+        //setSettingMessage(StorageSettingMessage.authorizationAccess)
+        onClose()
+        //setSettingMessage(StorageSettingMessage.authorizationError)
     };
 
     const onCancel = () => {
@@ -39,6 +44,6 @@ export const FormLogin = ({nameForm, onClose}: {
         autoComplete="off"
     >
         <FieldsLogin/>
-        <FormButtons nameOk={"Войти"} handleCancel={onCancel} loading={loading}/>
+        <FormButtons nameOk={"Войти"} handleCancel={onCancel} loading={auth.isPending}/>
     </Form>)
 }

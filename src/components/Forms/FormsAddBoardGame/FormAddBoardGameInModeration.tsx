@@ -1,43 +1,36 @@
-import {AutoComplete, Button, Form, Input, InputNumber, Select, Space, Upload} from 'antd';
-import {
-    nameBoardGame,
-    optionsFieldsStatusCooperativeGame,
-} from "../../../tools/storages/fieldOptions";
-import {convertOptions, convertOptionsAutoComplete, filterOptionLabel} from "../../../tools/utils/utils";
+import {AutoComplete, Button, Form, Input, InputNumber, Select, Space} from 'antd';
 import {OptionsFieldFormEdit, reducerFieldOptions} from "./reducerFieldOptions";
 import {reducerFieldValues, ValesFieldFormEdit} from "./reducerFieldValues";
 import {useEffect, useReducer} from "react";
-import {GenreApi} from "../../../tools/rest/GenreApi";
-import {TypeApi} from "../../../tools/rest/TypeApi";
-import {CreateBoardGame, FormBoardGame} from "../../../tools/interfaces/boardGameInterface";
-import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
+import {GenreService} from "../../../tools/rest/services/Genre.service.ts";
+import {TypeService} from "../../../tools/rest/services/Type.service.ts";
+import {FormBoardGame} from "../../../tools/interfaces/boardGame.deleted.Interface.ts";
+import {BoardGameService} from "../../../tools/rest/services/BoardGame.service.ts";
 import {UploadImagesMany} from "../../UiElements/Buttons/UploadImagesMany";
-import {UploadOutlined} from '@ant-design/icons';
-import {UploadImageOne} from "../../UiElements/Buttons/UploadImageOne";
+import {CreateGameDTO} from "../../../tools/interfaces/DTO/boardGame.dto.ts";
 
 const {TextArea} = Input;
-export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
+export const FormAddBoardGameInModeration = ({onClose}: {
     onClose: () => void
-    setNeedUpdate: () => void
 }) => {
     const [form] = Form.useForm();
     const [optionsField, setOptionsField] = useReducer(reducerFieldOptions, {} as OptionsFieldFormEdit)
     const [valuesField, setValuesField] = useReducer(reducerFieldValues, {} as ValesFieldFormEdit)
 
     useEffect(() => {
-        const p0 = GenreApi.getGenre()
-        const p1 = TypeApi.getType()
+        const p0 = GenreService.getGenres()
+        const p1 = TypeService.getTypes()
 
-        Promise.all([p0, p1]).then((res) => {
-            setOptionsField({
-                type: "ADD_ALL_OPTIONS", payload: {
-                    name: convertOptionsAutoComplete(nameBoardGame),
-                    genre: convertOptions(res[0].data),
-                    type: convertOptions(res[1].data),
-                    status: optionsFieldsStatusCooperativeGame
-                }
-            })
-        })
+        // Promise.all([p0, p1]).then((res) => {
+        //     setOptionsField({
+        //         type: "ADD_ALL_OPTIONS", payload: {
+        //             name: convertOptionsAutoComplete(nameBoardGame),
+        //             genre: convertOptions(res[0].data),
+        //             type: convertOptions(res[1].data),
+        //             status: optionsFieldsStatusCooperativeGame
+        //         }
+        //     })
+        // })
 
     }, []);
 
@@ -50,14 +43,14 @@ export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
     }, [form, valuesField.maxPlayersCount]);
 
     const onFinish = (values: FormBoardGame) => {
-        let dataBoardGame: CreateBoardGame = {
+        const dataBoardGame: CreateGameDTO = {
             name: values.name,
             description: values.description,
             minPlayersCount: values.minPlayersCount,
             maxPlayersCount: values.maxPlayersCount,
             minPlayerAge: values.minPlayerAge,
-            typeId: values.type,
-            genreIds: values.genres,
+            typeId: values.typeId,
+            genreIds: values.genreIds,
             previewId: valuesField.previewId,
             fileIds: valuesField.images,
             articul: values.articul,
@@ -65,7 +58,7 @@ export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
             linkToPublisher: values.linkToPublisher
         }
 
-        BoardGameApi.addBoardGame(dataBoardGame).then(() => setNeedUpdate())
+        BoardGameService.addBoardGame(dataBoardGame)
 
         onClose()
     };
@@ -113,17 +106,21 @@ export const FormAddBoardGameInModeration = ({onClose, setNeedUpdate}: {
             <AutoComplete
                 options={optionsField.name}
                 onSelect={(value, option) => setValuesField({type: "CHANGE_NAME_GAME", payload: option})}
-                filterOption={filterOptionLabel}
+                //filterOption={filterOptionLabel}
             />
         </Form.Item>
 
 
         <Form.Item label="Типы игры" name={"type"}>
-            <Select options={optionsField.type} filterOption={filterOptionLabel}/>
+            <Select options={optionsField.type}
+                //filterOption={filterOptionLabel}
+            />
         </Form.Item>
 
         <Form.Item label="Жанр" name={"genre"}>
-            <Select mode={"multiple"} allowClear options={optionsField.genre} filterOption={filterOptionLabel}/>
+            <Select mode={"multiple"} allowClear options={optionsField.genre}
+                //filterOption={filterOptionLabel}
+            />
         </Form.Item>
 
 

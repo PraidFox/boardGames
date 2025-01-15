@@ -1,5 +1,4 @@
 import {Tabs, TabsProps} from 'antd';
-import React from "react";
 import {FormRegistration} from "./FormRegistration/FormRegistration";
 import {FormLogin} from "./FormLogin/FormLogin";
 import {FormType} from "../../../tools/storages/const";

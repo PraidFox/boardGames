@@ -1,8 +1,7 @@
 import {ArgsProps} from "antd/es/message/interface";
 
 export class StorageSettingMessage {
-
-
+    
     static authorizationAccess: ArgsProps = {
         key: "authorization",
         type: "success",

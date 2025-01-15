@@ -1,4 +1,3 @@
-import React from 'react';
 import {CommentOutlined, SettingOutlined} from '@ant-design/icons';
 import {FloatButton} from 'antd';
 

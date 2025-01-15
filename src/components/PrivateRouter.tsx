@@ -1,15 +1,18 @@
-import React from "react";
-import {Navigate, Outlet} from "react-router-dom";
-import {useInfoUser} from "../tools/hooks/hooksContext/useInfoUser";
+import {Navigate, Outlet} from "react-router";
+import {useGetMe} from "../tools/hooks/queries/Users.queries.ts";
+
 
 export const PrivateRouter = () => {
-    const {id} = useInfoUser()
+    const {data: userInfo, isLoading} = useGetMe()
+
 
     //TODO а может при отрисовки приватной страницы вновь проверить не протух ли token?
 
-    if (id === undefined) {
-        return null
-    } else {
-        return id ? <Outlet/> : <Navigate to="/" replace/>;
+    if (!isLoading) {
+        if (userInfo === undefined) {
+            return <Navigate to="/" replace/>
+        } else {
+            return <Outlet/>;
+        }
     }
 };

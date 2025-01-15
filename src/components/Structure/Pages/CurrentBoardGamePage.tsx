@@ -1,49 +1,62 @@
-import {useParams} from "react-router-dom";
-import {BoardGameDTO} from "../../../tools/interfaces/DTOinterface";
-import React, {useLayoutEffect, useState} from "react";
-import {BoardGameApi} from "../../../tools/rest/BoardGameApi";
-import {FileApi} from "../../../tools/rest/FileApi";
-import {Flex, Rate} from "antd";
-import {GameRatingApi} from "../../../tools/rest/GameRatingApi";
+import {useParams} from "react-router";
+import {FileService} from "../../../tools/rest/services/File.service.ts";
+import {useGetBoardGame} from "../../../tools/hooks/queries/BoardGame.queries.ts";
+import {useAddRatingGame} from "../../../tools/hooks/queries/GameRating.queries.ts";
+import {Rate} from "antd";
 
 export const CurrentBoardGamePage = () => {
 
-    const [boardGame, setBoardGame] = useState<BoardGameDTO>()
+
     const {boardGameId} = useParams();
+    const {data: boardGame, isError, isLoading} = useGetBoardGame(boardGameId)
+    const addRatingGame = useAddRatingGame()
 
 
-    useLayoutEffect(() => {
-
-        BoardGameApi.getBoardGame(boardGameId!)
-            .then(res => setBoardGame(res.data))
-            .catch(() => setBoardGame(undefined))
-
-    }, [boardGameId]);
-
-    const handlerRate = (boardGameId: string, rate: number) => {
-        GameRatingApi.addRating(boardGameId, rate)
+    const handlerRate = async (boardGameId: string, rate: number) => {
+        //GameRatingService.addRating(boardGameId, rate)
+        await addRatingGame.mutateAsync({gameId: boardGameId, rating: rate})
     }
 
+    if (isLoading) {
+        return <div>Загрузка</div>
+    }
+    if (isError) {
+        return <div>Произошла ошибка!</div>
+    }
 
-    return (
-        <div>
-            {boardGame ? <>
+    if (boardGame) {
+        return (
+            <>
                 Название: {boardGame.name}
                 <br/>
+                alias: {boardGame.alias}
                 <br/>
-                {boardGame?.preview &&
-                    <img width={300} src={FileApi.getFile(boardGame.preview.id.toString())} alt={boardGame.name}/>
+                labels: {boardGame.labels.join(", ")}
+                <br/>
+                linkToPublisher: {boardGame.linkToPublisher}
+                <br/>
+                <Rate
+                    defaultValue={boardGame.userRating}
+                    //character={({index = 0}) => index + 1}
+                    onChange={e => handlerRate(boardGameId!, e)}
+                    count={10}
+                />
+                <br/>
+                {boardGame.preview &&
+                    <img width={300} src={FileService.getFile(boardGame.preview.id)}
+                         alt={boardGame.name}/>
                 }
+
                 <br/>
-                {boardGame?.files && boardGame.files.map(file =>
-                    <img width={100} src={FileApi.getFile(file.id.toString())} alt={boardGame.name}/>
+                {boardGame.files && boardGame.files.map(file =>
+                    <img key={file.id} width={100} src={FileService.getFile(file.id)} alt={boardGame.name}/>
                 )}
                 <div dangerouslySetInnerHTML={{__html: boardGame.description}}/>
 
                 <br/>
-                Жанр: {boardGame.genres?.map(genre => genre.name)}
+                Жанр: {boardGame.genres.map(genre => genre.name).join(",")}
                 <br/>
-                Тип: {boardGame.type?.name}
+                Тип: {boardGame.type.name}
                 <br/>
                 Количество игроков от {boardGame.minPlayersCount} до {boardGame.maxPlayersCount}
                 <br/>
@@ -51,21 +64,16 @@ export const CurrentBoardGamePage = () => {
                 <br/>
                 Рейтинг: {boardGame.rating}
                 <br/>
+                Рейтинг тессера: {boardGame.ratingTessera}
+                <br/>
+                Рейтинг тессера: {boardGame.rating}
+                <br/>
                 Пользователь Рейтинг: {boardGame.userRating}
 
-                <Flex gap="middle" vertical>
-                    <Rate defaultValue={0} character={({index = 0}) => index + 1}
-                          onChange={e => handlerRate(boardGameId!, e)}
-                          count={10}/>
 
-                </Flex>
+            </>
+        )
+    }
 
 
-            </> : <>Такой игры не найдено</>}
-
-
-        </div>
-
-
-    )
 }
