@@ -6,7 +6,7 @@ import {useDeleteGameInCollection} from "../../../../tools/hooks/queries/UserCol
 export const FullInfoBg = ({boardGameId}: { boardGameId: number }) => {
     return (<NavLink
         key={"link" + boardGameId}
-        to={`${PathStorage.BOARD_GAME}/${boardGameId}`}
+        to={`/${PathStorage.BOARD_GAMES}/${PathStorage.BOARD_GAME}/${boardGameId}`}
     >
         Подробнее
     </NavLink>)

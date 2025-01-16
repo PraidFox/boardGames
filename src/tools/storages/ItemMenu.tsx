@@ -67,15 +67,15 @@ export class ItemMenu {
 
     /**Динамические пути*/
     static getMyCollections(userName: string): MenuItem {
-        return this.toItemType(`${PathStorage.USER}/${userName}/${PathStorage.COLLECTIONS_USER}/${PathStorage.MY_GAMES}`, "Мои коллекции")
+        return this.toItemType(`${PathStorage.USERS}/${PathStorage.USER}/${userName}/${PathStorage.COLLECTIONS_USER}/${PathStorage.MY_GAMES}`, "Мои коллекции")
     }
 
     static getMyNotifications(countNotification: number): MenuItem {
-        return this.toItemType(PathStorage.NOTIFICATION, `Уведомления: ${countNotification}`)
+        return this.toItemType(`${PathStorage.NOTIFICATION}`, `Уведомления: ${countNotification}`)
     }
 
     static getMyFriends(userName: string): MenuItem {
-        return this.toItemType(PathStorage.FRIENDS + `/${userName}`, "Друзья")
+        return this.toItemType( `${PathStorage.USERS}/${PathStorage.USER}/${userName}/${PathStorage.FRIENDS}`, "Друзья")
     }
 
     static userItems(userName: string, countNotification: number): MenuItem {

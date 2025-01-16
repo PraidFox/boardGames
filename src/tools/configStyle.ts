@@ -5,7 +5,6 @@ export const configStyle: ThemeConfig = {
     components: {
         Menu: {
             darkItemSelectedBg: '#9d703600',
-
             //darkSubMenuItemBg: '#002140',
             darkSubMenuItemBg: '#0A253F00',
         },

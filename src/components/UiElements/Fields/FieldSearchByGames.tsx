@@ -61,7 +61,7 @@ export const FieldSearchByGames = () => {
                     optionRender={(option) => (
                         <NavLink
                             key={"link" + option.value}
-                            to={`${PathStorage.BOARD_GAME}/${option.value}`}
+                            to={`/${PathStorage.BOARD_GAMES}/${PathStorage.BOARD_GAME}/${option.value}`}
                             //state={{boardGame}}
                         >
                             <Space>

@@ -39,7 +39,6 @@ export const AllBoardGamesPage = () => {
 
             <FilterBoardGamesPanel form={form}/>
 
-            {/*<Spin spinning={isFetching} indicator={<LoadingOutlined style={{fontSize: 48}} spin/>}>*/}
             {isLoading && <LoadingPanda/>}
             {!isLoading && allBoardGames &&
                 <BoardGamesList dataBoardGames={allBoardGames.boardGames}/>}
