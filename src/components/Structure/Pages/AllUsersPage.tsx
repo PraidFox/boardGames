@@ -1,11 +1,11 @@
 import {NavLink} from "react-router";
 import {PathStorage} from "../../../tools/storages/Path.storage.ts";
-import {useAllUsers} from "../../../tools/hooks/queries/Users.queries.ts";
+import {useGetAllUsers} from "../../../tools/hooks/queries/Users.queries.ts";
 
 
 export const AllUsersPage = () => {
 
-    const {data} = useAllUsers()
+    const {data} = useGetAllUsers()
 
     return (
         <div>

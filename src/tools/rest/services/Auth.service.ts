@@ -1,4 +1,4 @@
-import {axiosBG, PAR} from "../axios.config.ts";
+import {axiosBG, axiosRefresh, PAR} from "../axios.config.ts";
 import {TokenDto} from "../../interfaces/DTO/user.dto.ts";
 import {IAuth, IRegistration} from "../../interfaces/auth.interface.ts";
 
@@ -13,6 +13,6 @@ export class AuthService {
     }
 
     static async refreshToken(refreshToken: string): PAR<TokenDto> {
-        return await axiosBG.post(`/api/account/refresh`, {refreshToken});
+        return await axiosRefresh.post(`/api/account/refresh`, {refreshToken});
     }
 }
