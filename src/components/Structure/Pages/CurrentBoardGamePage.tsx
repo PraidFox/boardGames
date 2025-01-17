@@ -5,12 +5,9 @@ import {useAddRatingGame} from "../../../tools/hooks/queries/GameRating.queries.
 import {Rate} from "antd";
 
 export const CurrentBoardGamePage = () => {
-
-
     const {boardGameId} = useParams();
     const {data: boardGame, isError, isLoading} = useGetBoardGame(boardGameId)
     const addRatingGame = useAddRatingGame()
-
 
     const handlerRate = async (boardGameId: string, rate: number) => {
         //GameRatingService.addRating(boardGameId, rate)
@@ -69,8 +66,6 @@ export const CurrentBoardGamePage = () => {
                 Рейтинг тессера: {boardGame.rating}
                 <br/>
                 Пользователь Рейтинг: {boardGame.userRating}
-
-
             </>
         )
     }

@@ -9,7 +9,7 @@ import {AllUsersPage} from "./components/Structure/Pages/AllUsersPage.tsx";
 import {PrivateRouter} from "./components/PrivateRouter.tsx";
 import {AdminSettingPage} from "./components/Structure/Pages/AdminSetting/AdminSetting.page.tsx";
 import {PathStorage} from "./tools/storages/Path.storage.ts";
-import {UserProfilePage} from "./components/Structure/Pages/UserProfilePage.tsx";
+import {UserProfilePage} from "./components/Structure/Pages/UserProfile/UserProfilePage.tsx";
 import {FriendsPage} from "./components/Structure/Pages/FriendsPage.tsx";
 import {
     UserCollectionsBoardGamesPage

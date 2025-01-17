@@ -36,7 +36,6 @@ export const TitleEdit = ({name, whoseCollections, collectionAlias}: {
             onChange={(value) => setTitle(value.target.value)}
             onBlur={changeTitle}
             onKeyDown={(e) => {
-                console.log("e", e)
                 if (e.key === "Enter") {
                     changeTitle()
                 }

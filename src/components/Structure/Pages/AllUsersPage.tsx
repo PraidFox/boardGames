@@ -7,10 +7,12 @@ export const AllUsersPage = () => {
 
     const {data} = useGetAllUsers()
 
+    if(!data) return <div>Ой, что-то пошло не так</div>
+
     return (
         <div>
             Здесь информация и поиск всех игроков.
-            {data?.map(user =>
+            {data.map(user =>
                 <li key={"link" + user.userName}>
                     <NavLink
                         to={`${PathStorage.USER}/${user.userName}`}
@@ -18,10 +20,7 @@ export const AllUsersPage = () => {
                         {user.userName}
                     </NavLink>
                 </li>
-            )
-            }
-
-
+            )}
             <br/>
             Зачем? Найти друга. Или найти с кем поиграть, может сделаем отправки сообщений? Или еще чего... Или
             посмотреть активность.

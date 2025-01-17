@@ -1,4 +1,3 @@
-import {LoadingPanda} from "../../UiElements/LoadingPanda";
 import {useFilterBoardGames} from "../../../tools/hooks/queries/BoardGame.queries.ts";
 import {BoardGamesList} from "../../UiElements/BoardGames/BoardGamesList.tsx";
 import {FormAddBoardGameInModeration} from "../../Forms/FormsAddBoardGame/FormAddBoardGameInModeration.tsx";
@@ -9,6 +8,7 @@ import {FilterBoardGames} from "../../../tools/interfaces/fieldsForm.Interface.t
 import {useForm} from "antd/es/form/Form";
 import {useWatchFieldFilterGame} from "../../../tools/hooks/useWatchFieldFilterGame.ts";
 import {useState} from "react";
+import {LoadingPanda} from "../../UiElements/LoadingPanda.tsx";
 
 export const AllBoardGamesPage = () => {
     const [form] = useForm<FilterBoardGames>();
@@ -25,7 +25,7 @@ export const AllBoardGamesPage = () => {
     })
 
     const changePagination: PaginationProps['onChange'] = (current, pageSize) => {
-        // window.scrollTo(0, 0)
+        window.scrollTo(0, 0)
         setValuesPagination([current, pageSize]);
     };
 
@@ -40,7 +40,7 @@ export const AllBoardGamesPage = () => {
             <FilterBoardGamesPanel form={form}/>
 
             {isLoading && <LoadingPanda/>}
-            {!isLoading && allBoardGames &&
+            {allBoardGames &&
                 <BoardGamesList dataBoardGames={allBoardGames.boardGames}/>}
             <br/>
             {allBoardGames &&
@@ -53,8 +53,6 @@ export const AllBoardGamesPage = () => {
                     pageSize={valuesPagination[1]}
                 />
             }
-            {/*</Spin>*/}
-
         </>
     )
 

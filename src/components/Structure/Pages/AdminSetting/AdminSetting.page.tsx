@@ -1,15 +1,12 @@
-import {useState} from "react";
 import {useGetAllUsers} from "../../../../tools/hooks/queries/Users.queries.ts";
 import {GenrePanel} from "./PanelOptionAdd/GenrePanel.tsx";
 import {TypePanel} from "./PanelOptionAdd/TypePanel.tsx";
 import {RolePanel} from "./PanelOptionAdd/RolePanel.tsx";
 import {DeletedBoardGameField} from "./DeletedBoardGame.field.tsx";
+import {ChangeRoleUserField} from "./ChangeRoleUser.field.tsx";
 
 
 export const AdminSettingPage = () => {
-    const [valueRoleToUser, setValueRoleToUser] = useState<string[]>([])
-    const [valueUser, setValueUser] = useState<string>()
-
     const {data: users} = useGetAllUsers()
 
     if (!users) {
@@ -28,5 +25,7 @@ export const AdminSettingPage = () => {
         <br/>
         <hr/>
         <DeletedBoardGameField/>
+        <ChangeRoleUserField/>
+
     </div>
 }

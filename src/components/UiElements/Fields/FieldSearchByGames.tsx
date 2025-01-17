@@ -65,12 +65,14 @@ export const FieldSearchByGames = () => {
                             //state={{boardGame}}
                         >
                             <Space>
-                                <div style={{width: 200, height: 100}}>
+
                                     <ImagePreview
                                         fileId={option.data.info.imgId}
                                         nameAlt={option.data.value.toString()}
+                                        width={50}
+                                        height={50}
                                     />
-                                </div>
+
                                 <span>{option.data.label}</span>
                             </Space>
                         </NavLink>

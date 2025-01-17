@@ -1,6 +1,6 @@
 import {useParams} from "react-router";
 import {useLayoutEffect, useState} from "react";
-import {UsersService} from "../../../tools/rest/services/Users.service.ts";
+import {UsersService} from "../../../../tools/rest/services/Users.service.ts";
 import {Avatar, Button, Input, theme} from "antd";
 
 const {TextArea} = Input;
