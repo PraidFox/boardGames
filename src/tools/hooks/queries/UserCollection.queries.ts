@@ -3,7 +3,7 @@ import {UserCollectionsService} from "../../rest/services/UserCollections.servic
 import {queryClient} from "../../rest/query.config.ts";
 import {GameCollectionPatchDto} from "../../interfaces/DTO/userColletions.dto.ts";
 
-export const useUserCollections = (userName?: string) => {
+export const useUserCollections = (userName: string | undefined) => {
     return useQuery({
         queryKey: ['getUserCollections', userName],
         queryFn: userName ? (meta) => {
@@ -58,6 +58,19 @@ export const useAddGamesInCollection = (userName: string) => {
     })
 }
 
+export const useAddGameInCollection = (userName: string) => {
+    return useMutation({
+        mutationKey: ["addGamesInCollection"],
+        mutationFn: async ({collectionAlias, gameId}: {collectionAlias: string, gameId: string}) => {
+            return UserCollectionsService.addGameInCollection(collectionAlias, gameId);
+        },
+        onSuccess: async (_, {collectionAlias}) => {
+            await queryClient.invalidateQueries({queryKey: ['getCollection', userName, collectionAlias]});
+        }
+    })
+}
+
+
 export const useChangeDataCollection = (userName: string) => {
     return useMutation({
         mutationKey: ["changeDataCollection"],
@@ -66,6 +79,7 @@ export const useChangeDataCollection = (userName: string) => {
         },
         onSuccess: async (_, {collectionAlias}) => {
             await queryClient.invalidateQueries({queryKey: ['getCollection', userName, collectionAlias]});
+            await queryClient.invalidateQueries({queryKey: ['getUserCollections', userName]});
         }
     })
 }

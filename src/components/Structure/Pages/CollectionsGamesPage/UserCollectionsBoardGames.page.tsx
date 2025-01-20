@@ -4,6 +4,7 @@ import {PanelCollections} from "./PanelCollectionsGamePage/PanelCollections.tsx"
 import {CollectionProfile} from "./CollectionProfile/CollectionProfile.tsx";
 
 //TODO еще нужна будет проверка на уровень видимости
+//TODO в поиске игр для добавления в коллекцию, дать чекбокс для фильтрации только в своих добавленных играх
 export const UserCollectionsBoardGamesPage = () => {
     const {userName:whoseCollections} = useParams();
     const {data: userInfo} = useGetMe()

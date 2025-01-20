@@ -4,7 +4,6 @@ import {useGetAllUsers} from "../../../tools/hooks/queries/Users.queries.ts";
 
 
 export const AllUsersPage = () => {
-
     const {data} = useGetAllUsers()
 
     if(!data) return <div>Ой, что-то пошло не так</div>
