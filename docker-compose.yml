@@ -7,7 +7,8 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3000:80"
+      - "3001:443"
     restart: always
     networks:
       - boardnetwork
