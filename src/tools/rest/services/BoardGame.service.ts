@@ -25,7 +25,8 @@ export class BoardGameService {
     }
 
     static async deleteBoardGame(id: number | string) {
-        return await axiosBG.delete(`/api/BoardGame/${id}`,);
+        const {data} = await axiosBG.delete(`/api/BoardGame/${id}`);
+        return data
     }
 
     static async getFilterBoardGame(params: FilterGamesDTO, {signal}: { signal?: AbortSignal }): PAR<AllBoardGameDTO> {

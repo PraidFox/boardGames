@@ -1,19 +1,28 @@
 import {useParams} from "react-router";
-import {useLayoutEffect, useState} from "react";
-import {UsersService} from "../../../tools/rest/services/Users.service.ts";
 import {Avatar, Button, Input, theme} from "antd";
+import {useGetMe, useGetUserRoles} from "../../../../tools/hooks/queries/Users.queries.ts";
+import {useQuery} from "@tanstack/react-query";
+import {UserServiceFN} from "../../../../tools/rest/services/Users.service.ts";
+import {useUserCollections} from "../../../../tools/hooks/queries/UserCollection.queries.ts";
+import {CollectionAliases} from "../../../../tools/storages/StorageKeys.ts";
 
 const {TextArea} = Input;
 export const UserProfilePage = () => {
-    const {userName} = useParams();
-    const [roles, setRoles] = useState<string[]>([])
+    const {userName: userNameUrl} = useParams();
+
     const {
         token: {borderRadiusLG},
     } = theme.useToken();
 
-    useLayoutEffect(() => {
-        UsersService.getUserRoles(userName!).then(r => setRoles(r.data))
-    }, [userName]);
+    //const {data: whoProfile} = useGetUser(userNameUrl)
+    const {data: whoProfile} = useQuery({...UserServiceFN.getUserQO(userNameUrl)})
+    const {data: userRoles} = useGetUserRoles(userNameUrl)
+    const {data: userInfo} = useGetMe()
+    const {data: collections} = useUserCollections(whoProfile?.userName)
+
+    if(!whoProfile || !userRoles || !userInfo || !collections) return <div>Loading...</div>
+
+    //const myProfile: boolean = whoProfile.userName === userInfo.userName
 
     return (
         <>
@@ -37,12 +46,12 @@ export const UserProfilePage = () => {
                         src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGo15sWhNraEnYCptX7fcKRhoN-kDuxUTS6Nu3fV_1l2SXu42Ntrht3qmxSiExXDwlwXs&usqp=CAU"}
                     />
                     <div>
-                        <h1>{userName}</h1>
+                        <h1>{whoProfile.userName}</h1>
                         <div>Карма: 1000 - 7</div>
                         <div>Заходил: 12.12.2022</div>
                     </div>
                     <div style={{width: "60%"}}>
-                        Роли: {roles.join(", ")}
+                        Роли: {userRoles.join(", ")}
                         <br/>
                         <span>Теги: "Детевтив, квест, средневековье, каркаде, бикини,рпг,капустные войны, история, аниме породии, и всякое
             такое и другое и другое щас бы в баню а то холодно" </span>
@@ -50,7 +59,7 @@ export const UserProfilePage = () => {
                     </div>
                     <div>
                         <div>Количество игр</div>
-                        <div style={{fontSize: "40px"}}><b>27шт</b></div>
+                        <div style={{fontSize: "40px"}}><b>{collections.find(collection => collection.alias === CollectionAliases.MY_GAMES)?.gameCount}</b></div>
                     </div>
                 </div>
             </div>

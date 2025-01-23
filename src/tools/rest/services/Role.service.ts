@@ -1,9 +1,10 @@
-import {axiosBG, PAR} from "../axios.config.ts";
+import {axiosBG} from "../axios.config.ts";
 import {OptionDTO} from "../../interfaces/DTO/boardGame.dto.ts";
 
 export class RoleService {
-    static async getRoles(): PAR<OptionDTO[]> {
-        return await axiosBG.get(`/api/roles`);
+    static async getRoles({signal}: { signal?: AbortSignal }): Promise<OptionDTO[]> {
+        const {data} = await axiosBG.get(`/api/roles`, {signal});
+        return data
     }
 
     static async addRole(name: string) {
@@ -15,6 +16,7 @@ export class RoleService {
     }
 
     static async deleteRole(name: string) {
-        return await axiosBG.delete(`/api/roles/${name}`);
+        const {data} = await axiosBG.delete(`/api/roles/${name}`);
+        return data
     }
 }

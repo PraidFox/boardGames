@@ -1,11 +1,12 @@
-import {axiosBG, PAR} from "../axios.config.ts";
+import {axiosBG} from "../axios.config.ts";
 import {UserDto} from "../../interfaces/DTO/user.dto.ts";
-import {OptionDTO} from "../../interfaces/DTO/boardGame.dto.ts";
+import {queryOptions, skipToken} from "@tanstack/react-query";
 
 
 export class UsersService {
-    static getUser(userName: string): PAR<UserDto> {
-        return axiosBG.get(`/api/Users/${userName}`);
+    static async getUser(userName: string, {signal}: { signal?: AbortSignal }): Promise<UserDto> {
+        const {data} = await axiosBG.get(`/api/Users/${userName}`, {signal});
+        return data
     }
 
     static async getMe({signal}: { signal?: AbortSignal }): Promise<UserDto> {
@@ -18,8 +19,9 @@ export class UsersService {
         return data
     }
 
-    static getUserRoles(userName: string): PAR<OptionDTO[]> {
-        return axiosBG.get(`/api/users/${userName}/roles`);
+    static async getUserRoles(userName: string, {signal}: { signal?: AbortSignal }): Promise<string[]> {
+        const {data} = await axiosBG.get(`/api/users/${userName}/roles`, {signal});
+        return data
     }
 
     static addRoleToUser(role: string, userName: string) {
@@ -32,5 +34,21 @@ export class UsersService {
 
     static recordRoleToUser(roles: string[], userName: string) {
         return axiosBG.put(`/api/users/${userName}/roles/AssignRoles`, roles);
+    }
+}
+
+export const UserServiceFN = {
+    getUser:async (userName: string, {signal}: { signal?: AbortSignal }) => {
+        const {data} = await axiosBG.get(`/api/Users/${userName}`, {signal});
+        return data
+    },
+
+    getUserQO: (userName?: string) => {
+        return queryOptions({
+            queryKey: ['getUser', userName],
+            queryFn: userName? async (meta) => {
+                return await UsersService.getUser(userName, meta)
+            } : skipToken
+        })
     }
 }

@@ -1,9 +1,9 @@
 import {Card} from "antd";
 import {BoardGameMinInfoDto} from "../../../../tools/interfaces/DTO/boardGame.dto.ts";
-import {DeleteGameInCollections, FullInfoBg, LikeBG} from "./ActionsCard.tsx";
-import {ImagePreview} from "../../ImagePreview.tsx";
+import {AddInCollection, DeleteGameInCollections, FullInfoBg} from "./ActionsCard.tsx";
 import {useParams} from "react-router";
 import {useGetMe} from "../../../../tools/hooks/queries/Users.queries.ts";
+import {ImagePreview} from "../../ImagePreview.tsx";
 
 const {Meta} = Card;
 
@@ -13,12 +13,18 @@ export const CardBG = ({boardGame}: { boardGame: BoardGameMinInfoDto}) => {
     const {collectionAlias} = useParams();
     const {data: userInfo} = useGetMe()
 
+    if(!userInfo){
+        return <div>No data available</div>;
+    }
+
     const actionsButtons = [
         <FullInfoBg boardGameId={boardGame.id}/>,
     ]
 
     if(!whoseCollections && !collectionAlias) {
-        actionsButtons.push(<LikeBG boardGameId={boardGame.id}/>)
+        actionsButtons.push(<AddInCollection boardGameId={boardGame.id.toString()} userName={userInfo.userName}/>)
+
+
     }
 
     if (whoseCollections && collectionAlias && userInfo) {
@@ -29,13 +35,15 @@ export const CardBG = ({boardGame}: { boardGame: BoardGameMinInfoDto}) => {
         }
     }
 
-    console.log("boardGame", boardGame)
 
     return (<Card
-            style={{width: 350}}
+            //loading={true}
+            style={{width: 350, margin: 10}}
             cover={
+                <div style={{display: "flex", alignItems: "center", justifyContent: "center", paddingTop: 25}} >
+                 <ImagePreview fileId={boardGame.preview?.id} nameAlt={boardGame.name}/>
+            </div>
 
-                <ImagePreview fileId={boardGame.preview?.id} nameAlt={boardGame.name}/>
             }
             actions={actionsButtons}
         >

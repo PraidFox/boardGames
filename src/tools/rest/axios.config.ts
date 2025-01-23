@@ -20,6 +20,7 @@ const FileSettingAxios = {
 
 export const axiosBG = axios.create(defaultSettingAxios);
 export const axiosBGFile = axios.create(FileSettingAxios);
+export const axiosRefresh = axios.create(defaultSettingAxios);
 
 axiosBG.interceptors.request.use(
     (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
@@ -59,21 +60,19 @@ axiosBG.interceptors.response.use(
         const tokenInfo = LocalStorageUtils.getTokenInfo();
         const rememberMe = LocalStorageUtils.getRememberMe();
 
-        if (error.response?.status === 401 && originalRequest && error.response.data.message === 'jwt expired') {
+        if (error.response?.status === 401 && originalRequest) {
 
             if (rememberMe && tokenInfo) {
                 const {refreshToken} = tokenInfo
 
                 try {
                     const response = await AuthService.refreshToken(refreshToken)
-
                     LocalStorageUtils.setTokenInfo(response.data)
-
                     originalRequest.headers.Authorization = `Bearer ${response.data.accessToken}`;
                     return axiosBG(originalRequest);
                 } catch (refreshError) {
                     LocalStorageUtils.removeTokenInfo()
-                  LocalStorageUtils.removeRememberMe()
+                    LocalStorageUtils.removeRememberMe()
                     return Promise.reject(refreshError);
                 }
 

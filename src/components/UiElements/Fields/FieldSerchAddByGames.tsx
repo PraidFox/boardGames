@@ -59,12 +59,12 @@ export const FieldSearchAddGames = ({whoseCollections, collectionAlias}: {
                 loading={isLoading}
                 optionRender={(option) => (
                     <Space>
-                        <div style={{width: 50, height: 50}}>
                             <ImagePreview
                                 fileId={option.data.info.imgId}
                                 nameAlt={option.data.value.toString()}
+                                width={50}
+                                height={50}
                             />
-                        </div>
                         <span>{option.data.label}</span>
                     </Space>
                 )}

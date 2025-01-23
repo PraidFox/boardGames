@@ -3,6 +3,7 @@ import {useUserCollections} from "../../../../../tools/hooks/queries/UserCollect
 import {CardAddCollection} from "./CardAddCollection.tsx";
 
 export const PanelCollections = ({whoseCollections, myCollections}: { whoseCollections: string, myCollections: boolean }) => {
+
     const {data: collections, isLoading, isError} = useUserCollections(whoseCollections)
 
 

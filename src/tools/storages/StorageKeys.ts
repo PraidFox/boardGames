@@ -8,3 +8,9 @@ export enum StorageKeys {
     OPEN_MENU = "openMenu",
     BOARD_GAMES_DATA = "boardGamesData",
 }
+
+export enum CollectionAliases {
+    FAVORITE = "favorites",
+    WISHLIST = "wishlist",
+    MY_GAMES = "games",
+}

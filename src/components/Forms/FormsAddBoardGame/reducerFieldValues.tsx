@@ -1,7 +1,7 @@
-import {OptionsAutoComplete, OptionSelect} from "../../../tools/interfaces/option.Interface.ts";
+import {OptionSelect} from "../../../tools/interfaces/option.Interface.ts";
 
 export type ValesFieldFormEdit = {
-    name: OptionsAutoComplete<null> | null,
+    name: string | null,
     type: OptionSelect<null> | null,
     genre: string[],
     maxPlayersCount: number,
@@ -23,7 +23,7 @@ export type Action =
 }
     | {
     type: "CHANGE_NAME_GAME",
-    payload: OptionsAutoComplete<null>
+    payload: string | null
 }
     | {
     type: "CHANGE_GENRE_GAME" | "CHANGE_IMAGES",
@@ -38,7 +38,7 @@ export const reducerFieldValues = (state: ValesFieldFormEdit, action: Action) =>
 
     switch (action.type) {
         case "ADD_ALL_DEFAULT":
-            const newState: ValesFieldFormEdit = {
+            { const newState: ValesFieldFormEdit = {
                 articul: "", barcode: "", linkToPublisher: "",
                 name: null,
                 type: null,
@@ -48,18 +48,18 @@ export const reducerFieldValues = (state: ValesFieldFormEdit, action: Action) =>
                 images: [],
                 previewId: ''
             }
-            return {...newState}
+            return {...newState} }
         case  "CHANGE_IMAGES":
             return {...state, images: action.payload}
         case "CHANGE_MIN_PLAYERS":
-            let newMinPlayers = state.minPlayersCount
+            { let newMinPlayers = state.minPlayersCount
             if (action.payload) {
                 newMinPlayers = action.payload
                 if (action.payload >= state.maxPlayersCount) {
                     newMaxPlayers = action.payload
                 }
             }
-            return {...state, minPlayers: newMinPlayers, maxPlayers: newMaxPlayers}
+            return {...state, minPlayers: newMinPlayers, maxPlayers: newMaxPlayers} }
         case "CHANGE_MAX_PLAYERS":
             if (action.payload) {
                 newMaxPlayers = action.payload

@@ -21,7 +21,7 @@ export const CollectionProfile = ({whoseCollections, myCollections}: {
     const {data: collection, isLoading, isError} = useGetCollection(whoseCollections, collectionAlias);
     const deleteCollection = useDeleteCollection(whoseCollections)
 
-    if (!collectionAlias) return <div>Нет данных</div>
+    if (!collectionAlias) return <div>Необходимо выбрать конкретную коллекцию</div>
     if (isLoading) return <div>Загрузка...</div>
     if (isError) return <div>Такой коллекции не существует (вероятнее всего её переименовали)</div>
     if (!collection) return <div>Нет данных</div>

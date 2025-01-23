@@ -2,21 +2,14 @@ import {useParams} from "react-router";
 import {useGetMe} from "../../../../tools/hooks/queries/Users.queries.ts";
 import {PanelCollections} from "./PanelCollectionsGamePage/PanelCollections.tsx";
 import {CollectionProfile} from "./CollectionProfile/CollectionProfile.tsx";
-import {useEffect, useState} from "react";
 
 //TODO еще нужна будет проверка на уровень видимости
+//TODO в поиске игр для добавления в коллекцию, дать чекбокс для фильтрации только в своих добавленных играх
 export const UserCollectionsBoardGamesPage = () => {
     const {userName:whoseCollections} = useParams();
-    const [myCollections, setMyCollections] = useState<boolean>(false)
-    
     const {data: userInfo} = useGetMe()
 
-    useEffect(() => {
-        if(whoseCollections === userInfo?.userName){
-            setMyCollections(true)
-        }
-    }, [userInfo, whoseCollections]);
-
+    const myCollections: boolean = whoseCollections === userInfo?.userName
 
     if (!whoseCollections) { return <div>No data available</div>; }
 
@@ -28,6 +21,7 @@ export const UserCollectionsBoardGamesPage = () => {
             <br/>
             <hr/>
             <CollectionProfile whoseCollections={whoseCollections} myCollections={myCollections}/>
+
         </>
     )
 

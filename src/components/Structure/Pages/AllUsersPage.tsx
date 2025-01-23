@@ -1,16 +1,17 @@
 import {NavLink} from "react-router";
 import {PathStorage} from "../../../tools/storages/Path.storage.ts";
-import {useAllUsers} from "../../../tools/hooks/queries/Users.queries.ts";
+import {useGetAllUsers} from "../../../tools/hooks/queries/Users.queries.ts";
 
 
 export const AllUsersPage = () => {
+    const {data} = useGetAllUsers()
 
-    const {data} = useAllUsers()
+    if(!data) return <div>Ой, что-то пошло не так</div>
 
     return (
         <div>
             Здесь информация и поиск всех игроков.
-            {data?.map(user =>
+            {data.map(user =>
                 <li key={"link" + user.userName}>
                     <NavLink
                         to={`${PathStorage.USER}/${user.userName}`}
@@ -18,10 +19,7 @@ export const AllUsersPage = () => {
                         {user.userName}
                     </NavLink>
                 </li>
-            )
-            }
-
-
+            )}
             <br/>
             Зачем? Найти друга. Или найти с кем поиграть, может сделаем отправки сообщений? Или еще чего... Или
             посмотреть активность.

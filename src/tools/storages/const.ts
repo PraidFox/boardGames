@@ -3,6 +3,12 @@ export enum FormType {
     AUTH = "auth"
 }
 
+export enum ConfidentialType {
+    ONLY_ME = 0,
+    ONLY_FRIENDS = 1,
+    ALL_ALLOWED = 2
+}
+
 export enum MyError {
     NEED_AUTHORIZATION = "Нужна повторная авторизация",
 }

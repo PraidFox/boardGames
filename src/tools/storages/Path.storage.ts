@@ -1,6 +1,7 @@
 import {AliasesCollection} from "./const.ts";
 
 export enum PathStorage {
+    WELCOME = "welcome",
     BOARD_GAMES = "boardGames",
     USERS = "users",
     USER = "user",
