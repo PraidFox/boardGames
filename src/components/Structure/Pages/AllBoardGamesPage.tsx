@@ -1,7 +1,5 @@
 import {useFilterBoardGames} from "../../../tools/hooks/queries/BoardGame.queries.ts";
 import {BoardGamesList} from "../../UiElements/BoardGames/BoardGamesList.tsx";
-import {FormAddBoardGameInModeration} from "../../Forms/FormsAddBoardGame/FormAddBoardGameInModeration.tsx";
-import {DrawerSidePanel} from "../../UiElements/DrawerSidePanel.tsx";
 import {Pagination, PaginationProps} from "antd";
 import {FilterBoardGamesPanel} from "../../Forms/FormFilter/FilterBoardGamesPanel.tsx";
 import {FilterBoardGames} from "../../../tools/interfaces/fieldsForm.Interface.ts";
@@ -44,9 +42,9 @@ export const AllBoardGamesPage = () => {
     return (
         <>
             <div style={{display: "flex", alignItems: "center", gap: 20}}><h1>Все игры</h1>
-                <DrawerSidePanel>
-                    {(onClose) => (<FormAddBoardGameInModeration onClose={onClose}/>)}
-                </DrawerSidePanel>
+                {/*<DrawerSidePanel>*/}
+                {/*    {(onClose) => (<FormAddBoardGameInModeration onClose={onClose}/>)}*/}
+                {/*</DrawerSidePanel>*/}
             </div>
 
             <FilterBoardGamesPanel form={form}/>

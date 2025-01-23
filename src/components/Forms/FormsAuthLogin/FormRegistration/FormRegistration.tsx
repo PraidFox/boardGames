@@ -4,6 +4,7 @@ import {useState} from "react";
 import {AuthService} from "../../../../tools/rest/services/Auth.service.ts";
 import {IFieldRegistration} from "../../../../tools/interfaces/fieldsForm.Interface.ts";
 import {FormButtons} from "../../../UiElements/Buttons/FormButtons";
+import {NF_Registration} from "../../../../tools/storages/FieldName.storage.ts";
 
 export const FormRegistration = ({onClose}: {
     onClose: () => void
@@ -14,7 +15,7 @@ export const FormRegistration = ({onClose}: {
 
     const onFinish = (values: IFieldRegistration) => {
         setLoading(true)
-        AuthService.registrationUser(values.email, values.userName, values.password)
+        AuthService.registrationUser({userName: values[NF_Registration.USER_NAME], email: values[NF_Registration.EMAIL], password: values[NF_Registration.PASSWORD]})
             .then(() => {
                 setLoading(false)
             })
@@ -28,7 +29,7 @@ export const FormRegistration = ({onClose}: {
 
 
     const onFinishFailed = (errorInfo: any) => {
-
+            console.log('Failed:', errorInfo);
     };
 
 

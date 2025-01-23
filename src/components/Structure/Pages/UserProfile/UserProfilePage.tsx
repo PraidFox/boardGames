@@ -10,12 +10,9 @@ const {TextArea} = Input;
 export const UserProfilePage = () => {
     const {userName: userNameUrl} = useParams();
 
-   
-
     const {
         token: {borderRadiusLG},
     } = theme.useToken();
-
 
     //const {data: whoProfile} = useGetUser(userNameUrl)
     const {data: whoProfile} = useQuery({...UserServiceFN.getUserQO(userNameUrl)})
