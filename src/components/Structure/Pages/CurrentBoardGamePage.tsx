@@ -1,8 +1,9 @@
-import {useParams} from "react-router";
+import {NavLink, useParams} from "react-router";
 import {FileService} from "../../../tools/rest/services/File.service.ts";
 import {useGetBoardGame} from "../../../tools/hooks/queries/BoardGame.queries.ts";
 import {useAddRatingGame} from "../../../tools/hooks/queries/GameRating.queries.ts";
 import {Rate} from "antd";
+import {PathStorage} from "../../../tools/storages/Path.storage.ts";
 
 export const CurrentBoardGamePage = () => {
     const {boardGameId} = useParams();
@@ -24,6 +25,9 @@ export const CurrentBoardGamePage = () => {
     if (boardGame) {
         return (
             <>
+
+                <NavLink to={`/${PathStorage.BOARD_GAMES}`}>НАЗАД спешал fo Алексей</NavLink>
+                <br/>
                 Название: {boardGame.name}
                 <br/>
                 alias: {boardGame.alias}
