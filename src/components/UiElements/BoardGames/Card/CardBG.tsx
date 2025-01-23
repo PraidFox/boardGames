@@ -8,6 +8,7 @@ import {ImagePreview} from "../../ImagePreview.tsx";
 const {Meta} = Card;
 
 
+
 export const CardBG = ({boardGame}: { boardGame: BoardGameMinInfoDto}) => {
     const {userName:whoseCollections} = useParams();
     const {collectionAlias} = useParams();
