@@ -8,23 +8,20 @@ import {ImagePreview} from "../../ImagePreview.tsx";
 const {Meta} = Card;
 
 
+
 export const CardBG = ({boardGame}: { boardGame: BoardGameMinInfoDto}) => {
     const {userName:whoseCollections} = useParams();
     const {collectionAlias} = useParams();
     const {data: userInfo} = useGetMe()
 
-    if(!userInfo){
-        return <div>No data available</div>;
-    }
 
     const actionsButtons = [
         <FullInfoBg boardGameId={boardGame.id}/>,
     ]
 
-    if(!whoseCollections && !collectionAlias) {
-        actionsButtons.push(<AddInCollection boardGameId={boardGame.id.toString()} userName={userInfo.userName}/>)
 
-
+    if(!whoseCollections && !collectionAlias && userInfo) {
+        actionsButtons.push(<AddInCollection boardGameId={boardGame.id.toString()} userName={userInfo?.userName}/>)
     }
 
     if (whoseCollections && collectionAlias && userInfo) {
