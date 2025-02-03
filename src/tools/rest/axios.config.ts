@@ -6,13 +6,13 @@ import {AuthService} from "./services/Auth.service.ts";
 export type PAR<T> = Promise<AxiosResponse<T>>;
 
 const defaultSettingAxios = {
-    baseURL: 'http://94.125.48.107:8080',
+    baseURL: import.meta.env.VITE_APP_API_URL,
     headers: {'accept': "application/json", "Content-Type": 'application/json'},
     withCredentials: true,
 }
 
 const FileSettingAxios = {
-    baseURL: 'http://94.125.48.107:8080',
+    baseURL: import.meta.env.VITE_APP_API_URL,
     headers: {'Content-Type': 'multipart/form-data'},
     withCredentials: true
 }
