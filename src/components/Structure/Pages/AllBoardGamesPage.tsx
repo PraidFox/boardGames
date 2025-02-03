@@ -14,9 +14,9 @@ export const AllBoardGamesPage = () => {
     const [form] = useForm<FilterBoardGames>()
 
     //TODO передалать, что бы фильтр сохранился в url и оттуда его брать
+
     const dataFilter = useWatchFieldFilterGame(form)
     const [valuesPagination, setValuesPagination] = useState<[number, number]>([1, 10])
-
 
 
     //type T10 = ReturnType<() => string>;
