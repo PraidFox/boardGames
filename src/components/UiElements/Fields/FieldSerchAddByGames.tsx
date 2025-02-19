@@ -13,14 +13,15 @@ interface BoardGameValue {
 }
 
 //Может разъеденить поисковик с кнопокой?
-export const FieldSearchAddGames = ({whoseCollections, collectionAlias}: {
+export const FieldSearchAddGames = ({whoseCollections, collectionAlias, excludedGamesId}: {
     whoseCollections: string,
-    collectionAlias: string
+    collectionAlias: string,
+    excludedGamesId?: number[]
 }) => {
     const [value, setValue] = useState<BoardGameValue[]>()
     const [valueInput, setValueInput] = useState<string>()
     const debounceValue = useDebounce(valueInput, 500)
-    const {data: allBoardGames, isLoading} = useFilterBoardGames({gameName: debounceValue, itemPerPage: 25})
+    const {data: allBoardGames, isLoading} = useFilterBoardGames({gameName: debounceValue, itemPerPage: 25, excludedGamesId})
     const addGamesInCollection = useAddGamesInCollection(whoseCollections)
 
 

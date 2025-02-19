@@ -71,11 +71,12 @@ export const AppRoutes = () => {
                             path={PathStorage.USER + `/:userName`}
                         >
                             <Route index element={<UserProfilePage/>} />
+
                             <Route
                                 path={PathStorage.COLLECTIONS_USER}
                                 element={<UserCollectionsBoardGamesPage/>}
                             >
-                                <Route path={`:collectionAlias`}/>
+                                <Route path={`:collectionAlias`} element={<></>}/>
                             </Route>
 
                             <Route

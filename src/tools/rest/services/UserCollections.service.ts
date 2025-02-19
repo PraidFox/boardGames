@@ -26,7 +26,7 @@ export class UserCollectionsService {
         userName: string,
         collectionAlias: string
     }): Promise<CurrentGameCollectionDTO> {
-        const {data} = await axiosBG.get(`/api/collections/${collectionAlias}?includeGames=true&&userName=${userName}`);
+        const {data} = await axiosBG.get(`/api/collections/alias?alias=${collectionAlias}&&includeGames=true&&userName=${userName}`);
         return data
     }
 

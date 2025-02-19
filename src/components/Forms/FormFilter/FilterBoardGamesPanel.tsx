@@ -18,7 +18,7 @@ export const FilterBoardGamesPanel = ({form}: { form: FormInstance<FilterBoardGa
         <Form<FilterBoardGames>
             name="filterBG"
             form={form}
-            initialValues={{remember: true}}
+            // initialValues={{remember: true}}
             layout={'inline'}
             variant={'filled'}
         >

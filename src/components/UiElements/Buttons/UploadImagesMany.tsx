@@ -53,7 +53,7 @@ export const UploadImagesMany = ({setImagesId}: {
                 fileList={fileList}
                 onPreview={handlePreview}
                 onChange={handleChange}
-                onRemove={e => console.log(e)}
+                //onRemove={e => console.log(e)}
             >
                 {fileList.length >= 8 ? null :
                     <button style={{border: 0, background: 'none'}} type="button">

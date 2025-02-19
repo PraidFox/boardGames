@@ -1,14 +1,14 @@
 import {BoardGameMinInfoDto, FileInfoDTO} from "./boardGame.dto.ts";
 
 export interface CurrentGameCollectionDTO {
-    name: string,
     alias: string,
     avatarInfoId?: FileInfoDTO,
-    confidentialType: number,
-
-    description: string,
     backgroundInfoId: FileInfoDTO,
+    confidentialType: number,
+    description: string,
     games: BoardGameMinInfoDto[],
+    name: string,
+    updateDate: string
 }
 
 

@@ -13,7 +13,7 @@ export const ProfileMenu = () => {
     const {mutate: logoutUser} = useLogout()
 
     const [countNotifications, setCountNotifications] = useState(8)
-console.log("setCountNotifications", setCountNotifications)
+
 
     const items: MenuProps['items'] = [
         {

@@ -1,17 +1,20 @@
-import axios, {AxiosError, AxiosResponse, InternalAxiosRequestConfig} from "axios";
+import axios, {AxiosError, AxiosResponse, CreateAxiosDefaults, InternalAxiosRequestConfig} from "axios";
 import {StorageKeys} from "../storages/StorageKeys.ts";
 import {LocalStorageUtils} from "../utils/LocalStorageUtils.ts";
 import {AuthService} from "./services/Auth.service.ts";
 
 export type PAR<T> = Promise<AxiosResponse<T>>;
 
-const defaultSettingAxios = {
+const defaultSettingAxios: CreateAxiosDefaults = {
     baseURL: import.meta.env.VITE_APP_API_URL,
     headers: {'accept': "application/json", "Content-Type": 'application/json'},
     withCredentials: true,
+    paramsSerializer: {
+        indexes: null
+    }
 }
 
-const FileSettingAxios = {
+const FileSettingAxios: CreateAxiosDefaults = {
     baseURL: import.meta.env.VITE_APP_API_URL,
     headers: {'Content-Type': 'multipart/form-data'},
     withCredentials: true
@@ -36,7 +39,6 @@ axiosBG.interceptors.request.use(
         return Promise.reject(error);
     }
 );
-
 
 
 interface ErrorResponse {
