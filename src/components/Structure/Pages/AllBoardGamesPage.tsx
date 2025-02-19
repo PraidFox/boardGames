@@ -5,7 +5,7 @@ import {FilterBoardGamesPanel} from "../../Forms/FormFilter/FilterBoardGamesPane
 import {FilterBoardGames} from "../../../tools/interfaces/fieldsForm.Interface.ts";
 import {useForm} from "antd/es/form/Form";
 import {useWatchFieldFilterGame} from "../../../tools/hooks/useWatchFieldFilterGame.ts";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {LoadingPanda} from "../../UiElements/LoadingPanda.tsx";
 
 
@@ -17,17 +17,7 @@ export const AllBoardGamesPage = () => {
 
     const dataFilter = useWatchFieldFilterGame(form)
     const [valuesPagination, setValuesPagination] = useState<[number, number]>([1, 10])
-
-
-    //type T10 = ReturnType<() => string>;
-    //console.log("popup", typeof test)
-
-
-    useEffect(() => {
-        console.log(321)
-        return () => console.log(123)
-    }, []);
-
+    
     const {data: allBoardGames, isLoading} = useFilterBoardGames({
         pageNum: valuesPagination[0],
         itemPerPage: valuesPagination[1],

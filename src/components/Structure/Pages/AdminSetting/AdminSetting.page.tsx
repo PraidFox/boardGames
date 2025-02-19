@@ -1,4 +1,4 @@
-import {useGetAllUsers} from "../../../../tools/hooks/queries/Users.queries.ts";
+import {useGetFilterUsers} from "../../../../tools/hooks/queries/Users.queries.ts";
 import {GenrePanel} from "./PanelOptionAdd/GenrePanel.tsx";
 import {TypePanel} from "./PanelOptionAdd/TypePanel.tsx";
 import {RolePanel} from "./PanelOptionAdd/RolePanel.tsx";
@@ -7,7 +7,7 @@ import {ChangeRoleUserField} from "./ChangeRoleUser.field.tsx";
 
 
 export const AdminSettingPage = () => {
-    const {data: users} = useGetAllUsers()
+    const {data: users} = useGetFilterUsers()
 
     if (!users) {
         return <div>Какие-то данные не удалось загрузить</div>

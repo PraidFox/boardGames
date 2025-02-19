@@ -1,21 +1,20 @@
 import {axiosBG} from "../axios.config.ts";
-import {UserDto} from "../../interfaces/DTO/user.dto.ts";
-import {queryOptions, skipToken} from "@tanstack/react-query";
+import {FilterUsersDTO, UserDto} from "../../interfaces/DTO/user.dto.ts";
 
 
 export class UsersService {
     static async getUser(userName: string, {signal}: { signal?: AbortSignal }): Promise<UserDto> {
-        const {data} = await axiosBG.get(`/api/Users/${userName}`, {signal});
+        const {data} = await axiosBG.get(`/api/users/${userName}`, {signal});
         return data
     }
 
     static async getMe({signal}: { signal?: AbortSignal }): Promise<UserDto> {
-        const {data} = await axiosBG.get(`/api/Users/GetMe`, {signal});
+        const {data} = await axiosBG.get(`/api/users/GetMe`, {signal});
         return data
     }
 
-    static async getAllUsers({signal}: { signal?: AbortSignal }): Promise<UserDto[]> {
-        const {data} = await axiosBG.get(`/api/Users`, {signal});
+    static async getFilterUsers(params: FilterUsersDTO, {signal}: { signal?: AbortSignal }): Promise<UserDto[]> {
+        const {data} = await axiosBG.get(`/api/users`, {params, signal});
         return data
     }
 
@@ -37,18 +36,18 @@ export class UsersService {
     }
 }
 
-export const UserServiceFN = {
-    getUser:async (userName: string, {signal}: { signal?: AbortSignal }) => {
-        const {data} = await axiosBG.get(`/api/Users/${userName}`, {signal});
-        return data
-    },
-
-    getUserQO: (userName?: string) => {
-        return queryOptions({
-            queryKey: ['getUser', userName],
-            queryFn: userName? async (meta) => {
-                return await UsersService.getUser(userName, meta)
-            } : skipToken
-        })
-    }
-}
+// export const UserServiceFN = {
+//     getUser:async (userName: string, {signal}: { signal?: AbortSignal }) => {
+//         const {data} = await axiosBG.get(`/api/Users/${userName}`, {signal});
+//         return data
+//     },
+//
+//     getUserQO: (userName?: string) => {
+//         return queryOptions({
+//             queryKey: ['getUser', userName],
+//             queryFn: userName? async (meta) => {
+//                 return await UsersService.getUser(userName, meta)
+//             } : skipToken
+//         })
+//     }
+// }

@@ -9,18 +9,19 @@ export const UserCollectionsBoardGamesPage = () => {
     const {userName:whoseCollections} = useParams();
     const {data: userInfo} = useGetMe()
 
-    const myCollections: boolean = whoseCollections === userInfo?.userName
+    const isMyCollections: boolean = whoseCollections === userInfo?.userName
 
     if (!whoseCollections) { return <div>No data available</div>; }
 
     return (<>
+
             <div style={{display: "flex", gap: "10px", alignItems: "center"}}>
-                <h2>{myCollections? "Моя коллекция" : `Коллекции: ${whoseCollections}`}</h2>
+                <h2>{isMyCollections? "Мои коллекции" : `Коллекции: ${whoseCollections}`}</h2>
             </div>
-            <PanelCollections whoseCollections={whoseCollections} myCollections={myCollections}/>
+            <PanelCollections whoseCollections={whoseCollections} isMyCollections={isMyCollections}/>
             <br/>
             <hr/>
-            <CollectionProfile whoseCollections={whoseCollections} myCollections={myCollections}/>
+            <CollectionProfile whoseCollections={whoseCollections} myCollections={isMyCollections}/>
 
         </>
     )

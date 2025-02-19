@@ -1,6 +1,6 @@
-export const StatisticInfo = () => {
+export const StatisticInfo = ({updateDate} : {updateDate: string}) => {
     return (<div style={{textAlign: "right"}}>
-            Обновлялась: Когда-то /
+            Обновлялась: {updateDate} /
             Лайков: Мнооого
         </div>
     )

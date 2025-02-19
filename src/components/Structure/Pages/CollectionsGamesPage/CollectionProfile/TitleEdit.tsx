@@ -28,6 +28,7 @@ export const TitleEdit = ({name, whoseCollections, collectionAlias}: {
         setEdit(false)
     }
 
+
     if (edit) {
         return (<Input
             placeholder={title}
@@ -42,15 +43,18 @@ export const TitleEdit = ({name, whoseCollections, collectionAlias}: {
             }}
         />)
     } else {
-        return (
-            <div style={{height: "20%", display: "flex", gap: "1%", alignItems: "center"}}
-                 onMouseEnter={() => setShowButtonEditTitle(true)}
-                 onMouseLeave={() => setShowButtonEditTitle(false)}
+        return (<>
+                <div>{name}</div>
+                <div style={{height: "20%", display: "flex", gap: "1%", alignItems: "center"}}
+                     onMouseEnter={() => setShowButtonEditTitle(true)}
+                     onMouseLeave={() => setShowButtonEditTitle(false)}
 
-            >
-                <h1>{title?.toUpperCase()}</h1>
-                {showButtonEditTitle &&
-                    <Button icon={<EditOutlined/>} size={"small"} onClick={() => setEdit(true)}/>}
-            </div>)
+                >
+                    <h1>{title?.toUpperCase()}</h1>
+                    {showButtonEditTitle &&
+                        <Button icon={<EditOutlined/>} size={"small"} onClick={() => setEdit(true)}/>}
+                </div>
+            </>
+        )
     }
 }

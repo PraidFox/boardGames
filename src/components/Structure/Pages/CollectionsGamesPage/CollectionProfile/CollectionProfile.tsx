@@ -26,25 +26,34 @@ export const CollectionProfile = ({whoseCollections, myCollections}: {
     if (isError) return <div>Такой коллекции не существует (вероятнее всего её переименовали)</div>
     if (!collection) return <div>Нет данных</div>
 
+
+    console.log("collection", collection.games)
     return (
         <>
-            <StatisticInfo/>
+
+
+            <StatisticInfo updateDate={collection.updateDate}/>
             {editingAllowed && myCollections &&
                 <Button onClick={() => deleteCollection.mutate(collectionAlias)}>Удалить коллекцию</Button>}
             <div style={{display: "flex", gap: "2%", width: "100%"}}>
                 <Cover collection={collection}/>
                 <div style={{width: "100%"}}>
+
                     {editingAllowed && myCollections &&
-                        <TitleEdit
+                        <TitleEdit key={collectionAlias+'title'}
                             name={collection.name}
                             collectionAlias={collectionAlias}
                             whoseCollections={whoseCollections}
                         />
                     }
+
                     {!editingAllowed && <h1>{collection.name}</h1>}
+
                     <br/>
+
+
                     {editingAllowed && myCollections &&
-                        <DescriptionEdit
+                        <DescriptionEdit key={collectionAlias+'description'}
                             description={collection.description}
                             collectionAlias={collectionAlias}
                             whoseCollections={whoseCollections}
@@ -63,7 +72,7 @@ export const CollectionProfile = ({whoseCollections, myCollections}: {
             }
             <hr/>
             {myCollections &&
-                <FieldSearchAddGames collectionAlias={collectionAlias} whoseCollections={whoseCollections}/>}
+                <FieldSearchAddGames collectionAlias={collectionAlias} whoseCollections={whoseCollections} excludedGamesId={collection.games.map(game => game.id)}/>}
 
 
             <BoardGamesList dataBoardGames={collection.games} />

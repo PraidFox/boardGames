@@ -58,6 +58,7 @@ export interface FilterGamesDTO {
     playersAge?: number
     pageNum?: number
     itemPerPage?: number
+    excludedGamesId?: number[]
 }
 
 export interface FileInfoDTO {

@@ -2,7 +2,7 @@ import {CardCollection} from "./CardCollection.tsx";
 import {useUserCollections} from "../../../../../tools/hooks/queries/UserCollection.queries.ts";
 import {CardAddCollection} from "./CardAddCollection.tsx";
 
-export const PanelCollections = ({whoseCollections, myCollections}: { whoseCollections: string, myCollections: boolean }) => {
+export const PanelCollections = ({whoseCollections, isMyCollections}: { whoseCollections: string, isMyCollections: boolean }) => {
 
     const {data: collections, isLoading, isError} = useUserCollections(whoseCollections)
 
@@ -19,10 +19,10 @@ export const PanelCollections = ({whoseCollections, myCollections}: { whoseColle
                         key={collection.alias}
                         collection={collection}
                         whoseCollections={whoseCollections}
-                        myCollections={myCollections}
+                        isMyCollections={isMyCollections}
                     />
                 )}
-                {myCollections && <CardAddCollection whoseCollections={whoseCollections}/> }
+                {isMyCollections && <CardAddCollection whoseCollections={whoseCollections}/> }
             </div>
 
         </>

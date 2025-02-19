@@ -19,10 +19,10 @@ const styles = {
     }
 };
 
-export const CardCollection = ({collection, whoseCollections, myCollections}: {
+export const CardCollection = ({collection, whoseCollections, isMyCollections}: {
     collection: GameCollectionDTO,
     whoseCollections: string,
-    myCollections: boolean
+    isMyCollections: boolean
 }) => {
     const deleteCollections = useDeleteCollection(whoseCollections)
     const handleDelete = () => {
@@ -41,7 +41,7 @@ export const CardCollection = ({collection, whoseCollections, myCollections}: {
             </NavLink>
 
             {/*Определение коллекции можно её удалить или нет, и так же если в ней уже есть добавленные игры, то будет добавлено окно для подтверждения*/}
-            {!notEditCollection.includes(collection.alias) && myCollections &&
+            {!notEditCollection.includes(collection.alias) && isMyCollections &&
                 <div style={styles.deleteContainer}>
                     {collection.gameCount > 0 &&
                         <ConfirmationModal

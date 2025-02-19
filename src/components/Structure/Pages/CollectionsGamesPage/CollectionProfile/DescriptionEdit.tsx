@@ -12,7 +12,7 @@ export const DescriptionEdit = ({description, whoseCollections, collectionAlias}
 
     const [showButtonEdit, setShowButtonEdit] = useState(false);
     const [edit, setEdit] = useState(false)
-    const [descriptionLocal, setDescriptionLocal] = useState<string>(description ? description : "Ой, нет описания")
+    const [descriptionLocal, setDescriptionLocal] = useState<string>(description)
     const inputRef = useRef<InputRef>(null);
 
     const saveDescription = useChangeDataCollection(whoseCollections)

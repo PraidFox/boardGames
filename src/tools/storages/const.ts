@@ -17,9 +17,10 @@ export enum MyError {
 export enum AliasesCollection {
     FAVORITE = "favorites",
     WISHLIST = "wishlist",
-    MY_GAMES = "games"
+    MY_GAMES = "games",
+    COMPLETED = "completed"
 }
 
-export const notEditCollection: string[] = [AliasesCollection.FAVORITE, AliasesCollection.WISHLIST, AliasesCollection.MY_GAMES]
+export const notEditCollection: string[] = [AliasesCollection.FAVORITE, AliasesCollection.WISHLIST, AliasesCollection.MY_GAMES, AliasesCollection.COMPLETED]
 
 export const pictureStub = `https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png`

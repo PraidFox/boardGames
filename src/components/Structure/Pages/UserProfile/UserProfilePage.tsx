@@ -1,8 +1,6 @@
 import {useParams} from "react-router";
 import {Avatar, Button, Input, theme} from "antd";
-import {useGetMe, useGetUserRoles} from "../../../../tools/hooks/queries/Users.queries.ts";
-import {useQuery} from "@tanstack/react-query";
-import {UserServiceFN} from "../../../../tools/rest/services/Users.service.ts";
+import {useGetMe, useGetUser, useGetUserRoles} from "../../../../tools/hooks/queries/Users.queries.ts";
 import {useUserCollections} from "../../../../tools/hooks/queries/UserCollection.queries.ts";
 import {CollectionAliases} from "../../../../tools/storages/StorageKeys.ts";
 
@@ -14,8 +12,7 @@ export const UserProfilePage = () => {
         token: {borderRadiusLG},
     } = theme.useToken();
 
-    //const {data: whoProfile} = useGetUser(userNameUrl)
-    const {data: whoProfile} = useQuery({...UserServiceFN.getUserQO(userNameUrl)})
+    const {data: whoProfile} = useGetUser(userNameUrl)
     const {data: userRoles} = useGetUserRoles(userNameUrl)
     const {data: userInfo} = useGetMe()
     const {data: collections} = useUserCollections(whoProfile?.userName)

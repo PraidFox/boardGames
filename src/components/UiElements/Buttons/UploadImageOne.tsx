@@ -1,16 +1,15 @@
 import {UploadOutlined} from '@ant-design/icons';
 import {Button, message, Upload, UploadProps} from 'antd';
-import {FileService} from "../../../tools/rest/services/File.service.ts";
 
 const props: UploadProps = {
     customRequest(options) {
         const formData = new FormData();
         formData.append("file", options.file);
-        FileService.uploadFile(formData).then(r => console.log("r", r.data.id))
+        //FileService.uploadFile(formData).then(r => console.log("r", r.data.id))
     },
     onChange(info) {
         if (info.file.status !== 'uploading') {
-            console.log(info.file, info.fileList);
+            //console.log(info.file, info.fileList);
         }
         if (info.file.status === 'done') {
             message.success(`${info.file.name} file uploaded successfully`);

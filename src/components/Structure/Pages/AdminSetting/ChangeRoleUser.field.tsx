@@ -1,5 +1,9 @@
 import {Button, Select} from "antd";
-import {useGetAllUsers, useGetUserRoles, useRecordRoleToUser} from "../../../../tools/hooks/queries/Users.queries.ts";
+import {
+    useGetFilterUsers,
+    useGetUserRoles,
+    useRecordRoleToUser
+} from "../../../../tools/hooks/queries/Users.queries.ts";
 import {useGetRoles} from "../../../../tools/hooks/queries/Role.queries.ts";
 import {useLayoutEffect, useState} from "react";
 
@@ -8,7 +12,7 @@ export const ChangeRoleUserField = () => {
     const [userSelected, setUserSelected] = useState<string>()
     const [valueRoleToUser, setValueRoleToUser] = useState<string[] | undefined>()
 
-    const {data: users} = useGetAllUsers()
+    const {data: users} = useGetFilterUsers()
     const {data: roles} = useGetRoles()
     const {data: userRoles} = useGetUserRoles(userSelected)
 

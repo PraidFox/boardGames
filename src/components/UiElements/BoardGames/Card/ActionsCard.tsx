@@ -23,16 +23,24 @@ export const AddInCollection = ({boardGameId, userName}: { boardGameId: string, 
     const addInCollections = useAddGameInCollection(userName)
     const {data: collections} = useUserCollections(userName)
 
-    if(!collections){ return <div>Загружаем</div>;}
+    if (!collections) {
+        return <div>Загружаем</div>;
+    }
 
-    const items: MenuProps['items'] = collections.map(collection => ({label: <span onClick={() => addInCollections.mutate({collectionAlias: collection.alias, gameId:boardGameId})}>{collection.name}</span>, key: collection.alias}))
+    const items: MenuProps['items'] = collections.map(collection => (
+        {
+            label:
+                <span
+                    onClick={() =>
+                        addInCollections.mutate(
+                            {collectionAlias: collection.alias, gameId: boardGameId}
+                        )}>{collection.name}
+                </span>,
+            key: collection.alias
+        }))
 
-
-
-
-
-    return <Dropdown menu={{ items }}>
-        <SmallDashOutlined />
+    return <Dropdown menu={{items}}>
+        <SmallDashOutlined/>
     </Dropdown>
 
 

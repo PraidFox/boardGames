@@ -1,7 +1,8 @@
-import {skipToken, useMutation, useQuery} from "@tanstack/react-query";
+import {keepPreviousData, skipToken, useMutation, useQuery} from "@tanstack/react-query";
 import {UsersService} from "../../rest/services/Users.service.ts";
 import {LocalStorageUtils} from "../../utils/LocalStorageUtils.ts";
 import {queryClient} from "../../rest/query.config.ts";
+import {FilterUsersDTO} from "../../interfaces/DTO/user.dto.ts";
 
 export const useGetMe = () => {
     return useQuery({
@@ -35,12 +36,13 @@ export const useGetUserRoles = (userName?: string | null) => {
 }
 
 
-export const useGetAllUsers = () => {
+export const useGetFilterUsers = (filter: FilterUsersDTO) => {
     return useQuery({
-        queryKey: ['getAllUsers'],
+        queryKey: ['getAllUsers', filter.userNameSearch, filter.page, filter.pageSize],
         queryFn: async (meta) => {
-            return await UsersService.getAllUsers(meta)
-        }
+            return await UsersService.getFilterUsers(filter, meta)
+        },
+        placeholderData: keepPreviousData
     })
 }
 

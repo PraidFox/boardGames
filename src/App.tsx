@@ -7,7 +7,6 @@ import {Logo} from "./components/UiElements/Logo";
 import {LeftMenuBottom} from "./components/UiElements/Menu/LeftMenuBottom";
 import Overlay from "./components/UiElements/Overlays";
 import {FloatButtonMy} from "./components/UiElements/Buttons/FloatButtonMy";
-import {GameRatingService} from "./tools/rest/services/GameRating.service.ts";
 import {Outlet} from "react-router";
 import {configStyle} from "./tools/configStyle.ts";
 
@@ -20,7 +19,7 @@ export const App = () => {
 
 
     useEffect(() => {
-        GameRatingService.getRating(56964).then(r => console.log(r))
+        //GameRatingService.getRating(56964).then(r => console.log(r))
     }, []);
 
     return (
