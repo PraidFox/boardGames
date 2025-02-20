@@ -45,4 +45,5 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
             Шаг "Deploy to remote server via SSH" упал.
-            Ссылка на сборку: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            [Ссылка на сборку](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})
+          parse_mode: markdown
