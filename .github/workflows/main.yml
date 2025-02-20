@@ -26,9 +26,9 @@ jobs:
             git pull origin master
             docker compose down board-game-front
             docker compose up -d --build
-            
 
-      - name: Noty to telegram
+      - name: Notify Telegram on success
+        if: success()
         uses: appleboy/telegram-action@master
         with:
           to: ${{ secrets.TELEGRAM_TO }}
@@ -36,3 +36,13 @@ jobs:
           message: |
             New front build is deployed
             Commit: ${{ github.event.head_commit.message }}
+
+      - name: Notify Telegram on failure
+        if: failure()
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            Шаг "Deploy to remote server via SSH" упал.
+            Ссылка на сборку: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
