@@ -1,13 +1,13 @@
-import {useGetFilterUsers} from "../../../../tools/hooks/queries/Users.queries.ts";
 import {GenrePanel} from "./PanelOptionAdd/GenrePanel.tsx";
 import {TypePanel} from "./PanelOptionAdd/TypePanel.tsx";
 import {RolePanel} from "./PanelOptionAdd/RolePanel.tsx";
 import {DeletedBoardGameField} from "./DeletedBoardGame.field.tsx";
 import {ChangeRoleUserField} from "./ChangeRoleUser.field.tsx";
+import {useGetFilterUsers} from "../../../../tools/hooks/queries/Users.queries.ts";
 
 
 export const AdminSettingPage = () => {
-    const {data: users} = useGetFilterUsers()
+    const {data: users} = useGetFilterUsers({page: 1, pageSize: 100})
 
     if (!users) {
         return <div>Какие-то данные не удалось загрузить</div>
