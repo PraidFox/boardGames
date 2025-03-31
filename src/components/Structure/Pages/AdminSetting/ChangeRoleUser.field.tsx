@@ -7,12 +7,12 @@ import {
 import {useGetRoles} from "../../../../tools/hooks/queries/Role.queries.ts";
 import {useLayoutEffect, useState} from "react";
 
-//TODO попросить бег отдавать роли пользователя сразу
+//TODO попросить бек отдавать роли пользователя сразу
 export const ChangeRoleUserField = () => {
     const [userSelected, setUserSelected] = useState<string>()
     const [valueRoleToUser, setValueRoleToUser] = useState<string[] | undefined>()
 
-    const {data: users} = useGetFilterUsers()
+    const {data: users} = useGetFilterUsers({page: 1, pageSize: 100})
     const {data: roles} = useGetRoles()
     const {data: userRoles} = useGetUserRoles(userSelected)
 
